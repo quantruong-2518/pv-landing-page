@@ -98,7 +98,7 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em]",
+        "inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em]",
         shipped ? "bg-shipped-bg text-shipped" : "bg-roadmap-bg text-roadmap",
       )}
     >

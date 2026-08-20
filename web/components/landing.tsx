@@ -81,9 +81,9 @@ export function Landing({ c }: { c: LandingContent }) {
 
             {/* Trust strip nằm TRONG hero, không đợi xuống dưới — >54% người đọc
                 chỉ tập trung trên fold (docs/03-structure.md §2). */}
-            <dl className="mt-16 grid gap-px border-t border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+            <dl className="mt-16 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
               {c.hero.trust.map((t) => (
-                <div key={t.label} className="bg-bg px-1 pt-5">
+                <div key={t.label} className="border-t border-line pt-5">
                   <dt className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
                     {t.label}
                   </dt>
@@ -229,7 +229,7 @@ export function Landing({ c }: { c: LandingContent }) {
             <Heading>{c.timeline.heading}</Heading>
             <Lead>{c.timeline.lead}</Lead>
 
-            <ol className="mt-14 border-l border-line">
+            <ol className="mt-14 border-l border-line-strong">
               {c.timeline.items.map((t) => (
                 <li key={t.date} className="relative pb-10 pl-8 last:pb-0">
                   <span
@@ -396,7 +396,7 @@ export function Landing({ c }: { c: LandingContent }) {
       </main>
 
       {/* ── 12 · FOOTER ────────────────────────────────────────────────────── */}
-      <footer className="tone-dark border-t border-line bg-bg text-fg">
+      <footer className="tone-dark border-t border-line bg-bg-deep text-fg">
         <div className={cn(SHELL, "py-14")}>
           <div className="flex flex-wrap items-baseline justify-between gap-4">
             <p className="font-display text-lg font-semibold">Pebble Vina</p>

@@ -20,6 +20,7 @@
   /* ── Vùng SÁNG (thân bài) ─────────────────────────────────────────────── */
   --color-bg: #ffffff;
   --color-surface: #f4f6fa;
+  --color-bg-deep: #eef1f7;      /* nấc nền sâu nhất — dải đóng ở vùng sáng */
   --color-fg: #0f172a;          /* Deep Navy */
   --color-muted: #5e6b80;       /* Slate Gray */
   --color-subtle: #97a4bd;
@@ -45,6 +46,7 @@
 .tone-dark {
   --color-bg: #0f172a;
   --color-surface: #17233d;
+  --color-bg-deep: #0a1020;      /* đáy khí quyển — footer dùng nấc này để tách khỏi dải CTA */
   --color-fg: #f4f7fc;
   --color-muted: #97a4bd;
   --color-subtle: #64748b;
