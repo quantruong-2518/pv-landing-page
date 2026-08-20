@@ -1,107 +1,116 @@
-# 03 — Cấu trúc landing kiểu mẫu
+# 03 — Cấu trúc landing
 
-## 1. Khung 12 khối
+## 1. Mười ba khối, đi từ quan trọng xuống
+
+Thứ tự do GM chốt (2026-08-20): **timing → họ đã làm gì ở đâu → sản phẩm → họ là ai → họ ở đâu →
+domain** — rồi mới đến phần Việt Nam và phần chốt.
 
 ```
-NAV (dính, tối)  ·  VI ⇄ EN  ·  CTA nhỏ
+HEADER (dính)   wordmark · 5 mục · chuyển ngữ · 1 nút
 │
-01  HERO                    tối, full-viewport — H1 ≤ 9 từ + 2 CTA + trust strip 4 mục
-02  PROOF STRIP             ★ ngay dưới fold — pháp nhân mẹ + 3 mốc tra được          → đóng G1
-03  CON SỐ                  ★ 4 số lớn, mỗi số một nhãn trạng thái + nguồn            → đóng G2
-04  VẤN ĐỀ                  3 nỗi đau của tổ chức Việt (dữ liệu · điện · độ trễ)
-05  CÔNG NGHỆ               PIM là gì · hai nhánh Analog / Digital · 4 trụ lợi thế
-06  DÒNG THỜI GIAN          ★★ 7 mốc của mẹ, mốc 2026 nét đứt                         → đóng G7
-07  PEBBLE VINA LÀM GÌ      4 việc chỉ pháp nhân Việt làm được  ‖  CTA giữa trang     → đóng G6
-08  ỨNG DỤNG                lưới 6 use case, tách rõ "PS có sẵn" vs "PV dựng thêm"
-09  CÁCH BẮT ĐẦU            4 bước, mỗi bước một deliverable                          → đóng G4
-10  FAQ                     8 câu + JSON-LD FAQPage                                   → đóng G3
-11  CTA CUỐI                tối, 2 lối: đặt lịch ‖ hồ sơ năng lực                     → đóng G5
-12  FOOTER                  pháp nhân, MST, địa chỉ, liên hệ, link Pebble Square
+    HERO             tối · luận đề timing + 2 CTA + trust strip 4 mục
+01  WHY NOW          3 sự thật vĩ mô + 4 tính chất PS thiết kế để đạt
+    THE NUMBERS      4 con số, mỗi số một nhãn + nguồn
+02  TRACK RECORD     4 thị trường: Hàn · Nhật · Ả Rập Xê Út · Việt Nam
+    TIMELINE         tối · 14 mốc công khai + 1 mốc lộ trình có nhãn
+03  PRODUCTS         3 tầng danh mục theo đúng cấu trúc của trang mẹ
+04  WHO THEY ARE     4 lãnh đạo kỹ thuật + hậu thuẫn
+05  WHERE            4 địa chỉ trên 2 châu lục
+06  DOMAINS          6 business sector của PS + 2 lớp của PV, tag rõ nguồn gốc
+07  PEBBLE VINA      4 thứ mua thẳng từ Hàn không có · CTA giữa trang
+08  GETTING STARTED  4 bước, mỗi bước một deliverable
+09  QUESTIONS        8 câu FAQ + JSON-LD FAQPage
+    CTA              tối · 2 lối + số điện thoại
+FOOTER          4 cột + thanh đáy
 ```
 
-## 2. Vì sao từng khối tồn tại
+**Vì sao thứ tự này chứ không phải thứ tự cũ:** bản đầu mở bằng *"bạn không mua một startup hai tháng
+tuổi"* — tức là mở bằng **nỗi lo của người bán**. Thứ tự mới mở bằng **bài toán của thế giới** (điện năng),
+rồi mới đến bằng chứng rằng nhóm này giải được. Người đọc không quan tâm ta có đáng tin không cho tới khi
+họ tin rằng vấn đề là có thật.
 
-**01 HERO — dark, một câu, hai nút.** H1 ≤ 9 từ theo luật CRO (trung bình trang chuyển đổi cao < 8 từ).
-Nền tối vì cả trang chơi nhịp *tối → sáng → tối*: hero và CTA cuối là hai đầu neo, thân bài sáng để đọc.
-Trust strip 4 mục nằm **trong** hero, không đợi xuống dưới — >54% người dùng chỉ tập trung trên fold.
+## 2. Luật một khối = một màn hình
 
-**02 PROOF STRIP — khối quan trọng nhất của cả trang.** Research site chính chấm G1 mức 🔴: *"suốt 6 section
-không một logo, một con số, một tên khách, một giải thưởng"*. Cả 4 site edge-AI được bóc (Kneron, Hailo,
-Axelera, SiMa) đều đặt proof trong 3 màn đầu. Ta không có logo khách → **dùng pháp nhân mẹ làm proof**:
-tên đầy đủ, địa chỉ, năm thành lập, link tra chéo.
+Mỗi `<Section>` cao `calc(100svh - 4rem)` (trừ chiều cao header dính), nội dung **căn giữa dọc**, và mang
+`scroll-snap-align: start`. Container cuộn là `html` với:
 
-**03 CON SỐ — đóng G2.** Axelera và SiMa neo toàn bộ độ tin cậy kỹ thuật vào 3 con số. Ta có bốn:
-17,6 TOPS/W (`shipped`) · 양산 5/2023 (`shipped`) · ~50× vs Jetson Nano (`shipped`) · 160 TOPS
-(🟡 `roadmap`). Số thứ tư **cố ý** để nhãn vàng — xem `02-message-map.md` §4.
+```css
+scroll-padding-top: 4rem;                 /* neo và điểm snap không chui dưới header */
+@media (min-width: 768px) and (min-height: 640px) {
+  html { scroll-snap-type: y mandatory; } /* một cú cuộn = một khối */
+}
+```
 
-**04 VẤN ĐỀ đứng trước 05 GIẢI PHÁP.** Bốn site edge-AI kia bỏ qua khối problem vì họ **product-led**,
-bán cho kỹ sư đã biết mình cần gì. Pebble Vina bán cho **tổ chức Việt chưa xác định được bài toán** →
-thứ tự canon `HERO → PROBLEM → SOLUTION` đúng hơn. **Đừng bắt chước nhầm chỗ này.**
+**`mandatory` chứ không `proximity`.** Proximity chỉ bắt khi người dùng vô tình dừng gần điểm snap, nên một
+cú lăn chuột mạnh vẫn treo lơ lửng giữa hai khối — đúng lỗi cần sửa. Mandatory an toàn ở đây vì mọi khối đã
+được cắt gọn để vừa một màn; và theo spec, khối nào cao hơn khung nhìn thì trình duyệt vẫn cho cuộn tự do
+bên trong, không nhốt người đọc.
 
-**05 CÔNG NGHỆ.** Giải thích PIM bằng một câu người phi kỹ thuật hiểu được (*"phép tính chạy ngay trong
-bộ nhớ, thay vì khiêng dữ liệu qua lại"*), rồi mới tách hai nhánh Analog (MINT/PAPAYA) và Digital
-(ESPRESSO). Luật "guided walkthrough" cho sản phẩm phức tạp.
+**Tắt dưới 768px hoặc màn thấp hơn 640px.** Trên điện thoại nội dung chắc chắn tràn màn hình (mỗi khối
+974–1899px ở bề rộng 390px), snap ở đó chỉ gây khó chịu.
 
-**06 DÒNG THỜI GIAN — khối biện minh cho sự tồn tại của Pebble Vina.** Hai mốc JV Saudi (2024-03) và
-Pebble Square Japan (2025-05) chứng minh mô hình *lập pháp nhân địa phương* là **cách mẹ vẫn mở rộng**,
-không phải ngoại lệ dựng cho VN. Đồng thời là tín hiệu "công ty còn sống" (G7) mà 3/4 site đối chiếu đều có.
+**Hệ quả khi viết nội dung:** thêm chữ vào một khối là làm khối đó tràn màn. Muốn thêm ý thì cắt ý khác,
+hoặc tách thành khối mới. Đây là ràng buộc biên tập, không phải ràng buộc kỹ thuật.
 
-**07 PEBBLE VINA LÀM GÌ.** Trả lời phản biện *"vậy mua thẳng từ Hàn cho rồi?"*. CTA giữa trang đặt ở đây
-(G6) vì đây là điểm thuyết phục cao nhất trước khi trang chuyển sang chi tiết kỹ thuật.
+## 3. Header và footer — best practice landing
 
-**08 ỨNG DỤNG.** Lưới use-case — cả 4 site đối chiếu đều có, luôn là lối rẽ vào tầng sâu hơn. Điểm riêng
-của ta: **mỗi ô ghi rõ nguồn gốc** — `Pebble Square` (Sound/Vision/Security/Predictive Maintenance) hay
-`Pebble Vina` (an toàn điện, LLM riêng triển khai tại VN). Đây là chỗ luật "không gán arc-fault cho PS"
-được thi hành bằng bố cục, không bằng lời hứa.
+**Header** — một hàng cao 4rem, dính, nền tối xuyên suốt (không đổi màu theo cuộn nên không cần JS):
+wordmark trái · **tối đa 5** mục điều hướng · chuyển ngữ · **đúng một** nút hành động. Dưới `lg`, cụm điều
+hướng thu vào một disclosure `<details>` thuần HTML — không JS, không rủi ro lệch hydrate. **Nút hành động
+vẫn hiện ở mọi bề rộng**, kể cả 360px: giấu CTA vào trong hamburger là lỗi chuyển đổi kinh điển.
 
-**09 CÁCH BẮT ĐẦU — đóng G4.** SiMa thay bằng "Getting Started — 3 lối vào"; ta dùng 4 bước có deliverable.
-Với bán hàng kiểu tư vấn, *"bấm nút xong thì chuyện gì xảy ra"* là phản biện lớn nhất còn lại.
-⚠ **Chưa có thời lượng từng bước** — chờ GM chốt (`05-backlog.md` #4). Không bịa số tuần.
-
-**10 FAQ — đóng G3, và là đòn GEO mạnh nhất.** Heading dạng câu hỏi + đoạn mở kiểu định nghĩa là thứ
-answer engine trích. Kèm JSON-LD `FAQPage`. Câu số 7 (*"Có làm được arc-fault không?"*) là câu khó nhất
-và được trả lời **thẳng**: PS không liệt kê arc-fault; PV dựng lớp ứng dụng trên năng lực anomaly của PS;
-có chuẩn UL 1699B · IEC 63027:2023 · TCVN 11855-1:2017 để bám.
-
-**11 CTA CUỐI — hai lối (G5).** 4/4 site đối chiếu có ≥2 lối chuyển đổi. Người chưa sẵn sàng đặt lịch —
-chiếm đa số — cần một việc để làm ngoài đóng tab.
-
-**12 FOOTER.** MST + pháp nhân + địa chỉ = tín hiệu E-E-A-T và là input cho JSON-LD `Organization`.
-
-## 3. Đối chiếu G1–G9
-
-| Gap (research site chính, 2026-08-03) | Mức | Khối đóng nó |
-|---|---|---|
-| **G1** Không tầng proof | 🔴 | **02** Proof strip + **06** Dòng thời gian |
-| **G2** Không con số nào | 🔴 | **03** Con số (4 số có nguồn + nhãn) |
-| **G3** Không FAQ | 🔴 | **10** FAQ 8 câu + `FAQPage` |
-| **G4** Không "bấm nút xong thì sao" | 🟠 | **09** Cách bắt đầu, 4 bước có deliverable |
-| **G5** Chỉ một lối chuyển đổi | 🟠 | **01** + **11** hai nút (đặt lịch ‖ hồ sơ năng lực) |
-| **G6** CTA chỉ ở hero và đáy | 🟠 | **07** CTA giữa trang + nav dính |
-| **G7** Không tín hiệu "còn sống" | 🟡 | **06** mốc mới nhất KPAS 2025 |
-| **G8** Tầm nhìn chắn trước khối chốt | 🟡 | Bỏ hẳn khối tầm nhìn; **11** là lời mời cụ thể |
-| **G9** Không mặt người, không ảnh | 🟡 | ❌ **chưa đóng** — chưa có ảnh thật (`05-backlog.md` #5) |
-
-**8/9 đóng được bằng cấu trúc + nội dung sẵn có. G9 cần người chụp ảnh.**
+**Footer** — bốn cột: bản sắc + link ra trang mẹ · điều hướng lặp lại · liên hệ · pháp lý (pháp nhân, MST,
+công ty mẹ). Thanh đáy: bản quyền + chú giải hệ nhãn. Dưới cùng: tuyên bố nguồn dữ liệu. MST + pháp nhân +
+địa chỉ vừa là tín hiệu E-E-A-T vừa là input cho JSON-LD `Organization`.
 
 ## 4. Nhịp thị giác
 
 ```
-tối ▓▓▓  01 Hero
-sáng ░   02 Proof · 03 Con số
-sáng ░   04 Vấn đề · 05 Công nghệ
-tối ▓▓▓  06 Dòng thời gian        ← neo giữa trang, khối "lịch sử mẹ" xứng đáng nền tối
-sáng ░   07 Pebble Vina · 08 Ứng dụng · 09 Cách bắt đầu · 10 FAQ
-tối ▓▓▓  11 CTA · 12 Footer
+tối ▓▓▓  HERO
+sáng ░   01 Why now
+xám ▒    Numbers
+sáng ░   02 Track record
+tối ▓▓▓  Timeline            ← neo giữa trang; lịch sử công ty mẹ xứng đáng nền tối
+xám ▒    03 Products
+sáng ░   04 Who
+xám ▒    05 Where
+sáng ░   06 Domains
+xám ▒    07 Pebble Vina
+sáng ░   08 Getting started
+xám ▒    09 FAQ
+tối ▓▓▓  CTA · FOOTER
 ```
 
-Ba vùng tối = ba lần người đọc **phải** dừng mắt: mở màn, lịch sử công ty mẹ, lời mời. Thân bài giữ nền
-sáng vì đây là trang **đọc để thẩm định**, không phải trang để ngắm.
+Ba vùng tối = ba lần người đọc **phải** dừng mắt: mở màn, lịch sử công ty mẹ, lời mời. Xen kẽ sáng/xám giữ
+ranh giới khối rõ ngay cả khi snap đưa hai khối cùng tông đứng cạnh nhau.
 
-## 5. Nguồn phương pháp
+## 5. Ngôn ngữ và định tuyến
 
-Khung `HERO → PROBLEM → SOLUTION → SOCIAL PROOF → HOW IT WORKS → CTA`, luật H1 ≤ 8 từ, luật trust-trên-fold,
-luật nhiều điểm CTA, luật phân tầng người đọc, luật GEO/AEO — tổng hợp trong
-`../../pebblevn-ppt-first-meet/projects/pv-main-web/docs/landing/RESEARCH-cau-truc-section.md` §1, kèm
-nguồn gốc (Instapage · Genesys Growth · Baymard/Serbyte · Salespanel · Flowtrix · Airfleet · WRITER · AirOps).
-Bóc cấu trúc site đối chiếu: xem `04-benchmarks.md`.
+**EN là canonical ở `/`**, VI là bản phụ đầy đủ ở `/vi`. Đảo so với bản đầu vì tệp quyết định — FDI Hàn,
+đối tác Nhật, GCC, nhà đầu tư — đọc tiếng Anh. Hai bản đối xứng tuyệt đối: cùng khớp type `LandingContent`
+nên lệch một field là `tsc` gãy.
+
+Kỹ thuật: dùng **nhiều root layout** (`app/(en)/` và `app/(vi)/`, không có `app/layout.tsx`) để mỗi ngôn ngữ
+có `<html lang>` đúng của nó, kèm `alternates.languages` trong metadata.
+
+## 6. Đối chiếu G1–G9 (research của pv-main-web, 2026-08-03)
+
+| Gap | Mức | Khối đóng nó |
+|---|---|---|
+| **G1** Không tầng proof | 🔴 | Trust strip trong hero · 02 Track record · Timeline · 04 Who |
+| **G2** Không con số nào | 🔴 | **The numbers** (4 số có nguồn + nhãn) |
+| **G3** Không FAQ | 🔴 | **09 Questions** + `FAQPage` |
+| **G4** Không "bấm nút xong thì sao" | 🟠 | **08 Getting started**, 4 bước có deliverable |
+| **G5** Chỉ một lối chuyển đổi | 🟠 | Hero 2 nút · CTA cuối 2 nút |
+| **G6** CTA chỉ ở hero và đáy | 🟠 | Header dính (mọi màn) + CTA giữa trang ở **07** |
+| **G7** Không tín hiệu "còn sống" | 🟡 | Timeline, mốc cuối KPAS 2025 + UTC 3/2025 |
+| **G8** Tầm nhìn chắn trước khối chốt | 🟡 | Không có khối tầm nhìn; CTA là lời mời cụ thể |
+| **G9** Không mặt người, không ảnh | 🟡 | ❌ **chưa đóng** — chưa có ảnh thật (`05-backlog.md`) |
+
+**8/9 đóng bằng cấu trúc + nội dung. G9 vẫn cần người chụp ảnh.**
+
+## 7. Nguồn phương pháp
+
+Khung CRO/B2B (H1 ≤ 8 từ, trust trên fold, nhiều điểm CTA, phân tầng người đọc, GEO/AEO) và bản bóc 4 site
+edge-AI: `../../pebblevn-ppt-first-meet/projects/pv-main-web/docs/landing/RESEARCH-cau-truc-section.md`.
+Nội dung công ty mẹ: `pebble-square.com` đọc 2026-08-20 — chi tiết ở `01-proof-bank.md`.

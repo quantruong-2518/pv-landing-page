@@ -65,6 +65,22 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Header dính cao 4rem — trừ ra để neo (#id) và điểm snap không chui xuống dưới nó. */
+  scroll-padding-top: 4rem;
+}
+
+/* Cuộn luôn dừng ở ĐẦU một khối, không bao giờ đứng giữa hai khối.
+   `mandatory` chứ không `proximity`: proximity chỉ bắt khi người dùng dừng sẵn gần điểm
+   snap, nên một cú lăn chuột mạnh vẫn treo lơ lửng giữa hai khối — đúng lỗi cần sửa.
+   An toàn vì mọi khối đã cao đúng `calc(100svh - 4rem)`; và theo spec, khối nào cao hơn
+   khung nhìn thì trình duyệt vẫn cho cuộn tự do bên trong, không nhốt người đọc.
+
+   Chỉ bật khi màn đủ rộng VÀ đủ cao — điện thoại và cửa sổ lùn thì nội dung chắc chắn
+   tràn màn hình, snap ở đó chỉ gây khó chịu. */
+@media (min-width: 768px) and (min-height: 640px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
 }
 
 body {

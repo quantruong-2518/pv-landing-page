@@ -1,10 +1,11 @@
 /**
  * Hằng số không phụ thuộc ngôn ngữ: pháp nhân, liên hệ, công ty mẹ.
- * Số liệu lấy từ docs/01-proof-bank.md §D — không sửa ở đây mà không sửa ở đó.
+ * Số liệu lấy từ docs/01-proof-bank.md §A và §D — không sửa ở đây mà không sửa ở đó.
  */
 export const SITE = {
   name: "Pebble Vina",
-  legalName: "CÔNG TY TNHH PEBBLE VINA",
+  legalName: "PEBBLE VINA COMPANY LIMITED",
+  legalNameVi: "CÔNG TY TNHH PEBBLE VINA",
   taxId: "0111545175",
   /** Lab chưa có domain riêng; site chính là pebblevina.vn. */
   url: "https://pebblevina.vn",
@@ -17,20 +18,24 @@ export const SITE = {
     phone: "0345 913 369",
     phoneHref: "tel:+84345913369",
   },
+  /** Nguồn: pebble-square.com (đọc 2026-08-20) — mọi dòng ở đây họ tự công bố. */
   parent: {
     name: "Pebble Square Inc.",
-    nameKo: "페블스퀘어",
     url: "https://www.pebble-square.com",
-    hq: "Seongnam, Gyeonggi-do, Hàn Quốc",
-    hqEn: "Seongnam, Gyeonggi-do, South Korea",
-    founded: "09/2021",
+    ceo: "ChoongHyun Lee",
+    businessLicense: "879-88-02299",
+    founded: "September 2021",
+    phone: "+82-31-702-7378",
+    email: "info@pebble-square.com",
+    address:
+      "331, 402 Pangyo-ro, Bundang-gu, Seongnam-si, Gyeonggi-do, Republic of Korea (ABN Tower, Sampyeong-dong)",
+    city: { en: "Seongnam, Korea", vi: "Seongnam, Hàn Quốc" },
   },
 } as const;
 
-/** Đích chuyển đổi. Chưa có form thật ở lab này — đi thẳng vào email (docs/00-brief.md §Phạm vi). */
+/** Đích chuyển đổi. Chưa có form thật ở lab này — đi thẳng vào email (docs/00-brief.md). */
 export const CTA_HREF = `mailto:${SITE.contact.email}?subject=${encodeURIComponent(
-  "Đặt lịch tư vấn 30 phút — Pebble Vina",
+  "Consultation request — Pebble Vina",
 )}`;
 
-/** Lối chuyển đổi thứ hai. Chờ file PDF từ GM — xem docs/05-backlog.md #6. */
-export const PROFILE_HREF = "#lien-he";
+export const MAIL_HREF = `mailto:${SITE.contact.email}`;

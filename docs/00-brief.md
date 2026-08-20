@@ -36,11 +36,18 @@ và họ là người khuyên sếp ký. Vì vậy trang này gắn **nhãn tr�
 Lối thứ hai (theo khuyến nghị G5 của research cũ): **`Xem hồ sơ năng lực`** — cho người chưa sẵn sàng
 nói chuyện. Hiện là placeholder, chờ file PDF (xem `05-backlog.md`).
 
+## Ngôn ngữ
+
+**Tiếng Anh là bản chính, ở `/`.** Tiếng Việt là bản phụ đầy đủ ở `/vi`. Tệp quyết định — FDI Hàn tại VN,
+đối tác Nhật, GCC, nhà đầu tư, và cả kỹ sư đọc datasheet — đọc tiếng Anh. Hai bản đối xứng tuyệt đối, không
+bản nào bị rút gọn.
+
 ## Phạm vi
 
-**Có:** 1 trang, 12 khối, song ngữ VI + EN đối xứng, JSON-LD `Organization` + `FAQPage`, SSR toàn bộ.
+**Có:** 1 trang, 13 khối, song ngữ EN + VI, mỗi khối vừa trọn một màn hình và cuộn có snap, SSR toàn bộ,
+JSON-LD `Organization` + `FAQPage`, header/footer theo best practice landing, chạy được từ 360px.
 
-**Không có:** blog, trang sản phẩm con, form gửi thật (chỉ `mailto:`/`tel:`), CMS, đa ngôn ngữ ngoài VI/EN,
+**Không có:** blog, trang sản phẩm con, form gửi thật (chỉ `mailto:`/`tel:`), CMS, ngôn ngữ ngoài EN/VI,
 animation nặng. Đây là lab để kiểm chứng **cấu trúc + thông điệp**, không phải sản phẩm cuối.
 
 ## Thước đo "kiểu mẫu"

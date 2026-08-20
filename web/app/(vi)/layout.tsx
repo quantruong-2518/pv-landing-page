@@ -5,17 +5,14 @@ import "@/app/globals.css";
 import { SITE } from "@/content/site";
 import { vi } from "@/content/vi";
 
-/**
- * Root layout nhánh VI. Repo dùng NHIỀU root layout (route group `(vi)` và `(en)`,
- * không có `app/layout.tsx`) để mỗi ngôn ngữ có thuộc tính `lang` đúng của nó.
- */
+/** Root layout nhánh VI (bản phụ, ở `/vi`) — xem ghi chú ở `app/(en)/layout.tsx`. */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: vi.meta.title,
   description: vi.meta.description,
   alternates: {
-    canonical: "/",
-    languages: { vi: "/", en: "/en" },
+    canonical: "/vi",
+    languages: { en: "/", vi: "/vi" },
   },
 };
 

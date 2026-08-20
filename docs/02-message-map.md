@@ -5,11 +5,17 @@
 
 ## 0. Luận điểm gốc
 
-> **Bạn không mua một startup Việt hai tháng tuổi. Bạn mua quyền tiếp cận một nền tảng bán dẫn AI
-> Hàn Quốc — vận hành bởi pháp nhân Việt, hỗ trợ tại chỗ.**
+> **Thế giới muốn nhiều AI hơn lượng điện nó có. Pebble Square giải bài toán đó bằng cách để phép tính
+> chạy ngay trong bộ nhớ — và Pebble Vina đưa lời giải ấy vào vận hành tại Việt Nam.**
 
-Mọi khối trên trang là một biến thể của câu này. Khi phân vân bỏ hay giữ một khối, hỏi: *khối này có
-làm câu trên đáng tin hơn không?* Không → bỏ.
+Luận đề mở bằng **bài toán của thế giới**, không phải nỗi lo của người bán. Bản đầu mở bằng *"bạn không mua
+một startup hai tháng tuổi"* — người đọc chưa quan tâm ta có đáng tin không cho tới khi họ tin rằng vấn đề
+là có thật. Vế "chúng tôi là ai" vẫn còn, nhưng lùi xuống sau khi bài toán đã được dựng.
+
+Vế thứ hai của luận đề vẫn giữ nguyên tinh thần ADR 0002: **bạn không mua một pháp nhân Việt hai tháng tuổi,
+bạn mua quyền tiếp cận một nền tảng bán dẫn AI Hàn Quốc — vận hành bởi pháp nhân Việt, hỗ trợ tại chỗ.**
+
+Khi phân vân bỏ hay giữ một khối, hỏi: *khối này có làm một trong hai vế trên đáng tin hơn không?* Không → bỏ.
 
 ## 1. Trục chính — bốn lợi thế PS tự nhấn, dịch sang nỗi đau Việt Nam
 

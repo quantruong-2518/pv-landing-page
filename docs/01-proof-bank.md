@@ -1,177 +1,190 @@
 # 01 — Ngân hàng bằng chứng Pebble Square
 
-> **Luật:** không lấy số từ trí nhớ. Mọi fact lên trang phải có một dòng ở đây, và phải mang **nhãn trạng thái**.
-> Cập nhật gần nhất: 2026-08-20. Nguồn cấp 1 nằm ở `../../pebblevn-ppt-first-meet/company/`.
+> **Luật:** không lấy số từ trí nhớ. Mọi fact lên trang phải có một dòng ở đây và mang **nhãn trạng thái**.
+> **Cập nhật 2026-08-20** — đọc trực tiếp `pebble-square.com/en` (trang chủ · `/page/11` công ty ·
+> `/page/21` sản phẩm · `/page/31` accelerator · trang News). Nhiều mục trước đây bị chặn nay đã mở
+> vì **chính họ công bố công khai**.
 
 ## Hệ nhãn
 
 | Nhãn | Nghĩa | Cách hiện trên trang |
 |---|---|---|
-| `shipped` | Đã xảy ra / đã sản xuất / đã đo được. Nói thẳng, không rào. | Không badge, hoặc badge xanh "đã sản xuất" |
-| `roadmap` | Có trong IR Deck nhưng **chưa ship** tại thời điểm lập deck. | **Bắt buộc** badge vàng kèm mốc thời gian |
-| `internal` | Đúng nội bộ nhưng **chưa được xác nhận để nói đối ngoại**. | **Không đưa lên trang** cho tới khi HQ xác nhận |
+| `shipped` | Đã xảy ra / đã sản xuất / đã đo được, **và** có nguồn công khai. | Badge xanh "Shipping / Đã có" |
+| `roadmap` | Có trong IR Deck nhưng **chưa ship** và **không nằm trong danh mục công khai**. | **Bắt buộc** badge vàng kèm mốc |
+| `internal` | Đúng nội bộ nhưng chưa được xác nhận để nói đối ngoại. | **Không đưa lên trang** |
 | `forbidden` | Sai / nguồn ma / gán nhầm cho principal. | Cấm tuyệt đối |
 
 ---
 
 ## A. Nhận diện công ty mẹ — `shipped`
 
-| Fact | Giá trị | Nguồn |
-|---|---|---|
-| Tên pháp lý | Pebble Square Inc. (페블스퀘어) | Trang chính thức |
-| Loại hình | Bán dẫn AI **fabless**, chuyên **Edge AI** | Trang chính thức |
-| Trụ sở | Seongnam, Gyeonggi-do, Hàn Quốc | Trang chính thức |
-| Thành lập | **09/2021** | Company History |
-| Vốn đã gọi | ~**15 tỷ KRW** (gồm 2 tỷ KRW từ UTC Investment) | Hồ sơ công ty |
-| Website | https://www.pebble-square.com | — |
-| Năng lực lãnh đạo (tổng) | **>200 bài báo SCI · >800 bằng sáng chế Mỹ** | IR Deck tr.20 |
-
-**Dùng được vì:** đây là những thứ người đọc tra chéo được trong 30 giây. Toàn bộ tầng tin cậy của trang
-đứng trên chúng.
-
-## B. Cột mốc — `shipped` (Company History chính thức, đối chiếu 2026-06-15)
-
-| Mốc | Việc | Vì sao đắt trên landing |
-|---|---|---|
-| 2021-11 | Phát triển chip Edge AI PIM gen-1 (**MOCHA**) | Mở dòng thời gian — chứng minh không phải công ty giấy |
-| 2022-07 | MOU nghiên cứu chung **KAIST – ĐH Quốc gia Jeonbuk – Pebble Square** | Uy tín học thuật, tên KAIST tự nói |
-| 2022-12 | Phát triển chip PIM gen-2 (**MINT**) | — |
-| 2023-03 | **NDA với SK hynix** — Analog Computing-in-Memory + AI accelerator | ★ Tên nặng nhất trong bộ. Một hãng nhớ top-3 thế giới ngồi xuống ký |
-| 2023-05 | **양산 — sản xuất hàng loạt MINT** | ★ Ranh giới giữa "nghiên cứu" và "có hàng". Fact chống lại phản biện "chỉ là paper" |
-| 2024-01 | Bằng sáng chế thiết bị neuromorphic | — |
-| 2024-02 | **PoC thành công bằng MINT**: hệ đèn nhận diện giọng nói + chuông khẩn cấp | Bằng chứng chạy thật, không phải benchmark phòng lab |
-| 2024-03 | **NDA mua có điều kiện — MEISEI ELECTRIC Co., Ltd. (Nhật)**, Home IoT dùng MINT | Khách nước ngoài đầu tiên có tên |
-| 2024-03 | **Liên doanh Saudi "Cluster AI Lab"** | ★ Chứng minh mô hình lập pháp nhân địa phương — chính là mô hình Pebble Vina |
-| 2025-05 | **Pebble Square Japan, Inc. (Tokyo)** — được chọn "Tokyo Overseas Company Project" | ★ Tiền lệ trực tiếp của Pebble Vina |
-| 2025-08 | Gọi vốn **Pre-A** | — |
-| 2025-10 | Được chọn **KPAS 2025** (Korea Promising AI Startups) | Giải thưởng cấp quốc gia, mới nhất |
-
-**Cách dùng trên landing:** khối "Dòng thời gian công ty mẹ" chọn **6–7 mốc** đắt nhất (2021-11, 2022-07,
-2023-03, 2023-05, 2024-03 Saudi, 2025-05 Japan, 2025-10 KPAS) — không liệt kê hết, sẽ loãng.
-
-## C. Con số kỹ thuật
-
-### C1. MINT — `shipped` ★ con số xương sống của trang
-
-| Chỉ số | Giá trị | Nguồn |
-|---|---|---|
-| Kiến trúc | **Analog-PIM** (tính toán ngay trong bộ nhớ flash nhúng) | Trang chính thức |
-| Khớp thần kinh | ~**4 triệu** | SmartTimes / JBNU |
-| Hiệu năng | ~**30 GOPS** | SmartTimes / JBNU · IR Deck tr.21 |
-| **Hiệu suất năng lượng** | **17,6 TOPS/W** *(deck ghi tròn 17)* | SmartTimes / JBNU · IR Deck tr.21 |
-| Kích thước die | 5 × 5 mm² | IR Deck tr.21 |
-| Trạng thái | **Sản xuất hàng loạt từ 5/2023** | Company History |
-
-> Đây là **số THẬT, đo được, đã kiểm chứng 2026-06-14**. Nếu chỉ được chọn một con số cho cả trang, chọn số này.
-
-### C2. Lộ trình chip có số (IR Deck tr.21) — hỗn hợp
-
-| Năm | Hiệu năng | Hiệu suất | Die | Mốc | Nhãn |
-|---|---|---|---|---|---|
-| 2021 | 25 GOPS | 10 TOPS/W | 5×5 mm² | Proof of Concept | `shipped` |
-| 2022 | 30 GOPS | 17 TOPS/W | 5×5 mm² | **Mass Production** (MINT) | `shipped` |
-| 2024 | 0,5 TOPS | **30 TOPS/W** | 5×5 mm² | PoC với khách hàng | `shipped` |
-| 2026 | **160 TOPS** (card 4× = 640) | 16 TOPS/W | 20×23 mm² | High-end (ESPRESSO) | 🟡 `roadmap` — ready Q3/2026 |
-
-**Cách trình đúng:** vẽ đường đi lên 2021 → 2026 với ba nấc đầu **đặc** và nấc 2026 **nét đứt + badge**.
-Đường đi lên tự nó là lập luận; không cần thổi.
-
-### C3. ESPRESSO — 🟡 `roadmap` (deck ghi "Available from Sep. 2026")
-
-| Chỉ số | Giá trị |
-|---|---|
-| Kiến trúc | **SRAM-based Digital-PIM** (nhánh khác Analog-PIM của MINT/PAPAYA) |
-| Hiệu năng | **160 TOPS @INT8 / 100 TFLOPS @bFP16** |
-| Điện năng · hiệu suất | **10 W** · **16 TOPS/W** |
-| Đóng gói | 20,5 × 23 mm, 1799-pin FCBGA · bản M.2 (22×80 mm) · Accelerator Card **4× = 640 TOPS / 400 TFLOPS** |
-| Host | PCIe Gen4 ×4 · INT8/16, FP16/32, bFP16/24 |
-| Khả năng | Chạy **LLM nội bộ tới 120 tỷ tham số** (model open-weight: DeepSeek, OpenAI, Google…) |
-| Đích | AI PC · private LLM appliance · robotics · industrial edge · multimodal |
-
-⚠ **Mọi lần nhắc ESPRESSO trên trang phải kèm badge `Dự kiến 9/2026`.** Đây là chỗ dễ sảy chân nhất
-của cả landing: số 160 TOPS quá hấp dẫn để nói suông.
-
-### C4. Benchmark so sánh — `shipped` (đều từ IR Deck)
-
-| So sánh | Kết quả | Ghi chú khi dùng |
-|---|---|---|
-| **PAPAYA FLEX vs NVIDIA Jetson Nano** — điện năng | **~50×** thấp hơn (0,1–0,15 W vs 5–10 W) | Ghi rõ đối tượng so sánh, đừng viết "giảm 50× điện" trống không |
-| **PAPAYA FLEX vs Jetson Nano** — hiệu suất tính toán | **~100×** (ResNet-50: 333–500 vs 3,6–7,2 FPS/W) | Nêu luôn ResNet-50 — kỹ sư cần biết tải nào |
-| **PAPAYA FLEX vs Jetson Nano** — kích thước | **~25×** nhỏ hơn (10×10 mm vs 70×45 mm) | — |
-| **Trạm gốc 5G: PAPAYA vs NVIDIA L4** | Tác vụ AI **320–332 W → 0,03 W** ≈ **~10.000×** | ★ Con số gây choáng nhất. **Phải** kèm "cho tác vụ AI tại trạm gốc", không phải toàn hệ thống |
-| Bối cảnh deck | Data center ngốn ~**2% điện toàn cầu** + ~300.000 gallon nước/ngày | Dùng làm khung "vì sao điện năng là bài toán", không phải claim của PS |
-
-### C5. Ngôn ngữ sản phẩm chính thức — `shipped` (pebble-square.com/en/page/21, verbatim 2026-06-15)
-
-Ba tầng, giữ nguyên wording gốc khi dịch:
-
-1. **Nền:** "AI Chip Family" · "Crossbar Array for Analog Computing" ·
-   **"256-State Synaptic Cell (8-bit)"** · lợi thế: **"Ultra-Low Power · Low Latency · Compact"** ·
-   **Pebble AI Studio** (Integrated SDK) · AI Accelerator.
-2. **On-Device AI:** **Sound** (real-time voice recognition) · **Vision** (high-speed, low-power AI vision) ·
-   **Security** ("without reliance on internet or network").
-3. **AI-Driven Failure Analysis:** **Risk Management** (real-time anomaly detection) ·
-   **Fault Analysis / Predictive Maintenance** ("real-time diagnostics for automated robots and machinery").
-
-**Bốn lợi thế lõi PS tự nhấn:** điện năng cực thấp · riêng tư (on-device, không phụ thuộc đám mây) ·
-suy luận nhanh · chi phí hiệu quả. → Đây là **bộ khung 4 trụ** cho khối "Vì sao PIM" trên landing.
-
-### C6. Nền tảng LLM On-Premise — `shipped` (dòng kinh doanh) / 🟡 `roadmap` (khi cấu hình bằng ESPRESSO)
-
-Bán **server suy luận LLM đặt tại chỗ**: chạy LLM tùy biến (RAG/fine-tune) trên dữ liệu riêng, không cloud.
-Cấu hình mẫu trong deck: chassis **4U**, CPU **Epyc 9355**, AI SoC = **NVIDIA hoặc ESPRESSO**.
-Định hướng: **GPU-centric → NPU/AI SoC · Cloud AI → Private AI**.
-
-> ★ Đây là **vũ khí pitch mạnh nhất cho thị trường VN**: dữ liệu không rời lãnh thổ / không rời doanh
-> nghiệp. Và nó **bán được ngay hôm nay** vì cấu hình NVIDIA là hàng có sẵn — chỉ phần ESPRESSO mới
-> là lộ trình. Tách hai vế này khi viết copy.
-
----
-
-## D. Phía Pebble Vina — `shipped`
+Toàn bộ mục này lấy verbatim từ chân trang và trang công ty của họ, nên tra chéo được trong 30 giây.
 
 | Fact | Giá trị |
 |---|---|
-| Pháp nhân | **CÔNG TY TNHH PEBBLE VINA** |
+| Tên pháp lý | **Pebble Square Inc.** |
+| Loại hình | Bán dẫn AI **fabless**, chuyên **Edge AI** |
+| Thành lập | **09/2021** |
+| CEO | **ChoongHyun Lee** |
+| Giấy phép kinh doanh | **879-88-02299** |
+| Địa chỉ | **331, 402 Pangyo-ro, Bundang-gu, Seongnam-si, Gyeonggi-do, Republic of Korea** (ABN Tower, Sampyeong-dong) |
+| Liên hệ | T. +82-31-702-7378 · F. +82-31-702-7379 · info@pebble-square.com |
+| Vốn đã gọi | ~**15 tỷ KRW** *(tổng hợp hồ sơ; riêng khoản UTC 2 tỷ KRW có tin trên trang News của họ)* |
+| Năng lực lãnh đạo | **>200 bài báo SCI · >800 bằng sáng chế Mỹ** — ⚠ **chỉ có trong IR Deck tr.20**, trang team công khai KHÔNG ghi con số này. Dùng thì phải ghi nguồn IR Deck |
+
+**Câu chữ ký của họ** (giữ nguyên khi trích, đặt trong ngoặc kép): *"where a new wave of innovation begins
+with AI chip"* · *"AI Technology for the World We Dream Of"* · *"Powering the Future of AI with Analog-PIM
+(Processing-In-Memory) Technology"*.
+
+## B. Ban lãnh đạo kỹ thuật — `shipped` 🆕 *(mở khoá 2026-08-20)*
+
+Trang **Technical Leadership** của họ công khai đủ bốn người kèm học vị:
+
+| Người | Chức danh | Học vị |
+|---|---|---|
+| **ChoongHyun Lee** | CEO | Ph.D., The University of Tokyo (2013) |
+| **SangHyeon Kim** | CTO | Ph.D., The University of Tokyo (2014) |
+| **Cimang Lu** | Architecture Leader | Ph.D., The University of Tokyo (2015) |
+| **Xu Yi** | Circuit Leader | M.S., Tsinghua University (2007) |
+
+> **Đính chính lịch sử:** hồ sơ nội bộ trước đây chặn tên CEO vì từng ghi **ngược** (Bae=CEO) và chưa xác
+> nhận. Nay chính trang của họ ghi **ChoongHyun Lee = CEO**, nên **dùng được đối ngoại**. Ba trong bốn người
+> là tiến sĩ ĐH Tokyo — đó là một luận điểm mạnh, không phải chi tiết trang trí.
+>
+> **GS. Bae Hak-yeol** **không** xuất hiện ở trang team công khai → giữ ở `internal`, không nhắc trên trang.
+
+## C. Cột mốc — `shipped` (Company History công khai)
+
+| Mốc | Việc | Vì sao đắt trên landing |
+|---|---|---|
+| 2021-09 | Thành lập Pebble Square Inc. | Mở dòng thời gian |
+| 2021-11 | **MOCHA** — chip edge AI PIM gen-1; lập trung tâm nghiên cứu | — |
+| 2022-07 | MOU nghiên cứu chung **KAIST – Chonbuk National University** | Uy tín học thuật; tên KAIST tự nói |
+| 2022-10 | Chứng nhận doanh nghiệp mạo hiểm | — |
+| 2022-12 | **MINT** — bán dẫn AI PIM gen-2 phát triển xong | — |
+| 2023-03 | **NDA với SK hynix** | ★ Tên nặng nhất trong bộ |
+| 2023-05 | **MINT vào sản xuất hàng loạt** | ★ Ranh giới "nghiên cứu" ↔ "có hàng" |
+| 2024-01 | Bằng sáng chế thiết bị neuromorphic | — |
+| 2024-02 | **PoC trên MINT** — đèn nhận diện giọng nói + chuông khẩn cấp | Chạy thật, không phải benchmark |
+| 2024-03 | **Liên doanh "Cluster AI Lab" (Ả Rập Xê Út)** · **NDA MEISEI ELECTRIC** (Home IoT) | ★ Mô hình lập pháp nhân địa phương |
+| 2025-03 | **UTC Investment rót 2 tỷ KRW** *(tin trên trang News của họ, 10/03/2025)* | Nhà đầu tư có tên |
+| 2025-05 | **Pebble Square Japan, Inc.** (Tokyo) | ★ Tiền lệ trực tiếp của Pebble Vina |
+| 2025-08 | Gọi vốn **Pre-A** | — |
+| 2025-10 | Được chọn **KPAS 2025** | Ghi nhận cấp quốc gia, mới nhất |
+
+**Trên landing dùng cả 14 mốc** (khối "Everything Pebble Square has put on the record"), nhấn 4 mốc ★.
+
+## D. Sản phẩm & lĩnh vực — `shipped` (verbatim `/page/11` và `/page/21`)
+
+**Sáu Business Sectors chính thức** — đây là bộ khung cho khối "Domains" trên landing:
+**Fault Analysis · Home IoT · Risk Management · Security · Healthcare · Vision**
+
+**Ba tầng danh mục sản phẩm:**
+
+1. **PIM-based AI Chip Technologies** — *"Analog-PIM (Processing-In-Memory)"*, *"Crossbar Array for Analog
+   Computing"*, **"256-State Synaptic Cell (8-bit)"**; Mixed Signal Processors (Digital/Analog);
+   Large-Scale Neural Network with PIM; thuật toán **FCNN, CNN, DNN, RNN**.
+   Họ chip: **MOCHA → MINT → PAPAYA FLEX**.
+2. **Pebble AI Studio** — *"Integrated SDK"*, deploy/tối ưu mô hình lên chip PIM; kèm **AI Accelerator**.
+3. **On-Device AI Applications** — **Sound** (speech recognition cho smart home/wearable) · **Vision**
+   (image processing cho healthcare/manufacturing) · **Security** (threat detection *"without network
+   dependency"*); và **AI-driven Failure Analysis** — **Risk Management** (real-time anomaly detection) ·
+   **Fault Analysis / Predictive Maintenance** (*"early failure detection for robots and machinery"*).
+
+**Bốn lợi thế lõi họ tự nhấn:** **Low Power Consumption · Private (Not use cloud) · Fast (Instant
+inferencing) · Low Cost** → dùng nguyên bộ bốn này làm khối "four properties" ở §01 của landing.
+
+**Ba mảng dịch vụ:** Design of AI chip · AI Algorithm development · Solution Development.
+
+**Growth timeline công khai:** 2021 Smart Home/IoT → 2022 Image/Vision → 2025 Auto Pilot → 2026 Data Center.
+
+## E. Con số kỹ thuật
+
+### E1. MINT — `shipped` ★ con số xương sống
+
+| Chỉ số | Giá trị | Nguồn |
+|---|---|---|
+| Kiến trúc | **Analog-PIM** | Trang chính thức |
+| Hiệu năng | ~**30 GOPS** | SmartTimes/JBNU · IR Deck tr.21 |
+| **Hiệu suất năng lượng** | **17,6 TOPS/W** *(deck ghi tròn 17)* | SmartTimes/JBNU · IR Deck tr.21 |
+| Die | 5 × 5 mm² | IR Deck tr.21 |
+| Trạng thái | **Sản xuất hàng loạt từ 5/2023** | Company History |
+
+### E2. Benchmark so sánh — `shipped` (IR Deck)
+
+| So sánh | Kết quả | Bắt buộc ghi kèm |
+|---|---|---|
+| PAPAYA FLEX vs NVIDIA Jetson Nano — điện | **~50×** thấp hơn (0,1–0,15 W vs 5–10 W) | tên đối tượng so sánh |
+| PAPAYA FLEX vs Jetson Nano — hiệu suất | **~100×** (ResNet-50: 333–500 vs 3,6–7,2 FPS/W) | **"ResNet-50"** |
+| PAPAYA FLEX vs Jetson Nano — kích thước | **~25×** nhỏ hơn (10×10 mm vs 70×45 mm) | — |
+| Trạm gốc 5G: PAPAYA vs NVIDIA L4 | **320–332 W → 0,03 W ≈ ~10.000×** | **"cho tác vụ AI tại trạm gốc"**, không phải cả trạm |
+| Bối cảnh | Data center ~**2% điện toàn cầu** + ~**300.000 gallon nước/ngày** | là khung bài toán, không phải claim của PS |
+
+### E3. ESPRESSO — 🟡 `roadmap`
+
+**160 TOPS @INT8 / 100 TFLOPS @bFP16 · 10 W · 16 TOPS/W · 20,5×23 mm 1799-pin FCBGA · bản M.2 · card 4 chip
+= 640 TOPS · PCIe Gen4 ×4 · LLM nội bộ tới 120 tỷ tham số.** Deck ghi *"Available from Sep. 2026"*.
+
+> ⚠ **Kiểm chứng 2026-08-20: ESPRESSO KHÔNG xuất hiện ở bất kỳ trang công khai nào của Pebble Square** —
+> không ở trang sản phẩm, không ở trang AI Accelerator. Nó **chỉ tồn tại trong IR Deck 05/01/2026**.
+> → Trên landing **bắt buộc** badge vàng **và** ghi rõ "investor material, not on the public catalogue".
+> Đây là chỗ dễ sảy chân nhất của cả trang.
+
+### E4. Nền tảng LLM On-Premise — `roadmap` cho phần ESPRESSO, `shipped` cho phần cấu hình GPU
+
+Máy chủ suy luận LLM đặt tại chỗ (4U, Epyc 9355, AI SoC = **NVIDIA hoặc ESPRESSO**). Định hướng
+*GPU-centric → NPU/AI SoC · Cloud AI → Private AI*. **Tách hai vế khi viết copy:** cấu hình NVIDIA bán được
+hôm nay; cấu hình ESPRESSO là lộ trình. Nguồn: IR Deck (không có trên trang công khai).
+
+---
+
+## F. Phía Pebble Vina — `shipped`
+
+| Fact | Giá trị |
+|---|---|
+| Pháp nhân | **CÔNG TY TNHH PEBBLE VINA** / PEBBLE VINA COMPANY LIMITED |
 | MST | **0111545175** |
-| Trụ sở | Văn phòng O1912, Tầng 19, Landmark 72 Tower, Khu E6, Khu đô thị mới Cầu Giấy, P. Yên Hoà, Hà Nội |
+| Trụ sở | Văn phòng O1912, Tầng 19, Landmark 72 Tower, Khu E6, KĐT mới Cầu Giấy, P. Yên Hoà, Hà Nội |
 | Liên hệ | contact@pebblevina.com · 0345 913 369 |
 | Quan hệ với PS | **Thành viên Việt Nam của nhóm Pebble Square** (ADR 0002, 2026-06-16) |
-| Hậu thuẫn | Nhà đầu tư là **Phó Chủ tịch KOCHAM** (Hội Doanh nghiệp Hàn Quốc tại Việt Nam) |
+| Hậu thuẫn | Nhà đầu tư là **Phó Chủ tịch KOCHAM** |
 
-## E. `internal` — đúng nội bộ, **chưa** đưa lên trang
+## G. `internal` — chưa đưa lên trang
 
 | Fact | Vì sao chặn |
 |---|---|
-| Tên/chức danh CEO Pebble Square | Hồ sơ từng ghi **ngược** (Bae=CEO); đã đính chính 2026-06-15 nhưng **chưa xác nhận trực tiếp với PS**. Đăng sai tên CEO công ty mẹ = sự cố ngoại giao |
-| Vai trò hiện tại của GS. Bae Hak-yeol | Không xuất hiện ở trang team IR Deck |
-| Cấu trúc sở hữu chính xác (% PS nắm, loại hình) | `[CẦN ĐIỀN]` — chưa kết tủa giấy tờ. Trang chỉ được nói "thành viên nhóm", **không** nói "công ty con 100%" |
+| Vai trò hiện tại của GS. Bae Hak-yeol | Không có trên trang team công khai |
+| Cấu trúc sở hữu chính xác (% PS nắm, loại hình pháp lý) | `[CẦN ĐIỀN]`. Trang chỉ được nói "thành viên nhóm", **không** nói "công ty con 100%" |
 | Tỉ lệ góp vốn / cam kết của nhà đầu tư KOCHAM | Chưa xác minh |
 | Playbook 30 prospect / 5 nhóm thị trường | Tài sản GTM **MẬT** |
-| Doanh thu Pebble Square | Hồ sơ DN ghi **−86% YoY** — không đưa, và cũng đừng để ai hỏi tới |
+| Doanh thu Pebble Square | Hồ sơ DN ghi **−86% YoY** |
+| **KGCCI Innovation Awards lần 10 (11/2024)** 🆕 | Có tin trên trang News của họ nhưng tiêu đề bị cắt — **chưa rõ họ ĐOẠT giải hay chỉ được nhắc tới**. Không được viết "đoạt giải" khi chưa xác minh |
 
-## F. `forbidden` — cấm tuyệt đối
+## H. `forbidden` — cấm tuyệt đối
 
 1. **"MDPI Electronics 2024 — Electrical Anomaly Detection Based on PIM Chip"** — bài **không tồn tại**
-   đúng tên đó (kiểm chứng web 2026-06-14). Đã gỡ khỏi mọi file công ty. Đừng để agent nào trích lại.
-2. **Gán arc-fault / điện mặt trời cho Pebble Square.** Trang chính thức của PS **không** có chữ arc/solar.
-   Năng lực khớp được là *anomaly + bảo trì dự đoán cho robot/máy móc*. Arc-fault là **góc tiếp cận do
-   Pebble Vina khởi xướng cho thị trường VN** — nói vậy thì đúng, gán cho PS thì sai.
-3. **Benchmark "MINT vs ST/TI"** — không tồn tại công khai. Benchmark hợp lệ duy nhất là PAPAYA vs
-   Jetson Nano / L4 ở §C4.
+   (kiểm chứng 2026-06-14). Đừng để agent nào trích lại.
+2. **Gán arc-fault / điện mặt trời cho Pebble Square.** Sáu business sector của họ **không có** arc/solar.
+   Cái khớp được là **Fault Analysis + Risk Management**. Arc-fault là **góc do Pebble Vina khởi xướng**.
+3. **Benchmark "MINT vs ST/TI"** — không tồn tại công khai. Benchmark hợp lệ duy nhất là §E2.
 4. Bịa **tên khách hàng, logo đối tác, số case study, doanh thu**.
+5. **Nói ESPRESSO như hàng đang có.** Xem §E3.
 
 ---
 
 ## Khung trình đúng — 3 lớp tách bạch
 
-Khi nói chuyện kỹ thuật trên trang, luôn tách:
-
 ```
-(1) Nguyên lý PIM           — có nền học thuật, nói được
-(2) Chip MINT 17,6 TOPS/W   — số thật, đã sản xuất hàng loạt
-(3) Ứng dụng tại VN         — góc của Pebble Vina, kèm chuẩn UL 1699B · IEC 63027:2023 · TCVN 11855-1:2017
+(1) Nguyên lý PIM              — có nền học thuật, nói được
+(2) Chip MINT 17,6 TOPS/W      — số thật, đã sản xuất hàng loạt
+(3) Ứng dụng tại VN            — góc của Pebble Vina, kèm UL 1699B · IEC 63027:2023 · TCVN 11855-1:2017
 ```
 
-**KHÔNG** ghép ba lớp thành một câu kiểu *"Pebble Square đã làm arc-fault trên chip PIM"*. Đó là câu
-sai duy nhất đủ sức phá cả trang trước một phòng kỹ sư.
+**KHÔNG** ghép ba lớp thành *"Pebble Square đã làm arc-fault trên chip PIM"*. Đó là câu sai duy nhất đủ sức
+phá cả trang trước một phòng kỹ sư.
+
+## Về việc sao chép nội dung của Pebble Square
+
+Landing này **bám sát cấu trúc và luận điểm** của trang mẹ nhưng **viết lại bằng lời của mình**. Giữ nguyên
+văn chỉ với: **tên riêng** (MOCHA, MINT, PAPAYA FLEX, ESPRESSO, Pebble AI Studio, Analog-PIM), **thông số**,
+**tên sáu business sector**, và vài **cụm chữ ký ngắn đặt trong ngoặc kép**. Không bê nguyên đoạn văn của họ.
