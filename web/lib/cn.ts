@@ -1,4 +1,4 @@
-/** Ghép class, bỏ giá trị rỗng. Đủ dùng cho landing 1 trang — không kéo thêm dependency. */
+/** Join class names, dropping empty values. No dependency needed at this size. */
 export function cn(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(" ");
 }

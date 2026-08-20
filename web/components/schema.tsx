@@ -1,29 +1,26 @@
-import type { LandingContent } from "@/content/types";
+import type { SiteContent } from "@/content/types";
 import { SITE } from "@/content/site";
 
-/**
- * JSON-LD. `Organization` để answer engine biết pháp nhân là ai và mẹ là ai;
- * `FAQPage` là tài sản GEO mạnh nhất của trang (docs/03-structure.md §2, khối 10).
- */
+/** JSON-LD, so an answer engine knows which legal entity this is and whose subsidiary. */
 export function JsonLd({ data }: { data: object }) {
   return (
     <script
       type="application/ld+json"
-      // Nội dung do ta sinh từ content tĩnh, không có input người dùng.
+      // Generated from static content — no user input reaches this string.
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
     />
   );
 }
 
-export function organizationSchema(c: LandingContent) {
+export function organizationSchema(c: SiteContent) {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE.name,
-    legalName: SITE.legalName,
+    legalName: c.locale === "vi" ? SITE.legalNameVi : SITE.legalName,
     taxID: SITE.taxId,
     url: SITE.url,
-    description: c.meta.description,
+    description: c.meta.home.description,
     email: SITE.contact.email,
     telephone: "+84345913369",
     address: {
@@ -43,17 +40,5 @@ export function organizationSchema(c: LandingContent) {
         addressCountry: "KR",
       },
     },
-  };
-}
-
-export function faqSchema(c: LandingContent) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: c.faq.items.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
   };
 }

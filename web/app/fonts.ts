@@ -1,9 +1,9 @@
 import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
 
 /**
- * Cả ba nạp subset `vietnamese` — thiếu subset này là mất dấu tiếng Việt.
- * Space Grotesk = tiêu đề · Inter = thân bài · IBM Plex Mono = số và nhãn (giọng "khí cụ đo").
- * Mỗi font phơi một CSS var; `app/globals.css` @theme trỏ vào các var đó.
+ * All three load the `vietnamese` subset — without it Vietnamese diacritics break.
+ * Space Grotesk = headings · Inter = body · IBM Plex Mono = numbers and labels.
+ * Each exposes a CSS var that `app/globals.css` @theme points at.
  */
 const display = Space_Grotesk({
   subsets: ["latin", "vietnamese"],

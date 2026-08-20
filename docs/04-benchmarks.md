@@ -45,5 +45,6 @@ Ba biến cần đo trên mỗi site mẫu:
 này thành §3. Kết luận phải trả lời được một câu: **tỉ lệ mẹ/con hợp lý là bao nhiêu, và trang nên "quay
 về nói chuyện mình" ở khối thứ mấy?**
 
-Hiện tại bản dựng đang đặt điểm cắt ở **khối 07** — sau 6 khối mượn sức mẹ. Đó là **giả thuyết**, chưa
+Bản dựng cũ đặt điểm cắt ở **khối 07**. Trong khung ba nhánh (2026-08-20) điểm cắt tương đương là
+trang `/products`: HOME mượn sức mẹ, `/products` mới nói Pebble Vina làm gì. Đó là **giả thuyết**, chưa
 phải kết luận có bằng chứng. Nếu §3 chỉ ra khác, sửa cấu trúc theo bằng chứng.

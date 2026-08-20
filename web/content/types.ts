@@ -1,195 +1,158 @@
 /**
- * Hình dạng nội dung landing. `en.ts` (canonical) và `vi.ts` cùng khớp `LandingContent`,
- * nên thêm field một bên mà quên bên kia thì `tsc` gãy — đó là chủ ý (CLAUDE.md §3).
+ * Content shape for the whole site. `en.ts` (canonical) and `vi.ts` both satisfy
+ * `SiteContent`, so adding a field on one side and forgetting the other breaks
+ * `tsc` — that is deliberate (CLAUDE.md §3).
  *
- * Thứ tự field trong interface = thứ tự khối trên trang, đi từ quan trọng xuống
- * (docs/03-structure.md §1). Đừng sắp xếp lại cho "gọn".
+ * Empty strings are intentional placeholders: the structure ships now, the prose
+ * lands later. Components skip empty values rather than render blank space.
+ * Drafts live in `context/`.
  */
 
-/** Nhãn bằng chứng — luật số 1 của repo (docs/01-proof-bank.md). */
+export type Locale = "en" | "vi";
+
+export type PageKey = "home" | "products" | "contact";
+
+/** Evidence label — repo rule #1 (docs/01-proof-bank.md). */
 export type FactStatus = "shipped" | "roadmap";
 
-export interface NavLink {
-  label: string;
-  href: string;
+/** Whose capability this is: `ps` = Pebble Square, `pv` = the layer Pebble Vina builds. */
+export type Origin = "ps" | "pv";
+
+/** Image slot. An empty `src` renders a designed placeholder — see context/media-plan.md. */
+export interface Media {
+  src?: string;
+  /** Doubles as the art direction shown in the placeholder while `src` is empty. */
+  alt: string;
 }
 
-export interface TrustItem {
-  label: string;
-  value: string;
-}
-
-export interface NumberedItem {
-  no: string;
+/** Title is always rendered; body is prose written later. */
+export interface Item {
   title: string;
   body: string;
 }
 
-export interface Pillar {
+/** Opening of a section: index label, heading, optional lead. */
+export interface Intro {
+  kicker: string;
   title: string;
-  body: string;
+  lead: string;
 }
 
-export interface StatItem {
+/** A measured number, its method, and where it came from. */
+export interface Spec {
   value: string;
   unit?: string;
   label: string;
-  /** Đo cái gì, so với cái gì — kỹ sư đọc dòng này trước cả con số. */
+  /** What was measured against what — engineers read this before the number. */
   note: string;
   source: string;
   status: FactStatus;
   statusNote?: string;
 }
 
-/** Một thị trường Pebble Square đã đặt chân — khối trả lời "họ đã làm gì ở đâu". */
-export interface Market {
-  region: string;
-  org: string;
-  period: string;
+export interface Milestone {
+  date: string;
+  title: string;
   body: string;
   status: FactStatus;
   statusNote?: string;
-}
-
-export interface TimelineItem {
-  date: string;
-  title: string;
-  status: FactStatus;
-  statusNote?: string;
-  /** Mốc được nhấn — 4 mốc đắt nhất theo docs/02-message-map.md §2. */
+  /** Highlighted milestone. */
   starred?: boolean;
 }
 
-/** Một tầng trong danh mục sản phẩm — giữ đúng 3 tầng của pebble-square.com/en/page/21. */
-export interface ProductLayer {
+/** One hardware family — MINT, PAPAYA, ESPRESSO, GPU. */
+export interface Product {
+  /** Anchor id, also the deep link from the nav. */
+  id: string;
   name: string;
   tagline: string;
   body: string;
-  /** Tên sản phẩm/chip cụ thể, dòng mono dưới cùng thẻ. */
-  items: string;
+  capabilities: Item[];
+  specs: Spec[];
+  media: Media;
   status: FactStatus;
   statusNote?: string;
+  origin: Origin;
 }
 
-export interface Person {
+/** One software family — enterprise software, private AI. */
+export interface SoftwareGroup {
+  id: string;
   name: string;
-  role: string;
-  credential: string;
-}
-
-export interface Office {
-  label: string;
-  org: string;
-  address: string;
-  status: FactStatus;
-}
-
-/** `ps` = lĩnh vực Pebble Square tự công bố · `pv` = lớp Pebble Vina dựng thêm tại VN. */
-export type DomainOrigin = "ps" | "pv";
-
-export interface Domain {
-  title: string;
+  tagline: string;
   body: string;
-  origin: DomainOrigin;
+  modules: Item[];
+  /** Private AI only: where a model can be deployed. */
+  targetsTitle?: string;
+  targets?: Item[];
+  media: Media;
+  origin: Origin;
 }
 
-export interface Step extends NumberedItem {
-  deliverable: string;
-}
-
-export interface FaqItem {
-  q: string;
-  a: string;
-}
-
-export interface LandingContent {
-  locale: "en" | "vi";
-  /** Đường sang bản ngôn ngữ kia. */
-  alternate: { href: string; label: string; hrefLang: string };
-  meta: { title: string; description: string };
-
-  nav: { links: NavLink[]; cta: string; menuLabel: string };
-
+export interface HomeContent {
   hero: {
     eyebrow: string;
-    h1: string;
+    slogan: string;
     lead: string;
     ctaPrimary: string;
     ctaSecondary: string;
-    ctaSecondaryHref: string;
-    trust: TrustItem[];
     scrollHint: string;
+    media: Media;
   };
-
-  /** 01 — vì sao là lúc này. Khối quan trọng nhất sau hero. */
-  whyNow: {
-    kicker: string;
-    heading: string;
-    lead: string;
-    points: NumberedItem[];
+  whyNow: Intro & {
+    points: Item[];
     pillarsTitle: string;
-    pillars: Pillar[];
+    pillars: Item[];
+    media: Media;
   };
-
-  /** Dải con số — chứng minh bài toán ở whyNow đã có lời giải đo được. */
-  stats: { kicker: string; heading: string; lead: string; items: StatItem[]; legend: string };
-
-  /** 02 — họ đã làm gì ở các thị trường đã có mặt. */
-  track: { kicker: string; heading: string; lead: string; markets: Market[] };
-
-  timeline: { kicker: string; heading: string; lead: string; items: TimelineItem[]; footnote: string };
-
-  /** 03 — sản phẩm của họ. */
-  products: {
-    kicker: string;
-    heading: string;
-    lead: string;
-    plain: string;
-    layers: ProductLayer[];
+  history: Intro & {
+    milestones: Milestone[];
+    footnote: string;
   };
+}
 
-  /** 04 — họ là ai, ai lập. */
-  team: {
-    kicker: string;
-    heading: string;
-    lead: string;
-    people: Person[];
-    backingTitle: string;
-    backing: TrustItem[];
-  };
+export interface ProductsContent {
+  intro: Intro;
+  hardware: Intro & { items: Product[] };
+  software: Intro & { groups: SoftwareGroup[] };
+}
 
-  /** 05 — họ ở đâu. */
-  places: { kicker: string; heading: string; lead: string; offices: Office[] };
+export interface ContactContent {
+  intro: Intro;
+  ctaPrimary: string;
+  ctaSecondary: string;
+  media: Media;
+}
 
-  /** 06 — các domain họ đã giải trên toàn cầu. */
-  domains: {
-    kicker: string;
-    heading: string;
-    lead: string;
-    items: Domain[];
-    legend: Record<DomainOrigin, string>;
-  };
+export interface SiteContent {
+  locale: Locale;
+  /** Label of the link to the other locale. */
+  alternateLabel: string;
+  meta: Record<PageKey, { title: string; description: string }>;
 
-  /** 07 — phần Việt Nam. */
-  local: {
-    kicker: string;
-    heading: string;
-    lead: string;
-    items: NumberedItem[];
-    punch: string;
+  nav: {
+    home: string;
+    products: string;
+    contact: string;
+    hardware: string;
+    software: string;
     cta: string;
+    menuLabel: string;
+    skipToContent: string;
   };
 
-  start: { kicker: string; heading: string; lead: string; steps: Step[]; note: string };
+  home: HomeContent;
+  products: ProductsContent;
+  contact: ContactContent;
 
-  faq: { kicker: string; heading: string; lead: string; items: FaqItem[] };
-
-  cta: {
-    heading: string;
-    lead: string;
-    primary: string;
-    secondary: string;
-    contactLabel: string;
+  /** Field labels shared by the contact page and the footer. */
+  labels: {
+    call: string;
+    email: string;
+    office: string;
+    entity: string;
+    taxCode: string;
+    parent: string;
   };
 
   footer: {
@@ -197,14 +160,18 @@ export interface LandingContent {
     navTitle: string;
     contactTitle: string;
     legalTitle: string;
-    legalLabel: string;
-    taxLabel: string;
-    addressLabel: string;
-    parentLabel: string;
     statusLegend: string;
     disclaimer: string;
     copyright: string;
   };
 
-  statusLabel: Record<FactStatus, string>;
+  /** Repeated UI strings that are not section content. */
+  ui: {
+    specs: string;
+    source: string;
+    imagePending: string;
+  };
+
+  status: Record<FactStatus, string>;
+  origin: Record<Origin, string>;
 }

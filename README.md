@@ -1,8 +1,8 @@
 # pv-landing-lab — Phòng thí nghiệm landing page Pebble Vina
 
-Repo **nghiên cứu + dựng thử** một **landing page kiểu mẫu** cho Pebble Vina: một trang duy nhất,
-song ngữ **EN (chính) / VI (phụ)**, **nội dung bám sát trang chính thức của công ty mẹ Pebble Square Inc.**
-— chỉ lấy phần tinh, và sắp xếp đi từ quan trọng xuống.
+Repo **nghiên cứu + dựng thử** site kiểu mẫu cho Pebble Vina: **ba trang** — HOME · SẢN PHẨM & GIẢI PHÁP ·
+LIÊN HỆ — song ngữ **EN (chính) / VI (phụ)**, **nội dung bám sát trang chính thức của công ty mẹ
+Pebble Square Inc.**
 
 Đây là **sandbox độc lập** — không phải website chính thức. Website chính là
 `pebblevn-ppt-first-meet/projects/pv-main-web` (đa trang, brand kit đã khoá). Repo này tự do thử
@@ -24,27 +24,35 @@ Từ **IR Deck Pebble Square 05/01/2026** (nguồn cấp 1, đã nằm trong `co
 | `docs/00-brief.md` | Mục tiêu, đối tượng, một hành động, phạm vi, luật chơi |
 | `docs/01-proof-bank.md` | ★ **Ngân hàng bằng chứng Pebble Square** — mọi con số + nguồn + nhãn dùng-được / lộ-trình / cấm |
 | `docs/02-message-map.md` | Điểm mạnh PS → thông điệp landing (song ngữ), kèm bằng chứng đỡ lưng từng câu |
-| `docs/03-structure.md` | Khung 13 khối (đi từ quan trọng xuống) + luật một khối = một màn hình |
+| `docs/03-structure.md` | Khung ba nhánh, định tuyến, luật khối + snap, nhịp thị giác |
 | `docs/04-benchmarks.md` | Bóc cấu trúc site tham chiếu — nhóm chip edge-AI + nhóm "công ty con mượn uy tín mẹ" |
 | `docs/05-backlog.md` | Cái còn thiếu — chỉ người mới cấp được, không bịa |
 | `scripts/wsl.sh` | Chạy npm bằng Node trong WSL — xem mục **Chạy** |
-| `web/` | Next.js 15 + Tailwind v4 — landing 1 trang, EN `/` + VI `/vi` |
+| `context/` | Bàn soạn nội dung — nháp theo khung mới + kho nội dung cũ còn dùng được |
+| `web/` | Next.js 15 + Tailwind v4 — 3 trang × 2 ngôn ngữ, EN `/` + VI `/vi` |
 
-**Nội dung chữ sống ở code, không ở docs:** `web/content/en.ts` (canonical) và `web/content/vi.ts` là
-nguồn sự thật duy nhất của copy. Docs mô tả *vì sao*, code giữ *cái gì*. Không chép copy sang markdown.
+**Nội dung chữ sống ở code:** `web/content/en.ts` (canonical) và `web/content/vi.ts` là nguồn sự thật
+của copy **đang chạy**. `context/` là bàn soạn — nháp và kho nội dung cũ; khi nghi ngờ, `*.ts` thắng.
+Docs mô tả *vì sao*, code giữ *cái gì*.
+
+Phần lớn `lead`/`body` hiện là chuỗi rỗng: cấu trúc lên trước, chữ điền sau.
+
+```bash
+grep -o ': ""' web/content/en.ts | wc -l   # đếm ô còn trống (hiện: 63)
+```
 
 ## Chạy
 
 ```bash
 cd web
 npm install
-npm run dev      # http://localhost:3000  (EN)  ·  /vi  (VI)
+npm run dev      # http://localhost:3000 · /products · /contact · và /vi/…
 npm run build    # phải xanh trước khi commit
 ```
 
-**Trên máy hiện tại phải chạy qua WSL.** Repo nằm trên đường dẫn UNC (`\\wsl.localhost\...`): Node cài
-trên Windows không chạy được ở đó, còn `wsl bash -lc` thì không tự nạp nvm nên `npm` rơi về bản Windows.
-`scripts/wsl.sh` xử lý cả hai:
+**Chỉ trên máy Windows/WSL** mới cần `scripts/wsl.sh`: khi repo nằm trên đường dẫn UNC
+(`\\wsl.localhost\...`), Node cài trên Windows không chạy được ở đó, còn `wsl bash -lc` thì không tự nạp
+nvm nên `npm` rơi về bản Windows. Trên macOS/Linux chạy thẳng `npm` như trên, không cần script này.
 
 ```bash
 wsl bash ~/work/pebble-vina/pv-landing-lab/scripts/wsl.sh npm run build
@@ -65,4 +73,3 @@ wsl bash ~/work/pebble-vina/pv-landing-lab/scripts/wsl.sh npm run dev
    ghi rõ đó là tài liệu nhà đầu tư.
 
 Chi tiết + nguồn: `docs/01-proof-bank.md`.
-# pv-landing-page

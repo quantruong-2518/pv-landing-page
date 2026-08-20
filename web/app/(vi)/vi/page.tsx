@@ -1,13 +1,18 @@
-import { Landing } from "@/components/landing";
-import { JsonLd, faqSchema, organizationSchema } from "@/components/schema";
+import type { Metadata } from "next";
+import { HomePage } from "@/components/page-home";
+import { JsonLd, organizationSchema } from "@/components/schema";
 import { vi } from "@/content/vi";
+
+export const metadata: Metadata = {
+  ...vi.meta.home,
+  alternates: { canonical: "/vi", languages: { en: "/", vi: "/vi" } },
+};
 
 export default function Page() {
   return (
     <>
       <JsonLd data={organizationSchema(vi)} />
-      <JsonLd data={faqSchema(vi)} />
-      <Landing c={vi} />
+      <HomePage c={vi} />
     </>
   );
 }

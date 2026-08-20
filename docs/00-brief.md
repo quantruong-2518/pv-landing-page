@@ -2,8 +2,11 @@
 
 ## Landing này là gì
 
-**Một trang duy nhất** giới thiệu **Pebble Vina** cho người lần đầu nghe tên, bằng cách **mượn gần như
-toàn bộ sức nặng từ công ty mẹ Pebble Square Inc. (Hàn Quốc)**.
+**Ba trang** — HOME · SẢN PHẨM & GIẢI PHÁP · LIÊN HỆ — giới thiệu **Pebble Vina** cho người lần đầu
+nghe tên, bằng cách **mượn gần như toàn bộ sức nặng từ công ty mẹ Pebble Square Inc. (Hàn Quốc)**.
+
+> Cập nhật 2026-08-20: bản đầu là landing một trang 13 khối. GM chốt khung ba nhánh; cấu trúc mới ở
+> `03-structure.md`, nội dung của khung cũ giữ ở `context/99-unplaced/`.
 
 Đây là lựa chọn có chủ ý, không phải thiếu nội dung. Pebble Vina đang ở giai đoạn **tiền doanh thu**:
 chưa có khách hàng công bố được, chưa có case study, chưa có doanh thu để khoe. Trong trạng thái đó,
@@ -44,13 +47,14 @@ bản nào bị rút gọn.
 
 ## Phạm vi
 
-**Có:** 1 trang, 13 khối, song ngữ EN + VI, mỗi khối vừa trọn một màn hình và cuộn có snap, SSR toàn bộ,
-JSON-LD `Organization` + `FAQPage`, header/footer theo best practice landing, chạy được từ 360px.
+**Có:** 3 trang × 2 ngôn ngữ (6 route tĩnh), khối cuộn có snap, SSR toàn bộ, JSON-LD `Organization`,
+header/footer theo best practice, 7 ô ảnh đã chừa sẵn, chạy được từ 360px.
 
-**Không có:** blog, trang sản phẩm con, form gửi thật (chỉ `mailto:`/`tel:`), CMS, ngôn ngữ ngoài EN/VI,
-animation nặng. Đây là lab để kiểm chứng **cấu trúc + thông điệp**, không phải sản phẩm cuối.
+**Không có:** blog, route riêng cho từng sản phẩm (dùng anchor), form gửi thật (chỉ `mailto:`/`tel:`),
+CMS, ngôn ngữ ngoài EN/VI, animation nặng, **FAQ + JSON-LD `FAQPage`** (khung mới không có ô — xem
+`05-backlog.md` #14). Đây là lab để kiểm chứng **cấu trúc + thông điệp**, không phải sản phẩm cuối.
 
 ## Thước đo "kiểu mẫu"
 
 Trang được coi là đạt nếu đóng được **cả 9 khoảng trống G1–G9** mà research của site chính đã chỉ ra
-(`pv-main-web/docs/landing/RESEARCH-cau-truc-section.md` §3.2). Bảng đối chiếu ở `03-structure.md` §3.
+(`pv-main-web/docs/landing/RESEARCH-cau-truc-section.md` §3.2). Bảng đối chiếu ở `03-structure.md` §8.

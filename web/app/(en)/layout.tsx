@@ -3,21 +3,14 @@ import type { ReactNode } from "react";
 import { fontVars } from "@/app/fonts";
 import "@/app/globals.css";
 import { SITE } from "@/content/site";
-import { en } from "@/content/en";
 
 /**
- * Root layout nhánh EN — EN là canonical ở `/`, VI là bản phụ ở `/vi`.
- * Repo dùng NHIỀU root layout (route group `(en)` và `(vi)`, không có `app/layout.tsx`)
- * để mỗi ngôn ngữ có thuộc tính `lang` đúng của nó.
+ * EN root layout — EN is canonical at `/`, VI is the parallel version at `/vi`.
+ * The repo uses TWO root layouts (route groups `(en)` and `(vi)`, no
+ * `app/layout.tsx`) so each language gets its own `<html lang>`.
  */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
-  title: en.meta.title,
-  description: en.meta.description,
-  alternates: {
-    canonical: "/",
-    languages: { en: "/", vi: "/vi" },
-  },
 };
 
 export default function EnRootLayout({ children }: { children: ReactNode }) {

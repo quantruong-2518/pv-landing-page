@@ -1,52 +1,48 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   pv-landing-lab — DESIGN TOKENS
+   DESIGN TOKENS
 
-   Bảng màu brand giữ nguyên của Pebble Vina (brand kit HQ 2026-07-07) để kết quả
-   còn port ngược sang site chính được. Hướng thị giác thì khác pv-main-web:
-   ở đây là "khí cụ đo" — nét tóc, lưới crossbar, số bằng font mono, nhịp tối/sáng
-   3 vùng (xem docs/03-structure.md §4).
+   Brand palette stays the Pebble Vina one (HQ brand kit 2026-07-07) so anything
+   proven here can be ported back to the main site. The visual direction differs:
+   hairline rules, a crossbar grid, mono numerals — an instrument, not a brochure.
 
-   Hai màu TRẠNG THÁI (shipped/roadmap) là màu CHỨC NĂNG, không phải màu brand.
-   Chúng tồn tại để mắt phân biệt "đã có" với "lộ trình" trong 0,2 giây — luật số 1
-   của repo này (CLAUDE.md §2). Đừng dùng chúng cho mục đích trang trí.
+   The two STATUS colours are functional, not brand: they let the eye separate
+   "shipping" from "roadmap" in a fifth of a second, which is repo rule #1
+   (CLAUDE.md §2). Never use them decoratively.
    ========================================================================== */
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, "Segoe UI", Roboto, "Noto Sans", sans-serif;
   --font-display: var(--font-space-grotesk), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  /* ── Vùng SÁNG (thân bài) ─────────────────────────────────────────────── */
+  /* ── LIGHT zone (body copy) ───────────────────────────────────────────── */
   --color-bg: #ffffff;
   --color-surface: #f4f6fa;
-  --color-bg-deep: #eef1f7;      /* nấc nền sâu nhất — dải đóng ở vùng sáng */
+  --color-bg-deep: #eef1f7;     /* deepest light step — closing band */
   --color-fg: #0f172a;          /* Deep Navy */
   --color-muted: #5e6b80;       /* Slate Gray */
   --color-subtle: #97a4bd;
-  --color-line: #e5e7eb;        /* Light Gray — nét tóc */
+  --color-line: #e5e7eb;        /* Light Gray — hairline */
   --color-line-strong: #cbd5e1;
   --color-primary: #133a8a;     /* Pebble Blue */
   --color-primary-fg: #ffffff;
   --color-accent: #133a8a;
 
-  /* Cờ Việt Nam — chỉ cho ngôi sao/badge nhận diện, dùng tiết chế */
-  --color-flag-red: #da251d;
-  --color-flag-yellow: #ffcd00;
-
-  /* Màu chức năng — nhãn trạng thái bằng chứng */
+  /* Functional — evidence status labels */
   --color-shipped: #0f5132;
   --color-shipped-bg: #e6f4ec;
   --color-roadmap: #8a5a00;
   --color-roadmap-bg: #fdf3d8;
 }
 
-/* ── Vùng TỐI: hero, dòng thời gian, CTA, footer ────────────────────────────
-   Remap token thay vì đổi class từng component — đổi một chỗ, cả vùng đổi theo. */
+/* ── DARK zone: hero, history, CTA, footer ──────────────────────────────────
+   Remap the tokens instead of re-classing each component — change once, the
+   whole zone follows. */
 .tone-dark {
   --color-bg: #0f172a;
   --color-surface: #17233d;
-  --color-bg-deep: #0a1020;      /* đáy khí quyển — footer dùng nấc này để tách khỏi dải CTA */
+  --color-bg-deep: #0a1020;     /* bottom of the atmosphere — footer sits here */
   --color-fg: #f4f7fc;
   --color-muted: #97a4bd;
   --color-subtle: #64748b;
@@ -62,21 +58,30 @@
   --color-roadmap-bg: #3a2c0c;
 }
 
+/* Sticky header height — anchors, snap points and full-screen blocks all read it. */
+:root {
+  --header-h: 3.5rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --header-h: 4rem;
+  }
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  /* Header dính cao 4rem — trừ ra để neo (#id) và điểm snap không chui xuống dưới nó. */
-  scroll-padding-top: 4rem;
+  scroll-padding-top: var(--header-h);
 }
 
-/* Cuộn luôn dừng ở ĐẦU một khối, không bao giờ đứng giữa hai khối.
-   `mandatory` chứ không `proximity`: proximity chỉ bắt khi người dùng dừng sẵn gần điểm
-   snap, nên một cú lăn chuột mạnh vẫn treo lơ lửng giữa hai khối — đúng lỗi cần sửa.
-   An toàn vì mọi khối đã cao đúng `calc(100svh - 4rem)`; và theo spec, khối nào cao hơn
-   khung nhìn thì trình duyệt vẫn cho cuộn tự do bên trong, không nhốt người đọc.
+/* Scrolling always rests at the START of a block, never between two.
+   `mandatory`, not `proximity`: proximity only catches a reader who already
+   stopped near a snap point, so one hard flick still leaves them mid-block.
+   Safe because a block taller than the viewport stays freely scrollable per spec.
 
-   Chỉ bật khi màn đủ rộng VÀ đủ cao — điện thoại và cửa sổ lùn thì nội dung chắc chắn
-   tràn màn hình, snap ở đó chỉ gây khó chịu. */
+   Enabled only on screens wide AND tall enough — on a phone every block
+   overflows anyway, and snapping there only fights the reader. */
 @media (min-width: 768px) and (min-height: 640px) {
   html {
     scroll-snap-type: y mandatory;
@@ -98,13 +103,18 @@ h3 {
   text-wrap: balance;
 }
 
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 ::selection {
   background: var(--color-primary);
   color: #ffffff;
 }
 
-/* Nền lưới crossbar — nhắc kiến trúc Crossbar Array của Analog-PIM.
-   Thuần CSS gradient: không ảnh, không request, không ảnh hưởng LCP. */
+/* Crossbar grid — a nod to the Analog-PIM crossbar array.
+   Pure CSS gradients: no image, no request, no LCP cost. */
 .crossbar {
   background-image:
     linear-gradient(to right, color-mix(in srgb, var(--color-line) 70%, transparent) 1px, transparent 1px),
@@ -112,7 +122,7 @@ h3 {
   background-size: 56px 56px;
 }
 
-/* Toả sáng mềm sau hero — giữ ở mức rất nhẹ, trang này để đọc chứ không để ngắm. */
+/* Soft glow behind the hero — kept faint; this page is for reading. */
 .aura::before {
   content: "";
   position: absolute;
@@ -128,8 +138,8 @@ h3 {
   }
 }
 
-/* FAQ dùng <details> nguyên bản (không JS, crawler đọc được cả khi đang gập).
-   Safari/Chrome vẫn vẽ tam giác riêng dù đã `list-none` — phải tắt bằng pseudo-element. */
+/* Native <details> disclosures: Safari and Chrome still draw their own marker
+   after `list-none`, so kill the pseudo-element too. */
 summary::-webkit-details-marker {
   display: none;
 }

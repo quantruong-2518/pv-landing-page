@@ -2,8 +2,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 /**
- * `outputFileTracingRoot`: máy dev có một package-lock.json lạc ở thư mục home, Next tự đoán
- * nhầm đó là workspace root. Ghim về chính thư mục này.
+ * `outputFileTracingRoot`: a stray package-lock.json in the dev machine's home
+ * directory makes Next guess the wrong workspace root. Pin it to this folder.
  */
 /** @type {import('next').NextConfig} */
 const nextConfig = {

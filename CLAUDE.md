@@ -9,7 +9,8 @@
 | Bằng chứng / con số về Pebble Square | `docs/01-proof-bank.md` — **không lấy số từ trí nhớ, luôn tra bảng này** |
 | Thông điệp & giọng | `docs/02-message-map.md` |
 | Trang có những khối nào, vì sao | `docs/03-structure.md` |
-| Copy thật (EN/VI) | `web/content/en.ts` (canonical), `web/content/vi.ts` — **duy nhất**, không chép sang markdown |
+| Nội dung nháp / nội dung cũ còn dùng được | `context/` — **bàn soạn**, không phải nguồn đang chạy |
+| Copy thật (EN/VI) | `web/content/en.ts` (canonical), `web/content/vi.ts` — **nguồn đang chạy, duy nhất** |
 | Hồ sơ pháp nhân, liên hệ | `web/content/site.ts` |
 
 Nguồn cấp 1 nằm ở repo hàng xóm `../pebblevn-ppt-first-meet/company/` (IR Deck 05/01/2026,
@@ -31,11 +32,14 @@ ghi vào `docs/05-backlog.md`.
 
 ## 3. Kỷ luật code
 
-- **Song ngữ đối xứng.** `vi.ts` và `en.ts` cùng khớp type `LandingContent` trong `web/content/types.ts`.
+- **Song ngữ đối xứng.** `vi.ts` và `en.ts` cùng khớp type `SiteContent` trong `web/content/types.ts`.
   Thêm field ở một bên mà không thêm bên kia → `tsc` gãy. Đó là chủ ý.
 - **Không hardcode màu.** Chỉ dùng token trong `web/app/globals.css`. Đổi brand = đổi một chỗ.
 - **Không hardcode chữ trong component.** Chữ đi từ `content/*` xuống qua props. Component chỉ biết bố cục.
-- **SSR mặc định.** Không `"use client"` trừ khi thật sự cần tương tác. Landing phải crawl được (GEO/AEO).
+- **SSR mặc định.** Không `"use client"` trừ khi thật sự cần tương tác. Trang phải crawl được (GEO/AEO).
+  Hiện cả 6 route đều prerender tĩnh, không có một dòng JS tương tác nào — menu di động dùng `<details>`.
+- **Code và comment bằng tiếng Anh.** Docs (`docs/`, `context/`) viết tiếng Việt. Comment ngắn, nói *vì sao*.
+- **Không hardcode đường dẫn.** Route tính bằng `lib/routes.ts` để đổi cấu trúc URL chỉ sửa một chỗ.
 - Trước khi commit: `npm run build` phải xanh.
 
 ## 4. Quy ước ngôn ngữ
@@ -48,11 +52,18 @@ ghi vào `docs/05-backlog.md`.
 - Bám sát nội dung trang mẹ nhưng **viết lại bằng lời của mình**; chỉ giữ nguyên văn tên riêng, thông số,
   và vài cụm chữ ký ngắn đặt trong ngoặc kép. Không bê nguyên đoạn.
 
-## 4b. Luật một khối = một màn hình
+## 3b. Nội dung để trống là có chủ ý
 
-Mỗi `<Section>` cao `calc(100svh - 4rem)`, căn giữa dọc, `snap-start`; `html` có
-`scroll-snap-type: y mandatory` từ 768px và cao ≥640px. **Thêm chữ vào một khối là làm khối đó tràn màn.**
-Muốn thêm ý thì cắt ý khác hoặc tách khối mới. Chi tiết: `docs/03-structure.md` §2.
+`lead` và `body` trong `en.ts`/`vi.ts` phần lớn là chuỗi rỗng — cấu trúc lên trước, chữ điền sau
+(GM chốt 2026-08-20). **Đừng "sửa" chúng bằng chữ tự nghĩ ra.** Bản nháp và vật liệu nằm ở `context/`,
+mọi fact phải tra được về `docs/01-proof-bank.md`. Component đã bỏ qua chuỗi rỗng thay vì vẽ khoảng trắng.
+
+## 4b. Luật một khối = một màn hình (đã nới)
+
+Mọi `<Section>` mang `snap-start`, nhưng chỉ khối mở màn (hero, Why Now, index `/products`, hero
+`/contact`) mới cao trọn `calc(100svh - var(--header-h))` — truyền `screen` cho `<Section>`. Khối danh mục
+cao theo nội dung. `html` vẫn `scroll-snap-type: y mandatory` từ 768px và cao ≥640px.
+**Thêm chữ vào một khối `screen` là làm khối đó tràn màn.** Chi tiết: `docs/03-structure.md` §3.
 
 ## 5. Quan hệ với pv-main-web
 

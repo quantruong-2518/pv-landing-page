@@ -1,116 +1,138 @@
-# 03 — Cấu trúc landing
+# 03 — Cấu trúc site
 
-## 1. Mười ba khối, đi từ quan trọng xuống
+> Viết lại 2026-08-20 khi GM chốt khung ba nhánh. Bản 13-khối-một-trang cũ đã bị thay; nội dung của nó
+> giữ ở `context/99-unplaced/`.
 
-Thứ tự do GM chốt (2026-08-20): **timing → họ đã làm gì ở đâu → sản phẩm → họ là ai → họ ở đâu →
-domain** — rồi mới đến phần Việt Nam và phần chốt.
+## 1. Ba nhánh — khung chuẩn
 
 ```
-HEADER (dính)   wordmark · 5 mục · chuyển ngữ · 1 nút
+├── 1. HOME                     /            · /vi
+│   ├── Slogan / Hero
+│   ├── Why Now?
+│   └── Lịch sử hình thành
 │
-    HERO             tối · luận đề timing + 2 CTA + trust strip 4 mục
-01  WHY NOW          3 sự thật vĩ mô + 4 tính chất PS thiết kế để đạt
-    THE NUMBERS      4 con số, mỗi số một nhãn + nguồn
-02  TRACK RECORD     4 thị trường: Hàn · Nhật · Ả Rập Xê Út · Việt Nam
-    TIMELINE         tối · 14 mốc công khai + 1 mốc lộ trình có nhãn
-03  PRODUCTS         3 tầng danh mục theo đúng cấu trúc của trang mẹ
-04  WHO THEY ARE     4 lãnh đạo kỹ thuật + hậu thuẫn
-05  WHERE            4 địa chỉ trên 2 châu lục
-06  DOMAINS          6 business sector của PS + 2 lớp của PV, tag rõ nguồn gốc
-07  PEBBLE VINA      4 thứ mua thẳng từ Hàn không có · CTA giữa trang
-08  GETTING STARTED  4 bước, mỗi bước một deliverable
-09  QUESTIONS        8 câu FAQ + JSON-LD FAQPage
-    CTA              tối · 2 lối + số điện thoại
-FOOTER          4 cột + thanh đáy
+├── 2. SẢN PHẨM & GIẢI PHÁP     /products    · /vi/products
+│   ├── 2.1 HARDWARE
+│   │   ├── MINT        → Sensor AI · Voice AI · Ultra-low-power edge AI
+│   │   ├── PAPAYA      → Vision AI · Camera · Inspection · Robotics
+│   │   ├── ESPRESSO    → Large-model inference · AI accelerator · AI server
+│   │   └── GPU / HPC   → GPU · AI training · Large-scale inference · HPC · AI data center
+│   └── 2.2 SOFTWARE
+│       ├── AI-optimized enterprise software → CRM · ERP/Ops · Workflow · Data & reporting · AI agent
+│       └── Private AI  → Build · Train/Adapt · Deploy
+│                         Deploy: on-device · edge · on-premise · private cloud · GPU/AI infra
+│
+└── 3. LIÊN HỆ                  /contact     · /vi/contact
 ```
 
-**Vì sao thứ tự này chứ không phải thứ tự cũ:** bản đầu mở bằng *"bạn không mua một startup hai tháng
-tuổi"* — tức là mở bằng **nỗi lo của người bán**. Thứ tự mới mở bằng **bài toán của thế giới** (điện năng),
-rồi mới đến bằng chứng rằng nhóm này giải được. Người đọc không quan tâm ta có đáng tin không cho tới khi
-họ tin rằng vấn đề là có thật.
+**Ba trang, không phải năm.** Mỗi sản phẩm là một khối có anchor (`#mint`, `#papaya`, `#espresso`,
+`#gpu`, `#enterprise`, `#private-ai`) chứ không phải một route riêng — vì nội dung chi tiết chưa có,
+mở thêm route chỉ tạo thêm trang rỗng. Khi một sản phẩm đủ dày để đứng một mình thì tách sau; anchor
+đã sẵn nên URL cũ vẫn trỏ đúng chỗ.
 
-## 2. Luật một khối = một màn hình
+## 2. Định tuyến
 
-Mỗi `<Section>` cao `calc(100svh - 4rem)` (trừ chiều cao header dính), nội dung **căn giữa dọc**, và mang
-`scroll-snap-align: start`. Container cuộn là `html` với:
+| Route | Trang | h1 |
+|---|---|---|
+| `/` · `/vi` | HOME | slogan trong hero |
+| `/products` · `/vi/products` | SẢN PHẨM & GIẢI PHÁP | `products.intro.title` |
+| `/contact` · `/vi/contact` | LIÊN HỆ | `contact.intro.title` |
+
+**EN canonical ở `/`**, VI song song đầy đủ ở `/vi` — tệp quyết định (FDI Hàn, đối tác Nhật, GCC, nhà
+đầu tư) đọc tiếng Anh. Hai bản đối xứng tuyệt đối: cùng khớp type `SiteContent` nên lệch một field là
+`tsc` gãy.
+
+Kỹ thuật: **hai root layout** (`app/(en)/` và `app/(vi)/`, không có `app/layout.tsx`) để mỗi ngôn ngữ
+có `<html lang>` của nó. Đường dẫn tính bằng `lib/routes.ts`, không hardcode ở component. Cả 6 trang
+đều prerender tĩnh.
+
+## 3. Luật khối — đã nới
+
+Mọi `<Section>` vẫn mang `scroll-snap-align: start`, nên cuộn luôn dừng ở **đầu** một khối. Khác bản cũ
+ở chỗ **không phải khối nào cũng cao đúng một màn**:
+
+| Khối | Chiều cao |
+|---|---|
+| Hero, Why Now, index của `/products`, hero của `/contact` | `min-h-[calc(100svh - var(--header-h))]` (`screen`) |
+| Lịch sử, từng khối sản phẩm, khối văn phòng | theo nội dung |
+
+Container cuộn là `html`:
 
 ```css
-scroll-padding-top: 4rem;                 /* neo và điểm snap không chui dưới header */
+scroll-padding-top: var(--header-h);      /* 3.5rem mobile · 4rem ≥640px */
 @media (min-width: 768px) and (min-height: 640px) {
-  html { scroll-snap-type: y mandatory; } /* một cú cuộn = một khối */
+  html { scroll-snap-type: y mandatory; }
 }
 ```
 
-**`mandatory` chứ không `proximity`.** Proximity chỉ bắt khi người dùng vô tình dừng gần điểm snap, nên một
-cú lăn chuột mạnh vẫn treo lơ lửng giữa hai khối — đúng lỗi cần sửa. Mandatory an toàn ở đây vì mọi khối đã
-được cắt gọn để vừa một màn; và theo spec, khối nào cao hơn khung nhìn thì trình duyệt vẫn cho cuộn tự do
-bên trong, không nhốt người đọc.
+**Vì sao nới:** khung mới có 9 khối trên `/products` với độ dày rất khác nhau, và phần lớn `body` còn
+trống chờ nội dung. Ép mọi khối cao trọn màn khi chưa có chữ chỉ tạo ra những màn hình rỗng. Đo thực
+tế ở 1440×900: mỗi khối sản phẩm ~860px ≈ vừa một màn, nên nhịp "một sản phẩm = một màn" vẫn giữ được
+mà không cần ép.
 
-**Tắt dưới 768px hoặc màn thấp hơn 640px.** Trên điện thoại nội dung chắc chắn tràn màn hình (mỗi khối
-974–1899px ở bề rộng 390px), snap ở đó chỉ gây khó chịu.
-
-**Hệ quả khi viết nội dung:** thêm chữ vào một khối là làm khối đó tràn màn. Muốn thêm ý thì cắt ý khác,
-hoặc tách thành khối mới. Đây là ràng buộc biên tập, không phải ràng buộc kỹ thuật.
-
-## 3. Header và footer — best practice landing
-
-**Header** — một hàng cao 4rem, dính, nền tối xuyên suốt (không đổi màu theo cuộn nên không cần JS):
-wordmark trái · **tối đa 5** mục điều hướng · chuyển ngữ · **đúng một** nút hành động. Dưới `lg`, cụm điều
-hướng thu vào một disclosure `<details>` thuần HTML — không JS, không rủi ro lệch hydrate. **Nút hành động
-vẫn hiện ở mọi bề rộng**, kể cả 360px: giấu CTA vào trong hamburger là lỗi chuyển đổi kinh điển.
-
-**Footer** — bốn cột: bản sắc + link ra trang mẹ · điều hướng lặp lại · liên hệ · pháp lý (pháp nhân, MST,
-công ty mẹ). Thanh đáy: bản quyền + chú giải hệ nhãn. Dưới cùng: tuyên bố nguồn dữ liệu. MST + pháp nhân +
-địa chỉ vừa là tín hiệu E-E-A-T vừa là input cho JSON-LD `Organization`.
+**Hệ quả khi viết nội dung vẫn còn nguyên:** khối `screen` mà nhồi thêm chữ là tràn màn. Muốn thêm ý
+thì cắt ý khác hoặc tách khối mới.
 
 ## 4. Nhịp thị giác
 
 ```
-tối ▓▓▓  HERO
-sáng ░   01 Why now
-xám ▒    Numbers
-sáng ░   02 Track record
-tối ▓▓▓  Timeline            ← neo giữa trang; lịch sử công ty mẹ xứng đáng nền tối
-xám ▒    03 Products
-sáng ░   04 Who
-xám ▒    05 Where
-sáng ░   06 Domains
-xám ▒    07 Pebble Vina
-sáng ░   08 Getting started
-xám ▒    09 FAQ
-tối ▓▓▓  CTA · FOOTER
+HOME                          /products                      /contact
+tối ▓▓▓  Hero                 tối ▓▓▓  Index                 tối ▓▓▓  Hero + số điện thoại
+sáng ░   01 Why now           sáng ░   2.1 Hardware          sáng ░   Văn phòng + pháp nhân
+tối ▓▓▓  02 Lịch sử           sáng ░   MINT                  tối ▓▓▓  Footer
+tối ▓▓▓  Footer               xám ▒    PAPAYA
+                              sáng ░   ESPRESSO
+                              xám ▒    GPU / HPC
+                              tối ▓▓▓  2.2 Software     ← vạch ngăn phần cứng / phần mềm
+                              sáng ░   Enterprise
+                              xám ▒    Private AI
+                              tối ▓▓▓  Footer
 ```
 
-Ba vùng tối = ba lần người đọc **phải** dừng mắt: mở màn, lịch sử công ty mẹ, lời mời. Xen kẽ sáng/xám giữ
-ranh giới khối rõ ngay cả khi snap đưa hai khối cùng tông đứng cạnh nhau.
+Dải tối = chỗ mắt **phải** dừng: mở màn, lịch sử công ty mẹ, ranh giới 2.1/2.2, lời mời. Xen kẽ sáng/xám
+giữ ranh giới khối rõ ngay cả khi hai khối cùng tông đứng cạnh nhau.
 
-## 5. Ngôn ngữ và định tuyến
+Khối sản phẩm **đổi bên so le**: MINT ảnh phải, PAPAYA ảnh trái, ESPRESSO ảnh phải… Dưới `lg` tất cả
+xếp dọc: chữ trước, ảnh sau, số đo cuối.
 
-**EN là canonical ở `/`**, VI là bản phụ đầy đủ ở `/vi`. Đảo so với bản đầu vì tệp quyết định — FDI Hàn,
-đối tác Nhật, GCC, nhà đầu tư — đọc tiếng Anh. Hai bản đối xứng tuyệt đối: cùng khớp type `LandingContent`
-nên lệch một field là `tsc` gãy.
+## 5. Bảy ô ảnh
 
-Kỹ thuật: dùng **nhiều root layout** (`app/(en)/` và `app/(vi)/`, không có `app/layout.tsx`) để mỗi ngôn ngữ
-có `<html lang>` đúng của nó, kèm `alternates.languages` trong metadata.
+Ô ảnh là `Media { src?, alt }` trong i18n. `src` trống thì `<Figure>` vẽ placeholder có thiết kế — lưới
+crossbar, khung ngắm 4 góc, và chính chữ `alt` — nên chỗ trống tự nói nó chờ ảnh gì. Danh sách ô, tỉ lệ
+và art direction: `context/media-plan.md`.
 
-## 6. Đối chiếu G1–G9 (research của pv-main-web, 2026-08-03)
+## 6. Nội dung chờ điền
 
-| Gap | Mức | Khối đóng nó |
-|---|---|---|
-| **G1** Không tầng proof | 🔴 | Trust strip trong hero · 02 Track record · Timeline · 04 Who |
-| **G2** Không con số nào | 🔴 | **The numbers** (4 số có nguồn + nhãn) |
-| **G3** Không FAQ | 🔴 | **09 Questions** + `FAQPage` |
-| **G4** Không "bấm nút xong thì sao" | 🟠 | **08 Getting started**, 4 bước có deliverable |
-| **G5** Chỉ một lối chuyển đổi | 🟠 | Hero 2 nút · CTA cuối 2 nút |
-| **G6** CTA chỉ ở hero và đáy | 🟠 | Header dính (mọi màn) + CTA giữa trang ở **07** |
-| **G7** Không tín hiệu "còn sống" | 🟡 | Timeline, mốc cuối KPAS 2025 + UTC 3/2025 |
-| **G8** Tầm nhìn chắn trước khối chốt | 🟡 | Không có khối tầm nhìn; CTA là lời mời cụ thể |
-| **G9** Không mặt người, không ảnh | 🟡 | ❌ **chưa đóng** — chưa có ảnh thật (`05-backlog.md`) |
+Tiêu đề khối, tên sản phẩm, tên năng lực, mốc lịch sử và số đo: **đã điền**. Toàn bộ `lead` và `body`:
+**để trống có chủ ý**, bản nháp nằm ở `context/`. Component bỏ qua chuỗi rỗng thay vì vẽ khoảng trắng,
+nên trang vẫn đọc được ở trạng thái này.
 
-**8/9 đóng bằng cấu trúc + nội dung. G9 vẫn cần người chụp ảnh.**
+```bash
+grep -o ': ""' web/content/en.ts | wc -l    # còn bao nhiêu ô trống (hiện: 63)
+```
 
-## 7. Nguồn phương pháp
+## 7. Header và footer
 
-Khung CRO/B2B (H1 ≤ 8 từ, trust trên fold, nhiều điểm CTA, phân tầng người đọc, GEO/AEO) và bản bóc 4 site
-edge-AI: `../../pebblevn-ppt-first-meet/projects/pv-main-web/docs/landing/RESEARCH-cau-truc-section.md`.
-Nội dung công ty mẹ: `pebble-square.com` đọc 2026-08-20 — chi tiết ở `01-proof-bank.md`.
+**Header** — một hàng cao `var(--header-h)`, dính, nền tối xuyên suốt: wordmark · 3 mục · chuyển ngữ ·
+**đúng một** nút hành động. Dưới `lg` cụm điều hướng thu vào disclosure `<details>` thuần HTML (không JS,
+không lệch hydrate) và menu đó chứa cả 6 anchor sản phẩm. **Nút hành động hiện ở mọi bề rộng**, kể cả
+360px — giấu CTA vào hamburger là lỗi chuyển đổi kinh điển. Mọi vùng chạm ≥ 44px.
+
+**Footer** — bốn cột: bản sắc + link ra trang mẹ · điều hướng · liên hệ · pháp lý (pháp nhân, MST, công
+ty mẹ). Thanh đáy: bản quyền + chú giải hệ nhãn, rồi tuyên bố nguồn dữ liệu.
+
+## 8. Khoảng trống G1–G9 sau refactor
+
+| Gap | Trước | Sau | Ghi chú |
+|---|---|---|---|
+| **G1** không tầng proof | ✅ | ✅ | Nhãn `shipped`/`roadmap` + tag `ps`/`pv` trên từng sản phẩm |
+| **G2** không con số | ✅ | ✅ | Dải **số đo** dưới MINT · PAPAYA · ESPRESSO |
+| **G3** không FAQ | ✅ | ❌ **mở lại** | Khung mới không có ô cho FAQ — mất luôn JSON-LD `FAQPage`. Nội dung giữ ở `context/99-unplaced/faq.md` |
+| **G4** không "bấm nút xong thì sao" | ✅ | ❌ **mở lại** | 4 bước triển khai giữ ở `context/99-unplaced/getting-started.md` |
+| **G5** một lối chuyển đổi | ✅ | ✅ | Hero 2 nút · trang liên hệ 2 nút |
+| **G6** CTA chỉ ở hero và đáy | ✅ | ✅ | Header dính ở mọi màn |
+| **G7** không tín hiệu "còn sống" | ✅ | ✅ | Lịch sử hình thành, mốc cuối KPAS 2025 |
+| **G8** tầm nhìn chắn khối chốt | ✅ | ✅ | Không có khối tầm nhìn |
+| **G9** không ảnh | ❌ | ❌ | 7 ô đã chừa, chưa có file — `docs/05-backlog.md` #5 |
+
+**G3 và G4 là cái giá của khung mới.** Xem `docs/05-backlog.md` #14, #15.

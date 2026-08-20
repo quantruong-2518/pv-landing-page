@@ -7,3 +7,7 @@ build/
 !.env.example
 .DS_Store
 npm-debug.log*
+
+# Claude Code session artifacts (agents/ definitions ARE committed)
+.claude/RESUME.md
+.claude/settings.local.json
