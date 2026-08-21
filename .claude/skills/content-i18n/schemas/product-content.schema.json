@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "product-content.schema.json",
+  "title": "Product UX contract",
+  "type": "object",
+  "required": ["component", "context", "state", "user"],
+  "properties": {
+    "component": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "enum": ["button", "label", "nav", "form_field", "placeholder", "helper_text",
+                   "tooltip", "empty_state", "error", "warning", "success", "notification",
+                   "dialog", "destructive_dialog", "onboarding", "setting", "table_header",
+                   "filter", "system_state"]
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "screen": { "type": "string" },
+        "workflow": { "type": "string" },
+        "entity": { "type": "string" }
+      }
+    },
+    "state": {
+      "type": "object",
+      "required": ["current", "cause_known"],
+      "properties": {
+        "current": { "type": "string" },
+        "cause_known": { "type": "boolean" },
+        "cause": { "type": "string" }
+      }
+    },
+    "user": {
+      "type": "object",
+      "required": ["intent"],
+      "properties": {
+        "intent": { "type": "string" },
+        "expected_action": { "type": "string" }
+      }
+    },
+    "available_actions": { "type": "array", "items": { "type": "string" } },
+    "primary_action": { "type": "string" },
+    "secondary_actions": { "type": "array", "items": { "type": "string" } },
+    "consequence": {
+      "type": "object",
+      "properties": {
+        "reversible": { "type": "boolean" },
+        "description": { "type": "string" }
+      }
+    },
+    "recovery": {
+      "type": "object",
+      "properties": {
+        "available": { "type": "boolean" },
+        "action": { "type": "string" }
+      }
+    },
+    "technical_detail": {
+      "type": "object",
+      "properties": {
+        "expose_to_user": { "type": "boolean" },
+        "value": { "type": "string" }
+      }
+    },
+    "placeholders": { "type": "array", "items": { "type": "string" } },
+    "terminology": { "type": "array", "items": { "type": "string" } },
+    "locale": {
+      "type": "object",
+      "properties": {
+        "requested": { "type": "array", "items": { "enum": ["vi", "en", "ko"] } }
+      }
+    }
+  }
+}

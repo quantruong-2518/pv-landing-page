@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "claim-ledger.schema.json",
+  "title": "Claim ledger",
+  "type": "object",
+  "required": [
+    "claims"
+  ],
+  "properties": {
+    "claims": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/claim"
+      }
+    },
+    "forbidden": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "statement",
+          "reason"
+        ],
+        "properties": {
+          "statement": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "detect": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Case-insensitive regexes meaning the forbidden claim is being made."
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "properties": {
+        "allow_inference": {
+          "type": "boolean"
+        },
+        "require_proof_for_numbers": {
+          "type": "boolean"
+        },
+        "require_proof_for_superlatives": {
+          "type": "boolean"
+        },
+        "ignore_number_contexts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "claim": {
+      "type": "object",
+      "required": [
+        "statement",
+        "confidence",
+        "usable"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "capability",
+            "performance",
+            "security",
+            "outcome",
+            "comparison",
+            "status",
+            "credential",
+            "scale"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "verified",
+            "supported",
+            "conditional",
+            "inferred",
+            "unknown",
+            "unsupported"
+          ]
+        },
+        "usable": {
+          "enum": [
+            true,
+            false,
+            "conditional"
+          ]
+        },
+        "label": {
+          "enum": [
+            "shipped",
+            "roadmap",
+            "internal",
+            "forbidden"
+          ]
+        },
+        "qualification": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "numbers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "required_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Locale-invariant tokens that must appear wherever this claim is used (counterparty names, benchmark names)."
+        }
+      }
+    }
+  }
+}

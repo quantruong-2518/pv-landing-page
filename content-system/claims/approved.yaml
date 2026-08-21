@@ -1,0 +1,254 @@
+# Claim ledger — machine-readable projection of docs/01-proof-bank.md.
+# The proof bank is the authority. When the two disagree, this file is stale.
+#
+# confidence: verified | supported | conditional | inferred | unknown | unsupported
+# usable:     true | conditional | false
+# numbers:    every numeric token this claim licenses in copy. check_claims.py reads this.
+
+claims:
+
+  C001:
+    statement: Pebble Square Inc. is a fabless Edge AI semiconductor company founded in September 2021
+    type: status
+    confidence: verified
+    usable: true
+    label: shipped
+    source: docs/01-proof-bank.md §A
+    numbers: ["2021"]
+
+  C002:
+    statement: MINT reaches 17.6 TOPS/W of energy efficiency
+    type: performance
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §E1 — SmartTimes/JBNU, IR Deck p.21"
+    numbers: ["17.6", "17,6", "17"]
+
+  C003:
+    statement: MINT delivers approximately 30 GOPS on a 5 by 5 mm die
+    type: performance
+    confidence: verified
+    usable: true
+    label: shipped
+    source: docs/01-proof-bank.md §E1
+    numbers: ["30", "5"]
+
+  C004:
+    statement: MINT has been in mass production since May 2023
+    type: status
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §C — public Company History"
+    numbers: ["2023", "5"]
+
+  C005:
+    statement: PAPAYA FLEX draws about 50 times less power than an NVIDIA Jetson Nano
+    type: comparison
+    confidence: verified
+    usable: conditional
+    label: shipped
+    qualification: must name NVIDIA Jetson Nano as the counterparty and cite 0.1-0.15 W vs 5-10 W
+    required_tokens: ["Jetson Nano"]
+    source: "docs/01-proof-bank.md §E2 — IR Deck"
+    numbers: ["50", "0.1", "0,1", "0.15", "0,15", "5", "10"]
+
+  C006:
+    statement: PAPAYA FLEX reaches about 100 times the efficiency of an NVIDIA Jetson Nano on ResNet-50
+    type: comparison
+    confidence: verified
+    usable: conditional
+    label: shipped
+    qualification: must name ResNet-50 and NVIDIA Jetson Nano; 333-500 vs 3.6-7.2 FPS/W
+    required_tokens: ["ResNet-50", "Jetson Nano"]
+    source: docs/01-proof-bank.md §E2
+    numbers: ["100", "333", "500", "3.6", "3,6", "7.2", "7,2"]
+
+  C007:
+    statement: For the AI task at a 5G base station PAPAYA replaces 320-332 W of NVIDIA L4 with 0.03 W
+    type: comparison
+    confidence: verified
+    usable: conditional
+    label: shipped
+    qualification: applies to the AI task at the base station, not to the whole base station
+    required_tokens: ["NVIDIA L4"]
+    source: docs/01-proof-bank.md §E2
+    numbers: ["320", "332", "0.03", "0,03", "10000", "10,000", "10.000", "5"]
+
+  C008:
+    statement: Pebble Square signed an NDA with SK hynix in March 2023
+    type: credential
+    confidence: verified
+    usable: true
+    label: shipped
+    source: docs/01-proof-bank.md §C
+    numbers: ["2023", "3"]
+
+  C009:
+    statement: Pebble Square Japan Inc. was established in Tokyo in May 2025 and a Saudi joint venture in March 2024
+    type: status
+    confidence: verified
+    usable: true
+    label: shipped
+    source: docs/01-proof-bank.md §C
+    numbers: ["2025", "2024", "5", "3"]
+
+  C010:
+    statement: UTC Investment invested 2 billion KRW in March 2025
+    type: scale
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §C — their own News page, 2025-03-10"
+    numbers: ["2", "2025", "3"]
+
+  C011:
+    statement: Pebble Square has raised approximately 15 billion KRW
+    type: scale
+    confidence: supported
+    usable: true
+    label: shipped
+    source: docs/01-proof-bank.md §A
+    numbers: ["15"]
+
+  C012:
+    statement: Pebble Square leadership holds more than 200 SCI papers and more than 800 US patents
+    type: credential
+    confidence: supported
+    usable: conditional
+    label: shipped
+    qualification: IR Deck p.20 only — the public team page does not publish these figures; cite the IR Deck
+    source: docs/01-proof-bank.md §A
+    numbers: ["200", "800", "20"]
+
+  C013:
+    statement: Three of the four technical leaders hold doctorates from The University of Tokyo
+    type: credential
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §B — public Technical Leadership page"
+    numbers: ["2013", "2014", "2015", "2007", "3", "4"]
+
+  C014:
+    statement: Inference runs on the device without network dependency
+    type: capability
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §D — Security: threat detection without network dependency"
+
+  C015:
+    statement: Company data can remain inside the organization when the model is deployed on-premise
+    type: security
+    confidence: conditional
+    usable: conditional
+    label: shipped
+    qualification: applies to the on-premise deployment model
+    source: docs/01-proof-bank.md §E4
+
+  C016:
+    statement: Pebble Square capabilities cover anomaly detection and predictive maintenance for robots and machinery
+    type: capability
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §D — Fault Analysis, Risk Management"
+
+  C017:
+    statement: ESPRESSO delivers 160 TOPS at INT8 and is available from September 2026
+    type: performance
+    confidence: conditional
+    usable: conditional
+    label: roadmap
+    qualification: "roadmap, September 2026; investor material only, not on the public Pebble Square catalogue — the amber label is mandatory at every mention"
+    required_tokens: ["2026"]
+    source: "IR Deck 2026-01-05, verified absent from public pages 2026-08-20"
+    numbers: ["160", "100", "10", "16", "640", "120", "2026", "9", "4", "20.5", "20,5", "23", "1799"]
+
+  C018:
+    statement: The on-premise LLM inference server can ship today with an NVIDIA AI SoC
+    type: capability
+    confidence: supported
+    usable: conditional
+    label: shipped
+    qualification: the NVIDIA configuration ships; the ESPRESSO configuration is roadmap — split the two
+    source: docs/01-proof-bank.md §E4
+    numbers: ["4", "9355"]
+
+  C019:
+    statement: Pebble Vina is the Vietnamese member of the Pebble Square group, tax code 0111545175
+    type: status
+    confidence: verified
+    usable: conditional
+    label: shipped
+    qualification: member of the group — never wholly-owned subsidiary, ownership is unverified
+    source: "docs/01-proof-bank.md §F — ADR 0002, 2026-06-16"
+    numbers: ["0111545175"]
+
+  C020:
+    statement: Data centres consume roughly 2% of global electricity and around 300000 gallons of water per day
+    type: outcome
+    confidence: supported
+    usable: conditional
+    label: shipped
+    qualification: industry context framing, not a Pebble Square claim — attribute it as such
+    source: docs/01-proof-bank.md §E2
+    numbers: ["2", "300000", "300,000", "300.000"]
+
+# Never usable. Present so a writer reaching for one finds the refusal instead of an empty ledger.
+forbidden:
+
+  F001:
+    statement: Pebble Square performs arc-fault or solar-PV detection
+    reason: "Not among their six published business sectors. Arc-fault is Pebble Vina's own application layer."
+    detect:
+      - "Pebble Square.{0,90}(arc[- ]?fault|hồ quang|아크 결함|solar[- ]?pv|điện mặt trời)"
+      - "(arc[- ]?fault|hồ quang|아크 결함|solar[- ]?pv|điện mặt trời).{0,90}Pebble Square"
+    note: Arc-fault is Pebble Vina's own application layer and may be written about freely. Only attributing it to Pebble Square is forbidden.
+    source: docs/01-proof-bank.md §H2
+
+  F002:
+    statement: "MDPI Electronics 2024 — Electrical Anomaly Detection Based on PIM Chip"
+    reason: The paper does not exist. Verified 2026-06-14.
+    detect: ["MDPI", "Electrical Anomaly Detection Based on PIM"]
+    source: docs/01-proof-bank.md §H1
+
+  F003:
+    statement: Benchmark comparing MINT against ST or TI parts
+    reason: No such public benchmark. The only valid benchmark set is §E2.
+    detect: ["MINT vs ST", "MINT vs TI", "so với ST", "STMicro"]
+    source: docs/01-proof-bank.md §H3
+
+  F004:
+    statement: ESPRESSO is available now
+    reason: Roadmap, September 2026, investor material only.
+    detect: ["ESPRESSO is available now", "ESPRESSO available today", "ESPRESSO đã có", "ESPRESSO 출시"]
+    source: docs/01-proof-bank.md §E3
+
+  F005:
+    statement: Pebble Vina is a wholly-owned subsidiary of Pebble Square
+    reason: Ownership structure unverified — internal.
+    detect: ["wholly[- ]owned", "công ty con 100", "100% subsidiary", "완전 자회사"]
+    source: docs/01-proof-bank.md §G
+
+  F006:
+    statement: Pebble Square won the 10th KGCCI Innovation Awards
+    reason: Their News page mentions it with a truncated headline; won vs mentioned is unverified.
+    detect: ["won the .{0,20}KGCCI", "đoạt giải KGCCI", "KGCCI .{0,20}수상"]
+    source: docs/01-proof-bank.md §G
+
+  F007:
+    statement: Any customer name, partner logo, case-study count, ROI figure or revenue number
+    reason: None are verified. Log the gap in docs/05-backlog.md instead.
+    detect: ["trusted by leading", "ROI of", "cost reduction of", "tiết kiệm \\d+% chi phí"]
+    source: docs/01-proof-bank.md §H4
+
+policy:
+  allow_inference: false
+  require_proof_for_numbers: true
+  require_proof_for_superlatives: true
+  # Numbers that never need a ledger entry: years in a date, list ordinals, phone and tax numbers
+  # already in facts/company.yaml.
+  ignore_number_contexts: [tax_id, phone, address, postal_code]

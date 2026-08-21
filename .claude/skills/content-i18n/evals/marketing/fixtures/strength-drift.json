@@ -1,0 +1,23 @@
+{
+  "content_type": "marketing",
+  "id": "home.security",
+  "locales": [
+    "vi",
+    "en",
+    "ko"
+  ],
+  "entries": [
+    {
+      "key": "home.security.body",
+      "component": "body",
+      "locales": {
+        "en": "We guarantee your data never leaves your building.",
+        "vi": "Chúng tôi đảm bảo dữ liệu của bạn không bao giờ rời khỏi toà nhà.",
+        "ko": "데이터가 절대 외부로 나가지 않음을 보장합니다."
+      },
+      "claims": [
+        "C015"
+      ]
+    }
+  ]
+}

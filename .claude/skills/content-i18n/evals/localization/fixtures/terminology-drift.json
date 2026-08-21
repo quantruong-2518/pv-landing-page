@@ -1,0 +1,20 @@
+{
+  "content_type": "product_ui",
+  "id": "lead.detail",
+  "locales": [
+    "vi",
+    "en",
+    "ko"
+  ],
+  "entries": [
+    {
+      "key": "lead.detail.owner",
+      "component": "label",
+      "locales": {
+        "en": "Prospect owner",
+        "vi": "Chủ sở hữu khách hàng",
+        "ko": "고객 담당자"
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "content_type": "marketing",
+  "id": "home.intro",
+  "locales": [
+    "vi",
+    "en",
+    "ko"
+  ],
+  "entries": [
+    {
+      "key": "home.intro.headline",
+      "component": "headline",
+      "locales": {
+        "en": "Faster. Smarter. Better.",
+        "vi": "Nhanh hơn. Thông minh hơn. Tốt hơn.",
+        "ko": "더 빠르게. 더 똑똑하게. 더 좋게."
+      }
+    },
+    {
+      "key": "home.intro.lead",
+      "component": "subheadline",
+      "locales": {
+        "en": "In today's rapidly evolving landscape, our powerful, flexible, secure, intelligent platform helps enterprises optimize operations.",
+        "vi": "Trong kỷ nguyên số, nền tảng mạnh mẽ, linh hoạt, toàn diện, hiện đại của chúng tôi giúp doanh nghiệp tối ưu vận hành.",
+        "ko": "오늘날 급변하는 환경에서 강력한, 유연한, 안전한, 혁신적인 플랫폼이 운영 최적화를 지원합니다."
+      }
+    },
+    {
+      "key": "home.intro.close",
+      "component": "body",
+      "locales": {
+        "en": "The future starts here.",
+        "vi": "Tương lai bắt đầu từ đây.",
+        "ko": "미래가 시작됩니다."
+      }
+    }
+  ]
+}

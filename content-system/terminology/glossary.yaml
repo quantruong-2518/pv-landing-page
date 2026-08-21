@@ -1,0 +1,162 @@
+# Terminology is authoritative. A writer who prefers another word is wrong until this file changes.
+# preserve_in_ui: do not translate inside product UI, even when a natural translation exists.
+
+terms:
+
+  lead:
+    concept:
+      definition: a potential customer record
+    locales:
+      vi:
+        preferred: Lead
+        forbidden: [Khách hàng, Khách tiềm năng, Đầu mối]
+      en:
+        preferred: Lead
+        forbidden: [Prospect, Contact]
+      ko:
+        preferred: 리드
+        forbidden: [고객, 잠재고객]
+    preserve_in_ui: true
+    scope: [product_ui]
+
+  campaign:
+    concept:
+      definition: a scheduled outbound programme that produces leads
+    locales:
+      vi: { preferred: Chiến dịch }
+      en: { preferred: Campaign }
+      ko: { preferred: 캠페인 }
+    preserve_in_ui: true
+    scope: [product_ui]
+
+  owner:
+    concept:
+      definition: the user responsible for a record
+    locales:
+      vi:
+        preferred: Người phụ trách
+        forbidden: [Chủ sở hữu]
+      en: { preferred: Owner }
+      ko: { preferred: 담당자 }
+    preserve_in_ui: true
+    scope: [product_ui]
+
+  on-premise:
+    concept:
+      definition: deployment inside infrastructure the customer controls
+    locales:
+      vi:
+        preferred: tại chỗ
+        forbidden: [nội bộ hoá, on-prem]
+      en:
+        preferred: on-premise
+        forbidden: [on-prem, onprem]
+      ko:
+        preferred: 온프레미스
+        forbidden: [사내 구축형]
+    preserve_in_ui: false
+
+  edge-ai:
+    concept:
+      definition: inference executed on the device rather than in a data centre
+    locales:
+      vi:
+        preferred: Edge AI
+        forbidden: [AI biên, AI ngoại vi]
+      en: { preferred: Edge AI }
+      ko: { preferred: 엣지 AI }
+    preserve_in_ui: true
+
+  inference:
+    concept:
+      definition: running a trained model to produce a result
+    locales:
+      vi:
+        preferred: suy luận
+        forbidden: [suy diễn]
+      en: { preferred: inference }
+      ko: { preferred: 추론 }
+    preserve_in_ui: false
+
+  predictive-maintenance:
+    concept:
+      definition: detecting failure before it happens, from machine signals
+    locales:
+      vi:
+        preferred: bảo trì dự đoán
+        forbidden: [bảo trì tiên đoán, bảo dưỡng dự báo]
+      en:
+        preferred: predictive maintenance
+      ko: { preferred: 예지보전 }
+    preserve_in_ui: false
+
+  anomaly-detection:
+    concept:
+      definition: identifying signals outside the normal operating envelope
+    locales:
+      vi:
+        preferred: phát hiện bất thường
+        forbidden: [phát hiện dị thường, nhận diện bất thường]
+      en: { preferred: anomaly detection }
+      ko: { preferred: 이상 탐지 }
+    preserve_in_ui: false
+
+  arc-fault:
+    concept:
+      definition: an electrical arcing fault — Pebble Vina's own application layer, never attributed to Pebble Square
+    locales:
+      vi:
+        preferred: hồ quang điện
+        forbidden: [lỗi hồ quang, arc fault]
+      en: { preferred: arc-fault }
+      ko: { preferred: 아크 결함 }
+    preserve_in_ui: false
+    note: See docs/01-proof-bank.md §H2. Attribution rule, not just a word choice.
+
+  roadmap-label:
+    concept:
+      definition: the visible label marking a fact as not yet shipped
+    locales:
+      vi:
+        preferred: dự kiến
+        forbidden: [sắp ra mắt, sẽ có]
+      en:
+        preferred: roadmap
+        forbidden: [coming soon, upcoming]
+      ko:
+        preferred: 로드맵
+        forbidden: [출시 예정]
+    preserve_in_ui: false
+    scope: [marketing]
+
+  shipped-label:
+    concept:
+      definition: the visible label marking a fact as delivered and sourced
+    locales:
+      vi: { preferred: đã có }
+      en: { preferred: shipping }
+      ko: { preferred: 양산 중 }
+    preserve_in_ui: false
+    scope: [marketing]
+
+# Proper nouns. Never translated, never inflected, never re-cased, in any locale.
+preserve_verbatim:
+  - Pebble Square Inc.
+  - Pebble Vina
+  - MOCHA
+  - MINT
+  - PAPAYA FLEX
+  - ESPRESSO
+  - Pebble AI Studio
+  - Analog-PIM
+  - Digital-PIM
+  - Fault Analysis
+  - Home IoT
+  - Risk Management
+  - Security
+  - Healthcare
+  - Vision
+  - SK hynix
+  - KAIST
+  - NVIDIA Jetson Nano
+  - ResNet-50

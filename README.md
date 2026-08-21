@@ -30,6 +30,9 @@ Từ **IR Deck Pebble Square 05/01/2026** (nguồn cấp 1, đã nằm trong `co
 | `scripts/wsl.sh` | Chạy npm bằng Node trong WSL — xem mục **Chạy** |
 | `context/` | Bàn soạn nội dung — nháp theo khung mới + kho nội dung cũ còn dùng được |
 | `web/` | Next.js 15 + Tailwind v4 — 3 trang × 2 ngôn ngữ, EN `/` + VI `/vi` |
+| `.claude/skills/content-i18n/` | ★ **Hệ thống nội dung đa ngôn ngữ** (vi/en/ko) — compiler ngữ nghĩa + QA tự động. Xem README trong thư mục đó |
+| `content-system/` | Sự thật của dự án ở dạng máy đọc được — facts, claim ledger, thuật ngữ, brand voice |
+| `tests/` | `python3 -m unittest discover tests` — kiểm định của hệ thống nội dung |
 
 **Nội dung chữ sống ở code:** `web/content/en.ts` (canonical) và `web/content/vi.ts` là nguồn sự thật
 của copy **đang chạy**. `context/` là bàn soạn — nháp và kho nội dung cũ; khi nghi ngờ, `*.ts` thắng.

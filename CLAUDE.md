@@ -69,3 +69,34 @@ cao theo nội dung. `html` vẫn `scroll-snap-type: y mandatory` từ 768px và
 
 Repo này **không** import code từ `pv-main-web` và **không** tự ý sửa nó. Nếu một khối ở đây chứng minh
 được giá trị, viết đề xuất vào `docs/05-backlog.md`, GM quyết có port sang site chính hay không.
+
+## 6. Hệ thống nội dung đa ngôn ngữ — skill `content-i18n`
+
+Repo này dùng **tiếng Việt, tiếng Anh và tiếng Hàn**. Mọi việc dưới đây đi qua skill
+`content-i18n` (`.claude/skills/content-i18n/`), không viết tay trực tiếp:
+
+- copy marketing cho trang web
+- microcopy / UX writing trong sản phẩm
+- bản địa hoá, đổi khoá i18n
+- thay đổi thuật ngữ
+- review nội dung
+
+**Luật của hệ thống:**
+
+- **Không sinh copy sản xuất thẳng từ yêu cầu thô.** Đi qua contract → claim ledger → semantic spec
+  → viết từng ngôn ngữ → QA. Chuẩn hoá ngữ nghĩa trước, chữ sau.
+- **Không bịa năng lực sản phẩm hay tuyên bố kinh doanh.** Mọi con số tra về `docs/01-proof-bank.md`.
+- **Giữ nguyên khoá dịch** bất cứ khi nào có thể. Đổi tên khoá = mất bản dịch ở mọi ngôn ngữ khác.
+- **File thuật ngữ là nguồn có thẩm quyền** — `content-system/terminology/glossary.yaml`.
+- **Sinh từng ngôn ngữ độc lập từ ngữ nghĩa.** Cấm `vi → dịch en → dịch ko` theo cả hai chiều.
+- **Không làm mạnh hay yếu đi một claim khi bản địa hoá.** `có thể` không thành `sẽ`,
+  `hỗ trợ` không thành `đảm bảo`. Điều kiện đi kèm claim phải sống sót ở cả ba ngôn ngữ.
+- **Luôn kiểm placeholder.** `{count}` giữ nguyên trong tiếng Hàn.
+- **Sửa đúng khoá hỏng, không viết lại cả khối.**
+- **Chạy kiểm định trước khi coi là xong:** `scripts/content-check <artifact.json>` — exit 1 là chưa xong.
+
+Sự thật của dự án nằm ở `content-system/` (projection máy đọc được của `docs/01-proof-bank.md`),
+không nằm trong file reference của skill. Khi hai bên lệch nhau, **proof-bank thắng**.
+
+`web/` hiện chỉ ship **en + vi**. `ko` skill sinh được nhưng `web/content/types.ts` chưa có —
+thêm `ko` nghĩa là thêm một `content/ko.ts` đầy đủ, không phải một nửa.

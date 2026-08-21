@@ -1,0 +1,47 @@
+{
+  "content_type": "product_ui",
+  "id": "lead.list.empty",
+  "locales": ["vi", "en", "ko"],
+  "semantic_spec": "lead.list.empty.first_use",
+  "entries": [
+    {
+      "key": "lead.list.empty.title",
+      "component": "empty_state",
+      "state": "empty_first_use",
+      "locales": {
+        "en": "No leads yet",
+        "vi": "Chưa có lead nào",
+        "ko": "아직 리드가 없습니다"
+      }
+    },
+    {
+      "key": "lead.list.empty.body",
+      "component": "empty_state",
+      "state": "empty_first_use",
+      "locales": {
+        "en": "Leads from campaigns or imported files appear here.",
+        "vi": "Lead từ chiến dịch hoặc tệp nhập sẽ xuất hiện ở đây.",
+        "ko": "캠페인이나 가져온 파일의 리드가 여기에 표시됩니다."
+      }
+    },
+    {
+      "key": "lead.list.empty.import",
+      "component": "button",
+      "primary_action": true,
+      "locales": {
+        "en": "Import leads",
+        "vi": "Nhập lead",
+        "ko": "리드 가져오기"
+      }
+    },
+    {
+      "key": "lead.list.empty.create",
+      "component": "button",
+      "locales": {
+        "en": "Create campaign",
+        "vi": "Tạo chiến dịch",
+        "ko": "캠페인 만들기"
+      }
+    }
+  ]
+}

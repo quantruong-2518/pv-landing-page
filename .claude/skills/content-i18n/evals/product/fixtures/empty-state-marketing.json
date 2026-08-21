@@ -1,0 +1,21 @@
+{
+  "content_type": "product_ui",
+  "id": "lead.list.empty",
+  "locales": [
+    "vi",
+    "en",
+    "ko"
+  ],
+  "entries": [
+    {
+      "key": "lead.list.empty.title",
+      "component": "empty_state",
+      "locales": {
+        "en": "Start your journey to smarter sales",
+        "vi": "Bắt đầu hành trình bán hàng thông minh hơn",
+        "ko": "더 스마트한 영업 여정을 시작하세요"
+      },
+      "state": "empty_first_use"
+    }
+  ]
+}

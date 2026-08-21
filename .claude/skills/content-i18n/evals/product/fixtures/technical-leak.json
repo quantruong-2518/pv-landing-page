@@ -1,0 +1,21 @@
+{
+  "content_type": "product_ui",
+  "id": "lead.assign.error",
+  "locales": [
+    "vi",
+    "en",
+    "ko"
+  ],
+  "entries": [
+    {
+      "key": "lead.assign.error.body",
+      "component": "error",
+      "locales": {
+        "en": "Error 409. NullPointerException in LeadAssignmentService.",
+        "vi": "Lỗi 409. NullPointerException trong LeadAssignmentService.",
+        "ko": "오류 409. LeadAssignmentService에서 NullPointerException 발생."
+      },
+      "state": "lead_already_assigned"
+    }
+  ]
+}

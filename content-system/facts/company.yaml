@@ -1,0 +1,103 @@
+# Company facts. Projection of docs/01-proof-bank.md §A, §B, §C, §F.
+# Every entry carries a status label. Do not add a line without a source.
+
+company:
+  name: Pebble Vina
+  legal_name_en: PEBBLE VINA COMPANY LIMITED
+  legal_name_vi: CÔNG TY TNHH PEBBLE VINA
+  tax_id: "0111545175"
+  status: shipped
+  source: docs/01-proof-bank.md §F
+  office_vi: "Văn phòng O1912, Tầng 19, Landmark 72 Tower, Khu E6, Khu đô thị mới Cầu Giấy, P. Yên Hoà, Hà Nội"
+  office_en: "Suite O1912, 19th Floor, Landmark 72 Tower, E6 Block, Cau Giay New Urban Area, Yen Hoa Ward, Hanoi, Vietnam"
+  email: contact@pebblevina.com
+  phone: "0345 913 369"
+  relationship_to_parent: "Vietnamese member of the Pebble Square group (ADR 0002, 2026-06-16)"
+  relationship_caution: "Never say wholly-owned subsidiary. Ownership structure is unverified — internal."
+
+parent:
+  name: Pebble Square Inc.
+  url: https://www.pebble-square.com
+  type: fabless AI semiconductor company, Edge AI
+  founded: "2021-09"
+  ceo: ChoongHyun Lee
+  business_license: "879-88-02299"
+  city_en: Seongnam, Korea
+  city_vi: Seongnam, Hàn Quốc
+  address: "331, 402 Pangyo-ro, Bundang-gu, Seongnam-si, Gyeonggi-do, Republic of Korea"
+  phone: "+82-31-702-7378"
+  email: info@pebble-square.com
+  capital_raised: "~15 billion KRW"
+  capital_status: shipped
+  status: shipped
+  source: docs/01-proof-bank.md §A
+
+leadership:
+  status: shipped
+  source: "docs/01-proof-bank.md §B — public Technical Leadership page, read 2026-08-20"
+  people:
+    - name: ChoongHyun Lee
+      role: CEO
+      degree: "Ph.D., The University of Tokyo (2013)"
+    - name: SangHyeon Kim
+      role: CTO
+      degree: "Ph.D., The University of Tokyo (2014)"
+    - name: Cimang Lu
+      role: Architecture Leader
+      degree: "Ph.D., The University of Tokyo (2015)"
+    - name: Xu Yi
+      role: Circuit Leader
+      degree: "M.S., Tsinghua University (2007)"
+
+research_depth:
+  papers: ">200 SCI papers"
+  patents: ">800 US patents"
+  status: shipped
+  qualification: "IR Deck p.20 only — the public team page does not publish these figures. Cite the IR Deck when used."
+
+milestones:
+  status: shipped
+  source: "docs/01-proof-bank.md §C — public Company History"
+  items:
+    - { date: "2021-09", title: "Pebble Square Inc. founded" }
+    - { date: "2021-11", title: "MOCHA — gen-1 PIM edge AI chip; research centre established" }
+    - { date: "2022-07", title: "Joint research MOU with KAIST and Chonbuk National University" }
+    - { date: "2022-10", title: "Venture company certification" }
+    - { date: "2022-12", title: "MINT — gen-2 PIM AI semiconductor development completed" }
+    - { date: "2023-03", title: "NDA with SK hynix", starred: true }
+    - { date: "2023-05", title: "MINT enters mass production", starred: true }
+    - { date: "2024-01", title: "Neuromorphic device patent" }
+    - { date: "2024-02", title: "PoC on MINT — voice-recognition lamp and emergency bell" }
+    - { date: "2024-03", title: "Cluster AI Lab joint venture (Saudi Arabia); NDA with MEISEI ELECTRIC (Home IoT)", starred: true }
+    - { date: "2025-03", title: "UTC Investment invests 2 billion KRW" }
+    - { date: "2025-05", title: "Pebble Square Japan, Inc. established (Tokyo)", starred: true }
+    - { date: "2025-08", title: "Pre-A funding round" }
+    - { date: "2025-10", title: "Selected for KPAS 2025" }
+
+vietnam_layer:
+  status: shipped
+  source: docs/02-message-map.md §3
+  points:
+    - Vietnamese legal entity — contracts, VAT invoices and warranty in Vietnamese
+    - On-site engineering support in Vietnam
+    - Vietnamese standards and import documentation (TCVN/QCVN)
+    - KOCHAM network access
+
+internal_do_not_publish:
+  source: docs/01-proof-bank.md §G
+  items:
+    - Prof. Bae Hak-yeol's current role — not on the public team page
+    - Exact ownership structure and percentages
+    - KOCHAM investor commitment ratio
+    - The 30-prospect / 5-market GTM playbook
+    - Pebble Square revenue figures
+    - KGCCI Innovation Awards 10th (11/2024) — unclear whether won or merely mentioned
+
+forbidden:
+  source: docs/01-proof-bank.md §H
+  items:
+    - "MDPI Electronics 2024 — Electrical Anomaly Detection Based on PIM Chip (does not exist)"
+    - Attributing arc-fault or solar-PV work to Pebble Square
+    - "Benchmark MINT vs ST/TI (does not exist publicly)"
+    - Inventing customer names, partner logos, case-study counts or revenue
+    - Presenting ESPRESSO as a shipping product

@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "review-result.schema.json",
+  "title": "Reviewer output",
+  "description": "Machine-readable review. No prose outside this object.",
+  "type": "object",
+  "required": ["status", "content_type", "score", "hard_failures", "failures"],
+  "additionalProperties": false,
+  "properties": {
+    "status": { "enum": ["PASS", "FAIL"] },
+    "content_type": { "enum": ["marketing", "product_ui"] },
+    "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "hard_failures": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/finding" }
+    },
+    "failures": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/finding" }
+    },
+    "info": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "finding": {
+      "type": "object",
+      "required": ["key", "rule", "reason"],
+      "properties": {
+        "key": { "type": "string" },
+        "locale": { "enum": ["vi", "en", "ko"] },
+        "rule": { "type": "string", "pattern": "^[A-Z0-9_]+$" },
+        "severity": { "enum": ["ERROR", "WARNING", "INFO"] },
+        "reason": { "type": "string" },
+        "repair_instruction": { "type": "string" }
+      }
+    }
+  }
+}

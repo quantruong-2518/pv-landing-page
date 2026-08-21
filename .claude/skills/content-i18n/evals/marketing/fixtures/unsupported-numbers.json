@@ -1,0 +1,20 @@
+{
+  "content_type": "marketing",
+  "id": "home.value",
+  "locales": [
+    "vi",
+    "en",
+    "ko"
+  ],
+  "entries": [
+    {
+      "key": "home.value.roi",
+      "component": "body",
+      "locales": {
+        "en": "Customers cut operating costs by 40% and see payback in 7 months.",
+        "vi": "Khách hàng giảm 40% chi phí vận hành và hoàn vốn sau 7 tháng.",
+        "ko": "고객사는 운영 비용을 40% 절감하고 7개월 만에 투자금을 회수합니다."
+      }
+    }
+  ]
+}

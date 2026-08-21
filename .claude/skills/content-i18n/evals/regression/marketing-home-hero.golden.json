@@ -1,0 +1,57 @@
+{
+  "content_type": "marketing",
+  "id": "home.hero",
+  "locales": ["vi", "en", "ko"],
+  "semantic_spec": "home.hero",
+  "entries": [
+    {
+      "key": "home.hero.eyebrow",
+      "component": "eyebrow",
+      "claims": ["C001"],
+      "locales": {
+        "en": "Edge AI semiconductors from Pebble Square Inc.",
+        "vi": "Bán dẫn Edge AI từ Pebble Square Inc.",
+        "ko": "Pebble Square Inc.의 엣지 AI 반도체"
+      }
+    },
+    {
+      "key": "home.hero.headline",
+      "component": "headline",
+      "locales": {
+        "en": "Inference that runs where the machine is",
+        "vi": "Suy luận chạy ngay tại nơi có máy móc",
+        "ko": "기계가 있는 현장에서 추론을 실행합니다"
+      }
+    },
+    {
+      "key": "home.hero.subheadline",
+      "component": "subheadline",
+      "claims": ["C002", "C004"],
+      "label": "shipped",
+      "locales": {
+        "en": "MINT runs inference inside memory at 17.6 TOPS/W and has been in mass production since May 2023.",
+        "vi": "MINT chạy suy luận ngay trong bộ nhớ ở mức 17,6 TOPS/W và đã sản xuất hàng loạt từ 5/2023.",
+        "ko": "MINT는 메모리 내부에서 추론을 실행해 17.6 TOPS/W를 구현하며, 2023년 5월부터 양산을 시작했습니다."
+      }
+    },
+    {
+      "key": "home.hero.body",
+      "component": "body",
+      "claims": ["C015", "C019"],
+      "locales": {
+        "en": "Data stays inside your network when the model runs on-premise. Pebble Vina signs the contract, issues the invoice and supports the deployment in Vietnam.",
+        "vi": "Dữ liệu ở lại trong hệ thống của bạn khi mô hình chạy tại chỗ. Pebble Vina ký hợp đồng, xuất hoá đơn và hỗ trợ triển khai tại Việt Nam.",
+        "ko": "온프레미스로 배포하면 데이터가 조직 내부에 유지됩니다. 계약과 인보이스, 현장 기술 지원은 Pebble Vina가 베트남에서 담당합니다."
+      }
+    },
+    {
+      "key": "home.hero.cta",
+      "component": "cta",
+      "locales": {
+        "en": "Book a technical call",
+        "vi": "Đặt lịch trao đổi kỹ thuật",
+        "ko": "기술 상담 예약"
+      }
+    }
+  ]
+}

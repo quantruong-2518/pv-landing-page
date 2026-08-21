@@ -1,0 +1,44 @@
+{
+  "content_type": "marketing",
+  "id": "products.detail",
+  "locales": [
+    "vi",
+    "en",
+    "ko"
+  ],
+  "entries": [
+    {
+      "key": "products.detail.arc",
+      "component": "body",
+      "locales": {
+        "en": "Pebble Square has shipped arc-fault detection for solar installations since 2022.",
+        "vi": "Pebble Square đã triển khai phát hiện hồ quang điện cho điện mặt trời từ 2022.",
+        "ko": "Pebble Square는 2022년부터 태양광용 아크 결함 감지를 공급해 왔습니다."
+      }
+    },
+    {
+      "key": "products.detail.espresso",
+      "component": "body",
+      "locales": {
+        "en": "ESPRESSO delivers 160 TOPS at INT8 for your data centre today.",
+        "vi": "ESPRESSO đạt 160 TOPS ở INT8 cho trung tâm dữ liệu của bạn ngay hôm nay.",
+        "ko": "ESPRESSO는 지금 데이터센터에서 INT8 기준 160 TOPS를 제공합니다."
+      },
+      "claims": [
+        "C017"
+      ]
+    },
+    {
+      "key": "products.detail.bench",
+      "component": "body",
+      "locales": {
+        "en": "PAPAYA FLEX reaches about 100 times the efficiency of the alternative.",
+        "vi": "PAPAYA FLEX đạt hiệu suất gấp khoảng 100 lần so với giải pháp thay thế.",
+        "ko": "PAPAYA FLEX는 대안 대비 약 100배의 효율을 달성합니다."
+      },
+      "claims": [
+        "C006"
+      ]
+    }
+  ]
+}
