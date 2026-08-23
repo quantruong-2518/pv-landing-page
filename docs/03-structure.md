@@ -6,12 +6,12 @@
 ## 1. Ba nhánh — khung chuẩn
 
 ```
-├── 1. HOME                     /
+├── 1. HOME                     /vi
 │   ├── Slogan / Hero
 │   ├── Why Now?
 │   └── Lịch sử hình thành
 │
-├── 2. SẢN PHẨM & GIẢI PHÁP     /products
+├── 2. SẢN PHẨM & GIẢI PHÁP     /vi/products
 │   ├── 2.1 HARDWARE
 │   │   ├── MINT        → Sensor AI · Voice AI · Ultra-low-power edge AI
 │   │   ├── PAPAYA      → Vision AI · Camera · Inspection · Robotics
@@ -22,7 +22,7 @@
 │       └── Private AI  → Build · Train/Adapt · Deploy
 │                         Deploy: on-device · edge · on-premise · private cloud · GPU/AI infra
 │
-└── 3. LIÊN HỆ                  /contact
+└── 3. LIÊN HỆ                  /vi/contact
 ```
 
 **Ba trang, không phải năm.** Mỗi sản phẩm là một khối có anchor (`#mint`, `#papaya`, `#espresso`,
@@ -34,15 +34,26 @@ mở thêm route chỉ tạo thêm trang rỗng. Khi một sản phẩm đủ d�
 
 | Route | Trang | h1 |
 |---|---|---|
-| `/` | HOME | slogan trong hero |
-| `/products` | SẢN PHẨM & GIẢI PHÁP | `products.intro.title` |
-| `/contact` | LIÊN HỆ | `contact.intro.title` |
+| `/vi` | HOME | slogan trong hero |
+| `/vi/products` | SẢN PHẨM & GIẢI PHÁP | `products.intro.title` |
+| `/vi/contact` | LIÊN HỆ | `contact.intro.title` |
 
-**Chỉ tiếng Việt.** Bản EN và nhánh `/vi` bị gỡ 2026-08-23 — ba trang trên là toàn bộ site.
+**Chỉ tiếng Việt.** Bản EN bị gỡ 2026-08-23 — ba trang trên là toàn bộ site. **Tiền tố `/vi` giữ lại
+có chủ ý**: hôm nay chỉ một ngôn ngữ, nhưng thêm ngôn ngữ sau không phải dời lại từng URL và xin
+redirect lần nữa. Gốc trần không phục vụ gì:
+
+| Vào | Ra |
+|---|---|
+| `/` | 308 → `/vi` |
+| `/products` | 308 → `/vi/products` |
+| `/contact` | 308 → `/vi/contact` |
+
+Redirect khai ở `next.config.mjs`, chạy trước filesystem route nên không cần một `app/page.tsx` rỗng.
+Hai URL không tiền tố nằm trong bảng vì chúng từng sống thật một lúc (commit 6547770).
 
 Kỹ thuật: **một root layout** `app/layout.tsx` (`<html lang="vi">`); hai route group `(en)`/`(vi)` cũ
-đã bỏ vì không còn lý do tồn tại. Đường dẫn tính bằng `lib/routes.ts`, không hardcode ở component.
-Cả 3 trang đều prerender tĩnh.
+đã bỏ vì không còn lý do tồn tại. Đường dẫn tính bằng `lib/routes.ts` — `LOCALE_BASE` là chỗ duy nhất
+biết tiền tố. Cả 3 trang đều prerender tĩnh.
 
 ## 3. Luật khối — đã nới
 

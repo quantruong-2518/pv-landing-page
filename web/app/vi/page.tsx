@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { ContactPage } from "@/components/page-contact";
+import { HomePage } from "@/components/page-home";
 import { JsonLd, organizationSchema } from "@/components/schema";
 import { vi } from "@/content/vi";
 
 export const metadata: Metadata = {
-  ...vi.meta.contact,
-  alternates: { canonical: "/contact" },
+  ...vi.meta.home,
+  alternates: { canonical: "/vi" },
 };
 
 export default function Page() {
   return (
     <>
       <JsonLd data={organizationSchema(vi)} />
-      <ContactPage c={vi} />
+      <HomePage c={vi} />
     </>
   );
 }

@@ -9,7 +9,13 @@ const SEGMENT: Record<PageKey, string> = {
   contact: "/contact",
 };
 
-/** URL scheme: the site is Vietnamese-only, so every page sits at the root. */
+/**
+ * URL scheme: the site ships Vietnamese only, but the content still lives under
+ * the `/vi` prefix so a second language can be added without moving every URL.
+ * `/` is a permanent redirect to `/vi` — see `next.config.mjs`.
+ */
+export const LOCALE_BASE = "/vi";
+
 export function path(page: PageKey, hash?: string): string {
-  return `${SEGMENT[page]}${hash ? `#${hash}` : ""}` || "/";
+  return `${LOCALE_BASE}${SEGMENT[page]}${hash ? `#${hash}` : ""}`;
 }

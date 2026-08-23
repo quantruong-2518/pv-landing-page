@@ -45,9 +45,11 @@ ghi vào `docs/05-backlog.md`.
 
 ## 4. Quy ước ngôn ngữ
 
-- **Trang chỉ có tiếng Việt** — `/`, `/products`, `/contact`. Bản EN bị gỡ 2026-08-23 (GM chốt);
-  không còn `/vi`, không còn nút chuyển ngữ. Nếu tệp quyết định nước ngoài cần bản EN thì đó là một
-  quyết định mở lại, không phải một field bỏ quên.
+- **Trang chỉ có tiếng Việt** — `/vi`, `/vi/products`, `/vi/contact`. Bản EN bị gỡ 2026-08-23
+  (GM chốt), không còn nút chuyển ngữ. **Tiền tố `/vi` giữ nguyên có chủ ý**: thêm ngôn ngữ sau
+  không phải dời lại toàn bộ URL. `/` và các URL không tiền tố redirect 308 về `/vi`
+  (`next.config.mjs`). Nếu tệp quyết định nước ngoài cần bản EN thì đó là một quyết định mở lại,
+  không phải một field bỏ quên.
 - Số dùng **dấu phẩy thập phân** (17,6 TOPS/W).
 - Giữ nguyên tên riêng: Pebble Square Inc. · MOCHA · MINT · PAPAYA FLEX · ESPRESSO · Pebble AI Studio ·
   Analog-PIM · Digital-PIM, và tên sáu business sector của họ.

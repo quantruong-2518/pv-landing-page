@@ -4,7 +4,7 @@ import { vi } from "@/content/vi";
 
 export const metadata: Metadata = {
   ...vi.meta.products,
-  alternates: { canonical: "/products" },
+  alternates: { canonical: "/vi/products" },
 };
 
 export default function Page() {
