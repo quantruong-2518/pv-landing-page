@@ -5,6 +5,12 @@
 export const SITE = {
   name: "Pebble Vina",
   legalName: "CÔNG TY TNHH PEBBLE VINA",
+  /**
+   * The English name on the same business registration, not a translation made
+   * here — both appear in docs/01-proof-bank.md §F. Structured data only: the
+   * page itself is Vietnamese and renders `legalName`.
+   */
+  legalNameEn: "PEBBLE VINA COMPANY LIMITED",
   taxId: "0111545175",
   /** The lab has no domain of its own; the main site is pebblevina.vn. */
   url: "https://pebblevina.vn",

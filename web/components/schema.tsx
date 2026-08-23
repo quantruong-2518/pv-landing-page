@@ -18,6 +18,8 @@ export function organizationSchema(c: SiteContent) {
     "@type": "Organization",
     name: SITE.name,
     legalName: SITE.legalName,
+    // Registered under both names; the English one is what a foreign reader matches on.
+    alternateName: SITE.legalNameEn,
     taxID: SITE.taxId,
     url: SITE.url,
     description: c.meta.home.description,
