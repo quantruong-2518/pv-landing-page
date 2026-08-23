@@ -1,0 +1,783 @@
+{
+  "content_type": "marketing",
+  "id": "home",
+  "locales": [
+    "vi"
+  ],
+  "semantic_spec": "content-system/specs/home.yaml",
+  "entries": [
+    {
+      "key": "meta.home.title",
+      "component": "meta",
+      "claims": [
+        "C001",
+        "C019"
+      ],
+      "locales": {
+        "vi": "Pebble Vina — chip AI Analog-PIM của Pebble Square tại Việt Nam"
+      }
+    },
+    {
+      "key": "meta.home.description",
+      "component": "meta",
+      "claims": [
+        "C001",
+        "C002",
+        "C004",
+        "C019"
+      ],
+      "locales": {
+        "vi": "Pebble Vina là thành viên Việt Nam của nhóm Pebble Square Inc., hãng bán dẫn AI fabless Hàn Quốc. Chip MINT đạt 17,6 TOPS/W, sản xuất hàng loạt từ 5/2023."
+      }
+    },
+    {
+      "key": "alternateLabel",
+      "component": "nav",
+      "locales": {
+        "vi": "EN"
+      }
+    },
+    {
+      "key": "nav.home",
+      "component": "nav",
+      "locales": {
+        "vi": "Trang chủ"
+      }
+    },
+    {
+      "key": "nav.products",
+      "component": "nav",
+      "locales": {
+        "vi": "Sản phẩm & giải pháp"
+      }
+    },
+    {
+      "key": "nav.contact",
+      "component": "nav",
+      "locales": {
+        "vi": "Liên hệ"
+      }
+    },
+    {
+      "key": "nav.hardware",
+      "component": "nav",
+      "locales": {
+        "vi": "Phần cứng"
+      }
+    },
+    {
+      "key": "nav.software",
+      "component": "nav",
+      "locales": {
+        "vi": "Phần mềm"
+      }
+    },
+    {
+      "key": "nav.cta",
+      "component": "cta",
+      "locales": {
+        "vi": "Đặt lịch tư vấn 30 phút"
+      }
+    },
+    {
+      "key": "nav.menuLabel",
+      "component": "nav",
+      "locales": {
+        "vi": "Menu chính"
+      }
+    },
+    {
+      "key": "nav.skipToContent",
+      "component": "nav",
+      "locales": {
+        "vi": "Bỏ qua, tới nội dung chính"
+      }
+    },
+    {
+      "key": "home.hero.eyebrow",
+      "component": "eyebrow",
+      "claims": [
+        "C019"
+      ],
+      "locales": {
+        "vi": "Thành viên Việt Nam của nhóm Pebble Square Inc., Hàn Quốc"
+      }
+    },
+    {
+      "key": "home.hero.slogan",
+      "component": "headline",
+      "claims": [
+        "C001",
+        "C030"
+      ],
+      "locales": {
+        "vi": "Từ con chip đến phần mềm, cho AI của riêng bạn."
+      }
+    },
+    {
+      "key": "home.hero.lead",
+      "component": "body",
+      "claims": [
+        "C001",
+        "C002",
+        "C004",
+        "C019",
+        "C030"
+      ],
+      "locales": {
+        "vi": "Pebble Square Inc. làm chip AI đặt luôn phép tính vào trong bộ nhớ. Con chip MINT của họ chạy ở mức 17,6 TOPS/W và đã sản xuất hàng loạt từ 5/2023. Phần việc ở Việt Nam là của Pebble Vina: hạ tầng GPU để huấn luyện, phần mềm doanh nghiệp, và hợp đồng ký trong nước."
+      }
+    },
+    {
+      "key": "home.hero.ctaPrimary",
+      "component": "cta",
+      "locales": {
+        "vi": "Đặt lịch tư vấn"
+      }
+    },
+    {
+      "key": "home.hero.ctaSecondary",
+      "component": "cta",
+      "locales": {
+        "vi": "Xem sản phẩm"
+      }
+    },
+    {
+      "key": "home.whyNow.kicker",
+      "component": "eyebrow",
+      "locales": {
+        "vi": "01 · Vì sao là bây giờ"
+      }
+    },
+    {
+      "key": "home.whyNow.title",
+      "component": "headline",
+      "locales": {
+        "vi": "Cái khó bây giờ không phải hiệu năng, mà là điện."
+      }
+    },
+    {
+      "key": "home.whyNow.points[0].title",
+      "component": "list_item",
+      "claims": [
+        "C020"
+      ],
+      "locales": {
+        "vi": "Trung tâm dữ liệu đã ngốn khoảng 2% điện toàn cầu"
+      }
+    },
+    {
+      "key": "home.whyNow.points[0].body",
+      "component": "body",
+      "claims": [
+        "C020"
+      ],
+      "locales": {
+        "vi": "Chưa kể khoảng 300.000 gallon nước mỗi ngày để làm mát."
+      }
+    },
+    {
+      "key": "home.whyNow.points[0].media.alt",
+      "component": "caption",
+      "claims": [
+        "C020"
+      ],
+      "locales": {
+        "vi": "Minh hoạ một trung tâm dữ liệu đấu vào lưới điện và hệ làm mát bằng nước, bên cạnh là quả cầu ghi 2%."
+      }
+    },
+    {
+      "key": "home.whyNow.points[1].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "AI đang chuyển xuống nơi không dư lấy một watt"
+      }
+    },
+    {
+      "key": "home.whyNow.points[1].body",
+      "component": "body",
+      "locales": {
+        "vi": "Trạm biến áp, dàn pin mặt trời, dây chuyền, thiết bị đeo, cảm biến chạy pin. Những chỗ này chỉ dư vài trăm miliwatt, không phải vài trăm watt."
+      }
+    },
+    {
+      "key": "home.whyNow.points[1].media.alt",
+      "component": "caption",
+      "locales": {
+        "vi": "Minh hoạ một lõi AI ở giữa. Quanh nó là trạm biến áp, tấm pin mặt trời, cánh tay robot và cảm biến, mỗi thứ ghi rõ mức điện tính bằng mW."
+      }
+    },
+    {
+      "key": "home.whyNow.points[2].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Điện chủ yếu tốn vào việc khiêng dữ liệu, không phải để tính"
+      }
+    },
+    {
+      "key": "home.whyNow.points[2].body",
+      "component": "body",
+      "locales": {
+        "vi": "Kiến trúc von Neumann để bộ nhớ một nơi, bộ xử lý một nơi, nên phần lớn điện đổ vào quãng đi lại giữa hai chỗ. Processing-In-Memory tính ngay trong bộ nhớ, khỏi phải đi đâu cả."
+      }
+    },
+    {
+      "key": "home.whyNow.points[2].media.alt",
+      "component": "caption",
+      "locales": {
+        "vi": "Sơ đồ so sánh: bên trái là bus dữ liệu dày nối chip với bộ nhớ rời, bên phải là mảng crossbar tính ngay trong bộ nhớ. Hai thanh bên dưới đo điện năng của mỗi bên."
+      }
+    },
+    {
+      "key": "home.whyNow.pillarsTitle",
+      "component": "eyebrow",
+      "locales": {
+        "vi": "Bốn thứ Pebble Square nhắm tới khi thiết kế"
+      }
+    },
+    {
+      "key": "home.whyNow.pillars[0].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Điện năng thấp"
+      }
+    },
+    {
+      "key": "home.whyNow.pillars[0].body",
+      "component": "body",
+      "locales": {
+        "vi": "Phép tính chạy analog ngay trong flash nhúng, không qua đường truyền."
+      }
+    },
+    {
+      "key": "home.whyNow.pillars[1].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Riêng tư"
+      }
+    },
+    {
+      "key": "home.whyNow.pillars[1].body",
+      "component": "body",
+      "claims": [
+        "C014"
+      ],
+      "locales": {
+        "vi": "Suy luận trên thiết bị, không phụ thuộc đám mây."
+      }
+    },
+    {
+      "key": "home.whyNow.pillars[2].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Nhanh"
+      }
+    },
+    {
+      "key": "home.whyNow.pillars[2].body",
+      "component": "body",
+      "claims": [
+        "C014"
+      ],
+      "locales": {
+        "vi": "Quyết định ngay nơi sự kiện xảy ra, không chờ đường truyền."
+      }
+    },
+    {
+      "key": "home.whyNow.pillars[3].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Chi phí thấp"
+      }
+    },
+    {
+      "key": "home.whyNow.pillars[3].body",
+      "component": "body",
+      "locales": {
+        "vi": "Phần cứng mua một lần, thay vì thuê suy luận theo tháng."
+      }
+    },
+    {
+      "key": "home.history.kicker",
+      "component": "eyebrow",
+      "locales": {
+        "vi": "02 · Lịch sử hình thành"
+      }
+    },
+    {
+      "key": "home.history.title",
+      "component": "headline",
+      "claims": [
+        "C001",
+        "C004"
+      ],
+      "locales": {
+        "vi": "Từ phòng thí nghiệm 2021 đến sản xuất hàng loạt 2023"
+      }
+    },
+    {
+      "key": "home.history.lead",
+      "component": "body",
+      "claims": [
+        "C001",
+        "C013"
+      ],
+      "locales": {
+        "vi": "Bán dẫn AI fabless, chuyên Edge AI, đặt tại Seongnam. Ba trong bốn lãnh đạo kỹ thuật có bằng tiến sĩ Đại học Tokyo."
+      }
+    },
+    {
+      "key": "home.history.milestones[0].date",
+      "component": "meta",
+      "claims": [
+        "C001"
+      ],
+      "locales": {
+        "vi": "09/2021"
+      }
+    },
+    {
+      "key": "home.history.milestones[0].title",
+      "component": "list_item",
+      "claims": [
+        "C001"
+      ],
+      "locales": {
+        "vi": "Thành lập Pebble Square Inc. tại Seongnam"
+      }
+    },
+    {
+      "key": "home.history.milestones[1].date",
+      "component": "meta",
+      "claims": [
+        "C021"
+      ],
+      "locales": {
+        "vi": "11/2021"
+      }
+    },
+    {
+      "key": "home.history.milestones[1].title",
+      "component": "list_item",
+      "claims": [
+        "C021"
+      ],
+      "locales": {
+        "vi": "MOCHA — chip edge AI PIM thế hệ 1, kèm trung tâm nghiên cứu riêng"
+      }
+    },
+    {
+      "key": "home.history.milestones[2].date",
+      "component": "meta",
+      "claims": [
+        "C022"
+      ],
+      "locales": {
+        "vi": "07/2022"
+      }
+    },
+    {
+      "key": "home.history.milestones[2].title",
+      "component": "list_item",
+      "claims": [
+        "C022"
+      ],
+      "locales": {
+        "vi": "MOU nghiên cứu chung với KAIST và ĐH Quốc gia Chonbuk"
+      }
+    },
+    {
+      "key": "home.history.milestones[3].date",
+      "component": "meta",
+      "claims": [
+        "C023"
+      ],
+      "locales": {
+        "vi": "10/2022"
+      }
+    },
+    {
+      "key": "home.history.milestones[3].title",
+      "component": "list_item",
+      "claims": [
+        "C023"
+      ],
+      "locales": {
+        "vi": "Chứng nhận doanh nghiệp mạo hiểm"
+      }
+    },
+    {
+      "key": "home.history.milestones[4].date",
+      "component": "meta",
+      "claims": [
+        "C024"
+      ],
+      "locales": {
+        "vi": "12/2022"
+      }
+    },
+    {
+      "key": "home.history.milestones[4].title",
+      "component": "list_item",
+      "claims": [
+        "C024"
+      ],
+      "locales": {
+        "vi": "MINT — hoàn tất phát triển bán dẫn AI PIM thế hệ 2"
+      }
+    },
+    {
+      "key": "home.history.milestones[5].date",
+      "component": "meta",
+      "claims": [
+        "C008"
+      ],
+      "locales": {
+        "vi": "03/2023"
+      }
+    },
+    {
+      "key": "home.history.milestones[5].title",
+      "component": "list_item",
+      "claims": [
+        "C008"
+      ],
+      "locales": {
+        "vi": "Ký NDA với SK hynix"
+      }
+    },
+    {
+      "key": "home.history.milestones[6].date",
+      "component": "meta",
+      "claims": [
+        "C002",
+        "C004"
+      ],
+      "locales": {
+        "vi": "05/2023"
+      }
+    },
+    {
+      "key": "home.history.milestones[6].title",
+      "component": "list_item",
+      "claims": [
+        "C002",
+        "C004"
+      ],
+      "locales": {
+        "vi": "MINT vào sản xuất hàng loạt"
+      }
+    },
+    {
+      "key": "home.history.milestones[6].body",
+      "component": "body",
+      "claims": [
+        "C002",
+        "C003",
+        "C004"
+      ],
+      "locales": {
+        "vi": "Analog-PIM, die 5 × 5 mm², khoảng 30 GOPS, hiệu suất 17,6 TOPS/W."
+      }
+    },
+    {
+      "key": "home.history.milestones[7].date",
+      "component": "meta",
+      "claims": [
+        "C025"
+      ],
+      "locales": {
+        "vi": "01/2024"
+      }
+    },
+    {
+      "key": "home.history.milestones[7].title",
+      "component": "list_item",
+      "claims": [
+        "C025"
+      ],
+      "locales": {
+        "vi": "Đăng ký bằng sáng chế thiết bị neuromorphic"
+      }
+    },
+    {
+      "key": "home.history.milestones[8].date",
+      "component": "meta",
+      "claims": [
+        "C026"
+      ],
+      "locales": {
+        "vi": "02/2024"
+      }
+    },
+    {
+      "key": "home.history.milestones[8].title",
+      "component": "list_item",
+      "claims": [
+        "C026"
+      ],
+      "locales": {
+        "vi": "PoC trên MINT — đèn nhận diện giọng nói kèm chuông khẩn cấp"
+      }
+    },
+    {
+      "key": "home.history.milestones[9].date",
+      "component": "meta",
+      "claims": [
+        "C009",
+        "C027"
+      ],
+      "locales": {
+        "vi": "03/2024"
+      }
+    },
+    {
+      "key": "home.history.milestones[9].title",
+      "component": "list_item",
+      "claims": [
+        "C009",
+        "C027"
+      ],
+      "locales": {
+        "vi": "Liên doanh Cluster AI Lab tại Ả Rập Xê Út · NDA Home IoT với MEISEI ELECTRIC"
+      }
+    },
+    {
+      "key": "home.history.milestones[10].date",
+      "component": "meta",
+      "claims": [
+        "C010"
+      ],
+      "locales": {
+        "vi": "03/2025"
+      }
+    },
+    {
+      "key": "home.history.milestones[10].title",
+      "component": "list_item",
+      "claims": [
+        "C010"
+      ],
+      "locales": {
+        "vi": "UTC Investment rót 2 tỷ KRW"
+      }
+    },
+    {
+      "key": "home.history.milestones[11].date",
+      "component": "meta",
+      "claims": [
+        "C009",
+        "C019"
+      ],
+      "locales": {
+        "vi": "05/2025"
+      }
+    },
+    {
+      "key": "home.history.milestones[11].title",
+      "component": "list_item",
+      "claims": [
+        "C009",
+        "C019"
+      ],
+      "locales": {
+        "vi": "Lập Pebble Square Japan, Inc. tại Tokyo"
+      }
+    },
+    {
+      "key": "home.history.milestones[12].date",
+      "component": "meta",
+      "claims": [
+        "C028"
+      ],
+      "locales": {
+        "vi": "08/2025"
+      }
+    },
+    {
+      "key": "home.history.milestones[12].title",
+      "component": "list_item",
+      "claims": [
+        "C028"
+      ],
+      "locales": {
+        "vi": "Đóng vòng gọi vốn Pre-A"
+      }
+    },
+    {
+      "key": "home.history.milestones[13].date",
+      "component": "meta",
+      "claims": [
+        "C029"
+      ],
+      "locales": {
+        "vi": "10/2025"
+      }
+    },
+    {
+      "key": "home.history.milestones[13].title",
+      "component": "list_item",
+      "claims": [
+        "C029"
+      ],
+      "locales": {
+        "vi": "Được chọn vào KPAS 2025 — Korea Promising AI Startups"
+      }
+    },
+    {
+      "key": "home.history.milestones[14].date",
+      "component": "meta",
+      "claims": [
+        "C017"
+      ],
+      "label": "roadmap",
+      "locales": {
+        "vi": "09/2026"
+      }
+    },
+    {
+      "key": "home.history.milestones[14].title",
+      "component": "list_item",
+      "label": "roadmap",
+      "notes": "160 TOPS is licensed by C017; the roadmap label, the date and the source sit on .date, .statusNote and home.history.footnote",
+      "locales": {
+        "vi": "ESPRESSO — AI SoC Digital-PIM 160 TOPS"
+      }
+    },
+    {
+      "key": "home.history.milestones[14].statusNote",
+      "component": "meta",
+      "claims": [
+        "C017"
+      ],
+      "label": "roadmap",
+      "locales": {
+        "vi": "Tài liệu nhà đầu tư · dự kiến 9/2026"
+      }
+    },
+    {
+      "key": "home.history.footnote",
+      "component": "caption",
+      "claims": [
+        "C017"
+      ],
+      "label": "roadmap",
+      "locales": {
+        "vi": "Lịch sử công ty theo công bố của chính Pebble Square, đọc ngày 20/08/2026. Mục 9/2026 lấy từ IR Deck ngày 05/01/2026 và không có trong danh mục sản phẩm công khai của họ."
+      }
+    },
+    {
+      "key": "footer.tagline",
+      "component": "body",
+      "claims": [
+        "C001",
+        "C019"
+      ],
+      "locales": {
+        "vi": "Nền tảng bán dẫn AI Hàn Quốc, ký hợp đồng và xuất hoá đơn tại Việt Nam."
+      }
+    },
+    {
+      "key": "footer.navTitle",
+      "component": "label",
+      "locales": {
+        "vi": "Các trang"
+      }
+    },
+    {
+      "key": "footer.contactTitle",
+      "component": "label",
+      "locales": {
+        "vi": "Kênh liên hệ"
+      }
+    },
+    {
+      "key": "footer.legalTitle",
+      "component": "label",
+      "locales": {
+        "vi": "Pháp lý"
+      }
+    },
+    {
+      "key": "footer.statusLegend",
+      "component": "label",
+      "locales": {
+        "vi": "Xanh: đã có · Vàng: dự kiến"
+      }
+    },
+    {
+      "key": "footer.disclaimer",
+      "component": "caption",
+      "claims": [
+        "C017"
+      ],
+      "label": "roadmap",
+      "locales": {
+        "vi": "Số liệu về Pebble Square Inc. lấy từ trang chính thức pebble-square.com, đọc ngày 20/08/2026. Mục nào mang nhãn dự kiến là lấy từ tài liệu nhà đầu tư, không nằm trong danh mục sản phẩm công khai."
+      }
+    },
+    {
+      "key": "footer.copyright",
+      "component": "label",
+      "locales": {
+        "vi": "© 2026 Công ty TNHH Pebble Vina"
+      }
+    },
+    {
+      "key": "labels.call",
+      "component": "label",
+      "locales": {
+        "vi": "Điện thoại"
+      }
+    },
+    {
+      "key": "labels.email",
+      "component": "label",
+      "locales": {
+        "vi": "Email"
+      }
+    },
+    {
+      "key": "labels.office",
+      "component": "label",
+      "locales": {
+        "vi": "Văn phòng"
+      }
+    },
+    {
+      "key": "labels.entity",
+      "component": "label",
+      "locales": {
+        "vi": "Pháp nhân"
+      }
+    },
+    {
+      "key": "labels.taxCode",
+      "component": "label",
+      "locales": {
+        "vi": "Mã số thuế"
+      }
+    },
+    {
+      "key": "labels.parent",
+      "component": "label",
+      "locales": {
+        "vi": "Nhóm công ty"
+      }
+    },
+    {
+      "key": "status.shipped",
+      "component": "label",
+      "locales": {
+        "vi": "Đã có"
+      }
+    },
+    {
+      "key": "status.roadmap",
+      "component": "label",
+      "locales": {
+        "vi": "Dự kiến"
+      }
+    }
+  ]
+}

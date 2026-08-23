@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { HomePage } from "@/components/page-home";
 import { JsonLd, organizationSchema } from "@/components/schema";
-import { en } from "@/content/en";
+import { vi } from "@/content/vi";
 
 export const metadata: Metadata = {
-  ...en.meta.home,
-  alternates: { canonical: "/", languages: { en: "/", vi: "/vi" } },
+  ...vi.meta.home,
+  alternates: { canonical: "/" },
 };
 
 export default function Page() {
   return (
     <>
-      <JsonLd data={organizationSchema(en)} />
-      <HomePage c={en} />
+      <JsonLd data={organizationSchema(vi)} />
+      <HomePage c={vi} />
     </>
   );
 }

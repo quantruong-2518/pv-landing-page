@@ -1,0 +1,191 @@
+# Semantic spec — HOME (/ and /vi). Language-free by design.
+#
+# This is the ONLY input a locale writer may read. It exists so that `en` and `ko`
+# can later be written natively from the same meaning instead of being translated
+# out of `vi`, which the content-i18n skill forbids in both directions.
+#
+# Compiled 2026-08-21. Sources: docs/00-brief.md, docs/02-message-map.md,
+# docs/03-structure.md, docs/01-proof-bank.md, context/01-home/*, context/media-plan.md.
+# Claim ids resolve against content-system/claims/approved.yaml.
+
+id: home
+type: marketing
+
+contract:
+  page:
+    type: homepage
+    goal: get an unknown Vietnamese-market company taken seriously enough to book a consultation
+    funnel_stage: awareness
+  audience:
+    primary: Vietnamese industrial and enterprise buyers; Korean FDI firms in Vietnam
+    buyer: plant, IT or procurement decision-maker
+    evaluator: engineer — treats an unsourced number as a reason to close the tab
+    user: operations and maintenance staff
+    awareness_level: unaware
+    primary_problem: they have more AI they want to run than power, bandwidth or permission to run it
+  product:
+    name: Pebble Vina
+    category: Edge AI semiconductor platform, operated in Vietnam
+    mechanisms:
+      - arithmetic executes inside memory rather than across a bus to a processor
+      - inference completes on the device with no network round trip
+    deployment_models: [on-device, edge, on-premise]
+    constraints:
+      - the parent designs anomaly detection and predictive maintenance, not arc-fault or solar PV
+      - ESPRESSO is not shipping and is not on the parent's public catalogue
+      - Pebble Vina is a member of the group; the ownership structure is unverified
+  proof:
+    verified: [C001, C002, C004, C008, C009, C010, C014, C021, C022, C023, C024, C025, C026, C027, C028, C029]
+    contextual: [C017, C019, C020]
+    unavailable:
+      - any customer, deployment, unit count or revenue figure — docs/05-backlog.md
+      - Pebble Vina incorporation date — docs/05-backlog.md
+      - support model in Vietnam, engineer headcount and response time — docs/05-backlog.md B10
+  differentiators:
+    - a Korean fabless parent with a chip in mass production since May 2023, reachable through a Vietnamese legal entity
+    - every technical fact on the page carries a visible shipped or roadmap label
+  objections:
+    - the Vietnamese entity is new and has no record of its own
+    - why not buy directly from Korea
+    - is there real silicon or only a deck
+  cta:
+    primary: book a consultation
+    secondary: read the product catalogue
+  tone:
+    desired: [precise, understated, engineer-readable, honest about status]
+    avoid: [luxury language, emotional hype, startup clichés, claiming the parent's work as ours]
+  claims_policy:
+    allow_inference: false
+    require_proof_for_numbers: true
+    require_proof_for_superlatives: true
+  locale:
+    requested: [vi]
+    deferred: [en, ko]
+    note: >-
+      The user scoped this pass to Vietnamese only. `en` stays as i18n keys. When `en` is
+      written it must be compiled from THIS spec, never translated from `vi.ts`.
+    vi_rewrite_2026_08_21: >-
+      First VI pass reused the drafts in `context/01-home/` almost verbatim and the requester
+      rejected it: "khong phai content nguoi chut nao". Diagnosis was LOCALE_TRANSLATIONESE -
+      those drafts carry English sentence shape ("Energy became it.", "burns the budget",
+      "the layer above"), which is consistent with docs/05-backlog.md #12 recording the EN
+      side as machine-translated. The scripts cannot catch this: LOCALE_TRANSLATIONESE is a
+      reviewer-only rule. VI was rewritten from this spec thinking in Vietnamese, every claim,
+      number and label unchanged.
+    warning_for_remaining_blocks: >-
+      The drafts in `context/02-products/` and `context/03-contact/` come from the same batch
+      and carry the same English cadence. Treat them as MATERIAL, not as copy. Compile from
+      the spec; never paste a draft straight into `*.ts`.
+
+# ── Reading rule, set by the requester 2026-08-21 ────────────────────────────
+# "Hieu context thoi chu dung lay cach dien giai trong context de ghi ra content."
+#
+# docs/ and context/ are written ABOUT the page. They are not the page. Read them to learn
+# the FACTS and the situation; never transplant their editorial framing into copy.
+#
+# Two rejected passes came from breaking this:
+#   1. reusing the drafts verbatim   -> English sentence shape (LOCALE_TRANSLATIONESE)
+#   2. reusing the drafts' reasoning -> the page narrating why its own evidence matters
+#      ("day la vach ngan giua nghien cuu va co hang", "do moi la thu ban dang can nhac",
+#       "tien le truc tiep cua Pebble Vina") - all lifted from proof-bank's "vi sao dat tren
+#       landing" column and 00-brief's internal thesis. Those are notes to the writer.
+#
+# Operating rule: a `body` earns its place only by adding a FACT its `title` does not carry.
+# No such fact -> leave it empty. Components skip empty strings by design (components/ui.tsx).
+# State the evidence; let the reader draw the conclusion. Never draw it for them on the page.
+
+blocks:
+
+  - id: home.hero
+    height: screen
+    intent:
+      communicate: what this company is and the one thing its hardware does that a cloud vendor cannot
+      reader_question: who is this, and why should the next thirty seconds be worth it
+    claims: [C001, C002, C004, C019, C030]
+    mechanisms:
+      - computation happens inside the memory array instead of moving data to a processor
+      - "the catalogue spans three layers: the parent's silicon, GPU and HPC infrastructure integrated locally, and the software running on top of it"
+    values:
+      - one supplier covers the whole span, from a sensor's power budget to training scale
+      - the customer builds and owns the AI rather than renting inference
+      - the platform can be bought under a Vietnamese contract and invoice
+    qualifiers:
+      - Pebble Vina is a member of the Pebble Square group; never a wholly-owned subsidiary
+      - the parent designs and makes the silicon; Pebble Vina builds the layer above it
+      - the local layer is stated as capability, never as track record - C030
+    forbidden:
+      - implying Pebble Vina designed or manufactured the silicon
+      - narrowing the company to the edge or privacy angle alone, which drops GPU, HPC and software
+      - naming a GPU vendor or implying a distribution agreement
+      - repeating the energy thesis that the next block owns
+    slots:
+      eyebrow: relationship of the local entity to the named parent
+      headline: the span of the catalogue, from silicon to software, and who ends up owning the AI
+      lead: whose silicon and its one measured number, then the layer the local entity adds on top
+      cta_primary: book a consultation
+      cta_secondary: go to the catalogue
+
+  - id: home.whyNow
+    height: screen
+    intent:
+      communicate: the constraint on AI today is energy and permission, not model quality
+      reader_question: why does a different kind of chip need to exist at all
+    claims: [C014, C020]
+    mechanisms:
+      - a von Neumann machine spends most of its energy moving data between memory and processor
+      - processing-in-memory performs the arithmetic where the data already sits
+    values:
+      - inference becomes affordable at sites that only have a sensor's power budget
+    qualifiers:
+      - the data-centre electricity and water figures are industry context, not a Pebble Square claim
+    forbidden:
+      - attributing the industry figures to Pebble Square
+      - presenting the four properties as measured outcomes rather than design targets
+    slots:
+      kicker: section index
+      headline: what stopped being the hard problem, and what replaced it
+      lead: the gap between AI demand and the power, bandwidth and permission to run it
+      points:
+        - the demand side — what data centres already consume
+        - the location side — the work is moving to sites with no power budget
+        - the mechanism side — most of the energy moves data rather than computing on it
+      pillars_title: the four properties the parent designs for
+      pillars: [low power, private, fast, low cost]
+
+  - id: home.history
+    height: content
+    intent:
+      communicate: the record the reader is actually buying access to belongs to the parent, and it is checkable
+      reader_question: is any of this real, and has anything shipped
+    claims: [C001, C002, C004, C008, C009, C010, C017, C019, C021, C022, C023, C024, C025, C026, C027, C028, C029]
+    mechanisms:
+      - every milestone carries a date and comes from the parent's own published company history
+    values:
+      - the buyer can verify the record independently in minutes
+    qualifiers:
+      - the September 2026 entry comes from investor material and is absent from the public catalogue
+      - it must carry the amber roadmap label wherever it appears
+    forbidden:
+      - describing ESPRESSO as available
+      - claiming the record as Pebble Vina's own
+    emphasis:
+      starred: [SK hynix NDA, MINT mass production, Saudi JV and MEISEI NDA, Pebble Square Japan]
+      note: >-
+        Only the four starred milestones get a body. Eleven bare titles plus four
+        annotated ones is the emphasis; filling all fifteen flattens it and, per
+        anti-ai-slop §9, reads as a template.
+    slots:
+      kicker: section index
+      headline: the distance travelled, anchored on two dates
+      lead: whose record this is, and why it is on this page
+      milestones: fifteen entries, date and title, four with a body
+      footnote: where the record was read, and what the one roadmap entry is sourced to
+
+open_decisions:
+  - id: espresso-date
+    decided: 2026-08-21 by the requester — keep September 2026, per docs/01-proof-bank.md §E3
+    conflict: >-
+      docs/06-strategy-review.md §4.2 reads deck v4 slide 17 as putting the ESPRESSO family
+      launch in 2027 and calls this the most urgent edit on the page. docs/05-backlog.md #9
+      and B4 still await an HQ answer. Revisit before 1 October 2026, when a September 2026
+      date stops reading as a citation and starts reading as a missed promise.

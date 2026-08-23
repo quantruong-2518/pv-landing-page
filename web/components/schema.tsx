@@ -17,7 +17,7 @@ export function organizationSchema(c: SiteContent) {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE.name,
-    legalName: c.locale === "vi" ? SITE.legalNameVi : SITE.legalName,
+    legalName: SITE.legalName,
     taxID: SITE.taxId,
     url: SITE.url,
     description: c.meta.home.description,
@@ -25,7 +25,7 @@ export function organizationSchema(c: SiteContent) {
     telephone: "+84345913369",
     address: {
       "@type": "PostalAddress",
-      streetAddress: c.locale === "vi" ? SITE.office.vi : SITE.office.en,
+      streetAddress: SITE.office,
       addressLocality: "Hà Nội",
       addressCountry: "VN",
     },

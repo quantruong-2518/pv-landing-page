@@ -6,12 +6,12 @@
 ## 1. Ba nhánh — khung chuẩn
 
 ```
-├── 1. HOME                     /            · /vi
+├── 1. HOME                     /
 │   ├── Slogan / Hero
 │   ├── Why Now?
 │   └── Lịch sử hình thành
 │
-├── 2. SẢN PHẨM & GIẢI PHÁP     /products    · /vi/products
+├── 2. SẢN PHẨM & GIẢI PHÁP     /products
 │   ├── 2.1 HARDWARE
 │   │   ├── MINT        → Sensor AI · Voice AI · Ultra-low-power edge AI
 │   │   ├── PAPAYA      → Vision AI · Camera · Inspection · Robotics
@@ -22,7 +22,7 @@
 │       └── Private AI  → Build · Train/Adapt · Deploy
 │                         Deploy: on-device · edge · on-premise · private cloud · GPU/AI infra
 │
-└── 3. LIÊN HỆ                  /contact     · /vi/contact
+└── 3. LIÊN HỆ                  /contact
 ```
 
 **Ba trang, không phải năm.** Mỗi sản phẩm là một khối có anchor (`#mint`, `#papaya`, `#espresso`,
@@ -34,17 +34,15 @@ mở thêm route chỉ tạo thêm trang rỗng. Khi một sản phẩm đủ d�
 
 | Route | Trang | h1 |
 |---|---|---|
-| `/` · `/vi` | HOME | slogan trong hero |
-| `/products` · `/vi/products` | SẢN PHẨM & GIẢI PHÁP | `products.intro.title` |
-| `/contact` · `/vi/contact` | LIÊN HỆ | `contact.intro.title` |
+| `/` | HOME | slogan trong hero |
+| `/products` | SẢN PHẨM & GIẢI PHÁP | `products.intro.title` |
+| `/contact` | LIÊN HỆ | `contact.intro.title` |
 
-**EN canonical ở `/`**, VI song song đầy đủ ở `/vi` — tệp quyết định (FDI Hàn, đối tác Nhật, GCC, nhà
-đầu tư) đọc tiếng Anh. Hai bản đối xứng tuyệt đối: cùng khớp type `SiteContent` nên lệch một field là
-`tsc` gãy.
+**Chỉ tiếng Việt.** Bản EN và nhánh `/vi` bị gỡ 2026-08-23 — ba trang trên là toàn bộ site.
 
-Kỹ thuật: **hai root layout** (`app/(en)/` và `app/(vi)/`, không có `app/layout.tsx`) để mỗi ngôn ngữ
-có `<html lang>` của nó. Đường dẫn tính bằng `lib/routes.ts`, không hardcode ở component. Cả 6 trang
-đều prerender tĩnh.
+Kỹ thuật: **một root layout** `app/layout.tsx` (`<html lang="vi">`); hai route group `(en)`/`(vi)` cũ
+đã bỏ vì không còn lý do tồn tại. Đường dẫn tính bằng `lib/routes.ts`, không hardcode ở component.
+Cả 3 trang đều prerender tĩnh.
 
 ## 3. Luật khối — đã nới
 
@@ -53,8 +51,10 @@ Mọi `<Section>` vẫn mang `scroll-snap-align: start`, nên cuộn luôn dừn
 
 | Khối | Chiều cao |
 |---|---|
-| Hero, Why Now, index của `/products`, hero của `/contact` | `min-h-[calc(100svh - var(--header-h))]` (`screen`) |
-| Lịch sử, từng khối sản phẩm, khối văn phòng | theo nội dung |
+| Hero, index của `/products`, hero của `/contact` | `min-h-[calc(100svh - var(--header-h))]` (`screen`) |
+| **Why Now**, Lịch sử, từng khối sản phẩm, khối văn phòng | theo nội dung |
+
+> **Why Now bỏ `screen` ngày 2026-08-21.** Đo trên build production: khối này cao **1018px** ở 1440×900 (budget 836px) và **1093px** khi mới điền chữ. Quan trọng hơn: đo lúc còn là i18n key thì đã **922px** — tức khối tràn từ trước khi có một chữ nào, do ảnh minh hoạ 248px cộng lưới ba cột. Cắt chữ không cứu được, nên trả nó về chiều cao theo nội dung. `snap-start` giữ nguyên nên nhịp cuộn không đổi.
 
 Container cuộn là `html`:
 
@@ -108,14 +108,15 @@ Tiêu đề khối, tên sản phẩm, tên năng lực, mốc lịch sử và s
 nên trang vẫn đọc được ở trạng thái này.
 
 ```bash
-grep -o ': ""' web/content/en.ts | wc -l    # còn bao nhiêu ô trống (hiện: 63)
+grep -o ': ""' web/content/vi.ts | wc -l    # còn bao nhiêu ô trống
 ```
 
 ## 7. Header và footer
 
-**Header** — một hàng cao `var(--header-h)`, dính, nền tối xuyên suốt: wordmark · 3 mục · chuyển ngữ ·
-**đúng một** nút hành động. Dưới `lg` cụm điều hướng thu vào disclosure `<details>` thuần HTML (không JS,
-không lệch hydrate) và menu đó chứa cả 6 anchor sản phẩm. **Nút hành động hiện ở mọi bề rộng**, kể cả
+**Header** — một hàng cao `var(--header-h)`, dính, nền tối xuyên suốt: wordmark · 3 mục ·
+**đúng một** nút hành động (nút chuyển ngữ đã gỡ cùng bản EN, 2026-08-23). Dưới `lg` cụm điều hướng
+thu vào disclosure `<details>` thuần HTML (không JS, không lệch hydrate) và menu đó chứa cả 6 anchor
+sản phẩm. **Nút hành động hiện ở mọi bề rộng**, kể cả
 360px — giấu CTA vào hamburger là lỗi chuyển đổi kinh điển. Mọi vùng chạm ≥ 44px.
 
 **Footer** — bốn cột: bản sắc + link ra trang mẹ · điều hướng · liên hệ · pháp lý (pháp nhân, MST, công

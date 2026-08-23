@@ -5,7 +5,7 @@ import { vi } from "@/content/vi";
 
 export const metadata: Metadata = {
   ...vi.meta.contact,
-  alternates: { canonical: "/vi/contact", languages: { en: "/contact", vi: "/vi/contact" } },
+  alternates: { canonical: "/contact" },
 };
 
 export default function Page() {

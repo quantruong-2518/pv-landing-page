@@ -197,6 +197,99 @@ claims:
     source: docs/01-proof-bank.md §E2
     numbers: ["2", "300000", "300,000", "300.000"]
 
+  # C021-C029 project the remaining milestones of docs/01-proof-bank.md §C, the public
+  # Company History. They were missing, so the timeline's month tokens had no ledger cover.
+
+  C021:
+    statement: MOCHA the first-generation PIM edge AI chip was completed in November 2021 alongside the corporate research centre
+    type: status
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §C — public Company History"
+    numbers: ["2021", "11", "1"]
+
+  C022:
+    statement: A joint-research MOU with KAIST and Chonbuk National University was signed in July 2022
+    type: credential
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §C — public Company History"
+    numbers: ["2022", "7", "07"]
+
+  C023:
+    statement: Pebble Square received venture company certification in October 2022
+    type: status
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §C — public Company History"
+    numbers: ["2022", "10"]
+
+  C024:
+    statement: Development of MINT the second-generation PIM AI semiconductor was completed in December 2022
+    type: status
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §C — public Company History"
+    numbers: ["2022", "12", "2"]
+
+  C025:
+    statement: A patent for a neuromorphic device was registered in January 2024
+    type: credential
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §C — public Company History"
+    numbers: ["2024", "1", "01"]
+
+  C026:
+    statement: A PoC on MINT demonstrated voice-recognition lighting with an emergency call bell in February 2024
+    type: capability
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §C — public Company History"
+    numbers: ["2024", "2", "02"]
+
+  C027:
+    statement: A Home IoT NDA with MEISEI ELECTRIC was signed in March 2024
+    type: credential
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §C — public Company History"
+    numbers: ["2024", "3", "03"]
+
+  C028:
+    statement: Pebble Square closed a Pre-A funding round in August 2025
+    type: scale
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §C — public Company History"
+    numbers: ["2025", "8", "08"]
+
+  C029:
+    statement: Pebble Square was selected for KPAS 2025 Korea Promising AI Startups in October 2025
+    type: credential
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §C — public Company History"
+    numbers: ["2025", "10"]
+
+  C030:
+    statement: Pebble Vina builds the layer above the parent's silicon in Vietnam - GPU and HPC integration, private AI deployment, and enterprise software
+    type: capability
+    confidence: conditional
+    usable: conditional
+    label: shipped
+    qualification: "capability tense only. No customer, deployment, distribution agreement or revenue is verified - docs/05-backlog.md #17 and #18. Never name a GPU vendor or imply a distributorship."
+    source: "docs/03-structure.md §1 and context/02-products - branches tagged origin: pv"
+
 # Never usable. Present so a writer reaching for one finds the refusal instead of an empty ledger.
 forbidden:
 

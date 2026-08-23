@@ -241,6 +241,40 @@ export function Figure({
   );
 }
 
+/**
+ * Art-directed artwork. `media.src` is the square crop, `media.srcWide` a wider
+ * recomposition that takes over from `lg` — two different drawings, so this is a
+ * <picture> rather than next/image, which swaps resolution but never composition.
+ * The files carry their own drawn frame, so nothing is added around them.
+ */
+export function Illustration({
+  media,
+  className,
+  priority,
+}: {
+  media: Media;
+  className?: string;
+  priority?: boolean;
+}) {
+  if (!media.src) return null;
+
+  return (
+    <picture>
+      {media.srcWide ? <source media="(min-width: 1024px)" srcSet={media.srcWide} /> : null}
+      {/* eslint-disable-next-line @next/next/no-img-element -- <picture> art direction */}
+      <img
+        src={media.src}
+        alt={media.alt}
+        width={1254}
+        height={1254}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        className={cn("w-full object-contain", media.srcWide && "aspect-square lg:aspect-[4/3]", className)}
+      />
+    </picture>
+  );
+}
+
 function MediaPending({ alt, label }: { alt: string; label: string }) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-2.5 p-6 text-center">

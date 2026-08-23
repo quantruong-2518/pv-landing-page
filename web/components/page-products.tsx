@@ -87,7 +87,7 @@ function IndexColumn({
         {entries.map((e) => (
           <li key={e.id}>
             <a
-              href={path(c.locale, "products", e.id)}
+              href={path("products", e.id)}
               className="flex min-h-12 flex-col justify-center border-t border-line py-2.5 transition-colors hover:bg-surface"
             >
               <span className="text-sm font-medium">{e.name}</span>

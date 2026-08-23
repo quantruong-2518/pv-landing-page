@@ -10,7 +10,7 @@
 | Thông điệp & giọng | `docs/02-message-map.md` |
 | Trang có những khối nào, vì sao | `docs/03-structure.md` |
 | Nội dung nháp / nội dung cũ còn dùng được | `context/` — **bàn soạn**, không phải nguồn đang chạy |
-| Copy thật (EN/VI) | `web/content/en.ts` (canonical), `web/content/vi.ts` — **nguồn đang chạy, duy nhất** |
+| Copy thật (VI) | `web/content/vi.ts` — **nguồn đang chạy, duy nhất** |
 | Hồ sơ pháp nhân, liên hệ | `web/content/site.ts` |
 
 Nguồn cấp 1 nằm ở repo hàng xóm `../pebblevn-ppt-first-meet/company/` (IR Deck 05/01/2026,
@@ -32,36 +32,43 @@ ghi vào `docs/05-backlog.md`.
 
 ## 3. Kỷ luật code
 
-- **Song ngữ đối xứng.** `vi.ts` và `en.ts` cùng khớp type `SiteContent` trong `web/content/types.ts`.
-  Thêm field ở một bên mà không thêm bên kia → `tsc` gãy. Đó là chủ ý.
+- **Một locale.** `web/` chỉ ship tiếng Việt: `vi.ts` khớp type `SiteContent` trong
+  `web/content/types.ts`. Bản EN đã bị gỡ 2026-08-23 — không còn ràng buộc đối xứng nào cho `tsc`
+  giữ. Thêm ngôn ngữ trở lại nghĩa là thêm một `content/<lang>.ts` **đầy đủ**, không phải một nửa.
 - **Không hardcode màu.** Chỉ dùng token trong `web/app/globals.css`. Đổi brand = đổi một chỗ.
 - **Không hardcode chữ trong component.** Chữ đi từ `content/*` xuống qua props. Component chỉ biết bố cục.
 - **SSR mặc định.** Không `"use client"` trừ khi thật sự cần tương tác. Trang phải crawl được (GEO/AEO).
-  Hiện cả 6 route đều prerender tĩnh, không có một dòng JS tương tác nào — menu di động dùng `<details>`.
+  Hiện cả 3 route đều prerender tĩnh; menu di động dùng `<details>`, không cần JS.
 - **Code và comment bằng tiếng Anh.** Docs (`docs/`, `context/`) viết tiếng Việt. Comment ngắn, nói *vì sao*.
 - **Không hardcode đường dẫn.** Route tính bằng `lib/routes.ts` để đổi cấu trúc URL chỉ sửa một chỗ.
 - Trước khi commit: `npm run build` phải xanh.
 
 ## 4. Quy ước ngôn ngữ
 
-- **EN là canonical** (`/`), **VI là bản đầy đủ song song** (`/vi`) — không bản nào rút gọn. Tệp quyết định
-  (FDI Hàn, đối tác Nhật, GCC, nhà đầu tư, kỹ sư) đọc tiếng Anh.
-- Số trong bản EN dùng **dấu chấm thập phân** (17.6 TOPS/W); bản VI dùng **dấu phẩy** (17,6 TOPS/W).
+- **Trang chỉ có tiếng Việt** — `/`, `/products`, `/contact`. Bản EN bị gỡ 2026-08-23 (GM chốt);
+  không còn `/vi`, không còn nút chuyển ngữ. Nếu tệp quyết định nước ngoài cần bản EN thì đó là một
+  quyết định mở lại, không phải một field bỏ quên.
+- Số dùng **dấu phẩy thập phân** (17,6 TOPS/W).
 - Giữ nguyên tên riêng: Pebble Square Inc. · MOCHA · MINT · PAPAYA FLEX · ESPRESSO · Pebble AI Studio ·
   Analog-PIM · Digital-PIM, và tên sáu business sector của họ.
 - Bám sát nội dung trang mẹ nhưng **viết lại bằng lời của mình**; chỉ giữ nguyên văn tên riêng, thông số,
   và vài cụm chữ ký ngắn đặt trong ngoặc kép. Không bê nguyên đoạn.
 
-## 3b. Nội dung để trống là có chủ ý
+## 3b. Toàn bộ content hiện là i18n key
 
-`lead` và `body` trong `en.ts`/`vi.ts` phần lớn là chuỗi rỗng — cấu trúc lên trước, chữ điền sau
-(GM chốt 2026-08-20). **Đừng "sửa" chúng bằng chữ tự nghĩ ra.** Bản nháp và vật liệu nằm ở `context/`,
-mọi fact phải tra được về `docs/01-proof-bank.md`. Component đã bỏ qua chuỗi rỗng thay vì vẽ khoảng trắng.
+Mọi chuỗi hiển thị trong `vi.ts` đang **bằng đúng đường dẫn key của chính nó**
+(`home.whyNow.title`, `products.hardware.items[0].specs[0].note`, …) — cấu trúc lên trước, chữ viết lại
+một lượt sau (GM chốt 2026-08-20). **Đừng "sửa" chúng bằng chữ tự nghĩ ra.** Bản nháp và vật liệu nằm ở
+`context/`, mọi fact phải tra được về `docs/01-proof-bank.md`.
+
+Trường **không phải** content thì giữ giá trị thật: `id`, `status`, `origin`, `starred`, `media.src`, và
+`home.hero.media.alt` (để rỗng vì ảnh thuần trang trí).
 
 ## 4b. Luật một khối = một màn hình (đã nới)
 
-Mọi `<Section>` mang `snap-start`, nhưng chỉ khối mở màn (hero, Why Now, index `/products`, hero
-`/contact`) mới cao trọn `calc(100svh - var(--header-h))` — truyền `screen` cho `<Section>`. Khối danh mục
+Mọi `<Section>` mang `snap-start`, nhưng chỉ khối mở màn (hero, index `/products`, hero
+`/contact`) mới cao trọn `calc(100svh - var(--header-h))` — truyền `screen` cho `<Section>`.
+**Why Now đã bỏ `screen` (2026-08-21)** — đo được nó tràn màn ngay cả khi chưa có chữ. Khối danh mục
 cao theo nội dung. `html` vẫn `scroll-snap-type: y mandatory` từ 768px và cao ≥640px.
 **Thêm chữ vào một khối `screen` là làm khối đó tràn màn.** Chi tiết: `docs/03-structure.md` §3.
 
@@ -98,5 +105,6 @@ Repo này dùng **tiếng Việt, tiếng Anh và tiếng Hàn**. Mọi việc d
 Sự thật của dự án nằm ở `content-system/` (projection máy đọc được của `docs/01-proof-bank.md`),
 không nằm trong file reference của skill. Khi hai bên lệch nhau, **proof-bank thắng**.
 
-`web/` hiện chỉ ship **en + vi**. `ko` skill sinh được nhưng `web/content/types.ts` chưa có —
-thêm `ko` nghĩa là thêm một `content/ko.ts` đầy đủ, không phải một nửa.
+`web/` hiện chỉ ship **vi**. Skill sinh được cả `en` và `ko`, nhưng `web/content/types.ts` chỉ có
+một locale — thêm ngôn ngữ nghĩa là thêm một `content/<lang>.ts` đầy đủ cộng route của nó, không phải
+một nửa.

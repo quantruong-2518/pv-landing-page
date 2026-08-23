@@ -1,11 +1,12 @@
 import type { SiteContent } from "@/content/types";
+import Image from "next/image";
 import { CTA_HREF } from "@/content/site";
 import { path } from "@/lib/routes";
 import { PageShell } from "@/components/page-shell";
 import {
   Body,
   Button,
-  Figure,
+  Illustration,
   Lead,
   Section,
   SectionHead,
@@ -27,68 +28,65 @@ export function HomePage({ c }: { c: SiteContent }) {
 
         <div className={cn(SHELL, "relative grid items-center gap-10 lg:grid-cols-12 lg:gap-12")}>
           <div className="lg:col-span-7">
-            <p className="flex items-center gap-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-accent sm:text-[0.7rem] sm:tracking-[0.18em]">
-              <span className="h-px w-6 bg-accent/60 sm:w-8" aria-hidden />
-              {hero.eyebrow}
-            </p>
+            {hero.eyebrow ? (
+              <p className="flex items-center gap-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-accent sm:text-[0.7rem] sm:tracking-[0.18em]">
+                <span className="h-px w-6 bg-accent/60 sm:w-8" aria-hidden />
+                {hero.eyebrow}
+              </p>
+            ) : null}
 
-            <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.06] sm:text-5xl lg:text-[3.6rem]">
-              {hero.slogan}
-            </h1>
+            {hero.slogan ? (
+              <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.06] sm:text-5xl lg:text-[3.6rem]">
+                {hero.slogan}
+              </h1>
+            ) : null}
 
             <Lead className="lg:text-xl">{hero.lead}</Lead>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Button href={CTA_HREF}>{hero.ctaPrimary}</Button>
-              <Button href={path(c.locale, "products")} variant="ghost">
+              <Button href={path("products")} variant="ghost">
                 {hero.ctaSecondary}
               </Button>
             </div>
           </div>
 
-          <Figure
-            media={hero.media}
-            ratio="aspect-[16/10] lg:aspect-[4/5]"
-            sizes="(min-width: 1024px) 40vw, 100vw"
-            pendingLabel={c.ui.imagePending}
-            priority
-            className="lg:col-span-5"
-          />
+          <div className="relative mx-auto aspect-square w-[72%] sm:w-1/2 lg:col-span-5 lg:w-full" aria-hidden>
+            {hero.media.src ? (
+              <Image
+                src={hero.media.src}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 38vw, 60vw"
+                className="object-contain"
+                priority
+              />
+            ) : null}
+          </div>
         </div>
-
-        <a
-          href="#why-now"
-          className="absolute inset-x-0 bottom-6 mx-auto hidden w-fit font-mono text-[0.62rem] uppercase tracking-[0.16em] text-subtle transition-colors hover:text-fg lg:block"
-        >
-          {hero.scrollHint} ↓
-        </a>
       </Section>
 
       {/* ── 01 · Why now ─────────────────────────────────────────────────── */}
-      <Section id="why-now" screen>
+      <Section id="why-now">
         <div className={SHELL}>
           <SectionHead intro={whyNow} />
 
-          <div className="mt-9 grid gap-9 lg:mt-12 lg:grid-cols-2 lg:items-start lg:gap-12">
-            <ol className="grid gap-7">
-              {whyNow.points.map((p, i) => (
-                <li key={p.title} className="border-t-2 border-fg pt-4">
+          {/* One illustration per point: square on phones, a wider recomposition
+              from lg — see context/media-plan.md. */}
+          <ol className="mt-9 grid gap-9 lg:mt-12 lg:grid-cols-3 lg:gap-10">
+            {whyNow.points.map((p, i) => (
+              <li key={p.title} className="flex w-full max-w-md flex-col lg:max-w-none">
+                <Illustration media={p.media} />
+                <div className="mt-5 border-t-2 border-fg pt-4">
                   <span className="font-mono text-sm font-medium tracking-[0.1em] text-accent" aria-hidden>
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-2 text-lg font-semibold leading-snug sm:text-xl">{p.title}</h3>
                   <Body className="mt-2.5">{p.body}</Body>
-                </li>
-              ))}
-            </ol>
-
-            <Figure
-              media={whyNow.media}
-              ratio="aspect-[16/10]"
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              pendingLabel={c.ui.imagePending}
-            />
-          </div>
+                </div>
+              </li>
+            ))}
+          </ol>
 
           <div className="mt-10 border-t border-line pt-6 lg:mt-14">
             <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">

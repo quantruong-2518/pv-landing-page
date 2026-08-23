@@ -11,10 +11,6 @@ import { cn } from "@/lib/cn";
  * JSON-LD.
  */
 export function SiteFooter({ c }: { c: SiteContent }) {
-  const address = c.locale === "en" ? SITE.office.en : SITE.office.vi;
-  const legalName = c.locale === "en" ? SITE.legalName : SITE.legalNameVi;
-  const parentCity = c.locale === "en" ? SITE.parent.city.en : SITE.parent.city.vi;
-
   const links: Array<{ key: PageKey; label: string }> = [
     { key: "home", label: c.nav.home },
     { key: "products", label: c.nav.products },
@@ -46,7 +42,7 @@ export function SiteFooter({ c }: { c: SiteContent }) {
               {links.map((l) => (
                 <li key={l.key}>
                   <a
-                    href={path(c.locale, l.key)}
+                    href={path(l.key)}
                     className="inline-flex min-h-9 items-center text-sm text-muted hover:text-fg"
                   >
                     {l.label}
@@ -77,7 +73,7 @@ export function SiteFooter({ c }: { c: SiteContent }) {
                   {SITE.contact.email}
                 </a>
               </li>
-              <li className="pt-2 text-sm leading-relaxed text-muted">{address}</li>
+              <li className="pt-2 text-sm leading-relaxed text-muted">{SITE.office}</li>
             </ul>
           </div>
 
@@ -86,9 +82,9 @@ export function SiteFooter({ c }: { c: SiteContent }) {
               {c.footer.legalTitle}
             </p>
             <dl className="mt-1">
-              <FactRow label={c.labels.entity} value={legalName} />
+              <FactRow label={c.labels.entity} value={SITE.legalName} />
               <FactRow label={c.labels.taxCode} value={SITE.taxId} />
-              <FactRow label={c.labels.parent} value={`${SITE.parent.name} — ${parentCity}`} />
+              <FactRow label={c.labels.parent} value={`${SITE.parent.name} — ${SITE.parent.city}`} />
             </dl>
           </div>
         </div>

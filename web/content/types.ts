@@ -1,14 +1,14 @@
 /**
- * Content shape for the whole site. `en.ts` (canonical) and `vi.ts` both satisfy
- * `SiteContent`, so adding a field on one side and forgetting the other breaks
- * `tsc` — that is deliberate (CLAUDE.md §3).
+ * Content shape for the whole site. `vi.ts` is the only locale that ships — the
+ * English version was removed on 2026-08-23, so there is no cross-language
+ * symmetry left for `tsc` to enforce.
  *
- * Empty strings are intentional placeholders: the structure ships now, the prose
- * lands later. Components skip empty values rather than render blank space.
- * Drafts live in `context/`.
+ * Every content string is currently its own i18n key (`home.whyNow.title`, …):
+ * the structure ships now, the prose lands later and is rewritten in one pass.
+ * Do not fill them in from memory — drafts live in `context/`, facts in
+ * `docs/01-proof-bank.md`. Components still skip empty values rather than render
+ * blank space.
  */
-
-export type Locale = "en" | "vi";
 
 export type PageKey = "home" | "products" | "contact";
 
@@ -21,7 +21,13 @@ export type Origin = "ps" | "pv";
 /** Image slot. An empty `src` renders a designed placeholder — see context/media-plan.md. */
 export interface Media {
   src?: string;
-  /** Doubles as the art direction shown in the placeholder while `src` is empty. */
+  /**
+   * A differently *composed* crop for wide viewports (used from `lg` up), not
+   * just a larger one. Set it only when the two files are genuinely different
+   * artwork — `<Illustration>` swaps them, `next/image` never would.
+   */
+  srcWide?: string;
+  /** Rendered in the placeholder while `src` is empty. Art direction: context/media-plan.md. */
   alt: string;
 }
 
@@ -29,6 +35,11 @@ export interface Media {
 export interface Item {
   title: string;
   body: string;
+}
+
+/** An `Item` that carries its own artwork instead of sharing the block's one. */
+export interface IllustratedItem extends Item {
+  media: Media;
 }
 
 /** Opening of a section: index label, heading, optional lead. */
@@ -96,14 +107,13 @@ export interface HomeContent {
     lead: string;
     ctaPrimary: string;
     ctaSecondary: string;
-    scrollHint: string;
     media: Media;
   };
   whyNow: Intro & {
-    points: Item[];
+    /** One illustration per point — the block has no single figure of its own. */
+    points: IllustratedItem[];
     pillarsTitle: string;
     pillars: Item[];
-    media: Media;
   };
   history: Intro & {
     milestones: Milestone[];
@@ -120,14 +130,23 @@ export interface ProductsContent {
 export interface ContactContent {
   intro: Intro;
   ctaPrimary: string;
-  ctaSecondary: string;
   media: Media;
+  form: {
+    title: string;
+    nameLabel: string;
+    companyLabel: string;
+    emailLabel: string;
+    phoneLabel: string;
+    messageLabel: string;
+    messagePlaceholder: string;
+    optionalLabel: string;
+    requiredNote: string;
+    successTitle: string;
+    successBody: string;
+  };
 }
 
 export interface SiteContent {
-  locale: Locale;
-  /** Label of the link to the other locale. */
-  alternateLabel: string;
   meta: Record<PageKey, { title: string; description: string }>;
 
   nav: {

@@ -33,9 +33,9 @@ media-plan.md       ảnh nào nên có ở đâu, tỉ lệ, cách diễn giả
 
 | File | Trạng thái |
 |---|---|
-| `01-home/1.1-hero.md` | ĐÃ ĐIỀN (tiêu đề) · body chờ |
-| `01-home/1.2-why-now.md` | ĐÃ ĐIỀN (tiêu đề) · body chờ |
-| `01-home/1.3-history.md` | ĐÃ ĐIỀN (đủ mốc) |
+| `01-home/1.1-hero.md` | **VI ĐÃ ĐIỀN** (21/08) · EN chờ, compile từ `content-system/specs/home.yaml` |
+| `01-home/1.2-why-now.md` | **VI ĐÃ ĐIỀN** (21/08) · EN chờ, compile từ `content-system/specs/home.yaml` |
+| `01-home/1.3-history.md` | **VI ĐÃ ĐIỀN** (21/08) · EN chờ, compile từ `content-system/specs/home.yaml` |
 | `02-products/**` | tiêu đề ĐÃ ĐIỀN · mô tả chờ |
 | `03-contact/contact.md` | ĐÃ ĐIỀN (dữ liệu pháp nhân) · lead chờ |
 | `99-unplaced/**` | kho lưu, không nằm trên trang |
