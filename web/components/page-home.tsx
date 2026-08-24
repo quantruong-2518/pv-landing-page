@@ -27,7 +27,7 @@ export function HomePage({ c }: { c: SiteContent }) {
 
         {/* Two columns from `md`, not `lg`: stacked, the decorator sat under the
             copy and pushed this `screen` block 304px past budget at 1023x768. */}
-        <div className={cn(SHELL, "relative grid items-center gap-6 sm:gap-10 md:grid-cols-12 md:gap-12")}>
+        <div className={cn(SHELL, "relative isolate grid items-center gap-6 sm:gap-10 md:grid-cols-12 md:gap-12")}>
           <div className="md:col-span-7">
             {hero.eyebrow ? (
               <p className="flex items-center gap-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-accent sm:text-[0.7rem] sm:tracking-[0.18em]">
@@ -53,17 +53,32 @@ export function HomePage({ c }: { c: SiteContent }) {
             </div>
           </div>
 
-          {/* A third of the width on phones, not three quarters: stacked under
-              the CTAs the mark was 252px of a 788px budget at 390 — the biggest
-              element of the opening screen was decoration, and it alone pushed
-              this `screen` block past the viewport. Unchanged from `sm` up. */}
-          <div className="relative mx-auto aspect-square w-[38%] sm:w-1/2 md:col-span-5 md:w-full" aria-hidden>
+          {/* Below `sm` the mark is the block's backdrop rather than a row under the
+              CTAs, bleeding off the top-right corner. Size and offset are percentages
+              of the same box, so 360–639 is one similarity transform: 110% wide and
+              pushed 44% right parks the artwork's dense corner — the star, at 60–90%
+              across — past the right edge at every width in that range, and leaves the
+              left 40% of the screen with no ink at all.
+
+              `bottom-full` stops the frame above the copy instead of dipping behind it.
+              The artwork carries near-opaque white in that lower-left arc: sunk far
+              enough to sit behind the eyebrow, 2.1% of that line's footprint drops
+              under 4.5:1 against `text-accent` (mean 6.12:1, floor 3.38:1). Held above,
+              ink clears the copy by 24px at 360 and 43px at 639, and no text is over it.
+
+              `-z-10` inside the `isolate`d grid keeps it under the copy and above the
+              section's own background. Every base class resets at `sm`, where the mark
+              is back in its grid column. */}
+          <div
+            className="absolute -right-[44%] bottom-full -z-10 aspect-square w-[110%] opacity-20 sm:relative sm:inset-auto sm:z-auto sm:mx-auto sm:w-1/2 sm:opacity-100 md:col-span-5 md:w-full"
+            aria-hidden
+          >
             {hero.media.src ? (
               <Image
                 src={hero.media.src}
                 alt=""
                 fill
-                sizes="(min-width: 768px) 38vw, (min-width: 640px) 46vw, 36vw"
+                sizes="(min-width: 768px) 38vw, (min-width: 640px) 46vw, 110vw"
                 className="object-contain"
                 priority
               />
