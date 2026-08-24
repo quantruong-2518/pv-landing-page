@@ -44,7 +44,22 @@ export function Section({
       id={id}
       className={cn(
         "relative flex flex-col justify-center",
-        dense ? "py-7 sm:py-12 lg:py-14" : "py-14 sm:py-20 lg:py-24",
+        // One expression, exactly one `py-*` per block: cn() is a plain join, so
+        // two padding classes at the same breakpoint would be settled by
+        // stylesheet order, not by this list.
+        //
+        // A `screen` block gets a smaller phone step because its base padding is
+        // only ever *visible* when the content already overflows the budget:
+        // below that, min-h plus justify-center absorbs the difference and the
+        // block renders identically whatever the value. So on a phone this is
+        // the minimum air under the sticky header, not the block rhythm — 56px
+        // of it was 112px of a 684px budget at 360x740. Unchanged from `sm`,
+        // where no opener overflows.
+        dense
+          ? "py-7 sm:py-12 lg:py-14"
+          : screen
+            ? "py-6 sm:py-20 lg:py-24"
+            : "py-14 sm:py-20 lg:py-24",
         screen && "min-h-[calc(100svh-var(--header-h))] snap-start",
         tone === "dark" && "tone-dark bg-bg text-fg",
         className,
@@ -432,7 +447,12 @@ export function AppRail({
                 to one size and read as one set. */}
             <Figure
               media={item.media ?? { alt: item.title }}
-              ratio="aspect-[16/10]"
+              // 16/9 is the ratio all ten app files are authored at (1200x675).
+              // In a 16/10 frame `object-cover` filled by height and took ~5%
+              // off each side of every one of them — on product photography
+              // that edge is the device. The frame also lands 8–11px shorter,
+              // which each rail block keeps for its own budget.
+              ratio="aspect-[16/9]"
               sizes="(min-width: 1024px) 176px, (min-width: 640px) 160px, 128px"
               pendingLabel={pendingLabel}
               compact

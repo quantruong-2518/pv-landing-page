@@ -89,7 +89,18 @@ function IndexColumn({
               href={path("products", e.id)}
               className="group flex min-h-11 flex-col justify-center border-t border-line py-2.5 transition-colors hover:border-accent"
             >
-              <span className="text-sm font-medium transition-colors group-hover:text-accent">{e.name}</span>
+              <span className="flex items-center gap-2 text-sm font-medium transition-colors group-hover:text-accent">
+                {e.name}
+                {/* A phone has no hover, so `group-hover:text-accent` was the
+                    whole affordance and at rest these six read as body copy —
+                    same colour as prose, no underline, no mark. A chevron in
+                    accent says "goes somewhere" with no pointer involved. It
+                    rides on the name line rather than at the row end so it
+                    takes no width from the tagline: this block is `screen`, and
+                    a tagline that wraps is height (CLAUDE.md §4b). Drawn from
+                    borders, the way <Kicker> and the pending-frame ticks are. */}
+                <span className="h-2 w-2 shrink-0 rotate-45 border-r-2 border-t-2 border-accent" aria-hidden />
+              </span>
               <span className="mt-0.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-subtle">
                 {e.tagline}
               </span>
@@ -290,9 +301,22 @@ function ChipBlock({
                     number keeps its method and its source. From `lg` the copy
                     column is 700px and they sit two-up, where a stacked pair
                     would leave the second one below the fold anyway. */}
+                {/* `relative` decides where the `sr-only` span inside each
+                    <SpecCard> is laid out. It is absolutely positioned, so it
+                    resolves against the nearest positioned ancestor — and a
+                    *static* scroll container never clips one. Left static, the
+                    fourth card's span sat at its static x=907 in the section's
+                    coordinates and dragged the whole document to 907/373 at
+                    390px. Only a block with more than two numbers reaches that
+                    far out, which is why PAPAYA FLEX leaked alone.
+                    `tabIndex`/`role` match <AppRail>: below `lg` this is a
+                    scroller and the cards past the edge have no other way in. */}
                 <div
+                  role="group"
+                  aria-label={c.ui.specs}
+                  tabIndex={0}
                   className={cn(
-                    "rail -mx-5 mt-3 flex snap-x snap-mandatory gap-x-4 overflow-x-auto overscroll-x-contain px-5 pb-1 scroll-pl-5",
+                    "rail relative -mx-5 mt-3 flex snap-x snap-mandatory gap-x-4 overflow-x-auto overscroll-x-contain px-5 pb-1 scroll-pl-5",
                     "sm:-mx-8 sm:px-8 sm:scroll-pl-8 md:mx-0 md:px-0 md:scroll-pl-0",
                     "lg:grid lg:gap-x-8 lg:gap-y-6 lg:overflow-visible lg:pb-0",
                     product.specs.length > 1 && "lg:grid-cols-2",

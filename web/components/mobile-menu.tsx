@@ -36,7 +36,12 @@ export function MobileMenu({
       if (e.key === "Escape") close();
     };
     const onPointerDown = (e: Event) => {
-      if (el.open && !el.contains(e.target as Node)) close();
+      if (!el.open) return;
+      const t = e.target as Node | null;
+      // The scrim is a child of <details> so the browser can show and hide it
+      // with the panel, but a tap on it is still a tap outside the panel.
+      if (t instanceof Element && t.hasAttribute("data-scrim")) return close();
+      if (!el.contains(t)) close();
     };
 
     document.addEventListener("keydown", onKeyDown);
@@ -60,10 +65,23 @@ export function MobileMenu({
         </span>
       </summary>
 
+      {/* Scrim. A child of <details>, so the browser shows and hides it with the
+          panel — no JS paints it. It is sized off the header token instead of
+          `inset-0` because the header's own `backdrop-filter` makes it the
+          containing block for fixed children: stated this way the box is the
+          same whether it resolves against the header or the viewport. Leaving
+          the header row uncovered is deliberate — the hamburger stays the way
+          back out even with JS off. */}
+      <div
+        data-scrim=""
+        aria-hidden
+        className="fixed inset-x-0 top-[var(--header-h)] h-[calc(100svh-var(--header-h))] bg-bg-deep/70"
+      />
+
       {/* Height comes from the space actually left under the header, not a fixed
           share of the viewport: at 360x640 a 70svh box clipped the last item. */}
       <nav
-        className="absolute right-0 top-12 max-h-[calc(100svh-var(--header-h)-1.5rem)] w-[17rem] overflow-y-auto border border-line bg-bg p-4 shadow-xl"
+        className="absolute right-0 top-12 z-10 max-h-[calc(100svh-var(--header-h)-1.5rem)] w-[17rem] overflow-y-auto border border-line-strong bg-bg p-4 shadow-xl"
         aria-label={label}
       >
         {links.map((l) => (

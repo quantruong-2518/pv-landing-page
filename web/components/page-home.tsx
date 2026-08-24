@@ -27,7 +27,7 @@ export function HomePage({ c }: { c: SiteContent }) {
 
         {/* Two columns from `md`, not `lg`: stacked, the decorator sat under the
             copy and pushed this `screen` block 304px past budget at 1023x768. */}
-        <div className={cn(SHELL, "relative grid items-center gap-10 md:grid-cols-12 md:gap-12")}>
+        <div className={cn(SHELL, "relative grid items-center gap-6 sm:gap-10 md:grid-cols-12 md:gap-12")}>
           <div className="md:col-span-7">
             {hero.eyebrow ? (
               <p className="flex items-center gap-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-accent sm:text-[0.7rem] sm:tracking-[0.18em]">
@@ -37,14 +37,14 @@ export function HomePage({ c }: { c: SiteContent }) {
             ) : null}
 
             {hero.slogan ? (
-              <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.06] sm:text-5xl lg:text-[3.6rem]">
+              <h1 className="mt-4 text-[2.1rem] font-semibold leading-[1.06] sm:mt-5 sm:text-5xl lg:text-[3.6rem]">
                 {hero.slogan}
               </h1>
             ) : null}
 
             <Lead className="md:text-xl">{hero.lead}</Lead>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
               {/* Home hands off to the catalogue; booking stays on the sticky header. */}
               <Button href={path("products")}>{hero.ctaPrimary}</Button>
               <Button href={path("contact")} variant="ghost">
@@ -53,13 +53,17 @@ export function HomePage({ c }: { c: SiteContent }) {
             </div>
           </div>
 
-          <div className="relative mx-auto aspect-square w-[72%] sm:w-1/2 md:col-span-5 md:w-full" aria-hidden>
+          {/* A third of the width on phones, not three quarters: stacked under
+              the CTAs the mark was 252px of a 788px budget at 390 — the biggest
+              element of the opening screen was decoration, and it alone pushed
+              this `screen` block past the viewport. Unchanged from `sm` up. */}
+          <div className="relative mx-auto aspect-square w-[38%] sm:w-1/2 md:col-span-5 md:w-full" aria-hidden>
             {hero.media.src ? (
               <Image
                 src={hero.media.src}
                 alt=""
                 fill
-                sizes="(min-width: 768px) 38vw, 60vw"
+                sizes="(min-width: 768px) 38vw, (min-width: 640px) 46vw, 36vw"
                 className="object-contain"
                 priority
               />

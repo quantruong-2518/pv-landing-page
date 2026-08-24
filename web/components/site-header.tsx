@@ -33,6 +33,12 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
     { title: c.nav.software, items: c.products.software.groups },
   ];
 
+  // On /vi/contact the button pointed at the page it was already on: the largest
+  // control on the only conversion page did nothing. There it jumps into the
+  // form's first field instead (`#name`, contact-form.tsx) — the action the
+  // label already promises. The other two routes keep the plain route.
+  const ctaHref = page === "contact" ? path("contact", "name") : path("contact");
+
   return (
     <header className="tone-dark sticky top-0 z-50 bg-bg/92 text-fg shadow-[0_1px_0_var(--color-line)] backdrop-blur">
       <a
@@ -73,7 +79,7 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
               the header row. Both labels are existing content keys — a dedicated
               short header label is a work order for the writer. */}
           <Button
-            href={path("contact")}
+            href={ctaHref}
             className="whitespace-nowrap px-3 py-2 text-[0.8rem] sm:px-4 sm:text-sm"
           >
             <span className="sm:hidden">{c.nav.contact}</span>

@@ -193,7 +193,12 @@ function Field({
   children: React.ReactNode;
 }) {
   return (
-    <div className={className}>
+    // Bottom-anchored column. Grid items stretch to the tallest cell in their
+    // row, so a label that wraps to two lines used to carry its own control
+    // that much lower than its neighbour's. Pinning the label-control pair to
+    // the bottom aligns the controls at any width, and keeps the label next to
+    // the field it names rather than opening a hole between them.
+    <div className={cn("flex flex-col justify-end", className)}>
       <label htmlFor={id} className={LABEL}>
         {label}
         {required ? " *" : optionalLabel ? ` · ${optionalLabel}` : ""}
