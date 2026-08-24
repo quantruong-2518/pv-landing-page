@@ -11,3 +11,6 @@ npm-debug.log*
 # Claude Code session artifacts (agents/ definitions ARE committed)
 .claude/RESUME.md
 .claude/settings.local.json
+
+# Review screenshots — working artifacts from the ship-page loop, not source
+web/.review-shots/

@@ -76,14 +76,6 @@
       }
     },
     {
-      "key": "contact.form.requiredNote",
-      "component": "helper_text",
-      "notes": "Explains the ` *` the component appends rather than repeating it. Four of five fields are required, so listing them would be longer than the mark it explains.",
-      "locales": {
-        "vi": "Dấu * là trường bắt buộc"
-      }
-    },
-    {
       "key": "contact.ctaPrimary",
       "component": "button",
       "primary_action": true,
@@ -103,9 +95,9 @@
     {
       "key": "contact.form.successBody",
       "component": "success",
-      "notes": "Names the step the visitor still owns, then the recovery path for a browser with no mail handler. It points at the phone and email in the page header rather than retyping them — those values live in web/content/site.ts and a copy here would rot. Engineer follow-up recorded in the run report.",
+      "notes": "Repaired 2026-08-24 (decisions/drop-preform-contact-block). Sentence one is unchanged: it names the step the visitor still owns and carries the site's privacy line (`chưa có gì rời máy bạn`, echoing messagePlaceholder and the home hero). Only the fallback clause moved: the phone/email <dl> it used to point at (`ở đầu trang`) has been cut from the page, and docs/05-backlog.md #28 puts SITE.contact.phone/email inside this same panel directly under this paragraph — so the clause now points there. Still no address retyped into vi.ts; the values stay in web/content/site.ts.",
       "locales": {
-        "vi": "Bấm gửi trong cửa sổ vừa mở thì yêu cầu mới tới chỗ chúng tôi — trước đó chưa có gì rời máy bạn. Nếu không có cửa sổ nào mở ra, dùng email hoặc số điện thoại ở đầu trang."
+        "vi": "Bấm gửi trong cửa sổ vừa mở thì yêu cầu mới tới chỗ chúng tôi — trước đó chưa có gì rời máy bạn. Nếu không có cửa sổ nào mở ra, dùng email hoặc số điện thoại ngay bên dưới."
       }
     }
   ]

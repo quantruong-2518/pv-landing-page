@@ -136,12 +136,29 @@ export const vi: SiteContent = {
               status: "shipped",
             },
           ],
-          media: { alt: "Chip MINT chụp nghiêng 3/4 trên nền xám trung tính." },
+          media: {
+            src: "/media/chips/mint.webp",
+            alt: "Chip MINT chụp nghiêng 3/4 trên nền xám trung tính.",
+          },
           status: "shipped",
           origin: "ps",
         },
         {
           id: "papaya",
+          name: "PAPAYA",
+          tagline: "",
+          body: "",
+          capabilities: [],
+          specs: [],
+          media: {
+            src: "/media/chips/papaya.webp",
+            alt: "Chip PAPAYA chụp nghiêng 3/4, cùng góc và cùng nền với MINT.",
+          },
+          status: "shipped",
+          origin: "ps",
+        },
+        {
+          id: "papaya-flex",
           name: "PAPAYA FLEX",
           tagline: "Analog-PIM · thị giác máy ở mức miliwatt",
           body: "Cùng Analog-PIM, chuyển sang tải ảnh: nhỏ hơn NVIDIA Jetson Nano khoảng 25 lần. Lợi thế là điện và kích thước — huấn luyện mô hình lớn thì GPU vẫn đúng.",
@@ -167,7 +184,10 @@ export const vi: SiteContent = {
               status: "shipped",
             },
           ],
-          media: { alt: "PAPAYA FLEX chụp cùng góc, cùng nền với MINT để so được kích thước." },
+          media: {
+            src: "/media/chips/papaya-flex.webp",
+            alt: "PAPAYA FLEX chụp cùng góc, cùng nền với MINT để so được kích thước.",
+          },
           status: "shipped",
           origin: "ps",
         },
@@ -192,7 +212,10 @@ export const vi: SiteContent = {
               statusNote: "Dự kiến 9/2026",
             },
           ],
-          media: { alt: "Sơ đồ khối kiến trúc Digital-PIM của ESPRESSO — chưa có silicon thật để chụp." },
+          media: {
+            src: "/media/chips/espresso.webp",
+            alt: "Sơ đồ khối kiến trúc Digital-PIM của ESPRESSO — chưa có silicon thật để chụp.",
+          },
           status: "roadmap",
           statusNote: "Dự kiến 9/2026 · chưa có trên trang công khai",
           origin: "ps",
@@ -264,9 +287,9 @@ export const vi: SiteContent = {
 
   contact: {
     intro: {
-      kicker: "Bước tiếp theo",
-      title: "Kể bài toán của bạn. Câu trả lời có thể là không.",
-      lead: "Ba điều nên nói trước: máy móc hay dây chuyền nào, tín hiệu nào đang đo được, dữ liệu có được phép rời tổ chức không. Chừng đó đủ để biết nên bắt đầu từ phần cứng, từ phần mềm, hay chưa nên bắt đầu.",
+      kicker: "Bắt đầu ngay",
+      title: "Kể bài toán của bạn, chúng ta xem giải được tới đâu.",
+      lead: "Gửi form đi, trong vòng 24 giờ một người của Pebble Vina sẽ đọc và trả lời bạn. Cảm ơn bạn đã quan tâm — chúng tôi mong được làm việc cùng doanh nghiệp của bạn.",
     },
     ctaPrimary: "Mở email đã điền sẵn",
     media: { alt: "Văn phòng Pebble Vina, tầng 19 toà Landmark 72, Hà Nội." },
@@ -279,9 +302,8 @@ export const vi: SiteContent = {
       messageLabel: "Bài toán cần giải",
       messagePlaceholder: "Ví dụ: 12 máy CNC, cần phát hiện rung bất thường trước khi hỏng, dữ liệu không được rời nhà máy.",
       optionalLabel: "Không bắt buộc",
-      requiredNote: "Dấu * là trường bắt buộc",
       successTitle: "Thư đã soạn sẵn trong ứng dụng mail của bạn",
-      successBody: "Bấm gửi trong cửa sổ vừa mở thì yêu cầu mới tới chỗ chúng tôi — trước đó chưa có gì rời máy bạn. Nếu không có cửa sổ nào mở ra, dùng email hoặc số điện thoại ở đầu trang.",
+      successBody: "Bấm gửi trong cửa sổ vừa mở thì yêu cầu mới tới chỗ chúng tôi — trước đó chưa có gì rời máy bạn. Nếu không có cửa sổ nào mở ra, dùng email hoặc số điện thoại ngay bên dưới.",
     },
   },
 
@@ -291,22 +313,23 @@ export const vi: SiteContent = {
     office: "Văn phòng",
     entity: "Pháp nhân",
     taxCode: "Mã số thuế",
-    parent: "Nhóm công ty",
+    parent: "Thành viên của",
   },
 
   footer: {
-    tagline: "Nền tảng bán dẫn AI Hàn Quốc, ký hợp đồng và xuất hoá đơn tại Việt Nam.",
+    tagline: "Thành viên của nhóm Pebble Square, ký hợp đồng và xuất hoá đơn tại Việt Nam.",
     navTitle: "Các trang",
-    contactTitle: "Kênh liên hệ",
-    legalTitle: "Pháp lý",
-    statusLegend: "Xanh: đã có · Vàng: dự kiến",
-    disclaimer: "Số liệu về Pebble Square Inc. lấy từ trang chính thức pebble-square.com, đọc ngày 20/08/2026. Mục nào mang nhãn dự kiến là lấy từ tài liệu nhà đầu tư, không nằm trong danh mục sản phẩm công khai.",
+    contactTitle: "Thông tin liên hệ",
+    legalTitle: "Hồ sơ doanh nghiệp",
+    statusLegend: "Mỗi số liệu đều mang nhãn đã có hoặc dự kiến",
+    disclaimer: "Số liệu về Pebble Square Inc. lấy từ trang chính thức pebble-square.com, đọc ngày 20/08/2026.",
     copyright: "© 2026 Công ty TNHH Pebble Vina",
   },
 
   ui: {
     specs: "Số đo",
     source: "Nguồn",
+    applications: "Ứng dụng",
     imagePending: "Ảnh đang chờ",
   },
 

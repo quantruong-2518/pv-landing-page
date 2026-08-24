@@ -22,9 +22,16 @@
   --color-bg-deep: #eef1f7;     /* deepest light step — closing band */
   --color-fg: #0f172a;          /* Deep Navy */
   --color-muted: #5e6b80;       /* Slate Gray */
-  --color-subtle: #97a4bd;
+  /* Lifted from #97a4bd (2026-08-24): the old step read 2.51:1 on white and
+     2.32:1 on --color-surface, and it carries every mono label on the site.
+     Kept bluer than --color-muted so the two steps still read apart by hue
+     once lightness alone can no longer separate them. 5.01:1 / 4.63:1. */
+  --color-subtle: #5f6f94;
   --color-line: #e5e7eb;        /* Light Gray — hairline */
-  --color-line-strong: #cbd5e1;
+  /* Darkened from #cbd5e1 (2026-08-24): every use is either an interactive
+     border (ghost button, origin tag, form field) or a rule meant to be seen,
+     and 1.48:1 missed the 3:1 non-text floor. Now 3.26:1 / 3.02:1. */
+  --color-line-strong: #818fa9;
   --color-primary: #133a8a;     /* Pebble Blue */
   --color-primary-fg: #ffffff;
   --color-accent: #133a8a;
@@ -45,7 +52,9 @@
   --color-bg-deep: #0a1020;     /* bottom of the atmosphere — footer sits here */
   --color-fg: #f4f7fc;
   --color-muted: #97a4bd;
-  --color-subtle: #64748b;
+  /* Lifted from #64748b (2026-08-24): the old step read 3.98:1 on --color-bg-deep,
+     under AA, and it carries the status legend that decodes every badge. */
+  --color-subtle: #8290a8;
   --color-line: #24324e;
   --color-line-strong: #33435f;
   --color-primary: #2f5bd0;
@@ -75,16 +84,18 @@ html {
   scroll-padding-top: var(--header-h);
 }
 
-/* Scrolling always rests at the START of a block, never between two.
-   `mandatory`, not `proximity`: proximity only catches a reader who already
-   stopped near a snap point, so one hard flick still leaves them mid-block.
-   Safe because a block taller than the viewport stays freely scrollable per spec.
+/* Scrolling rests at the START of a block rather than between two.
+   `proximity`, not `mandatory` (changed 2026-08-24): with content-height blocks
+   taller than the viewport, mandatory left only two reachable rest positions per
+   block — one cutting the four-pillar row below the fold, one hiding the h2 under
+   the header — and nothing in between. Proximity still catches a flick that lands
+   near a block start, without making the middle of a tall block unreachable.
 
    Enabled only on screens wide AND tall enough — on a phone every block
    overflows anyway, and snapping there only fights the reader. */
 @media (min-width: 768px) and (min-height: 640px) {
   html {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
   }
 }
 
@@ -120,6 +131,27 @@ h3 {
     linear-gradient(to right, color-mix(in srgb, var(--color-line) 70%, transparent) 1px, transparent 1px),
     linear-gradient(to bottom, color-mix(in srgb, var(--color-line) 70%, transparent) 1px, transparent 1px);
   background-size: 56px 56px;
+}
+
+/* Pool of light under a chip render on <ChipPlinth>. Kept neutral: each render
+   carries its own colour, and a tinted pool would fight the copper ESPRESSO. */
+.chip-pool {
+  background: radial-gradient(
+    58% 44% at 50% 58%,
+    color-mix(in srgb, var(--color-fg) 15%, transparent) 0%,
+    transparent 70%
+  );
+}
+
+/* Horizontal rails (<AppRail>). The scrollbar is suppressed because the card
+   peeking past the edge already says "this continues", and a bar drawn across
+   the middle of a reading page does not. Keyboard access comes from tabIndex. */
+.rail {
+  scrollbar-width: none;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
 }
 
 /* Soft glow behind the hero — kept faint; this page is for reading. */

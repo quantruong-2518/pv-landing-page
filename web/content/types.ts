@@ -42,6 +42,15 @@ export interface IllustratedItem extends Item {
   media: Media;
 }
 
+/**
+ * One use case of a hardware family, shown as a card in the application rail.
+ * `media` is optional: until the photography exists the rail draws the designed
+ * placeholder and uses `title` as its brief, so the row still reads as a row.
+ */
+export interface Application extends Item {
+  media?: Media;
+}
+
 /** Opening of a section: index label, heading, optional lead. */
 export interface Intro {
   kicker: string;
@@ -78,7 +87,7 @@ export interface Product {
   name: string;
   tagline: string;
   body: string;
-  capabilities: Item[];
+  capabilities: Application[];
   specs: Spec[];
   media: Media;
   status: FactStatus;
@@ -140,7 +149,6 @@ export interface ContactContent {
     messageLabel: string;
     messagePlaceholder: string;
     optionalLabel: string;
-    requiredNote: string;
     successTitle: string;
     successBody: string;
   };
@@ -188,6 +196,8 @@ export interface SiteContent {
   ui: {
     specs: string;
     source: string;
+    /** Heading of the use-case rail under a hardware family. */
+    applications: string;
     imagePending: string;
   };
 

@@ -4,11 +4,23 @@ import { path } from "@/lib/routes";
 import { FactRow, SHELL } from "@/components/ui";
 import { cn } from "@/lib/cn";
 
+/** One mono label step for the whole footer — the same one FactRow already uses. */
+const LABEL = "font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle";
+
+/** 44px touch floor, same as the header. `gap-y-1` on the lists keeps neighbours from touching.
+    `hover:text-accent` is the site's one hover step for a text link — header, menu and
+    catalogue rows all use it, so hover means the same thing everywhere. */
+const LINK = "inline-flex min-h-11 items-center text-sm text-muted transition-colors hover:text-accent";
+
 /**
  * Four columns — identity, pages, contact, legal — then a bottom bar for the
  * copyright, the label legend and the source statement. Tax code, legal name
  * and address are both an E-E-A-T signal and the input for the Organization
  * JSON-LD.
+ *
+ * Below `sm` the four groups stack, so inside a group the items run across the
+ * line instead of down it: a stacked list of tall touch targets is what pushed
+ * the phone footer past 1.6 screens.
  */
 export function SiteFooter({ c }: { c: SiteContent }) {
   const links: Array<{ key: PageKey; label: string }> = [
@@ -18,33 +30,30 @@ export function SiteFooter({ c }: { c: SiteContent }) {
   ];
 
   return (
-    <footer className="tone-dark snap-start border-t border-line bg-bg-deep text-fg">
-      <div className={cn(SHELL, "py-12 sm:py-14")}>
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+    // No `snap-start`: the footer is shorter than a viewport, so its snap
+    // position always sat past maxScroll and could never be reached.
+    <footer className="tone-dark border-t border-line bg-bg-deep text-fg">
+      <div className={cn(SHELL, "py-10 sm:py-14")}>
+        <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
           <div>
-            <p className="font-display text-lg font-semibold">Pebble Vina</p>
-            <p className="mt-2.5 max-w-xs text-sm leading-relaxed text-muted">{c.footer.tagline}</p>
+            <p className="font-display text-lg font-semibold">{SITE.name}</p>
+            <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted">{c.footer.tagline}</p>
             <a
               href={SITE.parent.url}
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-flex min-h-9 items-center font-mono text-xs tracking-[0.1em] text-accent hover:underline"
+              className="mt-1 inline-flex min-h-11 items-center font-mono text-xs tracking-[0.1em] text-accent hover:underline"
             >
               pebble-square.com ↗
             </a>
           </div>
 
           <nav aria-label={c.footer.navTitle}>
-            <p className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-subtle">
-              {c.footer.navTitle}
-            </p>
-            <ul className="mt-1">
+            <p className={LABEL}>{c.footer.navTitle}</p>
+            <ul className="mt-1 flex flex-wrap gap-x-6 gap-y-1 sm:flex-col sm:gap-x-0">
               {links.map((l) => (
                 <li key={l.key}>
-                  <a
-                    href={path(l.key)}
-                    className="inline-flex min-h-9 items-center text-sm text-muted hover:text-fg"
-                  >
+                  <a href={path(l.key)} className={LINK}>
                     {l.label}
                   </a>
                 </li>
@@ -53,52 +62,46 @@ export function SiteFooter({ c }: { c: SiteContent }) {
           </nav>
 
           <div>
-            <p className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-subtle">
-              {c.footer.contactTitle}
-            </p>
-            <ul className="mt-1">
+            <p className={LABEL}>{c.footer.contactTitle}</p>
+            <ul className="mt-1 flex flex-wrap gap-x-6 gap-y-1 sm:flex-col sm:gap-x-0">
               <li>
-                <a
-                  href={SITE.contact.phoneHref}
-                  className="inline-flex min-h-9 items-center text-sm text-muted hover:text-fg"
-                >
+                <a href={SITE.contact.phoneHref} className={LINK}>
                   {SITE.contact.phone}
                 </a>
               </li>
               <li>
-                <a
-                  href={MAIL_HREF}
-                  className="inline-flex min-h-9 items-center break-all text-sm text-muted hover:text-fg"
-                >
+                {/* No break-all: the address must stay one unbroken word so it wraps to
+                    its own line rather than shrinking to share one with the phone. */}
+                <a href={MAIL_HREF} className={LINK}>
                   {SITE.contact.email}
                 </a>
               </li>
-              <li className="pt-2 text-sm leading-relaxed text-muted">{SITE.office}</li>
+              <li className="w-full text-sm leading-relaxed text-muted">{SITE.office}</li>
             </ul>
           </div>
 
           <div>
-            <p className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-subtle">
-              {c.footer.legalTitle}
-            </p>
-            <dl className="mt-1">
+            <p className={LABEL}>{c.footer.legalTitle}</p>
+            <dl className="mt-1 grid grid-cols-2 gap-x-6 sm:block">
               <FactRow label={c.labels.entity} value={SITE.legalName} />
               <FactRow label={c.labels.taxCode} value={SITE.taxId} />
-              <FactRow label={c.labels.parent} value={`${SITE.parent.name} — ${SITE.parent.city}`} />
+              <FactRow
+                className="col-span-2"
+                label={c.labels.parent}
+                value={`${SITE.parent.name} — ${SITE.parent.city}`}
+              />
             </dl>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-[0.62rem] uppercase tracking-[0.12em] text-subtle">
-            {c.footer.copyright}
-          </p>
-          <p className="font-mono text-[0.62rem] uppercase tracking-[0.12em] text-subtle">
-            {c.footer.statusLegend}
-          </p>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-t border-line pt-4 sm:mt-10 sm:pt-6">
+          <p className={LABEL}>{c.footer.copyright}</p>
+          <p className={LABEL}>{c.footer.statusLegend}</p>
         </div>
 
-        <p className="mt-5 max-w-3xl text-xs leading-relaxed text-subtle">{c.footer.disclaimer}</p>
+        <p className="mt-4 max-w-3xl text-xs leading-relaxed text-subtle sm:mt-5">
+          {c.footer.disclaimer}
+        </p>
       </div>
     </footer>
   );

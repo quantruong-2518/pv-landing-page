@@ -93,7 +93,7 @@
         "C019"
       ],
       "locales": {
-        "vi": "Thành viên Việt Nam của nhóm Pebble Square Inc., Hàn Quốc"
+        "vi": "Pebble Vina - đối tác chiến lược công nghệ cao"
       }
     },
     {
@@ -103,7 +103,7 @@
         "C014"
       ],
       "locales": {
-        "vi": "Dữ liệu ở đâu, AI chạy ở đó."
+        "vi": "Chúng tôi đang cung cấp các sản phẩm phục vụ cho nhu cầu hiện đại hoá. Giải pháp đa dạng tới từ cả phần cứng như chip AI ngoại biên tới các phần mềm ứng dụng AI trong doanh nghiệp"
       }
     },
     {
@@ -667,16 +667,17 @@
       "key": "footer.tagline",
       "component": "body",
       "claims": [
-        "C001",
         "C019"
       ],
+      "notes": "Site chrome — owned by content-system/specs/footer.yaml; value mirrored from content-system/output/footer.vi.json (repair 2026-08-24). Edit there, not here.",
       "locales": {
-        "vi": "Nền tảng bán dẫn AI Hàn Quốc, ký hợp đồng và xuất hoá đơn tại Việt Nam."
+        "vi": "Thành viên của nhóm Pebble Square, ký hợp đồng và xuất hoá đơn tại Việt Nam."
       }
     },
     {
       "key": "footer.navTitle",
       "component": "label",
+      "notes": "Site chrome — owned by content-system/specs/footer.yaml; value mirrored from content-system/output/footer.vi.json (repair 2026-08-24). Edit there, not here.",
       "locales": {
         "vi": "Các trang"
       }
@@ -684,33 +685,36 @@
     {
       "key": "footer.contactTitle",
       "component": "label",
+      "notes": "Site chrome — owned by content-system/specs/footer.yaml; value mirrored from content-system/output/footer.vi.json (repair 2026-08-24). Edit there, not here.",
       "locales": {
-        "vi": "Kênh liên hệ"
+        "vi": "Thông tin liên hệ"
       }
     },
     {
       "key": "footer.legalTitle",
       "component": "label",
+      "claims": [
+        "C019"
+      ],
+      "notes": "Site chrome — owned by content-system/specs/footer.yaml; value mirrored from content-system/output/footer.vi.json (repair 2026-08-24). Edit there, not here.",
       "locales": {
-        "vi": "Pháp lý"
+        "vi": "Hồ sơ doanh nghiệp"
       }
     },
     {
       "key": "footer.statusLegend",
       "component": "label",
+      "notes": "Site chrome — owned by content-system/specs/footer.yaml; value mirrored from content-system/output/footer.vi.json (repair 2026-08-24). Edit there, not here.",
       "locales": {
-        "vi": "Xanh: đã có · Vàng: dự kiến"
+        "vi": "Mỗi số liệu đều mang nhãn đã có hoặc dự kiến"
       }
     },
     {
       "key": "footer.disclaimer",
       "component": "caption",
-      "claims": [
-        "C017"
-      ],
-      "label": "roadmap",
+      "notes": "Site chrome — owned by content-system/specs/footer.yaml; value mirrored from content-system/output/footer.vi.json (repair 2026-08-24). Edit there, not here.",
       "locales": {
-        "vi": "Số liệu về Pebble Square Inc. lấy từ trang chính thức pebble-square.com, đọc ngày 20/08/2026. Mục nào mang nhãn dự kiến là lấy từ tài liệu nhà đầu tư, không nằm trong danh mục sản phẩm công khai."
+        "vi": "Số liệu về Pebble Square Inc. lấy từ trang chính thức pebble-square.com, đọc ngày 20/08/2026."
       }
     },
     {
@@ -758,8 +762,9 @@
     {
       "key": "labels.parent",
       "component": "label",
+      "notes": "Site chrome — owned by content-system/specs/footer.yaml; value mirrored from content-system/output/footer.vi.json (repair 2026-08-24). Edit there, not here.",
       "locales": {
-        "vi": "Nhóm công ty"
+        "vi": "Thành viên của"
       }
     },
     {

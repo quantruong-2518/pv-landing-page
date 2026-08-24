@@ -62,8 +62,27 @@ Mọi `<Section>` vẫn mang `scroll-snap-align: start`, nên cuộn luôn dừn
 
 | Khối | Chiều cao |
 |---|---|
-| Hero, index của `/products`, hero của `/contact` | `min-h-[calc(100svh - var(--header-h))]` (`screen`) |
-| **Why Now**, Lịch sử, từng khối sản phẩm, khối văn phòng | theo nội dung |
+| Hero, index của `/products`, **khối LIÊN HỆ** | `min-h-[calc(100svh - var(--header-h))]` (`screen`) |
+| **Why Now**, Lịch sử, từng khối sản phẩm | theo nội dung |
+
+> **`/vi/contact` bỏ khối `<dl>` điện thoại/email và khối văn phòng + pháp lý ngày 2026-08-24.**
+> GM chốt trực tiếp: mobile-ui-reviewer đo được footer lặp y nguyên bốn dữ kiện đó ngay sau nút
+> submit (`docs/05-backlog.md` mob-06), và GM quyết đi xa hơn khuyến nghị của vòng review — bỏ hẳn
+> khối đó khỏi trang LIÊN HỆ thay vì chỉ bớt ở footer. Trang giờ chỉ còn `SectionHead` (title + lead)
+> và form; điện thoại/email/văn phòng/pháp lý sống duy nhất ở footer. Bảng cũ liệt "khối văn phòng"
+> — không còn khối đó nữa.
+
+> **Rồi `/vi/contact` gộp luôn hai khối còn lại thành một, cùng ngày 2026-08-24.** GM chốt trực
+> tiếp: một nền trắng, lời mời và form nằm chung **một** `<Section id="book" screen>` — hero tối,
+> `crossbar` và `aura` bị bỏ. Hai cột từ 768px (lời mời + ảnh văn phòng bên trái, form bên phải),
+> xếp chồng dưới ngưỡng đó. Ảnh văn phòng chuyển từ panel cảm ơn lên cột trái: sau submit từng có
+> **hai** khung ảnh chờ cùng lúc, và tấm ảnh đó là bằng chứng để người ta quyết định viết, không
+> phải lời cảm ơn sau khi đã viết.
+>
+> Vì thế bảng trên đọc là **khối LIÊN HỆ**, không còn là "hero của `/contact`" — trang chỉ còn đúng
+> một khối. **Đo được 836px trên budget 836px ở 1440×900 trước khi viết lại copy: khối này không còn
+> một pixel dư nào.** Thêm chữ vào `contact.intro.lead` là tràn màn, nên spec khoá nó ở hai câu
+> (`content-system/specs/contact.yaml` → `decisions/one-white-surface`).
 
 > **Why Now bỏ `screen` ngày 2026-08-21.** Đo trên build production: khối này cao **1018px** ở 1440×900 (budget 836px) và **1093px** khi mới điền chữ. Quan trọng hơn: đo lúc còn là i18n key thì đã **922px** — tức khối tràn từ trước khi có một chữ nào, do ảnh minh hoạ 248px cộng lưới ba cột. Cắt chữ không cứu được, nên trả nó về chiều cao theo nội dung. `snap-start` giữ nguyên nên nhịp cuộn không đổi.
 
@@ -72,9 +91,15 @@ Container cuộn là `html`:
 ```css
 scroll-padding-top: var(--header-h);      /* 3.5rem mobile · 4rem ≥640px */
 @media (min-width: 768px) and (min-height: 640px) {
-  html { scroll-snap-type: y mandatory; }
+  html { scroll-snap-type: y proximity; }
 }
 ```
+
+> **`mandatory` → `proximity` ngày 2026-08-24.** Với những khối cao theo nội dung và cao hơn một
+> màn, `mandatory` chỉ chừa đúng **hai** chỗ dừng cho mỗi khối — một chỗ cắt hàng 4 pillar xuống
+> dưới fold, một chỗ giấu `h2` dưới header — và không có gì ở giữa (`docs/07-loop/home.md` ux-03).
+> `proximity` vẫn bắt cú lướt dừng gần đầu khối, nhưng không biến phần giữa của một khối cao thành
+> chỗ không tới được.
 
 **Vì sao nới:** khung mới có 9 khối trên `/products` với độ dày rất khác nhau, và phần lớn `body` còn
 trống chờ nội dung. Ép mọi khối cao trọn màn khi chưa có chữ chỉ tạo ra những màn hình rỗng. Đo thực
@@ -88,9 +113,9 @@ thì cắt ý khác hoặc tách khối mới.
 
 ```
 HOME                          /products                      /contact
-tối ▓▓▓  Hero                 tối ▓▓▓  Index                 tối ▓▓▓  Hero + số điện thoại
-sáng ░   01 Why now           sáng ░   2.1 Hardware          sáng ░   Văn phòng + pháp nhân
-tối ▓▓▓  02 Lịch sử           sáng ░   MINT                  tối ▓▓▓  Footer
+tối ▓▓▓  Hero                 tối ▓▓▓  Index                 sáng ░   Lời mời + form
+sáng ░   01 Why now           sáng ░   2.1 Hardware          tối ▓▓▓  Footer
+tối ▓▓▓  02 Lịch sử           sáng ░   MINT
 tối ▓▓▓  Footer               xám ▒    PAPAYA
                               sáng ░   ESPRESSO
                               xám ▒    GPU / HPC
@@ -100,8 +125,11 @@ tối ▓▓▓  Footer               xám ▒    PAPAYA
                               tối ▓▓▓  Footer
 ```
 
-Dải tối = chỗ mắt **phải** dừng: mở màn, lịch sử công ty mẹ, ranh giới 2.1/2.2, lời mời. Xen kẽ sáng/xám
+Dải tối = chỗ mắt **phải** dừng: mở màn, lịch sử công ty mẹ, ranh giới 2.1/2.2. Xen kẽ sáng/xám
 giữ ranh giới khối rõ ngay cả khi hai khối cùng tông đứng cạnh nhau.
+
+`/contact` là ngoại lệ có chủ ý kể từ 2026-08-24: trang chỉ có một việc, nên nó chỉ có một nền —
+trắng. Không có dải tối nào để "mở màn" vì không có gì phải cuộn qua trước khi tới form.
 
 Khối sản phẩm **đổi bên so le**: MINT ảnh phải, PAPAYA ảnh trái, ESPRESSO ảnh phải… Dưới `lg` tất cả
 xếp dọc: chữ trước, ảnh sau, số đo cuối.

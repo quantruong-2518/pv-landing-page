@@ -47,12 +47,19 @@ bản nào bị rút gọn.
 
 ## Phạm vi
 
-**Có:** 3 trang × 2 ngôn ngữ (6 route tĩnh), khối cuộn có snap, SSR toàn bộ, JSON-LD `Organization`,
-header/footer theo best practice, 7 ô ảnh đã chừa sẵn, chạy được từ 360px.
+**Có:** 3 trang, một ngôn ngữ (3 route tĩnh dưới `/vi`), khối cuộn có snap, SSR toàn bộ, JSON-LD
+`Organization`, header/footer theo best practice, 7 ô ảnh đã chừa sẵn, chạy được từ 360px, và
+**form liên hệ ghi vào Postgres** qua `POST /api/contact`.
 
-**Không có:** blog, route riêng cho từng sản phẩm (dùng anchor), form gửi thật (chỉ `mailto:`/`tel:`),
-CMS, ngôn ngữ ngoài EN/VI, animation nặng, **FAQ + JSON-LD `FAQPage`** (khung mới không có ô — xem
-`05-backlog.md` #14). Đây là lab để kiểm chứng **cấu trúc + thông điệp**, không phải sản phẩm cuối.
+**Không có:** blog, route riêng cho từng sản phẩm (dùng anchor), CMS, ngôn ngữ ngoài VI,
+animation nặng, **FAQ + JSON-LD `FAQPage`** (khung mới không có ô — xem `05-backlog.md` #14).
+Đây là lab để kiểm chứng **cấu trúc + thông điệp**, không phải sản phẩm cuối.
+
+> **Sửa phạm vi 2026-08-24 (GM chốt).** Bản trước ghi *"không có form gửi thật (chỉ `mailto:`/`tel:`)"*.
+> Không còn đúng: nút CTA ở hero điều hướng sang `/vi/contact` thay vì mở nháp mail, và form ghi
+> submission vào Postgres trên Vercel. Repo do đó **không còn thuần tĩnh** — cần runtime Node, hai
+> biến môi trường (`.env.example`), và mang **dữ liệu cá nhân thật**: Nghị định 13/2023/NĐ-CP áp dụng,
+> xem `05-backlog.md` #22 và #23. Bản EN gỡ 2026-08-23 nên "2 ngôn ngữ / 6 route" ở trên cũng đã sửa.
 
 ## Thước đo "kiểu mẫu"
 

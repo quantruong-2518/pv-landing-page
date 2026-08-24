@@ -135,8 +135,75 @@ decisions:
     question: "is the 30-minute duration an offer or a claim needing a proof-bank line — this spec, first pass"
     answered: neither; drop the number. The page offers `tư vấn` with no duration.
     but: nothing may take its place.
-    consequence: "No slot may state a duration, a response time, a headcount or any other bounded promise to compensate for the missing number. An unbounded invitation is the whole point."
+    consequence: "No slot may state a duration, a headcount or any other bounded promise to compensate for the missing number. An unbounded invitation is the whole point."
+    superseded_in_part: >-
+      The words `a response time` stood in the consequence above until 2026-08-24. The GM struck
+      them and committed a real number instead — see decisions/response-time-commitment. The rest
+      of this decision stands: the duration of the call is still absent, and no OTHER bounded
+      promise may appear. One promise was authorised, not the category.
     still_open: []
+
+  response-time-commitment:
+    question: >-
+      the GM asked the left column to say a PV person gets back quickly. The proof bank had no
+      response-time line, so this was a wanted claim with no ledger entry — intake Gate C, blocking.
+    answered: commit a real number. GM chose 24 hours, 2026-08-24.
+    but: >-
+      it is a promise, not a measurement. Nothing has yet measured whether the team keeps it, and
+      the option of writing it unquantified was offered and declined.
+    consequence: >-
+      C035 exists and licenses the token `24` in this page's copy. The commitment is written as
+      wall-clock hours, weekends included — `trong 24 giờ`, never `trong 1 ngày làm việc`, which is
+      a different and weaker promise the GM did not make. The block's old `forbidden` line against
+      promising a response time is lifted for THIS number only; any other bounded promise still
+      falls under decisions/thirty-minutes-as-a-claim. If the team stops keeping the mark, the fix
+      order is docs/01-proof-bank.md §F first, then this spec, then the page — never the page alone.
+    still_open: [whether 24h wall-clock survives contact with a real weekend inbox]
+
+  voice-override-contact-intro:
+    question: >-
+      the requested register — `Bắt đầu ngay`, thanks for the reader's interest, hope to work
+      together — runs against three lines the GM himself set in brand/voice.yaml the same day:
+      `never: urgency the market did not create`, `avoid: emotional hype`, and the persona move
+      `names the risk before the buyer finds it`. It also retires `Câu trả lời có thể là không`,
+      which contract/differentiators lists as one of only two differentiators this page has.
+    answered: write the new register. GM, 2026-08-24, after the conflict was put to him in full.
+    but: >-
+      it is an override for THIS block, not an edit to the persona. brand/voice.yaml is unchanged
+      and still governs every other block on every other page.
+    consequence: >-
+      contact.intro.kicker, title and lead are written warm and inviting, and a future compile must
+      NOT "restore the persona" here. What the override does not license: the four bans in
+      CLAUDE.md §2 are untouched, no superlative arrives without a counterparty, and the warmth may
+      not turn into a capability claim — thanking a reader is not the same as promising an outcome.
+      The honest-no stance is retired from the intro only; it is not contradicted anywhere.
+    still_open: >-
+      contract/differentiators still lists `the offer includes being told the answer is no`. With
+      the intro rewritten, that differentiator is no longer stated anywhere on the page. Raised, not
+      resolved — it is a positioning question for the GM, not a compiler decision.
+
+  nav-drops-contact-link:
+    question: "the header carried both a `Liên hệ` nav link and a `Đặt lịch tư vấn` button pointing at the same route"
+    answered: drop the nav link, keep the button. GM, 2026-08-24.
+    but: the route is unchanged and the page keeps its own URL.
+    consequence: >-
+      site-header.tsx builds `links` from home and products only; the CTA button is the single path
+      to /vi/contact from the header, at every width. `c.nav.contact` is STILL a live key — the
+      button uses it as its short label under 640px — so it must not be deleted from vi.ts.
+      The footer navigation is untouched and still lists all three pages.
+    still_open: []
+
+  one-white-surface:
+    question: "does CONTACT keep a dark hero above the form"
+    answered: no. One light block holds the invitation and the form together. GM, 2026-08-24.
+    but: this is a layout decision, and it moved the block-height budget.
+    consequence: >-
+      contact.intro is no longer its own Section. It is the left column of a single
+      `<Section id="book" screen>` whose right column is the form, and it now carries the office
+      <Figure> beneath the lead. Measured at 836px against an 836px budget at 1440x900 BEFORE this
+      rewrite — the block has no headroom at all. Prose added to the lead overflows the viewport,
+      which is why the lead below carries a hard sentence ceiling rather than a soft word limit.
+    still_open: [the 390x844 measurement, which the engineer reported at 1323px against a 788px budget]
 
   kicker-numbering:
     question: "is contact.intro.kicker numbered `03 · …` like home's section indices"
@@ -151,6 +218,12 @@ decisions:
     answered: the Landmark 72 office.
     but: no file exists, so the alt is on-screen text today and real alt text later.
     consequence: "contact.media.alt is written as an art-direction brief a customer can read without embarrassment — not accessibility phrasing, not a note to a photographer. It must work unchanged as the alt attribute once the photograph lands."
+    moved_2026_08_24: >-
+      The image is no longer in the success panel. Two pending frames were on screen at once after
+      submit (the engineer measured 1 before submit, 2 after); the GM cut the panel one and kept the
+      left-column one. The picture is now evidence a reader sees BEFORE deciding to write, which is
+      where it earns its place — a thank-you note does not need a photograph. `contact.media.alt` is
+      unchanged and still the only writable slot for it.
     still_open: ["the photograph itself — GM, docs/05-backlog.md #5, G9 still open"]
 
   meta-tax-code:
@@ -200,7 +273,35 @@ decisions:
       content dependency of the wiring task, not a follow-up someone may skip.
     still_open: ["wiring the form to POST /api/contact — engineer task, and it invalidates these three keys when it lands"]
 
+  drop-preform-contact-block:
+    question: >-
+      2026-08-24, GM complaint about the footer ("content không tốt, layout dở tệ mobile,
+      sai tên trang web pebblevina.com") led to a mobile-ui-reviewer audit that measured
+      /vi/contact's footer repeating phone/email/office/tax-id 86.9px below the submit
+      button — the same four facts the page's own <dl> (phone/email hero) and
+      office+legal column already show above the form. GM asked directly: cut the repeat
+      at the footer, or cut the page's own pre-form block and let the footer be the only
+      place those facts live?
+    answered: >-
+      cut the page's own block, not the footer. /vi/contact now renders SectionHead
+      (contact.intro) and the form ONLY — no <dl>, no office/legal column.
+    but: >-
+      does not remove labels.call/email/office/entity/taxCode/parent — the footer still
+      uses all of them. Does not change SITE.contact/SITE.office/SITE.legalName/SITE.taxId
+      — those facts are unchanged, just no longer duplicated on this page.
+    consequence: >-
+      contact.form.successBody's fallback sentence can no longer say "ở đầu trang" —
+      that <dl> is gone. Per docs/05-backlog.md #28 (already open, same root cause), the
+      success panel itself must render SITE.contact.phone/email directly
+      (web-ui-engineer task, contact-form.tsx), and successBody's fallback clause points
+      at THIS panel, not a location elsewhere on the page. contact.form.requiredNote is
+      also cut in the same pass — GM judged it clutter beside the submit button; the " *"
+      suffix the component already prints on required labels stays (that convention is
+      not what was cut).
+    still_open: []
+
 # Written this run: 15 keys. Held deliberately: 3.
+# Repaired 2026-08-24: contact.form.successBody (drop-preform-contact-block); contact.form.requiredNote deleted.
 scope:
   written:
     - meta.contact.title
@@ -217,13 +318,19 @@ scope:
     - contact.form.messageLabel
     - contact.form.messagePlaceholder
     - contact.form.optionalLabel
-    - contact.form.requiredNote
   written_2026_08_24:
     - "contact.ctaPrimary — released by decisions/submit-stays-mailto"
     - "contact.form.successTitle — released by decisions/submit-stays-mailto"
     - "contact.form.successBody — released by decisions/submit-stays-mailto"
   held: []
   held_note: "Nothing held. The three keys that were placeholders describe the mailto mechanism, which the requester confirmed on 2026-08-24 is the shipping behaviour."
+  deleted_2026_08_24:
+    - "contact.form.requiredNote — cut by decisions/drop-preform-contact-block. Removed from
+       web/content/vi.ts and from content-system/output/contact-form.vi.json in the same pass.
+       The matching field in web/content/types.ts and the <p> in contact-form.tsx are the
+       engineer's half of the same change. Do NOT re-add it from revision_log: the reasoning
+       there (four of five fields required, so the ` *` mark needed explaining) is correct and
+       was overridden anyway. The ` *` suffix itself stays."
 
 
 blocks:
@@ -231,35 +338,41 @@ blocks:
   - id: contact.intro
     origin: pv
     status: shipped
-    height: screen          # <Section tone="dark" screen> — page-contact.tsx
+    height: screen          # left column of <Section id="book" screen> — page-contact.tsx
     intent:
-      communicate: what the reader gets from the call, including the outcome where the answer is no
-      reader_question: what actually happens if I write in
-    claims: [C019]
+      communicate: that writing in starts something, and what happens on our side once it is sent
+      reader_question: if I fill this in, does anyone actually come back to me
+    claims: [C019, C035]
     qualifiers:
-      - "One viewport tall. The block ALSO renders a <dl> of phone and email under the header — roughly 140px the spec must budget for. Only kicker, title and lead are writable here; everything else in the block is already prose or comes from site.ts. Prose added here pushes the phone number below the fold, which is the one thing this block exists to show. docs/03-structure.md §3."
+      - "Rewritten 2026-08-24 under decisions/voice-override-contact-intro. The register here is warm and inviting and does NOT follow brand/voice.yaml's persona. That is deliberate and scoped to these three keys — do not normalise it back."
+      - "The block shares one viewport with the form (decisions/one-white-surface) and carries the office <Figure> under the lead. Measured 836px against an 836px budget at 1440x900 BEFORE this rewrite: there is no headroom. This is why the lead is capped at two sentences and the title at one line of thought, not at a word count someone can argue with."
       - "C019 is conditional. Thành viên nhóm survives into every locale; công ty con, 100% and any ownership percentage do not (F005)."
+      - "C035 is the 24-hour reply. It is wall-clock, weekends included. `trong 1 ngày làm việc` is a DIFFERENT, weaker promise and is not what the GM committed to."
     forbidden:
-      - promising a response time, business hours or a reply nobody has committed to
-      - urgency, scarcity or "limited slots" framing
+      - any bounded promise other than the 24 hours C035 licenses — no duration for the call, no headcount, no delivery date
+      - "`trong 1 ngày làm việc` or any business-hours softening of the 24-hour commitment"
+      - scarcity, "limited slots", countdowns, or a deadline the market did not create
       - implying Pebble Vina is a subsidiary rather than a member of the group
       - "`chúng tôi` as the subject of the parent's work — docs/02-message-map.md §5"
+      - turning warmth into capability — thanking a reader for writing is not a promise that the problem can be solved
     slots:
       kicker: >-
-        a plain label naming where the reader is in the sequence — no index number
-        (decisions/kicker-numbering). The primary reader arrives from the catalogue,
-        so the label may assume a previous step; it must not assume a previous page
-        view for a reader who landed here from search.
+        the GM's own words are `Bắt đầu ngay`. Written as a plain label, no index number
+        (decisions/kicker-numbering). It renders mono uppercase, so diacritics must survive
+        uppercasing (references/locales/vi.md).
       title: >-
-        the shape of the call, bounded by its length. Renders as the page <h1>.
-        Soft limit 12 words (brand/voice.yaml marketing.hero.headline_soft_limit.vi).
+        the invitation to start, in the reader's interest rather than ours. Renders as the page
+        <h1>. Soft limit 12 words (brand/voice.yaml marketing.hero.headline_soft_limit.vi).
+        Replaces `Kể bài toán của bạn. Câu trả lời có thể là không.` — see
+        decisions/voice-override-contact-intro for what that retirement costs and who decided it.
       lead: >-
-        what the reader should bring, and why those specific things. The honest-no
-        commitment lives in the title, so the lead must not restate it — a second
-        sentence that only re-promises is a sentence whose removal loses nothing.
-        TWO VARIANTS are written (decisions/intro-lead-budget): the two-sentence one
-        is applied, the one-sentence one is the measured fallback if the phone/email
-        <dl> falls below the fold at 1440x900.
+        two sentences, hard ceiling — the block has zero measured headroom. Sentence one: what to
+        send and that a Pebble Vina person answers within 24 hours (C035, wall-clock). Sentence two:
+        the thanks and the wish to work alongside the reader's company. The old lead's list of three
+        things to bring moves out of here. It is not lost: contact.form.messagePlaceholder already
+        carries all three as a worked example — which machines, which signal, whether the data may
+        leave — sitting in the field where the reader is about to type them. Restating them in the
+        lead costs two lines of a block that has none, and says them further from the point of use.
 
   - id: contact.form
     type: product_ui
@@ -278,7 +391,7 @@ blocks:
       - "Required fields are name, company, email and message. Optional is phone only. The component appends a space-asterisk after each required label and a middot plus {optionalLabel} after the optional one — the copy must not repeat the marker, only explain it."
       - "Every field label renders mono, ~10px, uppercase, letter-spaced (contact-form.tsx Field). Two or three words maximum, no terminal period, and diacritics must survive uppercasing — VĂN PHÒNG, never VAN PHONG (references/locales/vi.md)."
     forbidden:
-      - '"phản hồi trong N giờ" — nobody has committed to a number'
+      - '"phản hồi trong N giờ" inside the FORM block. The 24-hour commitment (C035) is stated once, in contact.intro.lead. Repeating it beside the button turns one commitment into two places to keep it in sync, and the success panel describes a mail draft that has not been sent yet — a reply clock cannot start there.'
       - '"đã gửi" / "đã nhận được" — untrue; the mail client has not sent anything yet'
       - "`vui lòng`, `bạn hãy`, `quý khách`, an apology, or a pronoun in a field label"
       - "a bare vague verb as the button — lint_product flags gửi · xác nhận · tiếp tục · đồng ý · hoàn tất for vi. The button names the action it performs."
@@ -302,9 +415,10 @@ blocks:
         the marker appended after a label that may be left empty. Rendered as
         " · <value>" in mono uppercase. Two words maximum.
       requiredNote: >-
-        which fields are required, phrased so the " *" the component prints is
-        explained rather than repeated. Renders mono uppercase ~10px beside the
-        button, so it competes with nothing — keep it under a line.
+        DELETED 2026-08-24 by decisions/drop-preform-contact-block — GM judged the
+        standalone caption beside the submit button to be clutter. The key is gone from
+        vi.ts; this slot is kept only so the next compile does not re-create it. The
+        component's " *" suffix on required labels is unaffected and stays.
       successTitle: >-
         State what just happened, in the visitor's own terms: a draft is now open in
         their mail client, and nothing has reached us. Being wrong here costs a lead
@@ -312,12 +426,18 @@ blocks:
         that replaces the form, so it is read before anything else on the screen.
       successBody: >-
         what the visitor must still do (press send in their own client), and the
-        fallback for the case where no mail client opened. The address is NOT rendered
-        by the component in this panel — contact-form.tsx prints only successTitle,
-        successBody and the <Figure> — so the fallback either names the address or
-        sends the reader back to the phone/email <dl> in the left column. Naming it
-        costs nothing: check_claims skips the number scan on a product_ui artifact and
-        an address is not a claim.
+        fallback for the case where no mail client opened. Sentence one also carries the
+        site's privacy line — `chưa có gì rời máy bạn`, which echoes messagePlaceholder's
+        `dữ liệu không được rời nhà máy` and the home hero. That echo is load-bearing:
+        a shorter successBody may not buy its length back by dropping it.
+        REPAIRED 2026-08-24 (decisions/drop-preform-contact-block): the phone/email <dl>
+        the fallback used to point at (`ở đầu trang`) no longer exists, and per
+        docs/05-backlog.md #28 the panel now renders SITE.contact.phone/email itself,
+        directly under this paragraph. The fallback therefore points DOWN, inside this
+        panel (`ngay bên dưới`) — never at another part of the page, and never by
+        retyping the address into vi.ts, which would fork a value that lives in
+        web/content/site.ts. If a future change moves those two values out of the panel
+        again, this clause is false the same day and must be recompiled.
     slots_outside_the_form_object:
       # Both live at contact.* rather than contact.form.*, but belong to this block.
       ctaPrimary: >-

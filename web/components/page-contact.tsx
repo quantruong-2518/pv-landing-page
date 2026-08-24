@@ -1,75 +1,45 @@
 import type { SiteContent } from "@/content/types";
-import { MAIL_HREF, SITE } from "@/content/site";
 import { PageShell } from "@/components/page-shell";
 import { ContactForm } from "@/components/contact-form";
-import { FactRow, Section, SectionHead, SHELL } from "@/components/ui";
+import { Figure, Section, SectionHead, SHELL } from "@/components/ui";
 import { cn } from "@/lib/cn";
 
-/** 3. CONTACT — one action, the ways to reach it, and who you are signing with. */
+/**
+ * 3. CONTACT — one light block: the invitation and the form on the same white
+ * surface, and nothing else. The dark hero was folded into the form block on
+ * 2026-08-24 (GM, docs/03-structure.md §3) — a page with a single job reads
+ * better as one surface than as a title screen the visitor scrolls past to
+ * reach the only thing on it. Phone, email, office and legal facts stay in the
+ * footer alone (same decision).
+ */
 export function ContactPage({ c }: { c: SiteContent }) {
   return (
     <PageShell c={c} page="contact">
-      <Section tone="dark" screen className="overflow-hidden">
-        <div className="crossbar absolute inset-0 opacity-40" aria-hidden />
-        <div className="aura absolute inset-0" aria-hidden />
-
-        <div className={cn(SHELL, "relative")}>
-          <SectionHead intro={c.contact.intro} as="h1" />
-
-          <dl className="mt-10 grid gap-x-10 border-t border-line pt-7 sm:grid-cols-2 lg:mt-14">
-            <div>
-              <dt className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
-                {c.labels.call}
-              </dt>
-              <dd className="mt-1.5">
-                <a
-                  href={SITE.contact.phoneHref}
-                  className="font-mono text-2xl text-fg transition-colors hover:text-accent sm:text-3xl"
-                >
-                  {SITE.contact.phone}
-                </a>
-              </dd>
-            </div>
-            <div className="mt-6 sm:mt-0">
-              <dt className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
-                {c.labels.email}
-              </dt>
-              <dd className="mt-1.5">
-                <a
-                  href={MAIL_HREF}
-                  className="break-all font-mono text-lg text-fg transition-colors hover:text-accent sm:text-xl"
-                >
-                  {SITE.contact.email}
-                </a>
-              </dd>
-            </div>
-          </dl>
-        </div>
-      </Section>
-
-      <Section id="book">
-        <div className={cn(SHELL, "grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16")}>
+      <Section id="book" screen>
+        {/* Two columns from `md`, where scroll-snap and every other layout on the
+            site switch; stacked, this `screen` block overflowed the 768–1023 band. */}
+        <div className={cn(SHELL, "grid gap-y-10 md:grid-cols-2 md:gap-x-12 lg:gap-x-16 xl:gap-x-24")}>
           <div>
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
-              {c.labels.office}
-            </p>
-            <p className="mt-3 text-base leading-relaxed sm:text-lg">{SITE.office}</p>
-
-            <dl className="mt-8">
-              <FactRow label={c.labels.entity} value={SITE.legalName} />
-              <FactRow label={c.labels.taxCode} value={SITE.taxId} />
-              <FactRow
-                label={c.labels.parent}
-                value={`${SITE.parent.name} — ${SITE.parent.city} · ${SITE.parent.businessLicense}`}
-              />
-            </dl>
+            <SectionHead intro={c.contact.intro} as="h1" />
+            {/* The office picture belongs before the send, not after it: it is
+                evidence for the decision to write, not a thank-you note. */}
+            <Figure
+              media={c.contact.media}
+              // A wider crop once the block is two columns: at 1440x900 the 3/2
+              // frame pushed this `screen` block 10px past its budget, and 40px
+              // at 1023x768. Stacked on a phone it keeps the 3/2 crop.
+              ratio="aspect-[3/2] md:aspect-[2/1]"
+              sizes="(min-width: 768px) 45vw, 100vw"
+              pendingLabel={c.ui.imagePending}
+              className="mt-6 lg:mt-10"
+            />
           </div>
 
           <div>
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
+            <h2 className="font-display text-xl font-semibold leading-snug sm:text-2xl">
               {c.contact.form.title}
-            </p>
-            <div className="mt-6">
+            </h2>
+            <div className="mt-5">
               <ContactForm c={c} />
             </div>
           </div>

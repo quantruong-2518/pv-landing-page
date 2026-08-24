@@ -329,6 +329,20 @@ claims:
     source: "docs/01-proof-bank.md §E2 — IR Deck"
     numbers: ["25", "10", "70", "45"]
 
+  # Added 2026-08-24. Unlike every claim above it this one is not a measurement and has no public
+  # source: it is an operating commitment the GM made while approving the CONTACT left column.
+  # `shipped` here means "in force", not "measured" — see the note under docs/01-proof-bank.md §F.
+  # The 24-hour clock runs on wall time, weekends included. Confidence is `supported`, not
+  # `verified`: nothing has measured whether the team keeps it yet.
+  C035:
+    statement: Pebble Vina answers a consultation request sent from the contact form within 24 hours
+    type: status
+    confidence: supported
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §F — GM operating commitment, 2026-08-24"
+    numbers: ["24"]
+
 # Never usable. Present so a writer reaching for one finds the refusal instead of an empty ledger.
 forbidden:
 

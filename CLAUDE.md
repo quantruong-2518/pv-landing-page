@@ -68,10 +68,14 @@ Trường **không phải** content thì giữ giá trị thật: `id`, `status`
 
 ## 4b. Luật một khối = một màn hình (đã nới)
 
-Mọi `<Section>` mang `snap-start`, nhưng chỉ khối mở màn (hero, index `/products`, hero
+Mọi `<Section>` mang `snap-start`, nhưng chỉ khối mở màn (hero, index `/products`, khối duy nhất của
 `/contact`) mới cao trọn `calc(100svh - var(--header-h))` — truyền `screen` cho `<Section>`.
 **Why Now đã bỏ `screen` (2026-08-21)** — đo được nó tràn màn ngay cả khi chưa có chữ. Khối danh mục
-cao theo nội dung. `html` vẫn `scroll-snap-type: y mandatory` từ 768px và cao ≥640px.
+cao theo nội dung. `html` dùng `scroll-snap-type: y proximity` từ 768px và cao ≥640px —
+**đổi từ `mandatory` ngày 2026-08-24** vì khối cao theo nội dung chỉ còn hai chỗ dừng, không chỗ nào
+thấy đủ cả tiêu đề lẫn phần quan trọng nhất (`docs/07-loop/home.md` ux-03).
+**`/vi/contact` gộp còn một khối trắng duy nhất (GM, 2026-08-24)** — lời mời và form chung một
+`<Section>`; đo 836px trên budget 836px, tức không còn chỗ trống.
 **Thêm chữ vào một khối `screen` là làm khối đó tràn màn.** Chi tiết: `docs/03-structure.md` §3.
 
 ## 5. Quan hệ với pv-main-web
@@ -128,7 +132,42 @@ không nằm trong file reference của skill. Khi hai bên lệch nhau, **proof
 một locale — thêm ngôn ngữ nghĩa là thêm một `content/<lang>.ts` đầy đủ cộng route của nó, không phải
 một nửa.
 
-## 7. Giọng: người bán hàng công nghệ, bán cả tầm nhìn
+## 7. Tổ đội hoàn thiện trang — skill `ship-page`
+
+Trang được đưa tới mức bán được bằng **một vòng lặp có sổ**, không bằng cách "sửa cho đẹp hơn".
+Vòng nằm ở `.claude/skills/ship-page/SKILL.md`; sổ nằm ở `docs/07-loop/<trang>.md`.
+
+| Vai | Agent | Sở hữu |
+|---|---|---|
+| Chữ | `web-content-writer` | Mọi chuỗi trong `web/content/*.ts`, chỉ qua skill `content-i18n` |
+| Ngôn ngữ theo thị trường | `content-market-critic` | Tiếng Việt có đọc như người Việt viết không |
+| Điện thoại | `mobile-ui-reviewer` | 360–430px: tràn, vùng chạm, form, bàn phím — **đo trên trình duyệt thật** |
+| Desktop và cảm giác | `web-ux-reviewer` | 1024–1920px: chiều cao khối, đường mắt, nhịp snap, lối chuyển đổi |
+| Code | `web-ui-engineer` | **Agent duy nhất được sửa code trong `web/`** |
+| Cổng phát hành | `strategy-reviewer` | Người mua có hành động không |
+
+**Bốn ranh giới không ai được bước qua:**
+
+1. **Reviewer không viết code.** Họ nêu *yêu cầu phải đúng*, kèm con số đo được. Người chọn cách sửa
+   là `web-ui-engineer`. Reviewer cầm bàn phím là reviewer đã ngừng review.
+2. **Engineer không viết chữ.** Không sửa headline, không cắt câu cho vừa khối, không sửa `alt`.
+   Yêu cầu nào phải bớt chữ thì thành một work order gửi ngược cho writer — CLAUDE.md §6 không có ngoại lệ.
+3. **Finding chỉ được đóng bởi chính người nêu ra nó.** Engineer báo `FIXED` kèm số đo; reviewer đo lại
+   rồi mới `verified`.
+4. **Không finding nào biến mất.** Mỗi id kết thúc ở `verified` · `rejected` (kèm số đo bác bỏ) ·
+   `routed` (kèm chủ mới) · `backlog` (kèm số dòng trong `docs/05-backlog.md`).
+
+**Cổng nội dung chạy ở phiên chính, có người.** Subagent không phỏng vấn được ai: cổng A→E và cái `go`
+cho spec phải đóng trong cuộc hội thoại **trước khi** phái writer đi.
+
+**Ba vòng là hết.** Finding sống qua vòng thứ ba không còn là lỗi — nó là một quyết định, đưa lên cho
+GM kèm hai phương án và một khuyến nghị.
+
+**Vòng lặp không phải giấy phép thiết kế lại.** Khung ba nhánh, thứ tự khối và luật chiều cao do GM chốt
+và sống ở `docs/03-structure.md`. Một vòng có thể chứng minh chúng sai — và khi đó nó sinh ra **một đề
+xuất cho người**, không phải một commit.
+
+## 8. Giọng: người bán hàng công nghệ, bán cả tầm nhìn
 
 GM chốt 2026-08-24. Persona sống ở `content-system/brand/voice.yaml` → `brand.persona` — mọi agent
 viết chữ đều đọc file đó, nên giọng đồng nhất mà không ai phải nhớ.

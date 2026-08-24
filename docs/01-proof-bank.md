@@ -148,6 +148,16 @@ hôm nay; cấu hình ESPRESSO là lộ trình. Nguồn: IR Deck (không có tr�
 | Liên hệ | contact@pebblevina.com · 0345 913 369 |
 | Quan hệ với PS | **Thành viên Việt Nam của nhóm Pebble Square** (ADR 0002, 2026-06-16) |
 | Hậu thuẫn | Nhà đầu tư là **Phó Chủ tịch KOCHAM** |
+| Cam kết phản hồi | **Trong vòng 24 giờ** kể từ khi nhận yêu cầu qua form trang LIÊN HỆ |
+
+> **Dòng "cam kết phản hồi" khác mọi dòng còn lại trong bảng này.** Nó không phải số đo, cũng không
+> phải nguồn công khai của ai — nó là **cam kết vận hành do GM chốt ngày 2026-08-24** khi duyệt copy
+> khối trái trang LIÊN HỆ. Ghi ở đây vì luật của repo là mọi con số lên trang phải tra được về một
+> dòng trong file này; nhãn `shipped` ở đây nghĩa là *đang có hiệu lực*, không phải *đã đo được*.
+>
+> Hệ quả: **24 giờ là đồng hồ chạy thật, tính cả cuối tuần.** Một email tối thứ Sáu vẫn phải được trả
+> lời trước tối thứ Bảy. Ngày nào đội không giữ nổi mốc này thì sửa dòng này trước, rồi mới sửa trang —
+> không phải ngược lại. Phương án an toàn hơn đã được nêu ra và GM bác: xem `docs/07-loop/contact.md`.
 
 ## G. `internal` — chưa đưa lên trang
 

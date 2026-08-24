@@ -25,8 +25,10 @@ export function HomePage({ c }: { c: SiteContent }) {
         <div className="crossbar absolute inset-0 opacity-40" aria-hidden />
         <div className="aura absolute inset-0" aria-hidden />
 
-        <div className={cn(SHELL, "relative grid items-center gap-10 lg:grid-cols-12 lg:gap-12")}>
-          <div className="lg:col-span-7">
+        {/* Two columns from `md`, not `lg`: stacked, the decorator sat under the
+            copy and pushed this `screen` block 304px past budget at 1023x768. */}
+        <div className={cn(SHELL, "relative grid items-center gap-10 md:grid-cols-12 md:gap-12")}>
+          <div className="md:col-span-7">
             {hero.eyebrow ? (
               <p className="flex items-center gap-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-accent sm:text-[0.7rem] sm:tracking-[0.18em]">
                 <span className="h-px w-6 bg-accent/60 sm:w-8" aria-hidden />
@@ -40,7 +42,7 @@ export function HomePage({ c }: { c: SiteContent }) {
               </h1>
             ) : null}
 
-            <Lead className="lg:text-xl">{hero.lead}</Lead>
+            <Lead className="md:text-xl">{hero.lead}</Lead>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {/* Home hands off to the catalogue; booking stays on the sticky header. */}
@@ -51,13 +53,13 @@ export function HomePage({ c }: { c: SiteContent }) {
             </div>
           </div>
 
-          <div className="relative mx-auto aspect-square w-[72%] sm:w-1/2 lg:col-span-5 lg:w-full" aria-hidden>
+          <div className="relative mx-auto aspect-square w-[72%] sm:w-1/2 md:col-span-5 md:w-full" aria-hidden>
             {hero.media.src ? (
               <Image
                 src={hero.media.src}
                 alt=""
                 fill
-                sizes="(min-width: 1024px) 38vw, 60vw"
+                sizes="(min-width: 768px) 38vw, 60vw"
                 className="object-contain"
                 priority
               />
@@ -73,9 +75,9 @@ export function HomePage({ c }: { c: SiteContent }) {
 
           {/* One illustration per point: square on phones, a wider recomposition
               from lg — see context/media-plan.md. */}
-          <ol className="mt-9 grid gap-9 lg:mt-12 lg:grid-cols-3 lg:gap-10">
+          <ol className="mt-9 grid gap-9 md:mt-12 md:grid-cols-3 md:gap-10">
             {whyNow.points.map((p, i) => (
-              <li key={p.title} className="flex w-full max-w-md flex-col lg:max-w-none">
+              <li key={p.title} className="flex w-full max-w-md flex-col md:max-w-none">
                 <Illustration media={p.media} />
                 <div className="mt-5 border-t-2 border-fg pt-4">
                   <span className="font-mono text-sm font-medium tracking-[0.1em] text-accent" aria-hidden>
@@ -88,11 +90,11 @@ export function HomePage({ c }: { c: SiteContent }) {
             ))}
           </ol>
 
-          <div className="mt-10 border-t border-line pt-6 lg:mt-14">
+          <div className="mt-10 border-t border-line pt-6 md:mt-14">
             <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
               {whyNow.pillarsTitle}
             </p>
-            <div className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2 md:grid-cols-4">
               {whyNow.pillars.map((p) => (
                 <div key={p.title} className="border-t border-line-strong pt-3">
                   <h4 className="text-sm font-semibold">{p.title}</h4>
@@ -110,12 +112,15 @@ export function HomePage({ c }: { c: SiteContent }) {
         <div className={cn(SHELL, "relative")}>
           <SectionHead intro={history} />
 
-          <ol className="mt-9 grid gap-x-12 lg:mt-11 lg:grid-cols-2">
+          {/* Two columns flow by ROW, so the decorator is a rule per row, not a
+              rail per column: a vertical rail told the eye to read down the left
+              column and skip the five strongest milestones on the right. */}
+          <ol className="mt-9 grid gap-x-12 md:mt-11 md:grid-cols-2">
             {history.milestones.map((m) => (
-              <li key={m.date + m.title} className="relative border-l border-line-strong py-2.5 pl-6">
+              <li key={m.date + m.title} className="relative border-t border-line-strong pb-5 pt-4">
                 <span
                   className={cn(
-                    "absolute -left-[4.5px] top-4 h-2 w-2 rounded-full",
+                    "absolute -top-[4.5px] left-0 h-2 w-2 rounded-full",
                     m.status === "roadmap"
                       ? "border border-roadmap bg-bg"
                       : m.starred
@@ -132,7 +137,7 @@ export function HomePage({ c }: { c: SiteContent }) {
                 </div>
                 <p
                   className={cn(
-                    "mt-1 text-sm leading-snug sm:text-[0.95rem]",
+                    "mt-1 text-base leading-snug sm:text-[0.95rem]",
                     m.starred ? "font-semibold text-fg" : "text-fg/85",
                   )}
                 >

@@ -27,28 +27,28 @@
     {
       "key": "contact.intro.kicker",
       "component": "eyebrow",
-      "notes": "Plain label, no index number — decisions/kicker-numbering.",
+      "notes": "The GM's own words, 2026-08-24. Plain label, no index number — decisions/kicker-numbering. Renders mono uppercase, so the diacritics have to survive: BẮT ĐẦU NGAY, never BAT DAU NGAY (locales/vi.md).",
       "locales": {
-        "vi": "Bước tiếp theo"
+        "vi": "Bắt đầu ngay"
       }
     },
     {
       "key": "contact.intro.title",
       "component": "headline",
-      "notes": "Carries the honest-no in the scan line. No duration — decisions/thirty-minutes-as-a-claim.",
+      "notes": "Rewritten under decisions/voice-override-contact-intro — warm and inviting, not the brand/voice.yaml persona. Do not restore the persona here. `chúng ta` rather than `chúng tôi`: the inclusive pronoun is what carries the partnership register the GM asked for. It stops at `xem giải được tới đâu` on purpose — that is honest about the range of outcomes without stating the retired `câu trả lời có thể là không`, and it promises no solution. Avoids `bắt đầu`, which the kicker directly above already spends.",
       "locales": {
-        "vi": "Kể bài toán của bạn. Câu trả lời có thể là không."
+        "vi": "Kể bài toán của bạn, chúng ta xem giải được tới đâu."
       }
     },
     {
       "key": "contact.intro.lead",
       "component": "body",
       "claims": [
-        "C030"
+        "C035"
       ],
-      "notes": "Two-sentence variant, APPLIED. One-sentence fallback, verbatim, if the phone/email dl falls below the fold at 1440x900 (decisions/intro-lead-budget): 'Ba điều nên nói trước: máy móc hay dây chuyền nào, tín hiệu nào đang đo được, dữ liệu có được phép rời tổ chức không.'. The dropped second sentence names three outcomes including `not yet` — information the title does not carry, which is why the two-sentence version is preferred.",
+      "notes": "Two sentences, hard ceiling — the block measured 836px against an 836px budget at 1440x900 before this rewrite and has no headroom (decisions/one-white-surface). C035 is wall-clock: `trong vòng 24 giờ`, never `trong 1 ngày làm việc`, which is a weaker promise the GM did not make. No spatial word points at the form — it is beside the lead at 768px and up, below it on a phone, so `form bên cạnh` would be false for every phone reader. C030 was dropped with the old second sentence: the hardware/software branch is no longer named here. Repaired once before passing: the first draft read `trong vòng 24 giờ sẽ có một người…` and TERM_FORBIDDEN_VARIANT fired, because the glossary reserves `sẽ có` for the roadmap label. The existential was cut rather than argued with — `một người … sẽ đọc` is the better sentence anyway, and the rule guarding CLAUDE.md §2 ban #1 stays untouched.",
       "locales": {
-        "vi": "Ba điều nên nói trước: máy móc hay dây chuyền nào, tín hiệu nào đang đo được, dữ liệu có được phép rời tổ chức không. Chừng đó đủ để biết nên bắt đầu từ phần cứng, từ phần mềm, hay chưa nên bắt đầu."
+        "vi": "Gửi form đi, trong vòng 24 giờ một người của Pebble Vina sẽ đọc và trả lời bạn. Cảm ơn bạn đã quan tâm — chúng tôi mong được làm việc cùng doanh nghiệp của bạn."
       }
     }
   ]
