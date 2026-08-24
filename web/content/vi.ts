@@ -246,9 +246,21 @@ export const vi: SiteContent = {
           tagline: "Digital-PIM nền SRAM · dự kiến 9/2026",
           body: "Nhánh Digital-PIM trên SRAM, khác đường Analog-PIM của MINT và PAPAYA FLEX. Chưa bán — nhắm AI PC và thiết bị chạy LLM riêng, số liệu từ tài liệu nhà đầu tư 05/01/2026.",
           capabilities: [
-            { title: "Suy luận mô hình lớn", body: "Chạy LLM nội bộ tới 120 tỷ tham số." },
-            { title: "Bộ tăng tốc AI", body: "Card 4 chip đạt 640 TOPS, giao tiếp PCIe Gen4 ×4." },
-            { title: "Máy chủ AI / hạ tầng", body: "Chip, module M.2, card tăng tốc, máy chủ LLM tại chỗ." },
+            {
+              title: "Suy luận mô hình lớn",
+              body: "Chạy LLM nội bộ tới 120 tỷ tham số.",
+              media: { src: "/media/apps/espresso-ai-pc.webp", alt: "" },
+            },
+            {
+              title: "Bộ tăng tốc AI",
+              body: "Card 4 chip đạt 640 TOPS, giao tiếp PCIe Gen4 ×4.",
+              media: { src: "/media/apps/espresso-robot-arm.webp", alt: "" },
+            },
+            {
+              title: "Máy chủ AI / hạ tầng",
+              body: "Chip, module M.2, card tăng tốc, máy chủ LLM tại chỗ.",
+              media: { src: "/media/apps/espresso-ai-server.webp", alt: "" },
+            },
           ],
           specs: [
             {
