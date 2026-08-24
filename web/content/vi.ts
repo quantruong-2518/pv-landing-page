@@ -8,7 +8,7 @@ import type { SiteContent } from "./types";
 export const vi: SiteContent = {
   meta: {
     home: { title: "Pebble Vina — chip AI Analog-PIM của Pebble Square tại Việt Nam", description: "Pebble Vina — thành viên Việt Nam của nhóm Pebble Square Inc., hãng bán dẫn AI fabless Hàn Quốc. Chip tính ngay trong bộ nhớ để AI chạy tại chỗ. MINT đạt 17,6 TOPS/W, sản xuất hàng loạt từ 5/2023." },
-    products: { title: "Sản phẩm & giải pháp — chip Edge AI, GPU và AI riêng tư | Pebble Vina", description: "Chip Analog-PIM của Pebble Square: MINT và PAPAYA FLEX đang sản xuất, ESPRESSO dự kiến 9/2026. GPU, AI riêng tư và phần mềm doanh nghiệp do Pebble Vina dựng tại Việt Nam." },
+    products: { title: "Sản phẩm & giải pháp — chip Edge AI, GPU và phần mềm doanh nghiệp | Pebble Vina", description: "Chip Analog-PIM MINT và PAPAYA FLEX của Pebble Square, ESPRESSO trong lộ trình; cùng năng lực tích hợp GPU và phát triển phần mềm doanh nghiệp của Pebble Vina tại Việt Nam." },
     contact: { title: "Liên hệ Pebble Vina — đặt lịch tư vấn, văn phòng Hà Nội", description: "Pebble Vina — thành viên Việt Nam của nhóm Pebble Square Inc. Văn phòng Hà Nội, MST 0111545175. Gọi 0345 913 369 hoặc email contact@pebblevina.com." },
   },
 
@@ -316,8 +316,8 @@ export const vi: SiteContent = {
 
     software: {
       kicker: "02 · Phần mềm",
-      title: "Hai nhánh phần mềm do Pebble Vina dựng tại Việt Nam.",
-      lead: "Cả hai trả lời một câu hỏi: mô hình đặt ở đâu, dữ liệu có phải rời công ty không.",
+      title: "Phần mềm doanh nghiệp do Pebble Vina phát triển tại Việt Nam.",
+      lead: "CRM, ERP và quy trình vận hành được nối trên cùng một luồng dữ liệu, để AI hỗ trợ công việc mà dữ liệu vẫn nằm trong hệ thống của doanh nghiệp.",
       groups: [
         {
           id: "enterprise",
