@@ -1,6 +1,5 @@
 import type { SiteContent } from "@/content/types";
 import Image from "next/image";
-import { CTA_HREF } from "@/content/site";
 import { path } from "@/lib/routes";
 import { PageShell } from "@/components/page-shell";
 import {
@@ -44,8 +43,9 @@ export function HomePage({ c }: { c: SiteContent }) {
             <Lead className="lg:text-xl">{hero.lead}</Lead>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Button href={CTA_HREF}>{hero.ctaPrimary}</Button>
-              <Button href={path("products")} variant="ghost">
+              {/* Home hands off to the catalogue; booking stays on the sticky header. */}
+              <Button href={path("products")}>{hero.ctaPrimary}</Button>
+              <Button href={path("contact")} variant="ghost">
                 {hero.ctaSecondary}
               </Button>
             </div>

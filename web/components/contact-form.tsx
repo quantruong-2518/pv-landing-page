@@ -8,8 +8,8 @@ import { Figure } from "@/components/ui";
 /**
  * Client-side by necessity: form state + a submit-time swap to a thank-you
  * panel. There is no backend in this lab (docs/00-brief.md), so "submit"
- * hands the filled-in fields to the visitor's own mail client via `mailto:`
- * — the same mechanism the rest of the site already uses for CTA_HREF.
+ * hands the filled-in fields to the visitor's own mail client via `mailto:`.
+ * Every CTA on the site routes here; this form is the only thing that mails.
  */
 export function ContactForm({ c }: { c: SiteContent }) {
   const { form } = c.contact;

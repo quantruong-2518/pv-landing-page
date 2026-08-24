@@ -1,12 +1,23 @@
-# Semantic spec — HOME (/ and /vi). Language-free by design.
+# Semantic spec — HOME (/vi). Language-free by design.
 #
 # This is the ONLY input a locale writer may read. It exists so that `en` and `ko`
 # can later be written natively from the same meaning instead of being translated
 # out of `vi`, which the content-i18n skill forbids in both directions.
 #
-# Compiled 2026-08-21. Sources: docs/00-brief.md, docs/02-message-map.md,
-# docs/03-structure.md, docs/01-proof-bank.md, context/01-home/*, context/media-plan.md.
+# Compiled 2026-08-21. RECOMPILED 2026-08-24 after a full intake with the requester —
+# the 21/08 pass was rejected on all four counts at once (decisions.rejection_2026_08_24).
+# Sources: docs/00-brief.md, docs/01-proof-bank.md, docs/02-message-map.md,
+# docs/03-structure.md, docs/06-strategy-review.md, context/01-home/*, context/media-plan.md.
 # Claim ids resolve against content-system/claims/approved.yaml.
+#
+# READING RULE, inherited by every spec:
+#   `docs/` and `context/` are written ABOUT the page. They are not the page. Read them for
+#   FACTS, never for editorial framing. `context/` carries English sentence shape — MATERIAL,
+#   not copy.
+#
+# BODY RULE:
+#   A `body` earns its place only by adding a FACT its `title` does not carry. No such fact ->
+#   leave it empty. Components skip empty strings by design (components/ui.tsx).
 
 id: home
 type: marketing
@@ -14,20 +25,33 @@ type: marketing
 contract:
   page:
     type: homepage
-    goal: get an unknown Vietnamese-market company taken seriously enough to book a consultation
+    goal: >-
+      make an unknown Vietnamese-market company legible in thirty seconds by naming a pain the
+      reader already has, then move them into the catalogue
     funnel_stage: awareness
+    depth_limit: >-
+      HOOK DEPTH ONLY — requester, 2026-08-24. Home names the pain and the shape of the answer.
+      It does not specify products, does not name a customer, does not carry a spec table.
+      Anything that reads as a datasheet belongs on /vi/products.
   audience:
     primary: Vietnamese industrial and enterprise buyers; Korean FDI firms in Vietnam
-    buyer: plant, IT or procurement decision-maker
-    evaluator: engineer — treats an unsourced number as a reason to close the tab
+    buyer: plant, IT or procurement decision-maker — non-technical, must understand on first read
+    evaluator: engineer — must find the page worth finishing, not worth fact-checking
     user: operations and maintenance staff
     awareness_level: unaware
-    primary_problem: they have more AI they want to run than power, bandwidth or permission to run it
+    primary_problem: >-
+      they hold data that is not permitted to leave the organization, and the AI they want to
+      run needs power, bandwidth and permission they do not have where the work happens
+    dual_audience_rule: >-
+      One text, two depths. The plain sentence carries the meaning; precision rides in the
+      clause after it. A non-technical reader who stops at the first clause of any slot must
+      still have understood it. An engineer who reads on must find a real mechanism, not an
+      adjective. Never split the page into a simple half and a technical half.
   product:
     name: Pebble Vina
     category: Edge AI semiconductor platform, operated in Vietnam
     mechanisms:
-      - arithmetic executes inside memory rather than across a bus to a processor
+      - arithmetic executes inside the memory array rather than across a bus to a processor
       - inference completes on the device with no network round trip
     deployment_models: [on-device, edge, on-premise]
     constraints:
@@ -35,12 +59,14 @@ contract:
       - ESPRESSO is not shipping and is not on the parent's public catalogue
       - Pebble Vina is a member of the group; the ownership structure is unverified
   proof:
-    verified: [C001, C002, C004, C008, C009, C010, C014, C021, C022, C023, C024, C025, C026, C027, C028, C029]
-    contextual: [C017, C019, C020]
+    verified: [C001, C004, C008, C009, C010, C014, C021, C022, C023, C024, C025, C026, C027, C028, C029]
+    contextual: [C002, C015, C017, C019, C020, C030]
     unavailable:
       - any customer, deployment, unit count or revenue figure — docs/05-backlog.md
       - Pebble Vina incorporation date — docs/05-backlog.md
       - support model in Vietnam, engineer headcount and response time — docs/05-backlog.md B10
+      - which eNVM type the analog array uses — parent states the class only, docs/06-strategy-review.md §3.13
+      - any energy, cost or token-spend saving expressed as a figure — F007
   differentiators:
     - a Korean fabless parent with a chip in mass production since May 2023, reachable through a Vietnamese legal entity
     - every technical fact on the page carries a visible shipped or roadmap label
@@ -49,11 +75,18 @@ contract:
     - why not buy directly from Korea
     - is there real silicon or only a deck
   cta:
-    primary: book a consultation
-    secondary: read the product catalogue
+    primary: go to the catalogue
+    secondary: book a consultation
+    note: >-
+      CHANGED 2026-08-24. Home no longer terminates in a booking; it hands the reader to
+      /vi/products. CORRECTION, verified in the browser after apply: the sticky header carries
+      NO booking button — components/site-header.tsx:9 states the Contact link is the conversion
+      path by design, so docs/03-structure.md §7 is stale on this point. Booking still reaches
+      the reader twice from home (the hero's secondary button, and the header's Liên hệ link),
+      but not via a header CTA. Requires a code change — see decisions.cta_inversion.
   tone:
-    desired: [precise, understated, engineer-readable, honest about status]
-    avoid: [luxury language, emotional hype, startup clichés, claiming the parent's work as ours]
+    desired: [precise, understated, engineer-readable, honest about status, plain enough for a non-specialist]
+    avoid: [luxury language, emotional hype, startup clichés, claiming the parent's work as ours, datasheet register]
   claims_policy:
     allow_inference: false
     require_proof_for_numbers: true
@@ -62,130 +95,344 @@ contract:
     requested: [vi]
     deferred: [en, ko]
     note: >-
-      The user scoped this pass to Vietnamese only. `en` stays as i18n keys. When `en` is
+      The site ships `vi` only; the English build was removed 2026-08-23. When `en` or `ko` is
       written it must be compiled from THIS spec, never translated from `vi.ts`.
     vi_rewrite_2026_08_21: >-
-      First VI pass reused the drafts in `context/01-home/` almost verbatim and the requester
-      rejected it: "khong phai content nguoi chut nao". Diagnosis was LOCALE_TRANSLATIONESE -
-      those drafts carry English sentence shape ("Energy became it.", "burns the budget",
-      "the layer above"), which is consistent with docs/05-backlog.md #12 recording the EN
-      side as machine-translated. The scripts cannot catch this: LOCALE_TRANSLATIONESE is a
-      reviewer-only rule. VI was rewritten from this spec thinking in Vietnamese, every claim,
-      number and label unchanged.
+      First VI pass reused the drafts in `context/01-home/` almost verbatim and was rejected:
+      "khong phai content nguoi chut nao". Diagnosis LOCALE_TRANSLATIONESE — those drafts carry
+      English sentence shape, consistent with docs/05-backlog.md #12 recording the EN side as
+      machine-translated. Reviewer-only rule; no script catches it.
     warning_for_remaining_blocks: >-
-      The drafts in `context/02-products/` and `context/03-contact/` come from the same batch
-      and carry the same English cadence. Treat them as MATERIAL, not as copy. Compile from
-      the spec; never paste a draft straight into `*.ts`.
+      The drafts in `context/02-products/` and `context/03-contact/` come from the same batch and
+      carry the same English cadence. MATERIAL, not copy.
 
-# ── Reading rule, set by the requester 2026-08-21 ────────────────────────────
+# ── Reading rule, set by the requester 2026-08-21, still binding ─────────────
 # "Hieu context thoi chu dung lay cach dien giai trong context de ghi ra content."
 #
-# docs/ and context/ are written ABOUT the page. They are not the page. Read them to learn
-# the FACTS and the situation; never transplant their editorial framing into copy.
-#
-# Two rejected passes came from breaking this:
-#   1. reusing the drafts verbatim   -> English sentence shape (LOCALE_TRANSLATIONESE)
+# Two rejected passes came from breaking it:
+#   1. reusing the drafts verbatim   -> English sentence shape
 #   2. reusing the drafts' reasoning -> the page narrating why its own evidence matters
-#      ("day la vach ngan giua nghien cuu va co hang", "do moi la thu ban dang can nhac",
-#       "tien le truc tiep cua Pebble Vina") - all lifted from proof-bank's "vi sao dat tren
-#       landing" column and 00-brief's internal thesis. Those are notes to the writer.
 #
-# Operating rule: a `body` earns its place only by adding a FACT its `title` does not carry.
-# No such fact -> leave it empty. Components skip empty strings by design (components/ui.tsx).
 # State the evidence; let the reader draw the conclusion. Never draw it for them on the page.
+
+decisions:
+
+  rejection_2026_08_24:
+    question: what was wrong with the home copy applied 2026-08-21
+    answered: >-
+      all four failure modes at once — a non-technical reader could not follow it, an engineer
+      found it too shallow to be worth reading, the sentences still carried English shape, and
+      a reader finished the page without learning what Pebble Vina itself does
+    but: the facts, numbers, status labels and block structure were not at fault
+    consequence: >-
+      This is a rewrite of wording and framing, not of evidence. No claim id is added or
+      removed except where a decision below says so. The block list, the fifteen milestones,
+      their dates, their status labels and the four starred entries are data — they do not move.
+    still_open: []
+
+  pain_order:
+    question: >-
+      which pain leads — docs/02-message-map.md §1 puts privacy first and largest;
+      docs/00-brief.md and the 21/08 page both open on energy
+    answered: privacy first, energy second and subordinate to it
+    but: >-
+      privacy is a market condition, not a Pebble Square claim. The page may state that many
+      organizations cannot let data leave; it may not quantify how many, cite a regulation it
+      has not read, or name a sector as a customer.
+    consequence: >-
+      The page opens on the reader's permission problem — data that is not allowed to leave.
+      Energy then appears as the reason that problem is hard to solve, not as its own thesis:
+      running AI in-house means running it where there is no power budget. The two are one
+      argument in sequence, never two competing openings. C014 and C015 carry the capability
+      side; C015's on-premise qualification must survive.
+    still_open: []
+
+  hook_depth:
+    question: how much technical detail belongs on home
+    answered: enough to hook, no more — requester, 2026-08-24
+    but: >-
+      "less detail" is not "less precision". Vagueness fails the engineer just as a spec dump
+      fails the buyer. Every slot still names a mechanism or a condition.
+    consequence: >-
+      No spec table on home. One mechanism, stated once, in plain Vietnamese. Numbers are
+      permitted below the hero only. Part numbers, process nodes, throughput and die size are
+      deferred to /vi/products.
+    still_open: []
+
+  hero_numbers:
+    question: which figures the hero may carry
+    answered: none — requester, 2026-08-24
+    but: >-
+      this removes 17,6 TOPS/W and 5/2023 from the hero only. Both remain true, both remain
+      usable, and both stay on the page below the fold.
+    consequence: >-
+      hero.slogan and hero.lead contain no numeral. C002 keeps its home appearance in the
+      history block (MINT mass-production milestone body), C020 in the whyNow points, C004 in
+      the timeline date column. meta.home.description is a search-result string, not hero copy,
+      and keeps its figures.
+    still_open: []
+
+  local_entity_answer:
+    question: >-
+      the requester named "the reader never learns what Pebble Vina does" as a failure, while
+      also ruling out product-level or customer-level content on home
+    answered: one line inside the hero — eyebrow plus one clause of the lead. No fourth block.
+    but: >-
+      C030 is capability tense only. Nothing may imply a deployment, a customer, a count, a
+      distribution agreement or a track record, and no GPU vendor may be named.
+    consequence: >-
+      The hero states the division of labour: the parent designs and makes the silicon,
+      Pebble Vina is the Vietnamese legal entity that builds the layer above it and contracts
+      here. That is the whole answer on this page; "why not buy directly from Korea" is
+      answered in full on /vi/contact.
+    still_open: []
+
+  memory_type:
+    question: >-
+      the 21/08 pillar said computation runs "in embedded flash"; the parent's own current deck
+      states only the eNVM class and never says which memory is used — docs/06-strategy-review.md §3.13
+    answered: state it neutrally — computation happens inside the memory array
+    but: this is a correction of an over-assertion, not a new claim; nothing is added
+    consequence: >-
+      No slot on this page names flash, ReRAM, PCM, MRAM or any specific memory technology.
+      The page must never assert more than the parent asserts about itself.
+    still_open: [which eNVM the analog array actually uses — ask HQ before any page states it]
+
+  mechanism_vocabulary:
+    question: >-
+      the page says PIM; the parent's current deck says CIM throughout; the parent's public
+      site still says Analog-PIM — docs/06-strategy-review.md §4.5
+    answered: drop both abbreviations from home copy entirely
+    but: >-
+      neither term is wrong, and Analog-PIM stays a protected proper noun under CLAUDE.md §4
+      wherever a later page needs it
+    consequence: >-
+      Home states the mechanism in plain Vietnamese — the arithmetic happens inside the memory
+      instead of travelling to a processor — and names no acronym at all. This also removes the
+      whyNow point's "von Neumann", which is jargon by the same test. The acronym decision for
+      /vi/products is deferred to that page's spec and is NOT settled by this one.
+    still_open: [which term /vi/products leads with]
+
+  espresso_date:
+    question: >-
+      the last milestone reads ESPRESSO 9/2026 sourced to IR Deck 05/01/2026; deck v4 slide 17
+      places the ESPRESSO line in 2027 — docs/06-strategy-review.md §4.2, docs/05-backlog.md #9
+    answered: keep 9/2026, as decided 2026-08-21 and as docs/01-proof-bank.md §E3 records it
+    but: >-
+      the conflict is not resolved, only deferred. The proof bank has not been amended and HQ
+      has not arbitrated.
+    consequence: >-
+      The milestone keeps its date, its amber roadmap label and its statusNote naming investor
+      material as the source. The footnote must keep saying the entry is absent from the
+      parent's public catalogue.
+    still_open:
+      - HQ arbitration between proof-bank §E3 and deck v4 slide 17 — docs/05-backlog.md #9 and B4
+      - "HARD DEADLINE — revisit before 1 October 2026. After that date a September 2026 promise stops reading as a citation and starts reading as a missed one, on the page whose whole differentiation is honest labelling."
+
+  cta_inversion:
+    question: what single action home must produce
+    answered: read on into the catalogue — requester, 2026-08-24, changed from "book a consultation"
+    but: >-
+      /vi/products is still unwritten — every string there is its own i18n key. Until that page
+      is compiled, home's primary action lands on a page with no prose. The requester was told
+      this and chose it anyway; products is next in the queue.
+    consequence: >-
+      hero.ctaPrimary becomes the catalogue link and hero.ctaSecondary the consultation.
+      CODE CHANGE APPLIED 2026-08-24: components/page-home.tsx hard-wired ctaPrimary to
+      path("contact") and ctaSecondary to path("products"); the two hrefs were swapped, or the
+      filled button would have carried the catalogue label and the contact route.
+      `nav.cta` in web/content/vi.ts is rendered by nothing — the header has no CTA button.
+      It is dead content, left in place because removing it is outside this pass.
+    still_open: []
+
+  scope_history:
+    question: whether the history block is rewritten or only its prose
+    answered: prose only — lead, footnote, and the one milestone body that already carries text
+    but: >-
+      the emphasis rule holds: only the four starred milestones plus the MINT mass-production
+      entry get a body. Filling all fifteen flattens the block and reads as a template
+      (anti-ai-slop §9).
+    consequence: >-
+      Fifteen milestones, their dates, their titles, their status labels and their starred flags
+      are data and stay byte-identical. Only `lead`, `footnote` and the single existing `body`
+      (milestones[6], MINT mass production) are rewritten.
+    still_open: []
 
 blocks:
 
   - id: home.hero
+    origin: pv
+    status: shipped
     height: screen
     intent:
-      communicate: what this company is and the one thing its hardware does that a cloud vendor cannot
-      reader_question: who is this, and why should the next thirty seconds be worth it
-    claims: [C001, C002, C004, C019, C030]
+      communicate: >-
+        the reader has a permission problem before they have a technology problem, and there is
+        a Vietnamese counterparty selling the hardware that solves it
+      reader_question: what problem of mine is this about, and who am I actually dealing with
+    claims: [C014, C015, C019, C030]
     mechanisms:
-      - computation happens inside the memory array instead of moving data to a processor
-      - "the catalogue spans three layers: the parent's silicon, GPU and HPC infrastructure integrated locally, and the software running on top of it"
+      - the arithmetic happens inside the memory, so the work does not have to travel to a processor or to a data centre
     values:
-      - one supplier covers the whole span, from a sensor's power budget to training scale
-      - the customer builds and owns the AI rather than renting inference
-      - the platform can be bought under a Vietnamese contract and invoice
+      - the organization keeps its data and still gets the AI
+      - the customer builds and owns the system rather than renting inference
+      - it can be bought under a Vietnamese contract and invoice
     qualifiers:
       - Pebble Vina is a member of the Pebble Square group; never a wholly-owned subsidiary
       - the parent designs and makes the silicon; Pebble Vina builds the layer above it
-      - the local layer is stated as capability, never as track record - C030
+      - the local layer is stated as capability, never as track record — C030
+      - C015 holds for the on-premise deployment model; the qualification travels with the claim
     forbidden:
+      - any numeral in slogan or lead — decisions.hero_numbers
+      - PIM, CIM, von Neumann, TOPS/W, or any acronym — decisions.mechanism_vocabulary
       - implying Pebble Vina designed or manufactured the silicon
-      - narrowing the company to the edge or privacy angle alone, which drops GPU, HPC and software
       - naming a GPU vendor or implying a distribution agreement
-      - repeating the energy thesis that the next block owns
+      - naming a product, a customer, a sector as a customer, or a deployment
+      - spending the energy argument that the next block owns
     slots:
       eyebrow: relationship of the local entity to the named parent
-      headline: the span of the catalogue, from silicon to software, and who ends up owning the AI
-      lead: whose silicon and its one measured number, then the layer the local entity adds on top
-      cta_primary: book a consultation
-      cta_secondary: go to the catalogue
+      slogan: >-
+        the permission problem and its resolution in one line — the data stays, the AI still
+        runs. Plain words only; a non-specialist must understand it without the lead.
+        Soft limit 12 words (brand/voice.yaml).
+      lead: >-
+        three movements, in this order: the condition the reader is in (data that is not
+        allowed to leave); the mechanism that makes running it in-house possible, stated in
+        plain Vietnamese; who does what — the parent makes the silicon, Pebble Vina is the
+        Vietnamese entity building the layer above it and signing here. No figure, no acronym.
+      ctaPrimary: go to the catalogue
+      ctaSecondary: book a consultation
+    height_warning: >-
+      This block is one viewport tall. The 21/08 lead ran three sentences and fit; anything
+      longer will not. Check by eye after apply — docs/03-structure.md §3.
 
   - id: home.whyNow
-    height: screen
-    intent:
-      communicate: the constraint on AI today is energy and permission, not model quality
-      reader_question: why does a different kind of chip need to exist at all
-    claims: [C014, C020]
-    mechanisms:
-      - a von Neumann machine spends most of its energy moving data between memory and processor
-      - processing-in-memory performs the arithmetic where the data already sits
-    values:
-      - inference becomes affordable at sites that only have a sensor's power budget
-    qualifiers:
-      - the data-centre electricity and water figures are industry context, not a Pebble Square claim
-    forbidden:
-      - attributing the industry figures to Pebble Square
-      - presenting the four properties as measured outcomes rather than design targets
-    slots:
-      kicker: section index
-      headline: what stopped being the hard problem, and what replaced it
-      lead: the gap between AI demand and the power, bandwidth and permission to run it
-      points:
-        - the demand side — what data centres already consume
-        - the location side — the work is moving to sites with no power budget
-        - the mechanism side — most of the energy moves data rather than computing on it
-      pillars_title: the four properties the parent designs for
-      pillars: [low power, private, fast, low cost]
-
-  - id: home.history
+    origin: ps
+    status: shipped
     height: content
     intent:
-      communicate: the record the reader is actually buying access to belongs to the parent, and it is checkable
+      communicate: >-
+        why keeping AI in-house is hard, and why it takes a different kind of chip rather than
+        a cheaper cloud contract
+      reader_question: if this were possible, why isn't everyone already doing it
+    claims: [C014, C020]
+    mechanisms:
+      - a conventional machine keeps memory and processor apart, so most of the energy is spent moving data between them
+      - computing where the data already sits removes that journey
+    values:
+      - inference becomes affordable at sites that have only a sensor's power budget
+    qualifiers:
+      - the data-centre electricity and water figures are industry context, not a Pebble Square claim, and must be attributed as such in the copy itself
+      - the four properties are what the parent designs for, never measured outcomes
+    forbidden:
+      - attributing the industry figures to Pebble Square
+      - presenting the four properties as measured outcomes
+      - any acronym or architecture name — decisions.mechanism_vocabulary
+      - any saving expressed as a figure — F007
+    slots:
+      kicker: section index
+      title: >-
+        what actually blocks in-house AI. Follows from the hero's permission problem, and must
+        not repeat it.
+      lead: >-
+        only if it carries a fact the title cannot. The 21/08 pass left it empty and the block
+        read better for it — default to empty.
+      points:
+        - id: point_0
+          carries: >-
+            the cost side of sending the work away — what the industry's data centres already
+            consume in electricity and water, explicitly framed as industry figures
+          must_carry: [attribution as industry context, not a Pebble Square measurement]
+          claims: [C020]
+        - id: point_1
+          carries: >-
+            the location side — the work is moving to places that have no power budget:
+            substations, lines, wearables, battery sensors. Milliwatts, not watts.
+          claims: []
+        - id: point_2
+          carries: >-
+            the mechanism side — most of the energy pays for moving data, not for computing on
+            it, and computing inside the memory removes the journey. No architecture name.
+          claims: [C014]
+      pillarsTitle: the four properties the parent designs for
+      pillars:
+        - id: pillar_0
+          carries: privacy — inference finishes on the device, so the data does not leave; ordered first per decisions.pain_order
+          claims: [C014, C015]
+        - id: pillar_1
+          carries: low power — the arithmetic runs inside the memory array, with no named memory technology
+          claims: []
+        - id: pillar_2
+          carries: speed — the decision is made where the event happens, with no round trip
+          claims: [C014]
+        - id: pillar_3
+          carries: cost shape — hardware bought once instead of inference rented monthly. Shape only, never a figure.
+          claims: []
+    media_note: >-
+      three illustration slots already placed and art-directed (context/media-plan.md). Their
+      `src`, `srcWide` and `alt` are data. The alt text of point_2 describes a bus-versus-crossbar
+      diagram — if the point's wording no longer matches the artwork, raise it, do not silently
+      rewrite the alt.
+
+  - id: home.history
+    origin: ps
+    status: shipped
+    height: content
+    intent:
+      communicate: >-
+        the record the reader is buying access to belongs to the parent, it is dated, and it is
+        checkable in minutes
       reader_question: is any of this real, and has anything shipped
     claims: [C001, C002, C004, C008, C009, C010, C017, C019, C021, C022, C023, C024, C025, C026, C027, C028, C029]
     mechanisms:
       - every milestone carries a date and comes from the parent's own published company history
     values:
-      - the buyer can verify the record independently in minutes
+      - the buyer can verify the record independently
     qualifiers:
       - the September 2026 entry comes from investor material and is absent from the public catalogue
-      - it must carry the amber roadmap label wherever it appears
+      - it carries the amber roadmap label wherever it appears
     forbidden:
       - describing ESPRESSO as available
       - claiming the record as Pebble Vina's own
+      - adding a body to a milestone that does not already have one
     emphasis:
       starred: [SK hynix NDA, MINT mass production, Saudi JV and MEISEI NDA, Pebble Square Japan]
       note: >-
-        Only the four starred milestones get a body. Eleven bare titles plus four
-        annotated ones is the emphasis; filling all fifteen flattens it and, per
-        anti-ai-slop §9, reads as a template.
+        VERIFIED against the live file 2026-08-24: exactly ONE milestone carries a body —
+        milestones[6], MINT mass production. The other three starred entries are bare titles and
+        stay bare; their titles already carry the whole fact, so a body would only add editorial
+        framing, which the reading rule forbids. Filling all fifteen reads as a template.
     slots:
       kicker: section index
-      headline: the distance travelled, anchored on two dates
-      lead: whose record this is, and why it is on this page
-      milestones: fifteen entries, date and title, four with a body
-      footnote: where the record was read, and what the one roadmap entry is sourced to
+      title: the distance travelled, anchored on two dates
+      lead: >-
+        whose record this is and why a Vietnamese buyer is being shown it. Must resolve the
+        borrowing honestly — this is the parent's history, not Pebble Vina's.
+      milestones: >-
+        DATA — fifteen entries, dates, titles, status labels and starred flags are byte-identical
+        and are not rewritten. Only milestones[6].body is.
+      footnote: >-
+        where the record was read and on what date, and what the single roadmap entry is sourced
+        to, including that it is absent from the parent's public catalogue
+
+chrome:
+  meta.home.title:
+    carries: the entity, its relationship to the parent, and the search term a buyer would type
+    note: >-
+      a search-result string, not hero copy. decisions.mechanism_vocabulary governs visible page
+      copy; whether `Analog-PIM` stays here as a search keyword is confirmed at Gate F.
+  meta.home.description:
+    carries: what the company is, its relationship to the parent, and one verifiable figure
+    claims: [C001, C002, C004, C019]
+    note: exempt from decisions.hero_numbers — it is not hero copy
 
 open_decisions:
   - id: espresso-date
-    decided: 2026-08-21 by the requester — keep September 2026, per docs/01-proof-bank.md §E3
-    conflict: >-
-      docs/06-strategy-review.md §4.2 reads deck v4 slide 17 as putting the ESPRESSO family
-      launch in 2027 and calls this the most urgent edit on the page. docs/05-backlog.md #9
-      and B4 still await an HQ answer. Revisit before 1 October 2026, when a September 2026
-      date stops reading as a citation and starts reading as a missed promise.
+    owner: GM + HQ
+    see: decisions.espresso_date
+    deadline: 1 October 2026
+  - id: envm-type
+    owner: HQ
+    see: decisions.memory_type
+  - id: products-acronym
+    owner: whoever compiles content-system/specs/products.yaml
+    see: decisions.mechanism_vocabulary

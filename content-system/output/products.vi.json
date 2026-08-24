@@ -1,0 +1,1033 @@
+{
+  "content_type": "marketing",
+  "id": "products",
+  "locales": [
+    "vi"
+  ],
+  "semantic_spec": "content-system/specs/products.yaml",
+  "entries": [
+    {
+      "key": "meta.products.title",
+      "component": "meta",
+      "notes": "Must not repeat meta.home.title, which carries the company positioning. No figure appears here.",
+      "locales": {
+        "vi": "Sản phẩm & giải pháp — chip Edge AI, GPU và AI riêng tư | Pebble Vina"
+      }
+    },
+    {
+      "key": "meta.products.description",
+      "component": "meta",
+      "claims": [
+        "C004",
+        "C017",
+        "C030"
+      ],
+      "label": "roadmap",
+      "notes": "ESPRESSO named in a search snippet, so the roadmap word travels with it (CLAUDE.md §2 rule 4).",
+      "locales": {
+        "vi": "Chip Analog-PIM của Pebble Square: MINT và PAPAYA FLEX đang sản xuất, ESPRESSO dự kiến 9/2026. GPU, AI riêng tư và phần mềm doanh nghiệp do Pebble Vina dựng tại Việt Nam."
+      }
+    },
+    {
+      "key": "products.intro.kicker",
+      "component": "eyebrow",
+      "notes": "No index number: the page opener is not a section (decisions/kicker_numbering). 2.1 and 2.2 carry the numbering.",
+      "locales": {
+        "vi": "Danh mục"
+      }
+    },
+    {
+      "key": "products.intro.title",
+      "component": "headline",
+      "notes": "Renders as the page <h1> and names both ends of the catalogue. 12 words, at the vi soft limit.",
+      "locales": {
+        "vi": "Từ con chip trong cảm biến đến máy chủ AI tại chỗ."
+      }
+    },
+    {
+      "key": "products.intro.lead",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "notes": "ONE sentence by budget: this block is height:screen and also renders two index columns of six entries (docs/03-structure.md §3). The hardware lead carries the GPU nuance instead.",
+      "locales": {
+        "vi": "Phần cứng của Pebble Square, phần mềm Pebble Vina — mỗi mục ghi rõ đã có hay dự kiến."
+      }
+    },
+    {
+      "key": "products.hardware.kicker",
+      "component": "eyebrow",
+      "notes": "Rendered twice — the index column and the #hardware section head. One key, both places.",
+      "locales": {
+        "vi": "01 · Phần cứng"
+      }
+    },
+    {
+      "key": "products.hardware.title",
+      "component": "headline",
+      "locales": {
+        "vi": "Ba con chip Hàn Quốc, một lớp tích hợp tại Việt Nam."
+      }
+    },
+    {
+      "key": "products.hardware.lead",
+      "component": "body",
+      "claims": [
+        "C004",
+        "C017",
+        "C030"
+      ],
+      "label": "roadmap",
+      "locales": {
+        "vi": "MINT và PAPAYA FLEX đang sản xuất, ESPRESSO dự kiến 9/2026, nhánh GPU do Pebble Vina tích hợp."
+      }
+    },
+    {
+      "key": "products.hardware.items[0].name",
+      "component": "headline",
+      "locales": {
+        "vi": "MINT"
+      }
+    },
+    {
+      "key": "products.hardware.items[0].tagline",
+      "component": "eyebrow",
+      "notes": "Renders mono uppercase — diacritics must survive: CHIP EDGE AI THẾ HỆ 2.",
+      "locales": {
+        "vi": "Analog-PIM · chip Edge AI thế hệ 2"
+      }
+    },
+    {
+      "key": "products.hardware.items[0].body",
+      "component": "body",
+      "claims": [
+        "C004",
+        "C031"
+      ],
+      "notes": "The status fact is what separates this entry from a slide, so it sits in the body, not only on the badge.",
+      "locales": {
+        "vi": "Chip suy luận cho cảm biến và thiết bị chạy pin: phép tính chạy ngay trong mảng nhớ. Sản xuất hàng loạt từ 5/2023 — silicon thật, không phải bản mẫu."
+      }
+    },
+    {
+      "key": "products.hardware.items[0].capabilities[0].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "AI cảm biến"
+      }
+    },
+    {
+      "key": "products.hardware.items[0].capabilities[0].body",
+      "component": "body",
+      "claims": [
+        "C027"
+      ],
+      "locales": {
+        "vi": "NDA Home IoT với MEISEI ELECTRIC, 3/2024."
+      }
+    },
+    {
+      "key": "products.hardware.items[0].capabilities[1].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "AI giọng nói"
+      }
+    },
+    {
+      "key": "products.hardware.items[0].capabilities[1].body",
+      "component": "body",
+      "claims": [
+        "C026"
+      ],
+      "locales": {
+        "vi": "PoC 2/2024: đèn điều khiển bằng giọng nói, kèm chuông gọi khẩn."
+      }
+    },
+    {
+      "key": "products.hardware.items[0].capabilities[2].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Edge AI siêu tiết kiệm điện"
+      }
+    },
+    {
+      "key": "products.hardware.items[0].capabilities[2].body",
+      "component": "body",
+      "claims": [
+        "C014",
+        "C032"
+      ],
+      "locales": {
+        "vi": "Chạy FCNN, CNN, DNN, RNN ngay trên thiết bị, không cần mạng."
+      }
+    },
+    {
+      "key": "products.hardware.items[0].specs[0].value",
+      "component": "caption",
+      "notes": "C002 licenses the figure; the counterparty-free number needs no citation here. Decimal comma per vi.",
+      "locales": {
+        "vi": "17,6"
+      }
+    },
+    {
+      "key": "products.hardware.items[0].specs[0].unit",
+      "component": "caption",
+      "locales": {
+        "vi": "TOPS/W"
+      }
+    },
+    {
+      "key": "products.hardware.items[0].specs[0].label",
+      "component": "label",
+      "claims": [
+        "C002"
+      ],
+      "locales": {
+        "vi": "Hiệu suất năng lượng chip MINT"
+      }
+    },
+    {
+      "key": "products.hardware.items[0].specs[0].note",
+      "component": "body",
+      "claims": [
+        "C002",
+        "C003",
+        "C004"
+      ],
+      "notes": "Engineers read the method before the number — architecture, throughput, die size, then the status.",
+      "locales": {
+        "vi": "Đo trên chip thật: Analog-PIM, khoảng 30 GOPS, die 5×5 mm, sản xuất hàng loạt từ 5/2023."
+      }
+    },
+    {
+      "key": "products.hardware.items[0].specs[0].source",
+      "component": "caption",
+      "locales": {
+        "vi": "Pebble Square · SmartTimes/JBNU · IR Deck tr.21"
+      }
+    },
+    {
+      "key": "products.hardware.items[0].media.alt",
+      "component": "caption",
+      "notes": "Printed on screen inside the placeholder until mint.webp lands (context/media-plan.md ô #3), then works unchanged as alt text.",
+      "locales": {
+        "vi": "Chip MINT chụp nghiêng 3/4 trên nền xám trung tính."
+      }
+    },
+    {
+      "key": "products.hardware.items[1].name",
+      "component": "headline",
+      "locales": {
+        "vi": "PAPAYA FLEX"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].tagline",
+      "component": "eyebrow",
+      "locales": {
+        "vi": "Analog-PIM · thị giác máy ở mức miliwatt"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].body",
+      "component": "body",
+      "claims": [
+        "C034"
+      ],
+      "notes": "The limit of the comparison is stated by us in the same breath as the advantage — spec/objection 'a chip this small cannot be doing what a GPU does'. C034 names its counterparty here.",
+      "locales": {
+        "vi": "Cùng Analog-PIM, chuyển sang tải ảnh: nhỏ hơn NVIDIA Jetson Nano khoảng 25 lần. Lợi thế là điện và kích thước — huấn luyện mô hình lớn thì GPU vẫn đúng."
+      }
+    },
+    {
+      "key": "products.hardware.items[1].capabilities[0].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "AI thị giác"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].capabilities[0].body",
+      "component": "body",
+      "claims": [
+        "C033"
+      ],
+      "locales": {
+        "vi": "Soi lỗi, đếm, phân loại cho sản xuất và y tế."
+      }
+    },
+    {
+      "key": "products.hardware.items[1].capabilities[1].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Camera"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].capabilities[1].body",
+      "component": "body",
+      "claims": [
+        "C014"
+      ],
+      "locales": {
+        "vi": "Suy luận chạy ngay trong camera, hình không rời thiết bị."
+      }
+    },
+    {
+      "key": "products.hardware.items[1].capabilities[2].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Kiểm tra ngoại quan"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].capabilities[2].body",
+      "component": "body",
+      "claims": [
+        "C033"
+      ],
+      "locales": {
+        "vi": "Bắt lỗi ngay trên chuyền, ở mức điện của một cảm biến."
+      }
+    },
+    {
+      "key": "products.hardware.items[1].capabilities[3].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Robot"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].capabilities[3].body",
+      "component": "body",
+      "claims": [
+        "C016"
+      ],
+      "notes": "Glossary terms, exact: phát hiện bất thường · bảo trì dự đoán. Never arc-fault or solar PV here (F001).",
+      "locales": {
+        "vi": "Phát hiện bất thường, bảo trì dự đoán cho robot và máy móc."
+      }
+    },
+    {
+      "key": "products.hardware.items[1].specs[0].value",
+      "component": "caption",
+      "locales": {
+        "vi": "~50×"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].specs[0].label",
+      "component": "label",
+      "claims": [
+        "C005"
+      ],
+      "locales": {
+        "vi": "Điện năng thấp hơn NVIDIA Jetson Nano"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].specs[0].note",
+      "component": "body",
+      "claims": [
+        "C005",
+        "C006"
+      ],
+      "locales": {
+        "vi": "0,1–0,15 W so với 5–10 W của NVIDIA Jetson Nano, cùng tải thị giác máy (ResNet-50)."
+      }
+    },
+    {
+      "key": "products.hardware.items[1].specs[0].source",
+      "component": "caption",
+      "locales": {
+        "vi": "Pebble Square IR Deck 05/01/2026 — số do hãng tự công bố"
+      },
+      "notes": "No page reference exists in docs/01-proof-bank.md §E2; none is invented here."
+    },
+    {
+      "key": "products.hardware.items[1].specs[1].value",
+      "component": "caption",
+      "notes": "Thousands separator is a dot in vi (brand/voice.yaml number_format).",
+      "locales": {
+        "vi": "~10.000×"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].specs[1].label",
+      "component": "label",
+      "locales": {
+        "vi": "Điện cho tác vụ AI tại trạm gốc 5G"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].specs[1].note",
+      "component": "body",
+      "claims": [
+        "C007"
+      ],
+      "notes": "C007's qualification is the second sentence and may not be dropped when shortening.",
+      "locales": {
+        "vi": "So với NVIDIA L4: 320–332 W còn 0,03 W. Cho riêng tác vụ AI, không phải cả trạm."
+      }
+    },
+    {
+      "key": "products.hardware.items[1].specs[1].source",
+      "component": "caption",
+      "locales": {
+        "vi": "Pebble Square IR Deck 05/01/2026"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].media.alt",
+      "component": "caption",
+      "notes": "context/media-plan.md luật 1 — the four hardware shots are one set.",
+      "locales": {
+        "vi": "PAPAYA FLEX chụp cùng góc, cùng nền với MINT để so được kích thước."
+      }
+    },
+    {
+      "key": "products.hardware.items[2].name",
+      "component": "headline",
+      "label": "roadmap",
+      "locales": {
+        "vi": "ESPRESSO"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].tagline",
+      "component": "eyebrow",
+      "label": "roadmap",
+      "locales": {
+        "vi": "Digital-PIM nền SRAM · dự kiến 9/2026"
+      },
+      "claims": [
+        "C017"
+      ],
+      "notes": "Carries the roadmap label into the catalogue index, which renders name + tagline only. Measured 2026-08-24: without it ESPRESSO reads as a peer of the two shipping parts."
+    },
+    {
+      "key": "products.hardware.items[2].body",
+      "component": "body",
+      "claims": [
+        "C017"
+      ],
+      "label": "roadmap",
+      "notes": "Status said out loud in the body rather than left to the badge — CLAUDE.md §2 rule 4, the single easiest place on this site to lose credibility.",
+      "locales": {
+        "vi": "Nhánh Digital-PIM trên SRAM, khác đường Analog-PIM của MINT và PAPAYA FLEX. Chưa bán — nhắm AI PC và thiết bị chạy LLM riêng, số liệu từ tài liệu nhà đầu tư 05/01/2026."
+      }
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[0].title",
+      "component": "list_item",
+      "label": "roadmap",
+      "locales": {
+        "vi": "Suy luận mô hình lớn"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[0].body",
+      "component": "body",
+      "label": "roadmap",
+      "locales": {
+        "vi": "Chạy LLM nội bộ tới 120 tỷ tham số."
+      },
+      "notes": "C017 licenses these figures but is cited on items[2].body and .statusNote, which carry the date and the investor source. The amber badge renders directly above this list."
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[1].title",
+      "component": "list_item",
+      "label": "roadmap",
+      "locales": {
+        "vi": "Bộ tăng tốc AI"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[1].body",
+      "component": "body",
+      "label": "roadmap",
+      "locales": {
+        "vi": "Card 4 chip đạt 640 TOPS, giao tiếp PCIe Gen4 ×4."
+      },
+      "notes": "C017 licenses these figures but is cited on items[2].body and .statusNote, which carry the date and the investor source. The amber badge renders directly above this list."
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[2].title",
+      "component": "list_item",
+      "label": "roadmap",
+      "locales": {
+        "vi": "Máy chủ AI / hạ tầng"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[2].body",
+      "component": "body",
+      "label": "roadmap",
+      "locales": {
+        "vi": "Chip, module M.2, card tăng tốc, máy chủ LLM tại chỗ."
+      },
+      "notes": "C017 licenses these figures but is cited on items[2].body and .statusNote, which carry the date and the investor source. The amber badge renders directly above this list."
+    },
+    {
+      "key": "products.hardware.items[2].specs[0].value",
+      "component": "caption",
+      "label": "roadmap",
+      "locales": {
+        "vi": "160"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].specs[0].unit",
+      "component": "caption",
+      "label": "roadmap",
+      "locales": {
+        "vi": "TOPS"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].specs[0].label",
+      "component": "label",
+      "label": "roadmap",
+      "locales": {
+        "vi": "Thông lượng ở INT8"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].specs[0].note",
+      "component": "body",
+      "label": "roadmap",
+      "locales": {
+        "vi": "10 W, 16 TOPS/W · LLM nội bộ tới 120 tỷ tham số."
+      },
+      "notes": "C017 is cited on the sibling .statusNote and .source of the same SpecCard, which render the date and the source in the card the reader is already looking at."
+    },
+    {
+      "key": "products.hardware.items[2].specs[0].source",
+      "component": "caption",
+      "claims": [
+        "C017"
+      ],
+      "label": "roadmap",
+      "locales": {
+        "vi": "Pebble Square IR Deck 05/01/2026 — chưa có trên trang công khai"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].specs[0].statusNote",
+      "component": "label",
+      "claims": [
+        "C017"
+      ],
+      "label": "roadmap",
+      "notes": "Kept to one line in the pill — measured 2026-08-24. The source line rendered under the same card names the investor deck, so nothing is lost by shortening the badge.",
+      "locales": {
+        "vi": "Dự kiến 9/2026"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].statusNote",
+      "component": "label",
+      "claims": [
+        "C017"
+      ],
+      "label": "roadmap",
+      "notes": "The block-level amber pill. Date + source travel together (decisions/espresso_date).",
+      "locales": {
+        "vi": "Dự kiến 9/2026 · chưa có trên trang công khai"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].media.alt",
+      "component": "caption",
+      "label": "roadmap",
+      "notes": "context/media-plan.md luật 4: no render that could read as a shipping part.",
+      "locales": {
+        "vi": "Sơ đồ khối kiến trúc Digital-PIM của ESPRESSO — chưa có silicon thật để chụp."
+      }
+    },
+    {
+      "key": "products.hardware.items[3].name",
+      "component": "headline",
+      "locales": {
+        "vi": "GPU & tính toán hiệu năng cao"
+      }
+    },
+    {
+      "key": "products.hardware.items[3].tagline",
+      "component": "eyebrow",
+      "locales": {
+        "vi": "Khi bài toán vượt quá chip edge"
+      }
+    },
+    {
+      "key": "products.hardware.items[3].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "notes": "The honest boundary of the other three entries. Capability tense, no vendor name, no reseller relationship (docs/05-backlog.md #18).",
+      "locales": {
+        "vi": "Chip PIM giải bài toán suy luận tại chỗ, không giải bài toán huấn luyện. Cần huấn luyện hay suy luận quy mô lớn thì Pebble Vina dựng cụm GPU cho bạn."
+      }
+    },
+    {
+      "key": "products.hardware.items[3].capabilities[0].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Sản phẩm GPU"
+      }
+    },
+    {
+      "key": "products.hardware.items[3].capabilities[0].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Chọn cấu hình theo tải thật: huấn luyện, suy luận, hay cả hai."
+      }
+    },
+    {
+      "key": "products.hardware.items[3].capabilities[1].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Huấn luyện AI"
+      }
+    },
+    {
+      "key": "products.hardware.items[3].capabilities[1].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Huấn luyện và tinh chỉnh trên hạ tầng của bạn."
+      }
+    },
+    {
+      "key": "products.hardware.items[3].capabilities[2].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Suy luận quy mô lớn"
+      }
+    },
+    {
+      "key": "products.hardware.items[3].capabilities[2].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Nhiều người dùng, mô hình lớn, chạy đồng thời."
+      }
+    },
+    {
+      "key": "products.hardware.items[3].capabilities[3].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "HPC"
+      }
+    },
+    {
+      "key": "products.hardware.items[3].capabilities[3].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Mô phỏng và tính toán khoa học dùng chung cụm với AI."
+      }
+    },
+    {
+      "key": "products.hardware.items[3].capabilities[4].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Trung tâm dữ liệu AI"
+      }
+    },
+    {
+      "key": "products.hardware.items[3].capabilities[4].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Tính toán, mạng, điện, làm mát — từ một tủ rack trở lên."
+      }
+    },
+    {
+      "key": "products.hardware.items[3].media.alt",
+      "component": "caption",
+      "locales": {
+        "vi": "Tủ rack GPU trong phòng máy, chụp chính diện, ánh sáng nguội."
+      }
+    },
+    {
+      "key": "products.software.kicker",
+      "component": "eyebrow",
+      "locales": {
+        "vi": "02 · Phần mềm"
+      }
+    },
+    {
+      "key": "products.software.title",
+      "component": "headline",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Hai nhánh phần mềm do Pebble Vina dựng tại Việt Nam."
+      }
+    },
+    {
+      "key": "products.software.lead",
+      "component": "body",
+      "claims": [
+        "C015",
+        "C030"
+      ],
+      "locales": {
+        "vi": "Cả hai trả lời một câu hỏi: mô hình đặt ở đâu, dữ liệu có phải rời công ty không."
+      }
+    },
+    {
+      "key": "products.software.groups[0].name",
+      "component": "headline",
+      "locales": {
+        "vi": "Phần mềm doanh nghiệp"
+      }
+    },
+    {
+      "key": "products.software.groups[0].tagline",
+      "component": "eyebrow",
+      "locales": {
+        "vi": "CRM, ERP · mô hình đặt tại chỗ"
+      }
+    },
+    {
+      "key": "products.software.groups[0].body",
+      "component": "body",
+      "claims": [
+        "C015",
+        "C030"
+      ],
+      "notes": "C015 is conditional; the condition (tại chỗ) is in the same sentence as the claim and may not be dropped. Packaged product per decisions/enterprise_software: feature tense, never achievement tense.",
+      "locales": {
+        "vi": "CRM và ERP nào cũng gắn thêm được AI. Khác biệt ở đây: mô hình đặt tại chỗ, dữ liệu khách hàng không phải gửi ra ngoài."
+      }
+    },
+    {
+      "key": "products.software.groups[0].modules[0].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "CRM"
+      }
+    },
+    {
+      "key": "products.software.groups[0].modules[0].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Khách hàng, cơ hội và lịch sử trao đổi nằm chung một chỗ."
+      }
+    },
+    {
+      "key": "products.software.groups[0].modules[1].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "ERP / Vận hành"
+      }
+    },
+    {
+      "key": "products.software.groups[0].modules[1].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Đơn hàng, kho, mua sắm trên cùng một luồng số liệu."
+      }
+    },
+    {
+      "key": "products.software.groups[0].modules[2].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Quy trình"
+      }
+    },
+    {
+      "key": "products.software.groups[0].modules[2].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Duyệt, giao việc, nhắc hạn theo cách công ty đang chạy."
+      }
+    },
+    {
+      "key": "products.software.groups[0].modules[3].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Dữ liệu & báo cáo"
+      }
+    },
+    {
+      "key": "products.software.groups[0].modules[3].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Gom số từ các phân hệ thành báo cáo, không phải ghép tay."
+      }
+    },
+    {
+      "key": "products.software.groups[0].modules[4].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Trợ lý AI / gợi ý hành động kế tiếp"
+      }
+    },
+    {
+      "key": "products.software.groups[0].modules[4].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Gợi ý việc nên làm tiếp, dựa trên dữ liệu trong hệ thống."
+      }
+    },
+    {
+      "key": "products.software.groups[0].media.alt",
+      "component": "caption",
+      "locales": {
+        "vi": "Ảnh chụp màn hình phần mềm doanh nghiệp trong khung trình duyệt tối giản."
+      }
+    },
+    {
+      "key": "products.software.groups[1].name",
+      "component": "headline",
+      "locales": {
+        "vi": "AI riêng tư"
+      }
+    },
+    {
+      "key": "products.software.groups[1].tagline",
+      "component": "eyebrow",
+      "locales": {
+        "vi": "Chạy sau tường lửa của bạn"
+      }
+    },
+    {
+      "key": "products.software.groups[1].body",
+      "component": "body",
+      "claims": [
+        "C014",
+        "C015",
+        "C017",
+        "C018"
+      ],
+      "label": "roadmap",
+      "notes": "C015's condition and C018's split both survive here. The ESPRESSO configuration is dated and labelled in the same clause it is offered in.",
+      "locales": {
+        "vi": "Máy chủ suy luận đặt tại chỗ: mô hình và tài liệu không rời tường lửa của bạn. Cấu hình GPU chạy được hôm nay; bản ESPRESSO dự kiến 9/2026."
+      }
+    },
+    {
+      "key": "products.software.groups[1].modules[0].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Xây dựng"
+      }
+    },
+    {
+      "key": "products.software.groups[1].modules[0].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Chọn mô hình hợp bài toán và dựng luồng dữ liệu quanh nó."
+      }
+    },
+    {
+      "key": "products.software.groups[1].modules[1].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Huấn luyện / tinh chỉnh"
+      }
+    },
+    {
+      "key": "products.software.groups[1].modules[1].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "notes": "Stated as a stage, not a guarantee — how far this goes in practice is unverified (context/02-products/2.2-software/private-ai.md).",
+      "locales": {
+        "vi": "Tinh chỉnh trên dữ liệu của bạn, trong hạ tầng của bạn."
+      }
+    },
+    {
+      "key": "products.software.groups[1].modules[2].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Triển khai"
+      }
+    },
+    {
+      "key": "products.software.groups[1].modules[2].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Đưa mô hình xuống đúng tầng phần cứng bên dưới."
+      }
+    },
+    {
+      "key": "products.software.groups[1].targetsTitle",
+      "component": "label",
+      "locales": {
+        "vi": "Đích triển khai"
+      }
+    },
+    {
+      "key": "products.software.groups[1].targets[0].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Trên thiết bị"
+      }
+    },
+    {
+      "key": "products.software.groups[1].targets[0].body",
+      "component": "body",
+      "claims": [
+        "C002"
+      ],
+      "locales": {
+        "vi": "MINT — ngân sách điện tính bằng miliwatt."
+      }
+    },
+    {
+      "key": "products.software.groups[1].targets[1].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Biên"
+      }
+    },
+    {
+      "key": "products.software.groups[1].targets[1].body",
+      "component": "body",
+      "locales": {
+        "vi": "PAPAYA FLEX — camera, chuyền sản xuất, tủ điện ngoài hiện trường."
+      }
+    },
+    {
+      "key": "products.software.groups[1].targets[2].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Tại chỗ"
+      }
+    },
+    {
+      "key": "products.software.groups[1].targets[2].body",
+      "component": "body",
+      "claims": [
+        "C017",
+        "C018"
+      ],
+      "label": "roadmap",
+      "locales": {
+        "vi": "GPU dùng được hôm nay; ESPRESSO dự kiến 9/2026."
+      }
+    },
+    {
+      "key": "products.software.groups[1].targets[3].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Đám mây riêng"
+      }
+    },
+    {
+      "key": "products.software.groups[1].targets[3].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "GPU trong vùng hạ tầng bạn kiểm soát."
+      }
+    },
+    {
+      "key": "products.software.groups[1].targets[4].title",
+      "component": "list_item",
+      "locales": {
+        "vi": "Hạ tầng GPU / AI"
+      }
+    },
+    {
+      "key": "products.software.groups[1].targets[4].body",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "locales": {
+        "vi": "Cụm GPU và HPC cho huấn luyện, suy luận quy mô lớn."
+      }
+    },
+    {
+      "key": "products.software.groups[1].media.alt",
+      "component": "caption",
+      "label": "roadmap",
+      "notes": "context/media-plan.md ô #6 — the strongest structural argument on the page, drawn rather than written.",
+      "locales": {
+        "vi": "Sơ đồ năm đích triển khai theo thang điện năng, mỗi bậc ghi phần cứng đứng sau."
+      }
+    },
+    {
+      "key": "ui.specs",
+      "component": "label",
+      "notes": "Mono uppercase label above the spec strip. No terminal period.",
+      "locales": {
+        "vi": "Số đo"
+      }
+    },
+    {
+      "key": "ui.source",
+      "component": "label",
+      "notes": "Screen-reader-only prefix before a citation (ui.tsx SpecCard).",
+      "locales": {
+        "vi": "Nguồn"
+      }
+    },
+    {
+      "key": "ui.imagePending",
+      "component": "label",
+      "notes": "Printed inside the placeholder frame above the alt text, on every page. Clearing this also closes specs/contact.yaml findings/ui-imagePending-placeholder.",
+      "locales": {
+        "vi": "Ảnh đang chờ"
+      }
+    },
+    {
+      "key": "origin.ps",
+      "component": "label",
+      "notes": "The tag must self-explain: there is no origin legend anywhere on the site, unlike the status legend in the footer.",
+      "locales": {
+        "vi": "Của Pebble Square"
+      }
+    },
+    {
+      "key": "origin.pv",
+      "component": "label",
+      "locales": {
+        "vi": "Của Pebble Vina"
+      }
+    }
+  ]
+}

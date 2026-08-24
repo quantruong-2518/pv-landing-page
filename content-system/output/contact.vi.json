@@ -1,0 +1,55 @@
+{
+  "content_type": "marketing",
+  "id": "contact",
+  "locales": [
+    "vi"
+  ],
+  "semantic_spec": "content-system/specs/contact.yaml",
+  "entries": [
+    {
+      "key": "meta.contact.title",
+      "component": "meta",
+      "locales": {
+        "vi": "Liên hệ Pebble Vina — đặt lịch tư vấn, văn phòng Hà Nội"
+      }
+    },
+    {
+      "key": "meta.contact.description",
+      "component": "meta",
+      "claims": [
+        "C019"
+      ],
+      "notes": "Tax code carried per decisions/meta-tax-code. C019 licenses 0111545175 and the group-member phrasing; the street address is deliberately absent because Landmark 72 and floor 19 have no ledger entry.",
+      "locales": {
+        "vi": "Pebble Vina — thành viên Việt Nam của nhóm Pebble Square Inc. Văn phòng Hà Nội, MST 0111545175. Gọi 0345 913 369 hoặc email contact@pebblevina.com."
+      }
+    },
+    {
+      "key": "contact.intro.kicker",
+      "component": "eyebrow",
+      "notes": "Plain label, no index number — decisions/kicker-numbering.",
+      "locales": {
+        "vi": "Bước tiếp theo"
+      }
+    },
+    {
+      "key": "contact.intro.title",
+      "component": "headline",
+      "notes": "Carries the honest-no in the scan line. No duration — decisions/thirty-minutes-as-a-claim.",
+      "locales": {
+        "vi": "Kể bài toán của bạn. Câu trả lời có thể là không."
+      }
+    },
+    {
+      "key": "contact.intro.lead",
+      "component": "body",
+      "claims": [
+        "C030"
+      ],
+      "notes": "Two-sentence variant, APPLIED. One-sentence fallback, verbatim, if the phone/email dl falls below the fold at 1440x900 (decisions/intro-lead-budget): 'Ba điều nên nói trước: máy móc hay dây chuyền nào, tín hiệu nào đang đo được, dữ liệu có được phép rời tổ chức không.'. The dropped second sentence names three outcomes including `not yet` — information the title does not carry, which is why the two-sentence version is preferred.",
+      "locales": {
+        "vi": "Ba điều nên nói trước: máy móc hay dây chuyền nào, tín hiệu nào đang đo được, dữ liệu có được phép rời tổ chức không. Chừng đó đủ để biết nên bắt đầu từ phần cứng, từ phần mềm, hay chưa nên bắt đầu."
+      }
+    }
+  ]
+}

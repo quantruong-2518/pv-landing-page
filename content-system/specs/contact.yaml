@@ -1,0 +1,450 @@
+# Semantic spec — CONTACT (/vi/contact). Language-free by design.
+#
+# ┌──────────────────────────────────────────────────────────────────────────┐
+# │ STATUS: CONFIRMED 2026-08-24. Gate F returned a go on all eight          │
+# │ questions; the answers are in `decisions:` with what each does NOT       │
+# │ license. 15 keys written, 3 held — see `scope:`. What remains open is    │
+# │ in `open_decisions:` and none of it blocks the 15.                       │
+# └──────────────────────────────────────────────────────────────────────────┘
+#
+# This is the ONLY input a locale writer may read. It exists so that `en` and `ko`
+# can later be written natively from the same meaning instead of being translated
+# out of `vi`, which the content-i18n skill forbids in both directions.
+#
+# Compiled 2026-08-23. Revised 2026-08-23 after reading the components: the first
+# draft placed two slots in a block that does not render them (see `revision_log`).
+# Gate F closed 2026-08-24 via the two-pass protocol — the gates were returned to the
+# requester, answered, and only then compiled. All three revision_log corrections were
+# verified against the components by the requester before the answers were given.
+#
+# Sources: docs/00-brief.md, docs/01-proof-bank.md §A §F §H, docs/02-message-map.md,
+# docs/03-structure.md §1 §3 §4, docs/05-backlog.md, web/content/site.ts,
+# web/content/types.ts, web/components/page-contact.tsx, web/components/contact-form.tsx,
+# web/components/ui.tsx, context/03-contact/contact.md.
+# Claim ids resolve against content-system/claims/approved.yaml.
+#
+# Reading rule, inherited from specs/home.yaml, unchanged:
+#   `docs/` and `context/` are written ABOUT the page. They are not the page. Read
+#   them for FACTS, never for editorial framing. `context/` carries English sentence
+#   shape (docs/05-backlog.md #16b) — MATERIAL, not copy.
+#
+# And the rule that keeps blocks from bloating:
+#   A `body` earns its place only by adding a FACT its `title` does not carry. No
+#   such fact → leave it empty. Components skip empty strings by design.
+#
+# Mixed routing, deliberate:
+#   meta.contact.* / contact.intro.*                 -> marketing
+#   contact.ctaPrimary / contact.media.alt / contact.form.*  -> product_ui
+# The form is an interface, not a pitch. It is graded on task completion, never on
+# persuasion (content-i18n §1). Labels take no pronoun and no `vui lòng`.
+
+id: contact
+type: marketing            # the page; the form block overrides to product_ui
+
+# ── What the first draft got wrong, and why it mattered ─────────────────────
+# Kept for the next session so the same slot is not re-misplaced.
+revision_log:
+  - slot: contact.ctaPrimary
+    was: listed under `contact.intro` as "the booking action"
+    is: >-
+      the SUBMIT BUTTON of the form — web/components/contact-form.tsx:123. The intro
+      block renders no button at all: page-contact.tsx gives it SectionHead plus a
+      <dl> of phone and email, nothing else. Consequence: this string must say what
+      PRESSING it does, and it is graded by lint_product (vague-label list, 28-char
+      VI ceiling), not as a marketing CTA.
+  - slot: contact.media.alt
+    was: listed under `contact.intro` as "the office or team image slot"
+    is: >-
+      the alt of a <Figure> that renders ONLY inside the post-submit success panel —
+      contact-form.tsx:47. And `contact.media` has no `src`, so <Figure> falls through
+      to <MediaPending>, which prints the alt as VISIBLE ON-SCREEN TEXT (ui.tsx:284),
+      not as assistive text. A human reads this string.
+  - slot: contact.form.requiredNote
+    was: 'premised on "optional fields must be marked, so the required set reads as short"'
+    is: >-
+      four of five fields are `required` in the component — name, company, email,
+      message. Only phone is optional. The required set is not short, and the copy
+      may not pretend otherwise. The component appends " *" to every required label
+      and " · {optionalLabel}" to the optional one; the note has to explain that mark.
+  - slot: contract.proof
+    was: 'C019 listed under `verified`'
+    is: >-
+      C019 is `usable: conditional`, qualified "member of the group — never
+      wholly-owned subsidiary, ownership is unverified". It belongs under
+      `contextual`, where its qualification travels with it.
+
+contract:
+  page:
+    type: contact
+    goal: convert an interested reader into a scheduled conversation
+    funnel_stage: decision
+  audience:
+    primary: Vietnamese industrial and enterprise buyers; Korean FDI firms in Vietnam
+    buyer: plant, IT or procurement decision-maker
+    awareness_level: solution-aware — they have read the catalogue and want a person
+    primary_problem: they do not know whether their problem is even the right shape for this
+    note: >-
+      The site ships Vietnamese only since 2026-08-23 (CLAUDE.md §4). A Korean FDI
+      reader therefore reads this page in Vietnamese, and stays primary
+      (decisions/audience-after-en-removal).
+  product:
+    name: a thirty-minute consultation
+    mechanism: >-
+      There is no backend in this repository (docs/00-brief.md). The form composes a
+      mail draft in the visitor's own client via `mailto:` — the same mechanism as
+      CTA_HREF in web/content/site.ts. Nothing is transmitted to a server, so no copy
+      may promise receipt, a ticket, a queue or a reply time.
+  proof:
+    verified: []
+    contextual: [C019]
+    unavailable:
+      - business hours — docs/05-backlog.md
+      - response time and support model in Vietnam — docs/05-backlog.md B10
+      - office photography, Landmark 72 — docs/05-backlog.md #5, G9 still open
+      - Pebble Vina incorporation date — docs/05-backlog.md
+      - any customer, deployment, unit count or revenue figure — docs/01-proof-bank.md §H4
+  differentiators:
+    - the legal entity, tax code and registered office sit on the page, checkable in 30 seconds
+    - the offer includes being told the answer is no
+  objections:
+    - a new Vietnamese entity with no record of its own
+    - will this turn into a sales call
+  cta:
+    primary: submit the form, which hands the filled-in fields to the visitor's own mail client
+  tone:
+    desired: [precise, understated, engineer-readable, honest about status]
+    avoid: [luxury language, emotional hype, urgency pressure, false scarcity, thought-leadership voice]
+  claims_policy:
+    allow_inference: false
+    require_proof_for_numbers: true
+    require_proof_for_superlatives: true
+  locale:
+    requested: [vi]
+    deferred: [en, ko]
+    note: >-
+      A deferred locale is compiled from THIS file, never from the written `vi`.
+      Adding one means a complete web/content/<locale>.ts plus its routes — not half
+      a language (CLAUDE.md §3).
+
+# ── Gate F closed 2026-08-24. All eight questions answered by the requester ──
+# through the calling session. The two-pass protocol (return the gates, receive
+# the answers, then compile) is the documented path, not a fallback.
+decisions:
+
+  thirty-minutes-as-a-claim:
+    question: "is the 30-minute duration an offer or a claim needing a proof-bank line — this spec, first pass"
+    answered: neither; drop the number. The page offers `tư vấn` with no duration.
+    but: nothing may take its place.
+    consequence: "No slot may state a duration, a response time, a headcount or any other bounded promise to compensate for the missing number. An unbounded invitation is the whole point."
+    still_open: []
+
+  kicker-numbering:
+    question: "is contact.intro.kicker numbered `03 · …` like home's section indices"
+    answered: no page numbering. The kicker is a plain label.
+    but: this is not licence to leave it a bare nav echo; it still has to orient a reader who arrived from the catalogue.
+    consequence: "contact.intro.kicker is a short label naming where the reader is in the sequence, not an index number."
+    still_open: []
+    also_binds: "products.intro.kicker takes the same treatment — record as inherited_from when that spec is next touched."
+
+  success-panel-image:
+    question: "what does the empty success-panel image slot hold — docs/05-backlog.md #5"
+    answered: the Landmark 72 office.
+    but: no file exists, so the alt is on-screen text today and real alt text later.
+    consequence: "contact.media.alt is written as an art-direction brief a customer can read without embarrassment — not accessibility phrasing, not a note to a photographer. It must work unchanged as the alt attribute once the photograph lands."
+    still_open: ["the photograph itself — GM, docs/05-backlog.md #5, G9 still open"]
+
+  meta-tax-code:
+    question: "does meta.contact.description carry the tax code"
+    answered: yes, 0111545175.
+    but: the tax code is the only number the ledger licenses here (C019).
+    consequence: "No other figure may enter the description. The street address is excluded — Landmark 72 and floor 19 are numbers with no ledger entry, and check_claims reads the marketing artifact."
+    still_open: []
+
+  audience-after-en-removal:
+    question: "do Korean FDI readers still count as primary now that the English build is gone"
+    answered: yes, they remain primary and they read Vietnamese.
+    but: this rules out idiom and wordplay, NOT natural sentence rhythm.
+    consequence: "contact.intro.title, contact.intro.lead and contact.form.messagePlaceholder avoid colloquialism and figurative language. Flattened textbook Vietnamese is a failure of this decision, not a satisfaction of it."
+    still_open: []
+
+  intro-lead-budget:
+    question: "one sentence or two in contact.intro.lead, given the screen block already carries the phone/email dl"
+    answered: not decided by argument — decided by measurement, which happens after this run.
+    but: the measurement has not been taken yet.
+    consequence: "Write BOTH. Apply the two-sentence version, because it carries the honesty move. Report the one-sentence fallback verbatim so the calling session can swap it at 1440x900 without another compile."
+    still_open: [the measurement at 1440x900 — does the phone/email dl stay above the fold]
+
+  cta-label-honesty:
+    question: "does the submit button keep promise-wording or name the mail-draft mechanism"
+    answered: superseded. The code moved under this spec.
+    but: the replacement behaviour does not exist yet.
+    consequence: "CTA_HREF is deleted from content/site.ts and page-home.tsx now routes to path(contact), so `đặt lịch` means `go to the contact page` and the form is the only thing that mails. The requester wants submit to SAVE and show a thank-you panel. Until that endpoint exists, contact.ctaPrimary is HELD as a placeholder."
+    still_open: [what submit says once it saves rather than mails]
+
+  real-form-endpoint:
+    question: "is there a submission endpoint"
+    answered: a Postgres-backed endpoint on Vercel is being built as a separate task.
+    but: it does not exist yet; the component still fires a mailto.
+    consequence: "Nothing may describe a saved, received, queued or acknowledged submission. contact.form.successTitle and contact.form.successBody are HELD as placeholders — writing them now guarantees copy that is false on the day it ships."
+    still_open: [all three held keys, which land with the endpoint]
+
+  submit-stays-mailto:
+    question: "the endpoint landed in the repo (app/api/contact/route.ts, lib/contact-submission.ts, db/001_contact_submission.sql) but contact-form.tsx still fires a mailto. Which behaviour does the copy describe — asked 2026-08-24"
+    answered: mailto stays. The copy describes the mail draft, not a saved submission.
+    but: the endpoint exists and is unwired, so the two can drift apart in one commit.
+    consequence: >-
+      The three held keys are RELEASED and written against the mailto mechanism this spec
+      already documents under blocks/contact.form/mechanisms. `đã nhận`, `đã gửi`, `đã lưu`
+      and any response time stay forbidden. The day contact-form.tsx POSTs instead of
+      mailing, all three keys are false and must be recompiled from this spec — that is a
+      content dependency of the wiring task, not a follow-up someone may skip.
+    still_open: ["wiring the form to POST /api/contact — engineer task, and it invalidates these three keys when it lands"]
+
+# Written this run: 15 keys. Held deliberately: 3.
+scope:
+  written:
+    - meta.contact.title
+    - meta.contact.description
+    - contact.intro.kicker
+    - contact.intro.title
+    - contact.intro.lead
+    - contact.media.alt
+    - contact.form.title
+    - contact.form.nameLabel
+    - contact.form.companyLabel
+    - contact.form.emailLabel
+    - contact.form.phoneLabel
+    - contact.form.messageLabel
+    - contact.form.messagePlaceholder
+    - contact.form.optionalLabel
+    - contact.form.requiredNote
+  written_2026_08_24:
+    - "contact.ctaPrimary — released by decisions/submit-stays-mailto"
+    - "contact.form.successTitle — released by decisions/submit-stays-mailto"
+    - "contact.form.successBody — released by decisions/submit-stays-mailto"
+  held: []
+  held_note: "Nothing held. The three keys that were placeholders describe the mailto mechanism, which the requester confirmed on 2026-08-24 is the shipping behaviour."
+
+
+blocks:
+
+  - id: contact.intro
+    origin: pv
+    status: shipped
+    height: screen          # <Section tone="dark" screen> — page-contact.tsx
+    intent:
+      communicate: what the reader gets from the call, including the outcome where the answer is no
+      reader_question: what actually happens if I write in
+    claims: [C019]
+    qualifiers:
+      - "One viewport tall. The block ALSO renders a <dl> of phone and email under the header — roughly 140px the spec must budget for. Only kicker, title and lead are writable here; everything else in the block is already prose or comes from site.ts. Prose added here pushes the phone number below the fold, which is the one thing this block exists to show. docs/03-structure.md §3."
+      - "C019 is conditional. Thành viên nhóm survives into every locale; công ty con, 100% and any ownership percentage do not (F005)."
+    forbidden:
+      - promising a response time, business hours or a reply nobody has committed to
+      - urgency, scarcity or "limited slots" framing
+      - implying Pebble Vina is a subsidiary rather than a member of the group
+      - "`chúng tôi` as the subject of the parent's work — docs/02-message-map.md §5"
+    slots:
+      kicker: >-
+        a plain label naming where the reader is in the sequence — no index number
+        (decisions/kicker-numbering). The primary reader arrives from the catalogue,
+        so the label may assume a previous step; it must not assume a previous page
+        view for a reader who landed here from search.
+      title: >-
+        the shape of the call, bounded by its length. Renders as the page <h1>.
+        Soft limit 12 words (brand/voice.yaml marketing.hero.headline_soft_limit.vi).
+      lead: >-
+        what the reader should bring, and why those specific things. The honest-no
+        commitment lives in the title, so the lead must not restate it — a second
+        sentence that only re-promises is a sentence whose removal loses nothing.
+        TWO VARIANTS are written (decisions/intro-lead-budget): the two-sentence one
+        is applied, the one-sentence one is the measured fallback if the phone/email
+        <dl> falls below the fold at 1440x900.
+
+  - id: contact.form
+    type: product_ui
+    origin: pv
+    status: shipped
+    height: content
+    intent:
+      communicate: what pressing the button does, before it is pressed
+      task: describe a problem and hand over a way to be reached
+    mechanisms:
+      - submit opens the visitor's own mail client with subject and body pre-filled
+      - nothing reaches a server; there is no record on our side until the visitor sends the mail
+      - the mail client may not open at all — a webmail user with no handler registered sees nothing
+    qualifiers:
+      - "Success copy describes a COMPOSED DRAFT, never a received message. The visitor still has to press send in their own client."
+      - "Required fields are name, company, email and message. Optional is phone only. The component appends a space-asterisk after each required label and a middot plus {optionalLabel} after the optional one — the copy must not repeat the marker, only explain it."
+      - "Every field label renders mono, ~10px, uppercase, letter-spaced (contact-form.tsx Field). Two or three words maximum, no terminal period, and diacritics must survive uppercasing — VĂN PHÒNG, never VAN PHONG (references/locales/vi.md)."
+    forbidden:
+      - '"phản hồi trong N giờ" — nobody has committed to a number'
+      - '"đã gửi" / "đã nhận được" — untrue; the mail client has not sent anything yet'
+      - "`vui lòng`, `bạn hãy`, `quý khách`, an apology, or a pronoun in a field label"
+      - "a bare vague verb as the button — lint_product flags gửi · xác nhận · tiếp tục · đồng ý · hoàn tất for vi. The button names the action it performs."
+      - marketing register inside the form — hành trình, nâng tầm, bứt phá, khai phá
+    slots:
+      title: >-
+        what this form is for. Renders as a mono uppercase eyebrow in the right
+        column, visually paired with the `labels.office` eyebrow ("VĂN PHÒNG") in the
+        left. A label, not a sentence: 2–4 words, no terminal period.
+      nameLabel: the person's own name
+      companyLabel: the organisation they are writing on behalf of — required, not a courtesy field
+      emailLabel: email address
+      phoneLabel: phone number — the only optional field
+      messageLabel: the problem description
+      messagePlaceholder: >-
+        a concrete example of the kind of detail that makes a thirty-minute call
+        useful rather than exploratory. Must read as an example, not an instruction.
+        Renders inside the textarea at 14px, so it must survive being cut off at the
+        field width on mobile — front-load the discriminating word.
+      optionalLabel: >-
+        the marker appended after a label that may be left empty. Rendered as
+        " · <value>" in mono uppercase. Two words maximum.
+      requiredNote: >-
+        which fields are required, phrased so the " *" the component prints is
+        explained rather than repeated. Renders mono uppercase ~10px beside the
+        button, so it competes with nothing — keep it under a line.
+      successTitle: >-
+        State what just happened, in the visitor's own terms: a draft is now open in
+        their mail client, and nothing has reached us. Being wrong here costs a lead
+        who thinks they are done. Renders as a 24-30px heading at the top of the panel
+        that replaces the form, so it is read before anything else on the screen.
+      successBody: >-
+        what the visitor must still do (press send in their own client), and the
+        fallback for the case where no mail client opened. The address is NOT rendered
+        by the component in this panel — contact-form.tsx prints only successTitle,
+        successBody and the <Figure> — so the fallback either names the address or
+        sends the reader back to the phone/email <dl> in the left column. Naming it
+        costs nothing: check_claims skips the number scan on a product_ui artifact and
+        an address is not a claim.
+    slots_outside_the_form_object:
+      # Both live at contact.* rather than contact.form.*, but belong to this block.
+      ctaPrimary: >-
+        The submit button names what pressing it does, and what it does is open a
+        pre-filled mail draft (decisions/submit-stays-mailto). It may not promise a
+        delivery the button cannot perform. VI ceiling 28 characters
+        (brand/voice.yaml ui_limits.button.vi) and lint_product rejects a bare
+        gửi · xác nhận · tiếp tục · đồng ý · hoàn tất. Note home.hero.ctaPrimary now
+        ships "Đặt lịch tư vấn" as a LINK TO THIS PAGE, not a mailto — CTA_HREF was
+        deleted from content/site.ts, so the form is the only thing on the site that
+        mails.
+      media.alt: >-
+        the artwork brief for the empty image slot in the success panel. Because
+        `media.src` is empty, this string is PRINTED ON SCREEN under the
+        `ui.imagePending` label inside a viewfinder frame, wrapped at 30ch. It is read
+        by a visitor who has just submitted, not only by a screen reader. It must
+        therefore describe the intended photograph in a register a customer can read.
+        DECIDED: the Landmark 72 office (decisions/success-panel-image). Written as
+        an art-direction brief a customer can read without embarrassment, and it must
+        still work unchanged as the alt attribute once the photograph lands. Numbers
+        in the address are safe HERE and only here, because check_claims skips number
+        checks on a product_ui artifact.
+
+chrome:
+  meta:
+    contact:
+      title: >-
+        page title. Must distinguish this page from meta.home.title, which already
+        carries the company positioning. Claim cover: C019 if the entity relationship
+        is stated. No number may appear that the ledger does not carry.
+      description: >-
+        search-result description. The checkable facts — the Hà Nội office, the tax
+        code and the two channels — are what this page has that the others do not.
+        DECIDED: carry the tax code 0111545175 (decisions/meta-tax-code). It is the
+        ONLY figure the ledger licenses here, via C019. The street address stays out:
+        Landmark 72 and floor 19 are numbers with no ledger entry and this artifact
+        is marketing, so check_claims would reject them.
+
+# ── Findings that are NOT mine to fix, routed rather than acted on ──────────
+findings:
+  - id: ui-imagePending-placeholder
+    what: >-
+      web/content/vi.ts `ui.imagePending` is still the literal string "ui.imagePending"
+      and is rendered directly above contact.media.alt in the success panel
+      (contact-form.tsx:50). Filling contact.media.alt without it produces a panel
+      reading "ui.imagePending" in a frame. It is out of the 18-key scope of this run.
+    route: >-
+      CLEARED 2026-08-24 — scope was extended. ui.specs, ui.source and ui.imagePending are
+      written as chrome in the PRODUCTS run (specs/products.yaml chrome/ui) and applied in
+      the same pass, so the success panel no longer prints a key path above the alt text.
+  - id: nav-cta-dead-string
+    what: >-
+      web/content/vi.ts `nav.cta` ships "Đặt lịch tư vấn 30 phút" and is rendered
+      NOWHERE — web/components/site-header.tsx builds its nav from nav.home,
+      nav.products and nav.contact and has no CTA button. It is a dead string, and it
+      is the last surviving instance of the 30-minute duration that
+      decisions/thirty-minutes-as-a-claim just dropped.
+    route: >-
+      out of the 18-key scope of this run. Either delete the field from
+      SiteContent.nav or rewrite it without the duration when the header next changes.
+
+  - id: structure-doc-key-drift
+    what: >-
+      docs/03-structure.md §3 documents the contact keys as
+      `hero.{kicker,title,lead}` · `channels.*` · `legal.*` · `media.alt`.
+      web/content/types.ts has `intro.*`, `form.*`, `ctaPrimary`, `media.alt`, and the
+      channel labels live at the shared `labels.*`. It also gives
+      `channels.callLabel` VI as "Gọi" where vi.ts ships "Điện thoại".
+    route: docs/ is out of bounds for this role. Reported, not edited.
+  - id: voice-yaml-stale-locale-list
+    what: >-
+      content-system/brand/voice.yaml has `locales.shipped: [en, vi]` and
+      `canonical: en`. The English build was removed 2026-08-23; there is no
+      web/content/en.ts.
+    route: brand config, not a spec. Reported for the requester to decide.
+  - id: home-artifact-orphan-entry
+    what: >-
+      content-system/output/home.vi.json still carries an `alternateLabel: "EN"` entry
+      for the removed language switcher, as references/core/apply.md warns.
+    route: pre-existing; untouched by this run.
+  - id: backlog-14-15-touch-this-page
+    what: >-
+      docs/05-backlog.md #14 (FAQ + FAQPage JSON-LD) and #15 ("what happens after you
+      press the button", 4 steps) both propose new blocks on this page. #15 in
+      particular is the natural home for the mechanism this spec keeps having to
+      compress into `successBody`.
+    route: adding a block is a structure change needing GM approval. Not in this scope.
+
+# ── Gate F closed 2026-08-24. What is still open after it ──────────────────
+open_decisions:
+
+  - id: submit-behaviour-copy
+    status: ANSWERED 2026-08-24 — mailto stays; see decisions/submit-stays-mailto
+    question: >-
+      What do contact.ctaPrimary, contact.form.successTitle and
+      contact.form.successBody say once submit saves to Postgres instead of opening
+      a mail client?
+    owner: the separate endpoint task, then the requester
+    blocks: []
+    note: >-
+      The three keys now carry prose describing the MAIL DRAFT. The endpoint exists in
+      the repo but is unwired, so the question above returns the moment contact-form.tsx
+      POSTs: at that commit all three strings become false and must be recompiled from
+      this spec. Whoever wires the form owns that recompile.
+
+  - id: intro-lead-measurement
+    status: OPEN — a measurement, not a question
+    question: >-
+      At 1440x900, does the phone/email <dl> stay above the fold with the
+      two-sentence lead applied?
+    owner: the calling session
+    blocks: [contact.intro.lead]
+    note: >-
+      The one-sentence fallback is the applied lead's FIRST SENTENCE ALONE, verbatim:
+      "Ba điều nên nói trước: máy móc hay dây chuyền nào, tín hiệu nào đang đo được,
+      dữ liệu có được phép rời tổ chức không." Swapping it needs no recompile.
+      Estimated at 1440x900 from the CSS: budget 836px (900 minus a 4rem header),
+      content roughly 520-570px — py-24 192, kicker 32, h1 48 per line, lead 104,
+      dl 142. It should fit comfortably; the estimate is not a measurement. Why Now was measured at 922px with no prose at all before it lost
+      `screen` (docs/03-structure.md §3) — this block has still never been measured.
+
+  - id: office-photograph
+    status: OPEN — content decided, asset missing
+    question: The Landmark 72 photograph itself.
+    owner: GM — docs/05-backlog.md #5, G9
+    blocks: [contact.media.alt]
+    note: >-
+      contact.media.alt is written to survive the transition: it reads as an
+      art-direction brief while `media.src` is empty and as alt text the moment a
+      file lands. No copy change is needed when the photograph arrives.

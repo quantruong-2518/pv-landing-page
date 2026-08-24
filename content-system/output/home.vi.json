@@ -27,14 +27,7 @@
         "C019"
       ],
       "locales": {
-        "vi": "Pebble Vina là thành viên Việt Nam của nhóm Pebble Square Inc., hãng bán dẫn AI fabless Hàn Quốc. Chip MINT đạt 17,6 TOPS/W, sản xuất hàng loạt từ 5/2023."
-      }
-    },
-    {
-      "key": "alternateLabel",
-      "component": "nav",
-      "locales": {
-        "vi": "EN"
+        "vi": "Pebble Vina — thành viên Việt Nam của nhóm Pebble Square Inc., hãng bán dẫn AI fabless Hàn Quốc. Chip tính ngay trong bộ nhớ để AI chạy tại chỗ. MINT đạt 17,6 TOPS/W, sản xuất hàng loạt từ 5/2023."
       }
     },
     {
@@ -107,53 +100,51 @@
       "key": "home.hero.slogan",
       "component": "headline",
       "claims": [
-        "C001",
-        "C030"
+        "C014"
       ],
       "locales": {
-        "vi": "Từ con chip đến phần mềm, cho AI của riêng bạn."
+        "vi": "Dữ liệu ở đâu, AI chạy ở đó."
       }
     },
     {
       "key": "home.hero.lead",
       "component": "body",
       "claims": [
-        "C001",
-        "C002",
-        "C004",
+        "C014",
+        "C015",
         "C019",
         "C030"
       ],
       "locales": {
-        "vi": "Pebble Square Inc. làm chip AI đặt luôn phép tính vào trong bộ nhớ. Con chip MINT của họ chạy ở mức 17,6 TOPS/W và đã sản xuất hàng loạt từ 5/2023. Phần việc ở Việt Nam là của Pebble Vina: hạ tầng GPU để huấn luyện, phần mềm doanh nghiệp, và hợp đồng ký trong nước."
+        "vi": "Nhiều tổ chức không được phép đưa dữ liệu ra ngoài, trong khi AI lâu nay chỉ chạy được ở nơi có phòng máy. Pebble Square Inc. làm con chip đặt phép tính ngay trong bộ nhớ, nên việc tính chạy được ngay chỗ dữ liệu đang nằm. Pebble Vina là pháp nhân Việt Nam dựng lớp bên trên con chip đó và ký hợp đồng ở đây."
       }
     },
     {
       "key": "home.hero.ctaPrimary",
       "component": "cta",
       "locales": {
-        "vi": "Đặt lịch tư vấn"
+        "vi": "Xem sản phẩm & giải pháp"
       }
     },
     {
       "key": "home.hero.ctaSecondary",
       "component": "cta",
       "locales": {
-        "vi": "Xem sản phẩm"
+        "vi": "Đặt lịch tư vấn"
       }
     },
     {
       "key": "home.whyNow.kicker",
       "component": "eyebrow",
       "locales": {
-        "vi": "01 · Vì sao là bây giờ"
+        "vi": "01 · Cái khó nằm ở đâu"
       }
     },
     {
       "key": "home.whyNow.title",
       "component": "headline",
       "locales": {
-        "vi": "Cái khó bây giờ không phải hiệu năng, mà là điện."
+        "vi": "Muốn giữ AI trong nhà, cái vướng đầu tiên là điện."
       }
     },
     {
@@ -173,7 +164,7 @@
         "C020"
       ],
       "locales": {
-        "vi": "Chưa kể khoảng 300.000 gallon nước mỗi ngày để làm mát."
+        "vi": "Cộng thêm khoảng 300.000 gallon nước mỗi ngày để làm mát. Đây là số của ngành, không phải số đo của Pebble Square."
       }
     },
     {
@@ -190,14 +181,14 @@
       "key": "home.whyNow.points[1].title",
       "component": "list_item",
       "locales": {
-        "vi": "AI đang chuyển xuống nơi không dư lấy một watt"
+        "vi": "Chỗ cần AI nhất lại là chỗ không có điện dư"
       }
     },
     {
       "key": "home.whyNow.points[1].body",
       "component": "body",
       "locales": {
-        "vi": "Trạm biến áp, dàn pin mặt trời, dây chuyền, thiết bị đeo, cảm biến chạy pin. Những chỗ này chỉ dư vài trăm miliwatt, không phải vài trăm watt."
+        "vi": "Trạm biến áp, dây chuyền sản xuất, tủ điện trong nhà xưởng, cảm biến chạy pin. Ngân sách điện ở những chỗ đó tính bằng miliwatt, không phải bằng watt."
       }
     },
     {
@@ -211,15 +202,21 @@
       "key": "home.whyNow.points[2].title",
       "component": "list_item",
       "locales": {
-        "vi": "Điện chủ yếu tốn vào việc khiêng dữ liệu, không phải để tính"
-      }
+        "vi": "Điện tốn vào việc khiêng dữ liệu, không phải vào việc tính"
+      },
+      "claims": [
+        "C014"
+      ]
     },
     {
       "key": "home.whyNow.points[2].body",
       "component": "body",
       "locales": {
-        "vi": "Kiến trúc von Neumann để bộ nhớ một nơi, bộ xử lý một nơi, nên phần lớn điện đổ vào quãng đi lại giữa hai chỗ. Processing-In-Memory tính ngay trong bộ nhớ, khỏi phải đi đâu cả."
-      }
+        "vi": "Máy tính thường để bộ nhớ một nơi, bộ xử lý một nơi. Dữ liệu phải chạy đi chạy lại giữa hai chỗ, và chính quãng đường đó mới ngốn điện. Chip của Pebble Square tính ngay trong mảng nhớ, nên không còn quãng đường ấy."
+      },
+      "claims": [
+        "C014"
+      ]
     },
     {
       "key": "home.whyNow.points[2].media.alt",
@@ -239,38 +236,39 @@
       "key": "home.whyNow.pillars[0].title",
       "component": "list_item",
       "locales": {
-        "vi": "Điện năng thấp"
+        "vi": "Riêng tư"
       }
     },
     {
       "key": "home.whyNow.pillars[0].body",
       "component": "body",
       "locales": {
-        "vi": "Phép tính chạy analog ngay trong flash nhúng, không qua đường truyền."
-      }
+        "vi": "Suy luận chạy xong ngay trên thiết bị. Dữ liệu không phải gửi ra ngoài."
+      },
+      "claims": [
+        "C014",
+        "C015"
+      ]
     },
     {
       "key": "home.whyNow.pillars[1].title",
       "component": "list_item",
       "locales": {
-        "vi": "Riêng tư"
+        "vi": "Điện năng thấp"
       }
     },
     {
       "key": "home.whyNow.pillars[1].body",
       "component": "body",
-      "claims": [
-        "C014"
-      ],
       "locales": {
-        "vi": "Suy luận trên thiết bị, không phụ thuộc đám mây."
+        "vi": "Phép tính chạy ngay trong mảng nhớ, dữ liệu không phải di chuyển."
       }
     },
     {
       "key": "home.whyNow.pillars[2].title",
       "component": "list_item",
       "locales": {
-        "vi": "Nhanh"
+        "vi": "Phản ứng nhanh"
       }
     },
     {
@@ -280,28 +278,28 @@
         "C014"
       ],
       "locales": {
-        "vi": "Quyết định ngay nơi sự kiện xảy ra, không chờ đường truyền."
+        "vi": "Quyết định ngay tại nơi sự việc xảy ra, không chờ mạng trả lời."
       }
     },
     {
       "key": "home.whyNow.pillars[3].title",
       "component": "list_item",
       "locales": {
-        "vi": "Chi phí thấp"
+        "vi": "Chi phí một lần"
       }
     },
     {
       "key": "home.whyNow.pillars[3].body",
       "component": "body",
       "locales": {
-        "vi": "Phần cứng mua một lần, thay vì thuê suy luận theo tháng."
+        "vi": "Mua phần cứng một lần, thay vì trả tiền suy luận theo tháng."
       }
     },
     {
       "key": "home.history.kicker",
       "component": "eyebrow",
       "locales": {
-        "vi": "02 · Lịch sử hình thành"
+        "vi": "02 · Hồ sơ công ty mẹ"
       }
     },
     {
@@ -320,10 +318,10 @@
       "component": "body",
       "claims": [
         "C001",
-        "C013"
+        "C019"
       ],
       "locales": {
-        "vi": "Bán dẫn AI fabless, chuyên Edge AI, đặt tại Seongnam. Ba trong bốn lãnh đạo kỹ thuật có bằng tiến sĩ Đại học Tokyo."
+        "vi": "Hồ sơ dưới đây là của Pebble Square Inc., hãng bán dẫn AI fabless ở Seongnam, Hàn Quốc — không phải của Pebble Vina. Toàn bộ lấy từ trang công bố của chính họ, ai cũng tra lại được."
       }
     },
     {
@@ -473,11 +471,10 @@
       "component": "body",
       "claims": [
         "C002",
-        "C003",
         "C004"
       ],
       "locales": {
-        "vi": "Analog-PIM, die 5 × 5 mm², khoảng 30 GOPS, hiệu suất 17,6 TOPS/W."
+        "vi": "Con chip tính ngay trong bộ nhớ, đo được 17,6 TOPS/W."
       }
     },
     {
@@ -663,7 +660,7 @@
       ],
       "label": "roadmap",
       "locales": {
-        "vi": "Lịch sử công ty theo công bố của chính Pebble Square, đọc ngày 20/08/2026. Mục 9/2026 lấy từ IR Deck ngày 05/01/2026 và không có trong danh mục sản phẩm công khai của họ."
+        "vi": "Lịch sử công ty lấy từ trang công bố của chính Pebble Square, đọc ngày 20/08/2026. Riêng mục 9/2026 lấy từ tài liệu nhà đầu tư ngày 05/01/2026 và không có trong danh mục sản phẩm công khai của họ."
       }
     },
     {

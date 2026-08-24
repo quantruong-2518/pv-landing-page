@@ -1,0 +1,112 @@
+{
+  "content_type": "product_ui",
+  "id": "contact.form",
+  "locales": [
+    "vi"
+  ],
+  "semantic_spec": "content-system/specs/contact.yaml",
+  "entries": [
+    {
+      "key": "contact.media.alt",
+      "component": "caption",
+      "notes": "Printed on screen under the ui.imagePending label while media.src is empty, and becomes the alt attribute unchanged once the Landmark 72 photograph lands — decisions/success-panel-image.",
+      "locales": {
+        "vi": "Văn phòng Pebble Vina, tầng 19 toà Landmark 72, Hà Nội."
+      }
+    },
+    {
+      "key": "contact.form.title",
+      "component": "label",
+      "notes": "Mono uppercase eyebrow paired with labels.office (VĂN PHÒNG) in the left column. Closes the scent from home.hero.ctaPrimary, which now links here rather than opening a mail draft.",
+      "locales": {
+        "vi": "Đặt lịch tư vấn"
+      }
+    },
+    {
+      "key": "contact.form.nameLabel",
+      "component": "label",
+      "locales": {
+        "vi": "Họ và tên"
+      }
+    },
+    {
+      "key": "contact.form.companyLabel",
+      "component": "label",
+      "locales": {
+        "vi": "Công ty"
+      }
+    },
+    {
+      "key": "contact.form.emailLabel",
+      "component": "label",
+      "locales": {
+        "vi": "Email"
+      }
+    },
+    {
+      "key": "contact.form.phoneLabel",
+      "component": "label",
+      "notes": "The only optional field. labels.call already renders `Điện thoại` in the hero dl, so this one takes the fuller form-field name.",
+      "locales": {
+        "vi": "Số điện thoại"
+      }
+    },
+    {
+      "key": "contact.form.messageLabel",
+      "component": "label",
+      "notes": "Uses the same noun the page uses in contact.intro.title, so the field and the invitation match.",
+      "locales": {
+        "vi": "Bài toán cần giải"
+      }
+    },
+    {
+      "key": "contact.form.messagePlaceholder",
+      "component": "placeholder",
+      "notes": "An example, not an instruction. The three details mirror contact.intro.lead so a reader who scrolled past it recognises the shape. Numbers are safe here: check_claims skips the number scan on a product_ui artifact, and this is an illustrative example, not a customer.",
+      "locales": {
+        "vi": "Ví dụ: 12 máy CNC, cần phát hiện rung bất thường trước khi hỏng, dữ liệu không được rời nhà máy."
+      }
+    },
+    {
+      "key": "contact.form.optionalLabel",
+      "component": "label",
+      "notes": "Rendered by the component as ` · <value>` after the phone label.",
+      "locales": {
+        "vi": "Không bắt buộc"
+      }
+    },
+    {
+      "key": "contact.form.requiredNote",
+      "component": "helper_text",
+      "notes": "Explains the ` *` the component appends rather than repeating it. Four of five fields are required, so listing them would be longer than the mark it explains.",
+      "locales": {
+        "vi": "Dấu * là trường bắt buộc"
+      }
+    },
+    {
+      "key": "contact.ctaPrimary",
+      "component": "button",
+      "primary_action": true,
+      "notes": "Released 2026-08-24 by decisions/submit-stays-mailto. The button names what pressing it does — the component fires a mailto and nothing reaches a server, so it may not say gửi. 20 of the 28 characters vi allows for a button.",
+      "locales": {
+        "vi": "Mở email đã điền sẵn"
+      }
+    },
+    {
+      "key": "contact.form.successTitle",
+      "component": "success",
+      "notes": "The panel that replaces the form. States the real state: a draft exists in the visitor's own mail client. `đã gửi` and `đã nhận` are both false here and are forbidden by the spec.",
+      "locales": {
+        "vi": "Thư đã soạn sẵn trong ứng dụng mail của bạn"
+      }
+    },
+    {
+      "key": "contact.form.successBody",
+      "component": "success",
+      "notes": "Names the step the visitor still owns, then the recovery path for a browser with no mail handler. It points at the phone and email in the page header rather than retyping them — those values live in web/content/site.ts and a copy here would rot. Engineer follow-up recorded in the run report.",
+      "locales": {
+        "vi": "Bấm gửi trong cửa sổ vừa mở thì yêu cầu mới tới chỗ chúng tôi — trước đó chưa có gì rời máy bạn. Nếu không có cửa sổ nào mở ra, dùng email hoặc số điện thoại ở đầu trang."
+      }
+    }
+  ]
+}

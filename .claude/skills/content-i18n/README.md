@@ -4,7 +4,9 @@ Marketing copy and product UX copy in **vi · en · ko**, produced by a compiler
 copywriter or a translation engine.
 
 ```
-RAW INPUT
+RAW REQUEST
+    ↓
+INTAKE GATES  A→E                  ← ask what only the requester knows; look up the rest
     ↓
 CONTENT TYPE ROUTER ───────────────┐
     ↓                              ↓
@@ -15,7 +17,9 @@ MARKETING                      PRODUCT UX
   → buyer value → proof          consequence · recoverability
     └──────────────┬─────────────┘
                    ↓
-          SEMANTIC CONTENT SPEC        ← language-free meaning
+      content-system/specs/<page>.yaml  ← language-free meaning, one file per route
+                   ↓
+          CONFIRM WITH REQUESTER       ← a `go`, or nothing below runs
                    ↓
           TERMINOLOGY / GLOSSARY
                    ↓
@@ -33,7 +37,11 @@ MARKETING                      PRODUCT UX
                    ↓
             targeted repair            ← failed keys only
                    ↓
-              FINAL OUTPUT
+        content-system/output/*.json   ← the validated artifact
+                   ↓
+         web/content/<locale>.ts       ← APPLY, by hand, key by key
+                   ↓
+            npm run build + eyes       ← overflow and naturalness have no checker
 ```
 
 The forbidden shortcut is `vi → translate en → translate ko`. Each locale is written from the
@@ -56,6 +64,8 @@ graded on the other's rubric — product UI is never scored on persuasion.
 
 ```
 content-system/
+├── specs/<page>.yaml           the compiled page spec — contract + blocks + slots
+├── output/<page>.<loc>.json    the validated artifact, before it is applied
 ├── brand/voice.yaml            tone, locale roster, UI length limits
 ├── facts/company.yaml          legal entity, parent, leadership, milestones
 ├── facts/products.yaml         chips, software, benchmarks, status labels
@@ -72,8 +82,34 @@ machine-readable projections of the proof bank; when they disagree, the projecti
 
 ## Invoking it
 
-Type `/content-i18n` or just describe the work — the skill triggers on marketing copy, UX writing,
-localization, terminology and content review requests, in English or Vietnamese.
+Two ways, and they do the same thing:
+
+```
+/content-i18n                                    load the skill and run the pipeline yourself
+Task(web-content-writer)  ·  "write /vi/products"   hand it to the agent that owns this workflow
+```
+
+`.claude/agents/web-content-writer.md` is a marketing writer that executes exclusively through this
+skill — it runs the intake itself, stops at any gate it cannot close, and never writes production
+copy outside the pipeline.
+
+The skill also triggers on its own from marketing copy, UX writing, localization, terminology and
+content review requests, in English or Vietnamese.
+
+**You do not need a brief.** The first thing that happens is an interview — the skill asks what only
+you can answer (who the page is for, what it must make them do, what may never be implied, what to
+do about the ambiguities it found) and looks up everything the repository already knows. Then it
+writes a spec and reads it back to you before any prose exists.
+
+```
+/content-i18n
+
+Write the products page.
+```
+
+The examples below are the shape of a request that arrives already specified. It still passes
+through the gates — the skill reads it back and confirms it rather than assuming you did the
+compiler's job.
 
 ```
 /content-i18n
@@ -164,7 +200,8 @@ never as clean as it looked. Decide which before editing either.
 .claude/skills/content-i18n/
 ├── SKILL.md                    trigger, routing, mandatory workflow
 ├── references/
-│   ├── core/                   semantic spec · terminology · i18n · anti-slop · parity · rules
+│   ├── core/                   intake · spec file · apply · semantic spec · terminology
+│   │                           · i18n · anti-slop · parity · rules
 │   ├── marketing/              contract · claim ledger · buyer value · message architecture
 │   │                           · page patterns · QA
 │   ├── product/                contract · UX writing · components · system states · errors

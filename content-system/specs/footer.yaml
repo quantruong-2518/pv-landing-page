@@ -1,0 +1,216 @@
+# Semantic spec — FOOTER (site chrome, all three routes). Language-free by design.
+#
+# `docs/` and `context/` are written ABOUT the page. They are not the page. Read them for
+# FACTS, never for editorial framing.
+#
+# Compiled 2026-08-24. Repair, not a fresh page — regenerating named keys only, per
+# CLAUDE.md §7 ("Bốn ranh giới") and content-i18n workflow §8. Triggered by a GM complaint
+# ("Footer trông tệ, content không tốt, layout dở tệ mobile, sai tên trang web") plus two
+# findings runs: content-market-critic (footer copy) and mobile-ui-reviewer (footer layout,
+# routed separately to web-ui-engineer — not in this spec).
+#
+# Sources: docs/00-brief.md §Đối tượng, docs/01-proof-bank.md §F/§G, docs/03-structure.md §7,
+# content-system/brand/voice.yaml (persona + tone), content-system/facts/company.yaml,
+# docs/05-backlog.md #22/#23 (data-notice gap, already tracked, out of scope here).
+
+id: footer
+type: marketing
+
+contract:
+  page:
+    type: company_page          # chrome shared by all three routes, not its own route
+    goal: >-
+      confirm the entity is real and reachable, close the page quietly — not sell.
+      Per docs/00-brief.md §Đối tượng this block answers "Đây là ai, có thật không?" (VN
+      corporates) and "Công ty mẹ Hàn nào? Tôi tra được không?" (KOCHAM-network buyers).
+    funnel_stage: decision       # reader is already past the pitch, verifying before acting
+
+  audience:
+    primary: VN corporate buyer who scrolled past the pitch and is now checking legitimacy
+    buyer: same
+    evaluator: KOCHAM-network / Korean-affiliated VN business reader tracing the parent link
+    awareness_level: most_aware
+    primary_problem: "is this a real, contactable, registered company or a template site?"
+
+  product:
+    name: Pebble Vina
+    category: Vietnamese legal entity of the Pebble Square group
+    description: >-
+      signs contracts and issues invoices in Vietnam for Pebble Square's Analog-PIM chips
+      and the software/GPU layer Pebble Vina builds on top
+    capabilities: []            # footer states identity, not product capability
+    constraints:
+      - ownership structure and exact equity split are unverified — proof-bank §G — never
+        say "công ty con" / wholly-owned subsidiary
+    deployment_models: []
+
+  problems:
+    - buyer cannot tell, from the page alone, whether this is a real registered company
+    - buyer cannot tell whether Pebble Square Inc. is a parent, an investor or a name borrowed
+      for credibility
+
+  buyer_values:
+    - a tax code they can paste into masothue.vn
+    - a real Hanoi office address
+    - a checkable, dated source for every Pebble Square fact repeated on the page
+
+  proof:
+    verified:
+      - "CÔNG TY TNHH PEBBLE VINA / PEBBLE VINA COMPANY LIMITED — MST 0111545175 (proof-bank §F)"
+      - "Văn phòng O1912, Landmark 72 Tower, Hà Nội (proof-bank §F)"
+      - "contact@pebblevina.com · 0345 913 369 (proof-bank §F)"
+      - "Vietnamese member of the Pebble Square group, ADR 0002 2026-06-16 (proof-bank §F)"
+      - "Pebble Square Inc. — Seongnam, Hàn Quốc, read from pebble-square.com 2026-08-20 (proof-bank §A)"
+    contextual: []
+    unavailable:
+      - "issuing authority + ĐKKD issue date + legal representative name for the legal column —
+         GM confirmed at intake: not fabricated, logged as a NEW backlog line
+         (docs/05-backlog.md), legal column keeps current three fields only"
+      - "personal-data processing notice (NĐ 13/2023) — already tracked, docs/05-backlog.md #22
+         and #23. Out of scope for this repair: needs a new SiteContent key + component change,
+         not a footer-prose fix."
+
+  differentiators: []           # footer does not differentiate, it verifies
+  objections:
+    - "looks like a template / could be fake — countered by verifiable facts, not adjectives"
+    - "which one is the parent? — countered by naming the licensed relationship plainly"
+
+  cta:
+    primary: none                # footer is not a conversion surface; CTAs live in hero/contact
+    secondary: none
+
+  tone:
+    desired:
+      - verification register: plain, checkable, low-adjective — GM confirmed at intake
+        ("đây là chỗ buyer đọc để xác minh công ty có thật, không phải chỗ thuyết phục")
+      - one finite verb per sentence, correct subject (the entity, not an abstraction)
+    avoid:
+      - stacking category modifiers onto a non-agent subject ("nền tảng … ký hợp đồng" —
+        a platform cannot sign; critic finding, footer.tagline)
+      - repeating the same disclosure twice at different specificity (footer.disclaimer
+        sentence 2 duplicated the inline roadmap label already on the timeline block)
+      - CMS-furniture nouns as section headers ("Kênh liên hệ", "Pháp lý" naming documents
+        that are not on the page)
+      - persona's sales register (voice.yaml `persona`) — GM confirmed this block is the
+        exception: verify, don't sell
+
+  claims_policy:
+    allow_inference: false
+    require_proof_for_numbers: true
+    require_proof_for_superlatives: true
+
+  locale:
+    requested: [vi]
+    deferred: [en, ko]
+    note: >-
+      web/ ships vi only (CLAUDE.md §4). This spec is written locale-independent so en/ko
+      remain compilable later without retranslating vi.
+
+decisions:
+  status_legend:
+    question: >-
+      footer.statusLegend ("Xanh: đã có · Vàng: dự kiến") is redundant with the self-labelled
+      StatusBadge and colour-inaccurate (roadmap token is amber-brown, not yellow) — but
+      docs/03-structure.md §7 requires the bottom bar to carry "chú giải hệ nhãn" — GM asked
+      at intake.
+    answered: keep one legend line, reword away from colour
+    but: does not license dropping the line — that would be a docs/03-structure.md §7 change,
+      GM's call, not this repair's
+    consequence: >-
+      legend states the LABEL SYSTEM ("every figure on this page is marked shipped or
+      planned"), never a colour name
+    still_open: []
+
+  legal_column_heading:
+    question: "\"Pháp lý\" implies clickable legal documents (điều khoản, bảo mật) that do not
+      exist on the page — GM asked at intake."
+    answered: rename to "Hồ sơ doanh nghiệp"
+    but: does not add any document link
+    consequence: heading names what the column actually holds — entity, tax id, parent —
+      not a promise of terms/privacy pages
+    still_open: []
+
+  legal_column_missing_fields:
+    question: >-
+      buyer_values wants issuing authority + ĐKKD date + legal representative name; proof-bank
+      §F does not carry them — GM asked at intake.
+    answered: do not fabricate, log to docs/05-backlog.md, column keeps its current three facts
+    but: this repair does not add or block on those fields
+    consequence: web-content-writer/GM adds them only once proof-bank §F is updated with a
+      source
+    still_open: [issuing authority, ĐKKD issue date, legal representative name]
+
+  parent_relationship_label:
+    question: >-
+      labels.parent = "Nhóm công ty" is the <dt> for the FactRow showing Pebble Square Inc.
+      — critic found it ambiguous (parent vs. partner). proof-bank §F licenses only "thành
+      viên Việt Nam của nhóm Pebble Square"; §G blocks anything stronger (no "công ty mẹ",
+      no ownership %).
+    answered: >-
+      relabel the <dt> to "Thành viên của" so the row reads "Thành viên của: Pebble Square
+      Inc. — Seongnam, Hàn Quốc" — states the licensed relationship as the row's own grammar
+      instead of a neutral noun, without claiming ownership
+    but: does not license "công ty mẹ" or any ownership percentage
+    consequence: labels.parent value changes; SITE.parent.name/city (the FactRow value,
+      site.ts) stay untouched — this is a label-word fix only
+    still_open: []
+
+blocks: []   # footer has no `screen`-height blocks; it is chrome, captured entirely below
+
+chrome:
+  footer.tagline:
+    carries: >-
+      the entity's legal identity (Vietnamese member of the Pebble Square group) and its one
+      concrete local function — signs contracts, issues invoices in Vietnam
+    claims: []
+    note: >-
+      subject must be the entity (Pebble Vina / "pháp nhân Việt Nam"), never an abstraction
+      like "nền tảng" — a category cannot sign a contract. One sentence, one finite verb pair.
+      Sits directly under the "Pebble Vina" heading in column 1, so does not need to repeat
+      the name.
+
+  footer.navTitle:
+    carries: this is the page-navigation group (Trang chủ / Sản phẩm & giải pháp / Liên hệ)
+    claims: []
+    note: avoid CMS-furniture nouns; a plain VN footer nav label, 3 links only
+
+  footer.contactTitle:
+    carries: this is the reach-us group (phone, email, office)
+    claims: []
+    note: >-
+      critic: "Kênh liên hệ" reads as translated ("channels"); plain VN footer convention is
+      shorter
+
+  footer.legalTitle:
+    carries: this is the registration/entity-facts group — NOT a document index
+    claims: [C_ENTITY, C_TAXID]   # informal refs to proof-bank §F entity + tax id lines
+    note: renamed per decisions.legal_column_heading — must not imply clickable legal docs
+
+  footer.statusLegend:
+    carries: >-
+      the meaning of the shipped/roadmap label system used everywhere else on the page —
+      stated once, in the bottom bar, per docs/03-structure.md §7
+    claims: []
+    note: per decisions.status_legend — no colour word, states the label system itself
+
+  footer.disclaimer:
+    carries: where the Pebble Square facts on this page came from and when they were read
+    claims: []
+    note: >-
+      keep sentence 1 only (source + read date — this is what makes it checkable, not
+      defensive). Drop sentence 2: the roadmap-disclosure sentence duplicates the inline
+      label already attached to the one roadmap entry on the history timeline
+      (home.history.milestones[14].statusNote) — CLAUDE.md §2 rule 1 is already satisfied
+      at the point of claim, repeating it here reads as pre-emptive self-defence per critic.
+
+  labels.parent:
+    carries: the <dt> label for the FactRow whose value is "Pebble Square Inc. — Seongnam,
+      Hàn Quốc" (value itself is SITE.parent.*, unchanged — site.ts, not this spec)
+    claims: []
+    note: per decisions.parent_relationship_label — must read naturally as "<label>: Pebble
+      Square Inc. — Seongnam, Hàn Quốc"
+
+  footer.copyright:
+    carries: no change — "© 2026 Công ty TNHH Pebble Vina" already correct, out of scope
+
+open_decisions: []

@@ -290,6 +290,45 @@ claims:
     qualification: "capability tense only. No customer, deployment, distribution agreement or revenue is verified - docs/05-backlog.md #17 and #18. Never name a GPU vendor or imply a distributorship."
     source: "docs/03-structure.md §1 and context/02-products - branches tagged origin: pv"
 
+  C031:
+    statement: MINT computes on a crossbar array whose 256-state synaptic cell gives 8-bit precision
+    type: capability
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §D — verbatim /page/11: Crossbar Array for Analog Computing, 256-State Synaptic Cell (8-bit)"
+    numbers: ["256", "8"]
+
+  C032:
+    statement: The Pebble Square chips run FCNN CNN DNN and RNN workloads on the device
+    type: capability
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §D — verbatim /page/11"
+
+  C033:
+    statement: PAPAYA FLEX vision work covers inspection counting and sorting for manufacturing and healthcare
+    type: capability
+    confidence: verified
+    usable: true
+    label: shipped
+    source: "docs/01-proof-bank.md §D — On-Device AI Applications, Vision"
+
+  # Added 2026-08-24. docs/01-proof-bank.md §E2 row 3 carried this benchmark from the start;
+  # the ledger simply never projected it, so the figure had no cover. The proof bank is the
+  # authority (content-system/README.md §Precedence) — the projection was stale, not the fact.
+  C034:
+    statement: PAPAYA FLEX is about 25 times smaller than an NVIDIA Jetson Nano, 10 by 10 mm against 70 by 45 mm
+    type: comparison
+    confidence: verified
+    usable: conditional
+    label: shipped
+    qualification: must name NVIDIA Jetson Nano as the counterparty, the same rule as C005 and C006
+    required_tokens: ["Jetson Nano"]
+    source: "docs/01-proof-bank.md §E2 — IR Deck"
+    numbers: ["25", "10", "70", "45"]
+
 # Never usable. Present so a writer reaching for one finds the refusal instead of an empty ledger.
 forbidden:
 

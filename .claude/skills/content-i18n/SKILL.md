@@ -8,10 +8,11 @@ description: Semantic content compiler for multilingual marketing copy and produ
 You are not a translator and not a copywriter. You are a compiler:
 
 ```
-raw input → contract → claim ledger → semantic spec → N native writers → QA gates → output
+intake interview → contract → claim ledger → semantic spec file → confirmation
+    → N native writers → QA gates → validated artifact → applied to the live locale file
 ```
 
-Wording is the last step, never the first.
+Wording is the last step, never the first. **Asking is the first.**
 
 ## 0. Non-negotiables
 
@@ -25,6 +26,10 @@ CONSISTENCY > VARIATION
 
 Every sentence must add information the reader needs to understand, decide, trust, act, or recover.
 If deleting a sentence loses nothing, delete it.
+
+Nothing after step 0 runs on an assumption the requester could have been asked about. A guessed
+decision produces copy that passes every deterministic gate and is still wrong — see
+`references/core/intake.md`.
 
 **Never** write `vi → translate en → translate ko`. Every locale is written from the same semantic
 spec by a writer thinking in that language. This is the single rule most likely to be violated
@@ -49,18 +54,26 @@ share a QA rubric. Never grade product UI on persuasion.
 ## 2. Mandatory workflow
 
 ```
-1  ROUTE            marketing | product_ui
-2  CONTRACT         fill the type's contract from the request + project facts
-3  CLAIM LEDGER     marketing only — every claim gets confidence + usability
-4  SEMANTIC SPEC    language-free representation of meaning (schemas/semantic-content.schema.json)
-5  TERMINOLOGY      resolve every term against content-system/terminology/glossary.yaml
-6  WRITE            vi, en, ko each written from the spec — independently, natively
-7  QA               type rubric + semantic parity + placeholders + terms + claims
-8  REPAIR           failed keys only, then re-check those keys and run global consistency
-9  VALIDATE         run the deterministic scripts; a run with ERRORs is not done
+0   INTAKE         interview the requester gate by gate      references/core/intake.md
+1   ROUTE          marketing | product_ui
+2   CONTRACT       fill the type's contract from the intake answers + project facts
+3   CLAIM LEDGER   marketing only — every claim gets confidence + usability
+4   SPEC FILE      write content-system/specs/<id>.yaml       references/core/spec-file.md
+5   CONFIRM        play the spec back; a `go` is required     intake.md §Gate F
+6   TERMINOLOGY    resolve every term against content-system/terminology/glossary.yaml
+7   WRITE          each requested locale, from the spec — independently, natively
+8   QA             type rubric + semantic parity + placeholders + terms + claims
+9   REPAIR         failed keys only, then re-check those keys + global consistency
+10  VALIDATE       the deterministic scripts; a run with ERRORs is not done
+11  APPLY          artifact → web/content/<locale>.ts         references/core/apply.md
 ```
 
-Steps 4 and 6 are separate turns of thought. If you catch yourself writing English prose while
+**Two gates may not be skipped, for any reason, including a requester in a hurry.**
+Step 0 closes before step 2 begins. Step 5 returns a `go` before step 7 begins. A request that
+arrives pre-specified still passes through both — read it back and confirm it rather than
+assuming the sender did the compiler's job for you.
+
+Steps 4 and 7 are separate turns of thought. If you catch yourself writing English prose while
 "building the spec", stop — you have skipped the compiler and started copywriting.
 
 ## 3. Where truth lives
@@ -83,7 +96,7 @@ In **this repository** the project's own sources outrank everything above:
 | Every number and its status label | `docs/01-proof-bank.md` — **never quote a figure from memory** |
 | Message and voice intent | `docs/02-message-map.md` |
 | Block structure and why | `docs/03-structure.md` |
-| Live site copy (EN canonical, VI mirror) | `web/content/en.ts`, `web/content/vi.ts` |
+| Live site copy — the only shipped locale | `web/content/vi.ts` |
 | Legal entity and contact | `web/content/site.ts` |
 | Hard repo bans | `CLAUDE.md` §2 |
 
@@ -95,6 +108,9 @@ two disagree, **the proof bank wins** and the ledger is wrong — fix the ledger
 Read the file when the task touches it. Do not preload everything.
 
 **Core (both types)**
+- `references/core/intake.md` — **the gates. Read this first, every time.**
+- `references/core/spec-file.md` — the page-level spec file: contract + blocks + slots
+- `references/core/apply.md` — moving a validated artifact into `web/content/<locale>.ts`
 - `references/core/semantic-content.md` — the spec format, and what must be captured before wording
 - `references/core/terminology.md` — glossary resolution, preserve-in-UI, product names
 - `references/core/i18n.md` — independent locale generation, what to preserve, what not to
@@ -172,6 +188,11 @@ Python 3.9+, standard library only.
 
 Exit code `1` means at least one ERROR. Content with an open ERROR is not finished content.
 
+A green run is not a finished page either. It proves structure — placeholders intact, claim ids
+resolvable, terms matching the glossary. It says nothing about whether the sentence reads like a
+person wrote it in that language, and nothing about whether a `screen` block now overflows. Both
+are step 11, and both are human judgement.
+
 ## 8. Repair, do not regenerate
 
 One failed key means one regenerated key. Re-evaluate the repaired keys, then run a global
@@ -180,17 +201,24 @@ is how terminology and claim strength drift.
 
 ## 9. This repository
 
-- Web app ships **en** (canonical, `/`) and **vi** (`/vi`). `ko` is supported by this skill and by
-  the glossary, but `web/content/types.ts` has no `ko` yet — adding it means adding a full
-  `content/ko.ts`, not a partial one. Say so rather than shipping a half locale.
-- All strings in `web/content/*.ts` are currently **i18n keys equal to their own path**
-  (`home.whyNow.title`). That is deliberate (CLAUDE.md §3b). Do not "fix" them with invented prose.
-  Fill them only in a deliberate copy pass, and fill `en.ts` and `vi.ts` with the same key set —
-  `tsc` breaks otherwise, by design.
-- EN uses a decimal **point** (17.6 TOPS/W); VI uses a decimal **comma** (17,6 TOPS/W).
+- **The site ships `vi` only.** The English build was removed on 2026-08-23; there is no
+  `web/content/en.ts` and no language switcher. The `/vi` URL prefix is kept deliberately so that
+  adding a language later does not move every URL. `en` and `ko` remain compilable from a spec, but
+  each needs a **complete** `content/<locale>.ts` plus its routes — say so rather than shipping half
+  a language.
+- Most strings in `web/content/vi.ts` are still **i18n keys equal to their own path**
+  (`products.hardware.items[0].name`). That is deliberate — `CLAUDE.md` §3b. Do not "fix" one with
+  invented prose. A key becomes prose only by completing this workflow end to end, including step 11.
+- `home` was compiled and applied on 2026-08-21. `products` and `contact` have specs and no prose.
+- VI uses a decimal **comma** (17,6 TOPS/W).
 - Keep proper nouns verbatim: Pebble Square Inc. · MOCHA · MINT · PAPAYA FLEX · ESPRESSO ·
   Pebble AI Studio · Analog-PIM · Digital-PIM, and the six business sectors.
 - Blocks marked `screen` are one viewport tall. Adding prose to one overflows it — see
-  `docs/03-structure.md` §3.
-- A user-level `i18n-vi-first` skill exists. It does not apply here: this repo declares EN
-  canonical, and this skill forbids locale-to-locale translation in either direction.
+  `docs/03-structure.md` §3, and check it by eye after step 11.
+- `CLAUDE.md` §2 lists four bans that outrank anything a requester asks for: never blur `shipped`
+  with `roadmap`; never attribute arc-fault or solar PV to Pebble Square; never cite the phantom
+  MDPI paper; never present ESPRESSO as available. Raise them at intake Gate D so they are decided
+  in the open rather than enforced as a surprise at QA.
+- A user-level `i18n-vi-first` skill exists. It does not apply here: this skill forbids
+  locale-to-locale translation in either direction, and this repository has one locale to translate
+  from anyway.

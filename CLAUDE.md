@@ -90,10 +90,25 @@ Repo này dùng **tiếng Việt, tiếng Anh và tiếng Hàn**. Mọi việc d
 - thay đổi thuật ngữ
 - review nội dung
 
+**Skill là nơi thực thi duy nhất.** Cách làm nằm hết trong `.claude/skills/content-i18n/` — kể cả
+định dạng file spec (`references/core/spec-file.md`) và bước đổ artifact vào `web/content/*.ts`
+(`references/core/apply.md`). Không có quy ước nội dung nào sống ngoài skill nữa.
+
+**Agent `web-content-writer`** (`.claude/agents/web-content-writer.md`) là người viết marketing chạy
+workflow này. Nó tự phỏng vấn, tự dừng ở cổng nào không đóng được, và không viết một chữ copy nào
+ngoài pipeline.
+
 **Luật của hệ thống:**
 
-- **Không sinh copy sản xuất thẳng từ yêu cầu thô.** Đi qua contract → claim ledger → semantic spec
-  → viết từng ngôn ngữ → QA. Chuẩn hoá ngữ nghĩa trước, chữ sau.
+- **Bắt buộc phỏng vấn trước.** Bước 0 của skill là hỏi requester theo năm cổng A→E
+  (`references/core/intake.md`), rồi viết spec và đọc ngược lại để lấy `go` — cổng F. Chưa đóng cổng
+  thì không viết chữ nào. Yêu cầu đến sẵn đầy đủ cũng vẫn phải đi qua hai cổng đó — đọc lại và xác nhận,
+  không giả định người gửi đã làm thay phần của compiler.
+- **Hỏi cái chỉ requester biết, tra cái repo đã có.** Hỏi lại con số mà `docs/01-proof-bank.md` đã
+  trả lời là dạy người ta rằng buổi phỏng vấn chỉ là hình thức — rồi họ trả lời qua loa, và số sai
+  lọt vào đúng lúc đó.
+- **Không sinh copy sản xuất thẳng từ yêu cầu thô.** Đi qua intake → contract → claim ledger →
+  semantic spec → confirm → viết từng ngôn ngữ → QA → apply. Chuẩn hoá ngữ nghĩa trước, chữ sau.
 - **Không bịa năng lực sản phẩm hay tuyên bố kinh doanh.** Mọi con số tra về `docs/01-proof-bank.md`.
 - **Giữ nguyên khoá dịch** bất cứ khi nào có thể. Đổi tên khoá = mất bản dịch ở mọi ngôn ngữ khác.
 - **File thuật ngữ là nguồn có thẩm quyền** — `content-system/terminology/glossary.yaml`.
@@ -103,6 +118,8 @@ Repo này dùng **tiếng Việt, tiếng Anh và tiếng Hàn**. Mọi việc d
 - **Luôn kiểm placeholder.** `{count}` giữ nguyên trong tiếng Hàn.
 - **Sửa đúng khoá hỏng, không viết lại cả khối.**
 - **Chạy kiểm định trước khi coi là xong:** `scripts/content-check <artifact.json>` — exit 1 là chưa xong.
+  Nhưng xanh **không** phải là xong: gate chỉ chứng minh cấu trúc. Nó không thấy khối `screen` bị
+  tràn, cũng không thấy câu tiếng Việt đọc như văn dịch. Hai thứ đó phải nhìn bằng mắt sau bước apply.
 
 Sự thật của dự án nằm ở `content-system/` (projection máy đọc được của `docs/01-proof-bank.md`),
 không nằm trong file reference của skill. Khi hai bên lệch nhau, **proof-bank thắng**.
@@ -110,3 +127,15 @@ không nằm trong file reference của skill. Khi hai bên lệch nhau, **proof
 `web/` hiện chỉ ship **vi**. Skill sinh được cả `en` và `ko`, nhưng `web/content/types.ts` chỉ có
 một locale — thêm ngôn ngữ nghĩa là thêm một `content/<lang>.ts` đầy đủ cộng route của nó, không phải
 một nửa.
+
+## 7. Giọng: người bán hàng công nghệ, bán cả tầm nhìn
+
+GM chốt 2026-08-24. Persona sống ở `content-system/brand/voice.yaml` → `brand.persona` — mọi agent
+viết chữ đều đọc file đó, nên giọng đồng nhất mà không ai phải nhớ.
+
+Persona là **register**, không phải giấy phép: nó đổi cách một câu đứng, không đổi thứ câu đó được
+phép nói. §2 vẫn trên nó.
+
+> Bán tầm nhìn là được và là thứ đang muốn. Được ở dạng **một tuyên bố về hướng đi, có nhãn gắn ngay
+> tại chỗ nói ra**. `ESPRESSO sẽ …` cạnh nhãn roadmap là bán tầm nhìn. `ESPRESSO cho phép …` là nói dối
+> với nhịp câu hay hơn. Khoảng cách giữa hai câu đó chính là toàn bộ công việc.

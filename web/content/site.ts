@@ -12,8 +12,8 @@ export const SITE = {
    */
   legalNameEn: "PEBBLE VINA COMPANY LIMITED",
   taxId: "0111545175",
-  /** The lab has no domain of its own; the main site is pebblevina.vn. */
-  url: "https://pebblevina.vn",
+  /** The lab has no domain of its own; the main site is pebblevina.com — same domain as the contact email below. */
+  url: "https://pebblevina.com",
   office: "Văn phòng O1912, Tầng 19, Landmark 72 Tower, Khu E6, Khu đô thị mới Cầu Giấy, P. Yên Hoà, Hà Nội",
   contact: {
     email: "contact@pebblevina.com",
@@ -33,9 +33,5 @@ export const SITE = {
   },
 } as const;
 
-/** Conversion target. No real form in this lab — go straight to email (docs/00-brief.md). */
-export const CTA_HREF = `mailto:${SITE.contact.email}?subject=${encodeURIComponent(
-  "Đăng ký tư vấn — Pebble Vina",
-)}`;
 
 export const MAIL_HREF = `mailto:${SITE.contact.email}`;
