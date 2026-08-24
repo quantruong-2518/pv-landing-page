@@ -31,6 +31,7 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
   const productAnchors = [
     { title: c.nav.hardware, items: c.products.hardware.items },
     { title: c.nav.software, items: c.products.software.groups },
+    { title: c.nav.training, items: [c.products.training.offer] },
   ];
 
   // On /vi/contact the button pointed at the page it was already on: the largest

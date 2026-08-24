@@ -15,6 +15,12 @@ export type PageKey = "home" | "products" | "contact";
 /** Evidence label — repo rule #1 (docs/01-proof-bank.md). */
 export type FactStatus = "shipped" | "roadmap";
 
+/** Buyer-facing maturity. It never replaces the evidence status above. */
+export type ProductStage = "mass-production" | "customer-poc" | "product-data" | "integration" | "roadmap" | "research";
+
+/** Code-native artwork key. It is layout data, not translatable content. */
+export type SystemIconName = "crm" | "erp" | "hrm" | "dms" | "ai" | "survey" | "tailored" | "practice" | "roi";
+
 /** Whose capability this is: `ps` = Pebble Square, `pv` = the layer Pebble Vina builds. */
 export type Origin = "ps" | "pv";
 
@@ -35,6 +41,7 @@ export interface Media {
 export interface Item {
   title: string;
   body: string;
+  icon?: SystemIconName;
 }
 
 /** An `Item` that carries its own artwork instead of sharing the block's one. */
@@ -70,6 +77,23 @@ export interface Spec {
   statusNote?: string;
 }
 
+/** One deliberately ordered product figure. Order is part of the catalogue UI. */
+export interface ProductMetric {
+  label: "performance" | "efficiency" | "area" | "compute" | "memory" | "connectivity";
+  value: string;
+  /** Precision, method or boundary that must travel with the foreground value. */
+  note?: string;
+}
+
+/** One card inside a hardware family such as E-Series. */
+export interface HardwareVariant {
+  name: string;
+  tagline: string;
+  applicationLead: string;
+  metrics: ProductMetric[];
+  media: Media;
+}
+
 export interface Milestone {
   date: string;
   title: string;
@@ -85,12 +109,23 @@ export interface Product {
   /** Anchor id, also the deep link from the nav. */
   id: string;
   name: string;
+  indexName?: string;
   tagline: string;
+  decisionLabel: string;
+  indexStageLabel: string;
+  transition: string;
   body: string;
+  applicationLead: string;
+  /** Chip families use three rows; a variant family keeps them on each variant. */
+  metrics: ProductMetric[];
+  variants?: HardwareVariant[];
+  supportingTitle?: string;
+  supportingItems?: Item[];
   capabilities: Application[];
-  specs: Spec[];
+  source: string;
   media: Media;
   status: FactStatus;
+  stage: ProductStage;
   statusNote?: string;
   origin: Origin;
 }
@@ -99,13 +134,36 @@ export interface Product {
 export interface SoftwareGroup {
   id: string;
   name: string;
+  indexName?: string;
   tagline: string;
+  decisionLabel: string;
+  indexStageLabel: string;
+  transition: string;
   body: string;
   modules: Item[];
   /** Private AI only: where a model can be deployed. */
   targetsTitle?: string;
   targets?: Item[];
   media: Media;
+  status: FactStatus;
+  stage: ProductStage;
+  statusNote?: string;
+  origin: Origin;
+}
+
+export interface TrainingOffer {
+  id: string;
+  name: string;
+  indexName?: string;
+  tagline: string;
+  decisionLabel: string;
+  indexStageLabel: string;
+  transition: string;
+  body: string;
+  principles: Item[];
+  status: FactStatus;
+  stage: ProductStage;
+  statusNote: string;
   origin: Origin;
 }
 
@@ -134,9 +192,14 @@ export interface HomeContent {
 }
 
 export interface ProductsContent {
-  intro: Intro;
+  intro: Intro & { scrollLabel: string };
   hardware: Intro & { items: Product[] };
   software: Intro & { groups: SoftwareGroup[] };
+  training: Intro & { offer: TrainingOffer };
+  followUp: {
+    kicker: string;
+    title: string;
+  };
 }
 
 export interface ContactContent {
@@ -166,6 +229,7 @@ export interface SiteContent {
     contact: string;
     hardware: string;
     software: string;
+    training: string;
     cta: string;
     menuLabel: string;
     skipToContent: string;
@@ -199,6 +263,9 @@ export interface SiteContent {
   ui: {
     specs: string;
     source: string;
+    productMetrics: string;
+    softwareStack: string;
+    metricLabels: Record<ProductMetric["label"], string>;
     /** Heading of the use-case rail under a hardware family. */
     applications: string;
     imagePending: string;

@@ -343,6 +343,111 @@ claims:
     source: "docs/01-proof-bank.md §F — GM operating commitment, 2026-08-24"
     numbers: ["24"]
 
+  # Added 2026-08-25 from the IR Deck product-roadmap table supplied by the GM.
+  # The PoC milestone happened; it does not establish mass production or current availability.
+  C036:
+    statement: PAPAYA reached a customer PoC in 2024 at 0.5 TOPS and 30 TOPS/W on a 5 by 5 mm die for image and vision recognition and security systems
+    type: status
+    confidence: supported
+    usable: conditional
+    label: shipped
+    qualification: "state PoC with customer; never imply mass production, general availability, a named customer or a deployment count"
+    source: "Pebble Square IR Deck product-roadmap table, supplied by GM 2026-08-25; docs/01-proof-bank.md §E"
+    numbers: ["2024", "0.5", "0,5", "30", "5"]
+
+  # Added 2026-08-25. This is a dated product direction, not a shipped capability.
+  C037:
+    statement: Pebble Vina plans a semi-automated AI enterprise suite for December 2026 covering CRM ERP HRM DMS document management and business-operations monitoring
+    type: status
+    confidence: supported
+    usable: conditional
+    label: roadmap
+    qualification: "roadmap December 2026; AI proposes and coordinates while a person approves; no customer, deployment, platform, full autonomy or business outcome is verified"
+    source: "docs/01-proof-bank.md §F1 — GM product roadmap decision, 2026-08-25"
+    numbers: ["2026", "12"]
+
+  C038:
+    statement: The IR Deck product roadmap lists Smart Home IoT and Failure Analysis as MINT application areas
+    type: capability
+    confidence: supported
+    usable: conditional
+    label: shipped
+    qualification: "application areas named on the investor slide; do not imply a customer deployment"
+    source: "docs/01-proof-bank.md §E0 — IR Deck 2026-01-05"
+
+  C039:
+    statement: The ESPRESSO roadmap targets AI PC robotics chatbot autopilot and data-centre products
+    type: capability
+    confidence: conditional
+    usable: conditional
+    label: roadmap
+    qualification: "roadmap Q3 2026; investor material only, not on the public Pebble Square catalogue; never describe these applications in present capability tense"
+    source: "docs/01-proof-bank.md §E0 — IR Deck 2026-01-05"
+    numbers: ["2026", "3"]
+
+  # Added 2026-08-25 from the GM intake for the PRODUCTS redesign. The dated
+  # commitment is the survey only; a training launch is not committed.
+  C040:
+    statement: Pebble Vina plans to survey enterprise demand for AI training in 2027; any later programme would be designed around each enterprise's specific problem and assessed with ROI indicators agreed in advance rather than a fixed curriculum
+    type: status
+    confidence: supported
+    usable: conditional
+    label: roadmap
+    qualification: "2027 is the survey milestone, not a training launch; ROI is an agreed evaluation framework, not a guaranteed positive return; no course, schedule, fee, certificate, customer, case study or outcome is verified"
+    source: "docs/01-proof-bank.md §F2 — GM roadmap decision in PRODUCTS intake, 2026-08-25"
+    numbers: ["2027"]
+
+  # Added 2026-08-25 from the E-Series product material supplied by the GM.
+  # `shipped` means usable current product data, not a general-availability claim.
+  C041:
+    statement: Pebble Square's E-Series uses its GP-DSA architecture for both AI training and inference, with mixed-precision support from FP32 through INT4, PCIe 5.0 and RDMA
+    type: capability
+    confidence: supported
+    usable: conditional
+    label: shipped
+    qualification: "product architecture and specification data only; do not infer general availability, inventory, a customer or a deployment count"
+    source: "docs/01-proof-bank.md §E5 — E-Series material supplied and ownership confirmed by GM, 2026-08-25"
+    numbers: ["32", "4", "5.0"]
+
+  C042:
+    statement: Pebble Square E10 PCIe has 32 AI computing cores, 48 GB memory, 64T FP32 or TF32, 256T FP16 or BF16, 512T FP8 or INT8, 1024T INT4, one PCIe Gen5 x16 interface and either 6 by 400G or 12 by 200G RDMA
+    type: capability
+    confidence: supported
+    usable: conditional
+    label: shipped
+    qualification: "product specification data only; do not infer general availability, inventory, a customer or a deployment count"
+    source: "docs/01-proof-bank.md §E5 — E-Series material supplied by GM, 2026-08-25"
+    numbers: ["10", "32", "48", "64", "256", "512", "1024", "5", "16", "1", "6", "400", "12", "200", "2"]
+
+  C043:
+    statement: Pebble Square E20 has 64 AI computing cores, 96 GB memory, 128T FP32 or TF32, 512T FP16 or BF16, 1024T FP8 or INT8, 2048T INT4, two PCIe Gen5 x16 interfaces and either 16 by 400G or 32 by 200G RDMA
+    type: capability
+    confidence: supported
+    usable: conditional
+    label: shipped
+    qualification: "product specification data only; do not infer general availability, inventory, a customer or a deployment count"
+    source: "docs/01-proof-bank.md §E5 — E-Series material supplied by GM, 2026-08-25"
+    numbers: ["20", "64", "96", "128", "512", "1024", "2048", "2", "5", "16", "400", "32", "200"]
+
+  C044:
+    statement: The E-Series software stack covers an AI compiler, graph optimization, automatic operator generation, performance and precision tools, monitoring and framework compatibility
+    type: capability
+    confidence: supported
+    usable: conditional
+    label: shipped
+    qualification: "name the listed tool categories only; no framework name, measured performance gain or compatibility guarantee is verified"
+    source: "docs/01-proof-bank.md §E5 — E-Series material supplied by GM, 2026-08-25"
+
+  C045:
+    statement: The ESPRESSO roadmap specification lists 160 TOPS at INT8, 640 TOPS for a four-chip card, 16 TOPS per watt and a 20 by 23 mm package
+    type: performance
+    confidence: conditional
+    usable: conditional
+    label: roadmap
+    qualification: "use only inside the ESPRESSO dossier where the roadmap Q3 2026 badge and investor-material source are inseparable from the figures"
+    source: "docs/01-proof-bank.md §E0 and §E3 — IR Deck 2026-01-05"
+    numbers: ["160", "8", "640", "4", "16", "20", "23"]
+
 # Never usable. Present so a writer reaching for one finds the refusal instead of an empty ledger.
 forbidden:
 

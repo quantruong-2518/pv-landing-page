@@ -428,18 +428,13 @@ export function AppRail({
         tabIndex={0}
         className={cn(
           "rail mt-3 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-1",
-          // Bleeds to the screen edge below `lg` so the row is visibly a row that
-          // continues; contained once every card fits.
-          "-mx-5 px-5 sm:-mx-8 sm:px-8 lg:mx-0 lg:px-0",
-          // Snap positions must respect that gutter. Without it `snap-start`
-          // parks the first card against the padding box and the rail opens
-          // already scrolled 20px, flush to the screen edge and out of line with
-          // every other element in the block.
-          "scroll-pl-5 sm:scroll-pl-8 lg:scroll-pl-0",
+          // Product rails live inside the dossier boundary. The next card still
+          // peeks on narrow screens, but nothing escapes or redefines its gutter.
+          "scroll-pl-0",
         )}
       >
         {items.map((item) => (
-          <li key={item.title} className="w-32 shrink-0 snap-start sm:w-40 lg:w-44">
+          <li key={item.title} className="w-28 shrink-0 snap-start sm:w-32 lg:w-36">
             {/* Thumbnail plus label, no prose (GM, 2026-08-24): the rail names
                 where the part is used, it does not argue the case — that is what
                 the claim and the numbers above it are for. A fixed card width,
@@ -453,7 +448,7 @@ export function AppRail({
               // that edge is the device. The frame also lands 8–11px shorter,
               // which each rail block keeps for its own budget.
               ratio="aspect-[16/9]"
-              sizes="(min-width: 1024px) 176px, (min-width: 640px) 160px, 128px"
+              sizes="(min-width: 1024px) 144px, (min-width: 640px) 128px, 112px"
               pendingLabel={pendingLabel}
               compact
               // The app photos are cut-outs on transparency: framed, each one

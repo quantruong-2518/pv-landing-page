@@ -100,6 +100,20 @@ inferencing) · Low Cost** → dùng nguyên bộ bốn này làm khối "four p
 
 ## E. Con số kỹ thuật
 
+### E0. Bảng lộ trình sản phẩm trong IR Deck — trạng thái theo từng mốc
+
+| Chip | Mốc trên slide | Năm | Performance | Efficiency | Die / chip area | Ứng dụng ghi trên slide |
+|---|---|---:|---:|---:|---:|---|
+| MOCHA | Proof of Concept | 2021 | 25 GOPS | 10 TOPS/W | 5 × 5 mm² | Không ghi riêng ứng dụng |
+| MINT | Mass Production | 2022 | 30 GOPS | 17 TOPS/W | 5 × 5 mm² | Smart Home · IoT · Failure Analysis |
+| PAPAYA | PoC with Customer | 2024 | 0,5 TOPS | 30 TOPS/W | 5 × 5 mm² | Image/Vision Recognition · Security System |
+| ESPRESSO | Ready in Q3 2026 | 2026 | 160 TOPS (card 4 chip: 640 TOPS) | 16 TOPS/W | 20 × 23 mm² | AI PC · Robotics · ChatBot · Auto Pilot · Data Center |
+
+Nguồn: IR Deck Pebble Square 05/01/2026, bảng roadmap sản phẩm do GM cung cấp lại ngày 25/08/2026.
+Riêng MINT, trang Company History công khai ghi hoàn tất phát triển 12/2022 và sản xuất hàng loạt từ
+5/2023; khi nói ngày sản xuất trên website, dùng mốc công khai 5/2023. `PoC with Customer` của PAPAYA
+là một mốc đã xảy ra, **không** chứng minh sản xuất hàng loạt hay hàng sẵn bán.
+
 ### E1. MINT — `shipped` ★ con số xương sống
 
 | Chỉ số | Giá trị | Nguồn |
@@ -136,6 +150,32 @@ Máy chủ suy luận LLM đặt tại chỗ (4U, Epyc 9355, AI SoC = **NVIDIA h
 *GPU-centric → NPU/AI SoC · Cloud AI → Private AI*. **Tách hai vế khi viết copy:** cấu hình NVIDIA bán được
 hôm nay; cấu hình ESPRESSO là lộ trình. Nguồn: IR Deck (không có trên trang công khai).
 
+### E5. E-Series AI Compute Accelerators — dữ liệu sản phẩm Pebble Square
+
+Nguồn: tài liệu sản phẩm E-Series do GM cung cấp ngày 25/08/2026 và xác nhận E10/E20 thuộc Pebble
+Square. Nguồn này xác nhận hãng và thông số; **không dùng nó để tự suy ra tình trạng mở bán, tồn kho,
+khách hàng hay số lượng triển khai**.
+
+| Hạng mục | E10 PCIe | E20 |
+|---|---:|---:|
+| Kiến trúc | GP-DSA | GP-DSA |
+| AI Computing Cores | 32 | 64 |
+| FP32 / TF32 | 64T | 128T |
+| FP16 / BF16 | 256T | 512T |
+| FP8 / INT8 | 512T | 1024T |
+| INT4 | 1024T | 2048T |
+| Memory | 48 GB | 96 GB |
+| PCIe Gen5 ×16 | 1 | 2 |
+| RDMA | 6 × 400G hoặc 12 × 200G | 16 × 400G hoặc 32 × 200G |
+
+E-Series dùng chung một kiến trúc cho training và inference, hỗ trợ dải độ chính xác FP32 đến INT4,
+mixed precision, RDMA và RoCEv2. Nhóm ứng dụng trong tài liệu gồm Enterprise AI Server, LLM Training
+& Inference, Computer Vision, NLP, Speech AI và Multi-card Computing.
+
+Software stack được nêu gồm: AI Compiler · Graph Optimization · Automatic Operator Generation ·
+Performance & Precision Tools (debugging, precision analysis, performance analysis, monitoring) ·
+Framework Compatibility.
+
 ---
 
 ## F. Phía Pebble Vina — `shipped`
@@ -149,6 +189,33 @@ hôm nay; cấu hình ESPRESSO là lộ trình. Nguồn: IR Deck (không có tr�
 | Quan hệ với PS | **Thành viên Việt Nam của nhóm Pebble Square** (ADR 0002, 2026-06-16) |
 | Hậu thuẫn | Nhà đầu tư là **Phó Chủ tịch KOCHAM** |
 | Cam kết phản hồi | **Trong vòng 24 giờ** kể từ khi nhận yêu cầu qua form trang LIÊN HỆ |
+
+### F1. Phần mềm doanh nghiệp — 🟡 `roadmap`
+
+| Fact | Giá trị |
+|---|---|
+| Mốc dự kiến | **12/2026** |
+| Phạm vi sản phẩm | Bộ ERP bán tự động có AI, gồm **CRM · ERP · HRM · DMS (Document Management System)** và lớp giám sát vận hành doanh nghiệp |
+| Cơ chế tự động hoá | AI đề xuất và điều phối; con người phê duyệt |
+| Nguồn | Quyết định roadmap sản phẩm của GM, 25/08/2026 |
+
+> Đây là định hướng sản phẩm, chưa phải năng lực đang bán. Mọi lần nhắc phải mang nhãn `roadmap`
+> cùng mốc 12/2026. Không được suy ra nền tảng kỹ thuật, khách hàng, triển khai thực tế, mức độ tự động
+> hoá hoàn toàn hay kết quả kinh doanh khi chưa có nguồn bổ sung.
+
+### F2. Đào tạo AI doanh nghiệp — 🟡 `roadmap`
+
+| Fact | Giá trị |
+|---|---|
+| Mốc dự kiến | **Khảo sát nhu cầu trong năm 2027** |
+| Phạm vi | Khảo sát bài toán và nhu cầu đào tạo AI riêng của từng doanh nghiệp; chưa phải mốc mở lớp |
+| Nguyên tắc nếu triển khai sau khảo sát | Thiết kế theo bài toán đặc thù, không dùng lộ trình cố định và không đào tạo thuần lý thuyết |
+| Kiểm soát đầu ra | Dùng bộ chỉ số ROI được thống nhất trước với doanh nghiệp để đánh giá, không cam kết ROI dương hay một tỷ lệ cụ thể |
+| Nguồn | Quyết định roadmap của GM trong intake PRODUCTS, 25/08/2026 |
+
+> Đây mới là kế hoạch khảo sát nhu cầu. Không được suy ra ngày khai giảng, khóa học, học phí, chứng
+> chỉ, case study hoặc kết quả tài chính. Khi nói tới ROI, phải gọi rõ đó là khung đánh giá đầu ra
+> được hai bên thống nhất trước, không phải lời hứa hoàn vốn.
 
 > **Dòng "cam kết phản hồi" khác mọi dòng còn lại trong bảng này.** Nó không phải số đo, cũng không
 > phải nguồn công khai của ai — nó là **cam kết vận hành do GM chốt ngày 2026-08-24** khi duyệt copy

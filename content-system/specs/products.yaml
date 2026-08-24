@@ -1,63 +1,91 @@
 # Semantic spec — PRODUCTS (/vi/products). Language-free by design.
 #
-# This is the ONLY input a locale writer may read. It exists so that `en` and `ko`
-# can later be written natively from the same meaning instead of being translated
-# out of `vi`, which the content-i18n skill forbids in both directions.
+# Compiled 2026-08-25. Sources: docs/01-proof-bank.md §D §E §F1 §F2,
+# docs/02-message-map.md, docs/03-structure.md §1 §4b,
+# content-system/claims/approved.yaml, GM intake 2026-08-25.
 #
-# Compiled 2026-08-23. Sources: docs/01-proof-bank.md §D §E, docs/02-message-map.md,
-# docs/03-structure.md §1, context/02-products/**, content-system/claims/approved.yaml.
+# `docs/` and `context/` are written ABOUT the page. They are not the page. Read them for FACTS,
+# never for editorial framing. `context/` carries English sentence shape — MATERIAL, not copy.
 #
-# Reading rule inherited from specs/home.yaml, unchanged:
-#   docs/ and context/ are written ABOUT the page. They are not the page. Read them
-#   for FACTS, never for editorial framing. context/02-products/ carries English
-#   sentence shape (docs/05-backlog.md #16b) — MATERIAL, not copy.
-#
-#   A `body` earns its place only by adding a FACT its `title` does not carry.
-#   No such fact -> leave it empty. Components skip empty strings by design.
+# A `body` earns its place only by adding a FACT its `title` does not carry. No such fact -> leave it
+# empty. Components skip empty strings by design.
 
 id: products
 type: marketing
 
 contract:
   page:
-    type: catalogue
-    goal: let a buyer locate themselves in the catalogue and see which entries are real today
+    type: product_page
+    goal: let a buyer identify the relevant product branch and move to a consultation
     funnel_stage: consideration
   audience:
-    primary: Vietnamese industrial and enterprise buyers; Korean FDI firms in Vietnam
-    buyer: plant, IT or procurement decision-maker
-    evaluator: engineer — checks whether a number names what it was measured against
-    awareness_level: problem-aware, arrived from the homepage or from search
-    primary_problem: they cannot tell which of these is a shipping part and which is a slide
+    primary: Vietnamese enterprise and industrial buyers; Korean FDI firms in Vietnam
+    buyer: business owner, operations leader, IT leader or procurement decision-maker
+    evaluator: engineer or IT lead who checks status, method and source
+    user: operations, sales, HR and document-management teams
+    awareness_level: product_aware
+    primary_problem: the catalogue takes too long to reveal what is available and what is planned
   product:
-    name: Pebble Vina catalogue
-    category: Edge AI silicon from the parent, plus the compute and software layer built locally
-    structure:
-      - hardware — MINT, PAPAYA FLEX, ESPRESSO from Pebble Square; GPU/HPC integrated by Pebble Vina
-      - software — enterprise software and Private AI, both built by Pebble Vina
+    name: Pebble Vina product catalogue
+    category: Edge AI silicon and E-Series compute accelerators from Pebble Square plus enterprise software and enterprise AI training from Pebble Vina
+    description: three chip families, two E-Series accelerator tiers, a dated enterprise-software roadmap and a separate 2027 training-needs survey
+    capabilities:
+      - edge inference on MINT
+      - vision and security workloads on the PAPAYA family
+      - large-model and data-centre workloads on the ESPRESSO roadmap
+      - E10 and E20 accelerators for training and inference from Pebble Square
+      - enterprise operations across CRM ERP HRM and document management on the December 2026 roadmap
+      - a 2027 survey of enterprise-specific AI training needs before any programme is designed
+    mechanisms:
+      - PIM executes computation where data is stored
+      - the enterprise suite joins operational records and lets AI propose actions for human approval
+      - a later training programme would start from a company-specific problem and use agreed ROI indicators to assess output
+    deployment_models: [on-device, edge, on-premise enterprise infrastructure]
     constraints:
-      - the parent designs anomaly detection and predictive maintenance, not arc-fault or solar PV
-      - ESPRESSO is not shipping and is absent from the parent's public catalogue
-      - no customer, deployment, distribution agreement or revenue figure is verified — C030
+      - PAPAYA has a customer PoC milestone; mass production and general availability are not verified
+      - ESPRESSO is investor-material roadmap content and is absent from the public Pebble Square catalogue
+      - the enterprise suite is roadmap content, not a product available today
+      - 2027 is the enterprise-training survey milestone, not a training launch
+      - E-Series ownership and specifications are confirmed, but general availability, inventory, customer and deployment are not verified
+      - no GPU distribution agreement, enterprise-software platform or customer deployment is verified
+      - no fixed curriculum, class date, fee, certificate, case study or training outcome is verified
+  problems:
+    - product families are hidden behind long explanatory copy
+    - hardware and software status are hard to compare in one scan
+    - a buyer needs to know which branch fits before reading specifications
+    - category, maturity and next use are not visually separable in the current index
+  buyer_values:
+    - reach the relevant product branch from the first screen
+    - see one decision-grade proof point per hardware family
+    - distinguish production, PoC and roadmap before contacting sales
+    - understand the software direction without mistaking it for a shipped suite
+    - separate a training-needs survey from a course that is already available
   proof:
-    verified: [C002, C003, C004, C005, C006, C007, C014, C016, C021, C024, C026, C027]
-    contextual: [C015, C017, C018, C030]
+    verified: [C002, C003, C004, C018]
+    contextual: [C017, C030, C036, C037, C038, C039, C040, C041, C042, C043, C044]
+    held_back: [C005, C006, C007, C034]
     unavailable:
-      - any GPU vendor name, distribution agreement or reseller relationship — docs/05-backlog.md #18
-      - enterprise software platform base, and any customer running it — docs/05-backlog.md #17
-      - how far Build and Train/Adapt actually go in practice — context/02-products/2.2-software/private-ai.md
+      - PAPAYA mass-production or general-availability evidence
+      - any named PAPAYA customer or deployment count
+      - E-Series general availability, inventory, customer or deployment count
+      - any GPU distribution relationship — docs/05-backlog.md #18
+      - enterprise-software platform, customer, deployment or measured business outcome — docs/05-backlog.md #17
+      - training launch date, curriculum, pricing, certificate, customer, case study or measured ROI — docs/01-proof-bank.md §F2
   differentiators:
-    - the catalogue spans a sensor's milliwatt budget through training-scale GPU, from one supplier
-    - each entry states whether it ships today, and each number names what it was measured against
+    - one catalogue spans sensor-scale PIM through E-Series AI accelerators to enterprise software and capability development
+    - product status and roadmap dates are visible at the product name
+    - each hardware family keeps one sourced number and its method
   objections:
-    - is this real silicon or a slide
-    - a chip this small cannot be doing what a GPU does
-    - what happens to my data
+    - is this shipping silicon, a customer PoC or a roadmap slide
+    - are E10 and E20 generally available now
+    - is the enterprise suite available now
+    - does the 2027 training note mean a course is already scheduled
   cta:
-    primary: book a consultation
+    primary: book a consultation after selecting a product branch
+    secondary: none
   tone:
-    desired: [precise, understated, engineer-readable, honest about status]
-    avoid: [luxury language, emotional hype, startup clichés, claiming the parent's work as ours]
+    desired: [commercially direct, polished, concise, memorable, engineer-readable]
+    avoid: [unsupported superlatives, luxury language, startup clichés, dense explanation, status ambiguity]
   claims_policy:
     allow_inference: false
     require_proof_for_numbers: true
@@ -65,463 +93,397 @@ contract:
   locale:
     requested: [vi]
     deferred: [en, ko]
-    note: >-
-      web/ ships `vi` only since 2026-08-23. When `en` or `ko` is written it must be
-      compiled from THIS spec, never translated from `vi.ts`.
+    note: deferred locales must be compiled from this spec, never translated from vi
 
-# ── Decisions taken by the requester, 2026-08-23 ─────────────────────────────
 decisions:
+  scope:
+    question: whole products page or named-key repair
+    answered: whole products page, including meta and all catalogue blocks
+    but: the site structure and route order do not move
+    consequence: every visible products-page string is rewritten in one run
+    still_open: []
+  decision_map:
+    question: what must the first screen do
+    answered: let the reader compare six destinations by category, use and maturity without decoding a topology diagram
+    but: the opener remains one viewport target and carries no technical proof grid
+    consequence: replace the crossbar tree with a compact decision map grouped as hardware, software and training
+    still_open: []
+  hardware_scope:
+    question: which product generations occupy the catalogue
+    answered: MINT; PAPAYA and PAPAYA FLEX as one family; ESPRESSO; E-Series E10 and E20
+    but: MOCHA remains historical PoC context and does not occupy a product block
+    consequence: the tree shows three chip lines plus one Pebble Square E-Series branch
+    still_open: []
+  papaya_status:
+    question: how to present the 2024 milestone
+    answered: customer PoC, with its date visible
+    but: no mass production, availability, customer identity or deployment count
+    consequence: use C036 and show a distinct customer-PoC stage at every decision point
+    still_open: []
+  proof_density:
+    question: how many figures each hardware block should foreground
+    answered: show the same ordered three-row metric list for every chip family: Performance, Efficiency, Die or Chip Area
+    but: source, evidence status and roadmap qualification may not be removed; E-Series uses Compute, Memory and Connectivity because it is an accelerator family rather than a chip die
+    consequence: split verified values out of the source note; never parse or infer a missing metric in the component
+    still_open: []
   enterprise_software:
-    question: packaged product or project service — docs/05-backlog.md #17
-    answered: packaged product
-    but: no customer is running it yet
-    consequence: >-
-      Modules may be described by what the product DOES (feature tense). Nothing may
-      imply a deployment, a customer, a count or a track record. C030's qualification
-      still binds: capability tense for anything Pebble Vina builds.
-    still_open: [platform base, which model powers best-next-action, where its data sits]
-
-  espresso_date:
-    question: >-
-      how is the ESPRESSO milestone dated, given a September 2026 date stops reading as
-      a citation on 1 October 2026 — open_decisions/espresso-date, raised 2026-08-24
-    answered: keep `dự kiến 9/2026` and name the investor material as the source, every mention.
-    but: the date goes stale in about five weeks and nothing here renews it.
-    consequence: >-
-      The date and the source travel together in `statusNote` and in the spec `source`,
-      exactly as home.history.milestones[14] already ships them. A deadline line goes into
-      docs/05-backlog.md so the page is re-read in early October rather than rotting quietly.
-    still_open: [the date itself once HQ confirms or moves it — GM, docs/05-backlog.md #9]
-
-  papaya_size_number:
-    question: >-
-      may PAPAYA FLEX state the ~25x package-size advantage — the figure is in
-      docs/01-proof-bank.md §E2 but no claim id carried it
-    answered: yes. The ledger was stale, not the fact.
-    but: the proof bank is the authority and the ledger is its projection (content-system/README.md).
-    consequence: >-
-      C034 was added to content-system/claims/approved.yaml mirroring §E2 row 3 —
-      10x10 mm against 70x45 mm, IR Deck. Same rule as C005 and C006: the counterparty
-      is named or the number does not ship.
+    question: what software is being offered and when
+    answered: a semi-automated AI enterprise suite planned for December 2026
+    but: no shipped-product tense, customer, deployment, base platform or business result
+    consequence: every mention carries roadmap and December 2026 at the point of mention
+    still_open: []
+  dms_expansion:
+    question: what DMS means in this catalogue
+    answered: Document Management System
+    but: it does not license records-compliance or archival claims
+    consequence: the module names document control and retrieval only
+    still_open: []
+  automation_boundary:
+    question: what semi-automated means
+    answered: AI proposes and coordinates; a person approves
+    but: no autonomous-company or replacement-of-staff claim
+    consequence: the suite AI module carries the human approval boundary
+    still_open: []
+  training_offer:
+    question: whether enterprise AI training belongs to software or its own branch
+    answered: a separate 2.3 enterprise AI training branch
+    but: 2027 is the survey milestone only; no programme launch, fixed curriculum or outcome is promised
+    consequence: use C040 and keep the survey, later custom design and agreed ROI evaluation boundary together
+    still_open: []
+  stage_taxonomy:
+    question: how the page separates availability from evidence status
+    answered: use distinct visible stages for mass production, customer PoC, integration capability, roadmap and needs research
+    but: category colour never replaces the written stage label or the underlying shipped or roadmap evidence status
+    consequence: every index tile and catalogue identity carries a stage label whose colour has one meaning
+    still_open: []
+  product_height:
+    question: how much vertical space each hardware product may use
+    answered: target one visible viewport at 390 by 844, 768 by 1024 and 1440 by 900
+    but: content may grow for zoom, translated text or unusually short viewports; nothing is clipped or hidden to meet the target
+    consequence: compact the layout, image and applications first; never insert space merely to fill a viewport
+    still_open: []
+  chip_dossier_box:
+    question: how each chip section aligns its image, explanation, metrics and application images
+    answered: one bordered box with chip image on the left, application lead and ordered metrics on the right, then a contained image rail across the bottom
+    but: the rail may scroll inside the box on a narrow screen and may not bleed beyond the box edge
+    consequence: use one spacing scale and three text levels; only product name, application lead and metric value receive emphasis
+    still_open: []
+  e_series:
+    question: where E10 and E20 belong and how their source status is presented
+    answered: E10 and E20 are Pebble Square E-Series accelerators directly below the three chip families
+    but: the supplied material confirms ownership and specifications, not general availability, inventory, customers or deployments
+    consequence: use one E-Series dossier with an image-and-metric row for each accelerator; show a neutral product-data badge rather than an availability claim
+    still_open: [production image files for E10 and E20]
+  software_cards:
+    question: how CRM ERP HRM DMS and the AI operations centre are presented
+    answered: one card per system with a large code-native SVG icon used as a quiet watermark
+    but: icons add recognition only and make no capability claim
+    consequence: render a two-column mobile grid and a two-to-three-column responsive grid above it
+    still_open: []
+  narrative_bridges:
+    question: how a long catalogue keeps one reading line
+    answered: every product or service block opens with one short transition from the previous decision layer
+    but: transitions may not add a claim or repeat the body
+    consequence: add a transition slot to hardware items, the enterprise group and the training offer
+    still_open: []
+  background_reset:
+    question: whether the redesign also defines the final section-background system
+    answered: no; remove every PRODUCTS section fill, dark tone, crossbar and alternating surface first
+    but: the site header, footer, chip plinth and functional status colours keep their own surfaces
+    consequence: category and stage are encoded with type, border, icon and accent on one page canvas
+    still_open: [the final PRODUCTS background system after visual review]
+  visual_register:
+    question: how polished and catchy may the page be
+    answered: use headline rhythm and hierarchy, not unsupported adjectives
+    but: status strength and qualifications cannot change for impact
+    consequence: short declarative lines; one decision-map signature; quiet dossier-style product blocks
+    still_open: []
+  final_conversion:
+    question: whether the buyer leaves Products to contact or can submit on the same page
+    answered: place the shared contact form under one compact PRODUCTS follow-up header
+    but: do not repeat contact.intro title, lead, form title or office image on PRODUCTS; there is still one form implementation
+    consequence: reuse the contact fields, validation, submit and success state beneath products.followUp
     still_open: []
 
-  papaya_pair:
-    question: >-
-      PAPAYA and PAPAYA FLEX were two blocks, one of them empty — docs/05-backlog.md #33/#34
-    answered: >-
-      one block, presented as a pair ("thông tin đôi"). GM, 2026-08-24, recorded in
-      docs/03-structure.md §1. Surviving anchor `papaya-flex`; the standalone `papaya`
-      entry is deleted from web/content/vi.ts, not left empty.
-    but: >-
-      the STRUCTURAL decision is closed; the PRODUCT FACT under it is not. The proof bank
-      never says what PAPAYA is relative to PAPAYA FLEX — §D lists the family as
-      MOCHA → MINT → PAPAYA FLEX and §E2 carries one bare-PAPAYA row. GM's reading (family
-      name / lower performance tier) lives in docs/05-backlog.md #34, which is not a proof
-      bank row and has no claim id.
-    consequence: >-
-      The copy names each part by WHAT IT WAS MEASURED ON — sourced directly from §E2 — and
-      says nothing about how the two relate. The pairing is carried by the structure GM chose:
-      one block, one application rail, four labelled numbers. The tagline stays tier-neutral.
-      The heading is renamed — see open_decisions/papaya-pair-heading (resolved).
-    still_open: [papaya-pair-relationship]
-
-  kicker_numbering:
-    question: is products.intro.kicker an index number like home's `01 · …`
-    answered: numbered. `2.1` and `2.2` are the section indices the structure doc already uses.
-    inherited_from: specs/contact.yaml decisions/kicker-numbering — which dropped numbering on CONTACT only
-    but: contact dropped its number because it is a leaf page; the catalogue has a real hierarchy to signal.
-    consequence: >-
-      products.intro.kicker orients without a number (it is the page opener, not a section),
-      while products.hardware.kicker and products.software.kicker carry `2.1` and `2.2` —
-      the same labels docs/03-structure.md §1 uses, so the page and the doc read alike.
-    still_open: []
-
-# ── What the first written pass got wrong, 2026-08-24 ──────────────────────
-revision_log:
-  - slot: all prose slots
-    was: >-
-      composed by shortening the Vietnamese drafts in context/02-products/, which carry
-      English sentence shape (docs/05-backlog.md #16b). Six bodies ran three to four
-      sentences; the longest was 75 words in a left column beside a figure.
-    is: >-
-      composed from the slot briefs in this file, in Vietnamese, then checked against the
-      drafts for FACTS only. 37 strings rewritten. Body average fell 21.1 -> 15.0 words,
-      longest 75 -> 32, bodies of three or more sentences 6 -> 0.
-  - slot: products.software.groups[1].tagline
-    was: '`Mô hình của bạn, dữ liệu của bạn, hạ tầng của bạn` — a calque of "Your model, your data, your infrastructure"'
-    is: '`Chạy sau tường lửa của bạn` — names the mechanism a buyer is actually asking about'
-  - slot: products.software.groups[0].name and tagline
-    was: '`Phần mềm doanh nghiệp tối ưu bằng AI` / `Hệ thống lõi, dựng lại quanh mô hình` — participle-modifier shapes borrowed from English'
-    is: '`Phần mềm doanh nghiệp` / `CRM, ERP · mô hình đặt tại chỗ` — the name is plain, the tagline carries the one differentiator'
-  - slot: products.hardware.items[3].tagline
-    was: '`Lớp tích hợp của Pebble Vina · phần cứng thương mại` — repeats the OriginTag rendered directly above it'
-    is: '`Khi bài toán vượt quá chip edge` — tells a reader in the catalogue index when to click this entry'
-
-# ── Length law and sourcing rule — added 2026-08-24, second pass ────────────
-# The first written pass inherited sentence shape from context/02-products/ in 24 slots
-# and produced six bodies of three to four sentences (75, 60, 54, 49, 44, 44 words).
-# Measured on the built page; the requester rejected it as long and hard to read.
-#
-# RULE 1 — context/ is MATERIAL, never a draft to shorten. A Vietnamese sentence is
-# composed from this spec's slot brief, in Vietnamese, and only then checked against the
-# drafts for FACTS. `Mô hình của bạn, dữ liệu của bạn, hạ tầng của bạn` is what the other
-# direction produces: a calque of "Your model, your data, your infrastructure" that reads
-# as a translated slogan. docs/05-backlog.md #16b, and no script catches it —
-# LOCALE_TRANSLATIONESE is reviewer-only.
-#
-# RULE 2 — budgets. A slot over budget is not "rich", it is unread: each product block is
-# one scan unit in a left column beside a figure.
-length_budget:
-  product_body:      { sentences: 2, words: 32, first_sentence_words: 18 }
-  capability_body:   { sentences: 1, words: 12, note: one checkable fact, not a sales line }
-  section_lead:      { sentences: 1, words: 20 }
-  intro_lead:        { sentences: 1, words: 18, note: "height:screen — measured, see the loop notes" }
-  tagline:           { words: 7, note: renders mono uppercase; a label, never a slogan }
-  spec_note:         { note: a data line, not prose — figures first, method second }
-  never_rewritten:   [product names, figures, units, source citations, capability titles]
-  # Capability titles stay: they map to the six business sectors Pebble Square publishes
-  # (docs/01-proof-bank.md §D). Rewriting them would drift from the parent's own taxonomy.
+presentation:
+  opener:
+    height: screen
+    structure: headline plus six decision tiles grouped into hardware, software and training
+    signature: a selection matrix encoding category, use and maturity in the same tile
+    motion: a restrained arrow shift on hover and focus; disabled by prefers-reduced-motion
+    mobile_constraint: two compact tile columns; all six destinations remain reachable without horizontal scrolling
+  catalogue:
+    order: [hardware lead, MINT, PAPAYA family, ESPRESSO, E-Series E10 and E20, software lead, enterprise suite, training lead, enterprise AI training, follow-up form]
+    product_rule: one hardware product per viewport target; no fixed height, clipping or filler space
+    background_rule: one page canvas; no PRODUCTS section fill or alternating band
+    conversion_rule: one contact form at the end, with shared behaviour and PRODUCTS-only follow-up copy
 
 blocks:
-
   - id: products.intro
     height: screen
     intent:
-      communicate: the catalogue has two layers, and the reader can jump straight to their own
-      reader_question: what do these people actually sell
-    claims: []
+      communicate: the catalogue has hardware, software and training branches with different maturity stages
+      reader_question: what products are here and where should I start
+    claims: [C004, C036, C017, C030, C037, C040]
     qualifiers:
-      - this block is one viewport tall — prose added here overflows it (docs/03-structure.md §3)
+      - the maturity stage of every destination is visible in the decision map
+      - the opener targets one viewport but never clips on small or zoomed screens
     forbidden:
-      - repeating the energy thesis the homepage owns
-      - listing product names here; the two nav cards already carry them
+      - a generic portfolio headline with no decision support
+      - explanation of PIM or enterprise modules in the opener
     slots:
-      kicker: page index
-      headline: the span of the catalogue in one line — silicon at one end, software at the other
-      lead: how the catalogue is split and how status is marked, in one sentence
+      kicker: page category
+      title: the catalogue span, stated as a product choice
+      lead: one instruction for using the decision map
+      scroll_label: accessible action label for moving to the hardware section
+      decision_entries: product names, one use cue and their visible stage
 
   - id: products.hardware
     height: content
     intent:
-      communicate: three parts from the parent plus one integration layer built locally
-      reader_question: which of these can I buy
-    claims: [C030]
-    qualifiers:
-      - three entries are the parent's silicon; the fourth is Pebble Vina's integration layer
+      communicate: three Pebble Square chip lines plus the Pebble Square E-Series accelerator family
+      reader_question: which hardware path matches my workload
+    claims: [C004, C036, C017, C041, C042, C043]
     slots:
       kicker: section index
-      headline: what the hardware line covers
-      lead: whose silicon, and where the local layer starts
+      title: hardware scope in one line
+      lead: status rule for reading the four entries
 
   - id: products.hardware.mint
     origin: ps
     status: shipped
-    claims: [C002, C003, C004, C024, C026, C027, C014]
+    height: content
     intent:
-      communicate: the part that is actually in mass production, and the two application classes it has been proven in
-      reader_question: is there real silicon
-    mechanisms:
-      - a crossbar array computes in the analog domain inside embedded flash
-      - a 256-state synaptic cell gives 8-bit precision
-      - FCNN, CNN, DNN and RNN run on the device itself
+      communicate: MINT is the production edge-AI part
+      reader_question: which chip can I evaluate now for low-power edge workloads
+    claims: [C002, C003, C004, C038]
+    values:
+      - place inference inside a field device power envelope
     qualifiers:
-      - never attribute arc-fault or solar PV to this part
+      - mass production started in May 2023; 2022 is the development-completion year
     slots:
-      name: product name, verbatim
-      tagline: architecture and generation
-      body: what it is for, and the one status fact that separates it from a prototype
-      capabilities:
-        - sensor AI — evidence is the Home IoT NDA of March 2024
-        - voice AI — evidence is the February 2024 PoC
-        - ultra-low-power edge AI — the mechanism, stated as mechanism
+      name: product name verbatim
+      transition: move from catalogue selection to low-power processing at the device
+      application_lead: name the product forms where MINT is commonly positioned, without implying deployments
+      tagline: architecture, production status and workload class
+      body: operational value plus the boundary of the part
+      capabilities: [Smart Home, IoT, Failure Analysis]
       specs:
-        - value: energy efficiency, the backbone number
-          must_carry: [architecture, throughput, die size, measured on real silicon, mass production date]
+        - value: 17.6 TOPS/W energy efficiency
+          must_carry: [30 GOPS, 5 by 5 mm die, mass production since May 2023, source]
+      metrics:
+        - Performance: 30 GOPS
+        - Efficiency: 17.6 TOPS/W
+        - Die or Chip Area: 5 by 5 mm
+      media_alt: literal description of the MINT render
 
-  # ONE block for both names since 2026-08-24 — docs/03-structure.md §1, backlog #33/#34.
-  # The anchor stays `papaya-flex`; the standalone `papaya` entry is deleted, not emptied.
   - id: products.hardware.papaya
     origin: ps
     status: shipped
-    claims: [C005, C006, C007, C034, C016]
+    status_note: customer PoC in 2024
+    height: content
     intent:
-      communicate: >-
-        the vision part, the honest shape of its advantage, and which of the two
-        names each measured number belongs to
-      reader_question: how can something this small beat a GPU — and what is PAPAYA next to PAPAYA FLEX
-    mechanisms:
-      - the same analog-PIM architecture applied to image workloads
+      communicate: the PAPAYA family reached a customer PoC for vision and security workloads
+      reader_question: how mature is the vision-AI line
+    claims: [C036]
     qualifiers:
-      - every multiple must name its counterparty — C005, C006, C007, C034
-      - C006 must name ResNet-50; C007 applies to the AI task at the base station, not the station
-      - the advantage is power and size, not general superiority — say so plainly
-      - >-
-        each spec label names WHICH of the two parts it measured. §E2 attributes three
-        rows to PAPAYA FLEX and one to bare PAPAYA; a merged block that hides that is
-        worse than two blocks, not better.
+      - PoC is not mass production or general availability
+      - do not name or imply a customer
+      - the number belongs to PAPAYA; do not silently move it to PAPAYA FLEX
     forbidden:
-      - a bare multiple with no counterparty
-      - implying it replaces a GPU for training
-      - >-
-        stating the RELATIONSHIP between the two names as fact — family, tier, same die,
-        one entry point. See open_decisions/papaya-pair-relationship. The proof bank carries
-        no such row and the ledger no such id; only what each number was measured on may be said.
-      - inventing a tier scheme or a name the parent has not published
+      - present-tense availability
+      - PAPAYA FLEX comparison multiples in the foreground
     slots:
-      name: >-
-        product name, verbatim. `PAPAYA · PAPAYA FLEX` — open_decisions/papaya-pair-heading
-        closed by GM, 2026-08-24 (main session).
-      tagline: architecture and the scale it operates at — true of both parts, names neither
-      body: >-
-        which of the two names each number was measured on, then the limit of the
-        comparison stated by us before the reader finds it
-      capabilities: [vision AI, camera, inspection, robotics]
+      name: PAPAYA and PAPAYA FLEX family name
+      transition: move from signals to image and vision workloads
+      application_lead: name vision, image-recognition and security product forms at the customer-PoC boundary
+      tagline: customer-PoC status, year and workload class
+      body: what the PoC established and what it did not establish
+      capabilities: [Image Recognition, Vision Recognition, Security System]
       specs:
-        - value: power multiple, PAPAYA FLEX against the named counterparty
-        - value: efficiency multiple, PAPAYA FLEX — must name ResNet-50
-        - value: package-size multiple, PAPAYA FLEX — C034
-        - value: multiple for the AI task at a 5G base station, PAPAYA
-      spec_strip:
-        order: the three PAPAYA FLEX rows first, the PAPAYA row last — grouped by part, not by axis
-        count: >-
-          four. docs/05-backlog.md #34 (GM, 2026-08-24) puts all four §E2 rows in this one
-          block. At `lg` the strip renders two columns, so four is two balanced rows and
-          three would leave an orphan; the choice is 2 or 4, never 3.
-        height_cost: >-
-          measured 2026-08-24 after apply — see revision_log. The block is `height: content`,
-          so a taller strip costs page length, not an overflow.
-        source_line: >-
-          all four carry the same vendor-published caveat. One row without it implies the
-          other three were verified independently.
+        - value: 30 TOPS/W efficiency
+          must_carry: [0.5 TOPS, 5 by 5 mm die, customer PoC in 2024, investor source]
+      metrics:
+        - Performance: 0.5 TOPS
+        - Efficiency: 30 TOPS/W
+        - Die or Chip Area: 5 by 5 mm
+      media_alt: literal description of the PAPAYA family render
 
   - id: products.hardware.espresso
     origin: ps
     status: roadmap
-    claims: [C017]
+    status_note: Q3 2026; investor material; absent from the public catalogue
+    height: content
     intent:
-      communicate: the second architecture branch, and that it is not a thing anyone can buy yet
-      reader_question: when can I have it
-    mechanisms:
-      - digital-PIM on SRAM, a different branch from the analog-PIM of MINT and PAPAYA
+      communicate: ESPRESSO is the dated Digital-PIM direction for larger workloads
+      reader_question: what comes after edge inference and when
+    claims: [C017, C039]
     qualifiers:
-      - CLAUDE.md §2 rule 4 — amber label AND the investor-material source, every single mention
-      - absent from the parent's public catalogue as verified 2026-08-20
+      - every mention carries roadmap, Q3 2026 and investor-material attribution
+      - applications are targets, never present capabilities
     forbidden:
-      - any phrasing that reads as available, shipping, or offered
+      - available or shipping tense
+      - describing a render as production silicon
     slots:
-      name: product name, verbatim
-      tagline: architecture branch and the workload class it targets
-      body: what it is meant for, and its status said out loud rather than left to the badge
-      status_note: expected date and the fact that the source is investor material
-      capabilities: [large-model inference, AI accelerator, AI server and infrastructure]
+      name: product name verbatim
+      transition: move from current edge parts to the dated direction for larger models
+      application_lead: name roadmap targets only, with Q3 2026 in the same sentence
+      tagline: Digital-PIM branch, workload span and roadmap date
+      body: direction of travel plus current unavailability
+      capabilities: [AI PC, Robotics, Data Center]
       specs:
-        - value: throughput at INT8
-          must_carry: [power draw, efficiency, four-chip card total, in-house LLM parameter ceiling]
+        - value: 160 TOPS at INT8
+          must_carry: [16 TOPS/W, 20 by 23 mm package, 640 TOPS four-chip card, investor source, roadmap date]
+      metrics:
+        - Performance: 160 TOPS at INT8
+        - Efficiency: 16 TOPS/W
+        - Die or Chip Area: 20 by 23 mm
+      media_alt: describe the ESPRESSO image as a roadmap render
 
   - id: products.hardware.gpu
-    origin: pv
+    origin: ps
     status: shipped
-    claims: [C030, C018]
+    height: content
     intent:
-      communicate: the honest boundary — edge silicon does not solve training, and we say what does
-      reader_question: what if my problem is not an edge problem
+      communicate: E-Series extends the catalogue from edge silicon to training and inference accelerators
+      reader_question: which E-Series tier matches the workload scale
+    claims: [C041, C042, C043, C044]
     qualifiers:
-      - this is Pebble Vina's integration layer, not the parent's catalogue
-      - capability tense only; no vendor name, no distribution agreement, no customer — C030
-    forbidden:
-      - naming a GPU vendor or implying a reseller relationship — docs/05-backlog.md #18
-      - implying PIM silicon covers training
+      - product data and ownership are confirmed by the GM-supplied E-Series material
+      - do not imply general availability, inventory, customer or deployment count
     slots:
-      name: the layer, named plainly
-      tagline: whose layer it is and what class of parts it uses
-      body: why this branch exists at all — stated as the limit of the other three
-      capabilities: [GPU products, AI training, large-scale inference, HPC, AI data centre]
-      specs: none — nothing here is measured or published
+      name: E-Series AI Compute Accelerators
+      transition: move from a dedicated edge device to server and multi-card compute
+      application_lead: enterprise AI server, LLM training and inference, vision, NLP, speech and multi-card computing
+      tagline: GP-DSA for training and inference
+      body: one architecture from FP32 to INT4 with PCIe 5.0 and RDMA
+      variants:
+        - E10 PCIe:
+            application_lead: balanced enterprise-server deployment
+            metrics: [32 AI cores with precision figures, 48 GB memory, PCIe and RDMA connectivity]
+        - E20:
+            application_lead: larger models and distributed AI infrastructure
+            metrics: [64 AI cores with precision figures, 96 GB memory, dual PCIe and denser RDMA connectivity]
+      software_stack: [AI Compiler, Graph Optimization, Operator Generation, Performance and Precision Tools, Framework Compatibility]
+      capabilities: [Enterprise AI Server, LLM Training and Inference, Computer Vision, NLP and Speech AI, Multi-card Computing]
+      media_alt: one literal product-image brief per accelerator; render a visible pending state until the files exist
 
   - id: products.software
     height: content
+    status: roadmap
+    status_note: December 2026
     intent:
-      communicate: the layer Pebble Vina builds on top, and that it is local work
-      reader_question: is there anything above the chip
-    claims: [C030]
+      communicate: one Pebble Vina enterprise suite is planned above the hardware catalogue
+      reader_question: what software layer is coming and when
+    claims: [C037]
     qualifiers:
-      - both groups are Pebble Vina's own work, tagged pv
-      - capability tense — C030
+      - roadmap date appears in the band and product block
     slots:
       kicker: section index
-      headline: what the software line covers
-      lead: whose work this is and what connects it to the hardware line
+      title: enterprise software category and roadmap status
+      lead: scope of the suite in one line
 
   - id: products.software.enterprise
     origin: pv
-    claims: [C015, C030]
+    status: roadmap
+    status_note: December 2026
+    height: content
     intent:
-      communicate: systems of record that can run against a model the customer hosts
-      reader_question: why would I take this over the CRM I already know
+      communicate: one operating view joins core records and AI-assisted next actions
+      reader_question: what will the suite monitor and what remains under human control
+    claims: [C037]
     mechanisms:
-      - the model the software calls can sit inside the customer's own infrastructure
+      - CRM ERP HRM and DMS feed one operations view
+      - AI proposes and coordinates; a person approves
     qualifiers:
-      - packaged product per the 2026-08-23 decision — modules may state what they do
-      - no customer, no deployment, no count — nothing in achievement tense
-      - the platform it is built on is unknown and must not be implied — docs/05-backlog.md #17
-    forbidden:
-      - naming a base platform or partner
-      - any phrase implying organisations are already running it
+      - roadmap December 2026 at every mention
+      - DMS means Document Management System
+      - no customer, deployment, platform, full autonomy or result claim
     slots:
-      name: the group, named plainly
-      tagline: the one property that separates it from any other suite
-      body: the single connection that justifies this block existing at all
-      modules: [CRM, ERP and operations, workflow, data and reporting, AI agent]
+      name: product category
+      transition: move from processing data to using its result in enterprise operations
+      tagline: roadmap date plus the human-approval boundary
+      body: how the four systems and operations view connect
+      modules:
+        - CRM: customer records and sales activity
+        - ERP: orders inventory purchasing and operations
+        - HRM: workforce records and work allocation
+        - DMS: document control and retrieval
+        - AI operations centre: cross-module monitoring and proposed next actions for human approval
+      media_alt: literal brief for the enterprise-suite interface; image remains pending
 
-  - id: products.software.privateAi
-    origin: pv
-    claims: [C014, C015, C018, C030]
+  - id: products.training
+    height: content
+    status: roadmap
+    status_note: needs survey in 2027
     intent:
-      communicate: the answer to "can we run AI without our data leaving" and the hardware under each option
-      reader_question: does my data leave the building
-    mechanisms:
-      - inference completes without a network round trip — C014
-      - a model placed inside the customer's own infrastructure keeps data and weights behind their firewall
+      communicate: enterprise AI training is a separate research-stage service direction
+      reader_question: is there a standard course I can buy now
+    claims: [C040]
     qualifiers:
-      - C015 holds only for the on-premise deployment model — carry the condition
-      - C018 splits — a commercial-GPU configuration today, the ESPRESSO configuration on roadmap
-      - how far Build and Train/Adapt go is unverified; state them as stages, not as guarantees
-    forbidden:
-      - an unconditional promise that data never leaves
-      - presenting the ESPRESSO configuration as available
+      - 2027 is a needs-survey milestone, not a training launch
+      - no fixed curriculum, class date, fee, certificate or result exists
     slots:
-      name: the group, named plainly
-      tagline: ownership, said in three beats
-      body: the deployment claim with its condition attached, and the two configurations split
-      modules: [build, train and adapt, deploy]
-      targets_title: label for the deployment ladder
-      targets:
-        - on-device — MINT sits under it
-        - edge — PAPAYA FLEX sits under it
-        - on-premise — GPU today, ESPRESSO on roadmap
-        - private cloud — GPU
-        - GPU and AI infrastructure — GPU and HPC
-      note: >-
-        The five targets are ordered by power budget and each has real hardware behind
-        it. That ladder is the strongest structural argument on the page.
+      kicker: section index 2.3
+      title: enterprise AI training category
+      lead: survey-first boundary in one line
+
+  - id: products.training.enterprise
+    origin: pv
+    status: roadmap
+    status_note: needs survey in 2027
+    height: content
+    intent:
+      communicate: any later programme would be shaped around a specific enterprise problem and assessed against agreed output indicators
+      reader_question: what would make this different from a fixed theory course
+    claims: [C040]
+    mechanisms:
+      - survey the enterprise problem and capability gap first
+      - design practice around that context instead of a fixed syllabus
+      - agree ROI indicators before delivery and use them to assess output
+    qualifiers:
+      - assessment does not guarantee positive ROI or a numeric return
+      - delivery timing remains undecided after the 2027 survey
+    slots:
+      name: service direction
+      transition: move from systems to the people who must use them on a measurable task
+      tagline: visible 2027 survey stage and custom-design boundary
+      body: distinguish the planned survey from a course already available
+      principles:
+        - survey the enterprise problem before programme design
+        - design for a company-specific use case, not a fixed curriculum
+        - use applied work rather than theory-only delivery
+        - assess output using ROI indicators agreed before delivery without promising the result
+
+  - id: products.contact
+    height: content
+    intent:
+      communicate: submit the selected product need without leaving the catalogue
+      reader_question: how do I start the consultation now
+    qualifiers:
+      - reuse the contact form fields and behaviour; do not create a second form implementation
+      - do not render contact.intro, contact.form.title or contact.media on PRODUCTS
+      - preserve validation, mail-client handoff, success state and contact fallback
+    slots:
+      follow_up_kicker: one step label connecting selection to consultation
+      follow_up_title: acknowledge that the reader has selected a branch and state the next action
+      form: reuse contact.form and contact.ctaPrimary
 
 chrome:
-  ui:
-    specs: label above the measured-number strip
-    source: label prefixing a citation
-    image_pending: placeholder text where artwork is not yet supplied
-  origin:
-    ps: the part came from the parent
-    pv: the part is Pebble Vina's own layer
   meta:
-    products: title and description for the catalogue page
+    products:
+      title: identify the product catalogue and the company
+      description: name the three chip lines, GPU and HPC integration, the December 2026 enterprise suite and the 2027 training-needs survey
+  index_navigation:
+    rule: names, use cues and stages are generated from hardware items, software groups and the training offer; no duplicate content source
+  mobile_navigation:
+    training_label: short label for the separate 2.3 branch
 
-open_decisions:
-  - id: papaya-pair-relationship
-    blocks: >-
-      saying out loud what the reader is left to infer — that PAPAYA and PAPAYA FLEX are
-      two performance levels of one chip line, which is GM's own stated reason for merging
-      the block (docs/05-backlog.md #34).
-    owner: GM
-    route: >-
-      docs/01-proof-bank.md §D or §E2 gains one row naming what "PAPAYA" is, with its source;
-      content-system/claims/approved.yaml mirrors it as a new id. Then TWO keys regenerate —
-      products.hardware.items[1].tagline and .body — and nothing else moves.
-    until_then: >-
-      the copy states only what §E2 measured on which part. No family, no tier, no "cùng một
-      dòng chip" anywhere on the page.
+locale_scope:
+  writing: [vi]
+  deferred: [en, ko]
 
-  - id: papaya-pair-heading
-    blocks: >-
-      whether the merged block's heading becomes `PAPAYA · PAPAYA FLEX`, the notation
-      docs/03-structure.md §1 itself uses for the pair.
-    owner: GM — a one-line change to products.hardware.items[1].name
-    argument_for: >-
-      the same string renders in three places (block h3, catalogue index card, header
-      dropdown). A buyer who arrived looking for PAPAYA does not find the word in the index
-      at all today; they meet it first inside a spec label, halfway down the block.
-    argument_against: >-
-      it is a name change with page-wide reach and it was not in the work order that
-      commissioned this run. Names are `never_rewritten` in this file's length_budget.
-    resolved: >-
-      GM, 2026-08-24 (main session) — rename to `PAPAYA · PAPAYA FLEX`, matching
-      docs/03-structure.md §1's own notation. Applied to
-      products.hardware.items[1].name in web/content/vi.ts and mirrored in
-      content-system/output/products.vi.json.
-
-  - id: enterprise-platform-base
-    blocks: naming what the suite is built on
-    owner: GM — docs/05-backlog.md #17
-  - id: gpu-vendor-naming
-    blocks: saying anything more specific than integration capability
-    owner: GM — docs/05-backlog.md #18
-  - id: espresso-date
-    status: ANSWERED 2026-08-24 — see decisions/espresso_date
-    inherited_from: specs/home.yaml
-    note: >-
-      Same conflict, same deadline. A September 2026 date stops reading as a citation
-      on 1 October 2026. docs/05-backlog.md #9. The requester chose to keep the date
-      and carry the source with it; the deadline is now a backlog line, not a silent risk.
-
-# ── Gate F, second pass — closed 2026-08-24 ────────────────────────────────
-# The spec above was compiled 2026-08-23 and read back to the requester on 2026-08-24
-# before any prose was written. Three questions were open at that reading; all three are
-# recorded in `decisions:` above. Scope of the writing run this confirms:
-scope:
-  written:
-    - meta.products.title
-    - meta.products.description
-    - products.intro.{kicker,title,lead}
-    - products.hardware.{kicker,title,lead}
-    - products.hardware.items[0..3].{name,tagline,body,capabilities[].{title,body},specs[].*,media.alt}
-    - products.software.{kicker,title,lead}
-    - products.software.groups[0..1].{name,tagline,body,modules[].{title,body},media.alt}
-    - products.software.groups[1].{targetsTitle,targets[].{title,body}}
-    - ui.{specs,source,imagePending}
-    - origin.{ps,pv}
-  held: []
-  note: >-
-    `status`, `origin`, `id` and `starred` are not content and are not touched by the apply
-    (CLAUDE.md §3b). ui.* and origin.* are chrome shared with HOME and CONTACT — writing them
-    here also clears the `ui-imagePending-placeholder` finding in specs/contact.yaml.
-
-# ── Repair run — PAPAYA pair, 2026-08-24 ───────────────────────────────────
-# Not a page rewrite. The requester's decision was structural (docs/03-structure.md §1);
-# what needed writing was the block's own copy plus the deletion of the empty entry.
-# Artifact: content-system/output/products.papaya-pair.vi.json (and products.vi.json,
-# kept in sync so the page artifact still matches what ships).
-repair_2026_08_24_papaya_pair:
-  regenerated:
-    - products.hardware.items[1].body
-    - products.hardware.items[1].specs[0].{label,note,source}
-    - products.hardware.items[1].specs[1].*        # new — efficiency, ResNet-50
-    - products.hardware.items[1].specs[2].*        # new — package size, C034
-    - products.hardware.items[1].specs[3].{label,source}   # the 5G row, moved from specs[1]
-  deleted:
-    - products.hardware.items[] entry `id: papaya` — emptied block, no copy, no numbers
-  untouched_on_purpose:
-    - products.hardware.items[1].name          # open_decisions/papaya-pair-heading
-    - products.hardware.items[1].tagline       # tier-neutral already; see below
-    - products.hardware.items[1].capabilities[].*   # the rail is out of this run's scope
-    - products.hardware.items[1].media.alt
-    - products.hardware.items[1].specs[3].note      # already carries C007's qualification
-    - products.hardware.{title,lead}           # "Ba con chip" becomes exactly true after the merge
-  measured_after_apply: >-
-    1440×900 and 1280×800, production build, CSS confirmed loaded (--header-h resolves):
-    #papaya-flex = 855px, page = 6404px, no horizontal overflow. The reference in
-    docs/07-loop/products.md for the same block with two numbers was 748px at 1428×893,
-    so the two extra SpecCards cost +107px and the block now sits just over the 829px
-    one-screen budget — inside the "~860px ≈ vừa một màn" figure docs/03-structure.md §3
-    itself uses, and the block is `height: content`, so nothing overflows. Below `lg` the
-    strip is a horizontal snap rail in the layout as built on 2026-08-24, not a stack, so
-    the two extra cards cost no vertical height there. Mobile belongs to mobile-ui-reviewer
-    on a real browser (CLAUDE.md §7); headless emulation below 500px was not trustworthy
-    in this run and no mobile number from it is recorded here.
-  tagline_note: >-
-    `Analog-PIM · thị giác máy ở mức miliwatt` survives the merge unchanged because it is
-    already true of both parts (§D puts the family on Analog-PIM; §E2 measures 0,1–0,15 W
-    and 0,03 W — both milliwatt-class) and it names neither. Every rewrite that signalled
-    the pair either asserted the relationship the proof bank does not carry, or promised a
-    second name the heading does not show. It also renders as the catalogue index subtitle,
-    where `thị giác máy` is what separates this entry from MINT.
-
+artifact:
+  id: products
+  path: content-system/output/products.vi.json
+  apply_to: web/content/vi.ts

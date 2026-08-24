@@ -11,7 +11,13 @@ import { cn } from "@/lib/cn";
  * hands the filled-in fields to the visitor's own mail client via `mailto:`.
  * Every CTA on the site routes here; this form is the only thing that mails.
  */
-export function ContactForm({ c }: { c: SiteContent }) {
+export function ContactForm({
+  c,
+  successHeadingAs: SuccessHeading = "h2",
+}: {
+  c: SiteContent;
+  successHeadingAs?: "h2" | "h3";
+}) {
   const { form } = c.contact;
   const [values, setValues] = useState({ name: "", company: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -70,7 +76,9 @@ export function ContactForm({ c }: { c: SiteContent }) {
   if (submitted) {
     return (
       <div ref={panelRef} tabIndex={-1} className="scroll-mt-6 focus:outline-none">
-        <h2 className="text-2xl font-semibold leading-snug sm:text-3xl">{form.successTitle}</h2>
+        <SuccessHeading className="text-2xl font-semibold leading-snug sm:text-3xl">
+          {form.successTitle}
+        </SuccessHeading>
         <p className="mt-3 max-w-md text-base leading-relaxed text-muted">{form.successBody}</p>
 
         {/* The page shows these nowhere else since the pre-form block was dropped,

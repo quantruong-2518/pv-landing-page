@@ -36,6 +36,17 @@
   --color-primary-fg: #ffffff;
   --color-accent: #133a8a;
 
+  /* Catalogue categories: accents only. PRODUCTS uses one page canvas until
+     its final background system is reviewed. */
+  --color-hardware: #174c9b;
+  --color-software: #5b3fa3;
+  --color-training: #9a4311;
+
+  /* Buyer-facing maturity stages. These do not replace evidence status. */
+  --color-poc: #006b68;
+  --color-integration: #355a7a;
+  --color-research: #9a4311;
+
   /* Functional — evidence status labels */
   --color-shipped: #0f5132;
   --color-shipped-bg: #e6f4ec;
@@ -196,6 +207,32 @@ h3 {
   display: none;
 }
 
+/* PRODUCTS has its own measured vertical budget. These rules follow the
+   utilities so each block has one unambiguous padding value. */
+.products-index {
+  padding-block: 0.875rem;
+}
+
+.product-dossier {
+  padding-block: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .products-index {
+    padding-block: 3rem;
+  }
+
+  .product-dossier {
+    padding-block: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-dossier {
+    padding-block: 1.75rem;
+  }
+}
+
 /* Soft glow behind the hero — kept faint; this page is for reading. */
 .aura::before {
   content: "";
@@ -210,6 +247,7 @@ h3 {
   html {
     scroll-behavior: auto;
   }
+
 }
 
 /* Native <details> disclosures: Safari and Chrome still draw their own marker
