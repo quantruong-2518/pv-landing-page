@@ -143,6 +143,31 @@ h3 {
   );
 }
 
+/* Lift for the chip render sitting on that pool. `drop-shadow` follows the
+   cut-out alpha, so the die casts a shadow shaped like itself instead of a box.
+   Two steps — a tight contact edge and a wider spill — because one blur alone
+   reads as a sticker outline. Colour is the darkest token we have, which is what
+   makes it legible: it lands on the lit pool, not on the raw plinth. Weight stays
+   under the pool's, since the pool is what seats the chip and this only raises it. */
+.chip-lift {
+  /* Geometry steps at `md`, where the plinth stops being a phone thumbnail: the
+     frame is square at every width now, but it is ~139px beside a phone identity
+     and ~330px in a desktop column, so the same file draws less than half the
+     size and a fixed blur would read twice as heavy against the smaller die. */
+  --chip-lift-contact: 0 1px 2px;
+  --chip-lift-spill: 0 6px 9px;
+  filter:
+    drop-shadow(var(--chip-lift-contact) color-mix(in srgb, var(--color-bg-deep) 45%, transparent))
+    drop-shadow(var(--chip-lift-spill) color-mix(in srgb, var(--color-bg-deep) 35%, transparent));
+}
+
+@media (min-width: 768px) {
+  .chip-lift {
+    --chip-lift-contact: 0 2px 3px;
+    --chip-lift-spill: 0 10px 16px;
+  }
+}
+
 /* Horizontal rails (<AppRail>). The scrollbar is suppressed because the card
    peeking past the edge already says "this continues", and a bar drawn across
    the middle of a reading page does not. Keyboard access comes from tabIndex. */

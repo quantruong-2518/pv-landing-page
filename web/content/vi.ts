@@ -122,9 +122,30 @@ export const vi: SiteContent = {
           tagline: "Analog-PIM · chip Edge AI thế hệ 2",
           body: "Chip suy luận cho cảm biến và thiết bị chạy pin: phép tính chạy ngay trong mảng nhớ. Sản xuất hàng loạt từ 5/2023 — silicon thật, không phải bản mẫu.",
           capabilities: [
-            { title: "AI cảm biến", body: "NDA Home IoT với MEISEI ELECTRIC, 3/2024." },
-            { title: "AI giọng nói", body: "PoC 2/2024: đèn điều khiển bằng giọng nói, kèm chuông gọi khẩn." },
-            { title: "Edge AI siêu tiết kiệm điện", body: "Chạy FCNN, CNN, DNN, RNN ngay trên thiết bị, không cần mạng." },
+            {
+              title: "AI cảm biến",
+              body: "NDA Home IoT với MEISEI ELECTRIC, 3/2024.",
+              media: {
+                src: "/media/apps/mint-smart-home-panel.webp",
+                alt: "Bảng điều khiển nhà thông minh gắn tường, mặt kính đen viền kim loại, đèn trạng thái xanh lá.",
+              },
+            },
+            {
+              title: "AI giọng nói",
+              body: "PoC 2/2024: đèn điều khiển bằng giọng nói, kèm chuông gọi khẩn.",
+              media: {
+                src: "/media/apps/mint-voice-assistant.webp",
+                alt: "Loa trợ lý giọng nói hình trụ, vành đèn LED viền trên, chụp trên nền trắng.",
+              },
+            },
+            {
+              title: "Edge AI siêu tiết kiệm điện",
+              body: "Chạy FCNN, CNN, DNN, RNN ngay trên thiết bị, không cần mạng.",
+              media: {
+                src: "/media/apps/mint-wearable.webp",
+                alt: "Đồng hồ thông minh mặt tròn, dây đeo silicon đen, chụp nghiêng 3/4 trên nền trắng.",
+              },
+            },
           ],
           specs: [
             {
@@ -144,41 +165,69 @@ export const vi: SiteContent = {
           origin: "ps",
         },
         {
-          id: "papaya",
-          name: "PAPAYA",
-          tagline: "",
-          body: "",
-          capabilities: [],
-          specs: [],
-          media: {
-            src: "/media/chips/papaya.webp",
-            alt: "Chip PAPAYA chụp nghiêng 3/4, cùng góc và cùng nền với MINT.",
-          },
-          status: "shipped",
-          origin: "ps",
-        },
-        {
           id: "papaya-flex",
-          name: "PAPAYA FLEX",
+          name: "PAPAYA · PAPAYA FLEX",
           tagline: "Analog-PIM · thị giác máy ở mức miliwatt",
-          body: "Cùng Analog-PIM, chuyển sang tải ảnh: nhỏ hơn NVIDIA Jetson Nano khoảng 25 lần. Lợi thế là điện và kích thước — huấn luyện mô hình lớn thì GPU vẫn đúng.",
+          body: "Số đo của PAPAYA FLEX lấy trên tải thị giác máy, còn PAPAYA ở trạm gốc 5G. Lợi thế là điện và kích thước — huấn luyện mô hình lớn vẫn cần GPU.",
           capabilities: [
-            { title: "AI thị giác", body: "Soi lỗi, đếm, phân loại cho sản xuất và y tế." },
-            { title: "Camera", body: "Suy luận chạy ngay trong camera, hình không rời thiết bị." },
-            { title: "Kiểm tra ngoại quan", body: "Bắt lỗi ngay trên chuyền, ở mức điện của một cảm biến." },
-            { title: "Robot", body: "Phát hiện bất thường, bảo trì dự đoán cho robot và máy móc." },
+            {
+              title: "AI thị giác",
+              body: "Soi lỗi, đếm, phân loại cho sản xuất và y tế.",
+              media: {
+                src: "/media/apps/papaya-flex-vision-camera.webp",
+                alt: "Camera thị giác máy công nghiệp, ống kính rời, thân nhôm có rãnh tản nhiệt.",
+              },
+            },
+            {
+              title: "Camera",
+              body: "Suy luận chạy ngay trong camera, hình không rời thiết bị.",
+              media: {
+                src: "/media/apps/papaya-flex-security-camera.webp",
+                alt: "Camera an ninh dạng ống, vòng đèn hồng ngoại quanh ống kính, đế gắn tường.",
+              },
+            },
+            {
+              title: "Kiểm tra ngoại quan",
+              body: "Bắt lỗi ngay trên chuyền, ở mức điện của một cảm biến.",
+              media: {
+                src: "/media/apps/papaya-flex-overhead-sensor.webp",
+                alt: "Cảm biến thị giác gắn trên thanh ray trần, ống kính hướng xuống, đèn LED chiếu sáng quanh ống kính.",
+              },
+            },
+            {
+              title: "Robot",
+              body: "Phát hiện bất thường, bảo trì dự đoán cho robot và máy móc.",
+              media: {
+                src: "/media/apps/papaya-flex-warehouse-robot.webp",
+                alt: "Khối đế robot tự hành trong kho, dáng dẹt bo góc, đèn báo trạng thái màu cam.",
+              },
+            },
           ],
           specs: [
             {
               value: "~50×",
-              label: "Điện năng thấp hơn NVIDIA Jetson Nano",
-              note: "0,1–0,15 W so với 5–10 W của NVIDIA Jetson Nano, cùng tải thị giác máy (ResNet-50).",
+              label: "Điện năng chip PAPAYA FLEX, thấp hơn NVIDIA Jetson Nano",
+              note: "0,1–0,15 W so với 5–10 W của NVIDIA Jetson Nano.",
               source: "Pebble Square IR Deck 05/01/2026 — số do hãng tự công bố",
               status: "shipped",
             },
             {
+              value: "~100×",
+              label: "Hiệu suất chip PAPAYA FLEX, cao hơn NVIDIA Jetson Nano",
+              note: "333–500 so với 3,6–7,2 FPS/W của NVIDIA Jetson Nano, đo trên ResNet-50.",
+              source: "Pebble Square IR Deck 05/01/2026 — benchmark của hãng",
+              status: "shipped",
+            },
+            {
+              value: "~25×",
+              label: "Kích thước chip PAPAYA FLEX, nhỏ hơn NVIDIA Jetson Nano",
+              note: "10×10 mm so với 70×45 mm của NVIDIA Jetson Nano.",
+              source: "Pebble Square IR Deck 05/01/2026 — kích thước theo hãng",
+              status: "shipped",
+            },
+            {
               value: "~10.000×",
-              label: "Điện cho tác vụ AI tại trạm gốc 5G",
+              label: "Điện năng chip PAPAYA cho tác vụ AI tại trạm gốc 5G, thấp hơn NVIDIA L4",
               note: "So với NVIDIA L4: 320–332 W còn 0,03 W. Cho riêng tác vụ AI, không phải cả trạm.",
               source: "Pebble Square IR Deck 05/01/2026",
               status: "shipped",

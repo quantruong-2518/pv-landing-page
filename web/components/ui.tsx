@@ -22,12 +22,20 @@ export function Section({
   id,
   tone = "light",
   screen = false,
+  dense = false,
   className,
   children,
 }: {
   id?: string;
   tone?: "light" | "dark";
   screen?: boolean;
+  /**
+   * Catalogue rhythm: nine blocks back to back, each already opening with a
+   * ruled identity bar and closing with a horizontal row. The band change and
+   * those two rules separate the blocks, so the padding does not have to — a
+   * full opener band between every two of them is 80px of nothing, nine times.
+   */
+  dense?: boolean;
   className?: string;
   children: ReactNode;
 }) {
@@ -35,7 +43,8 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "relative flex flex-col justify-center py-14 sm:py-20 lg:py-24",
+        "relative flex flex-col justify-center",
+        dense ? "py-7 sm:py-12 lg:py-14" : "py-14 sm:py-20 lg:py-24",
         screen && "min-h-[calc(100svh-var(--header-h))] snap-start",
         tone === "dark" && "tone-dark bg-bg text-fg",
         className,
@@ -187,18 +196,31 @@ export function FactRow({ label, value, className }: { label: string; value: str
   );
 }
 
-/** A measured number with its method and source, both labelled. */
+/**
+ * A measured number with its method and source, both labelled.
+ *
+ * Only a `roadmap` number carries a badge (GM, 2026-08-24): "ĐÃ CÓ" on a part
+ * that is on sale tells a buyer nothing, and it was printing twice per block —
+ * once by the product, once by its number. The same convention the home
+ * timeline has always used (`page-home.tsx`: `status="roadmap"`). Rule #1 is
+ * unchanged where it matters: `status` is still required, still drives what is
+ * labelled, and the method and source lines below never move.
+ */
 export function SpecCard({ spec, statusLabel, sourceLabel }: { spec: Spec; statusLabel: string; sourceLabel: string }) {
   return (
-    <div className="flex flex-col border-t-2 border-fg pt-4">
-      <StatusBadge status={spec.status} label={spec.statusNote ?? statusLabel} />
-      <p className="mt-4 font-mono text-3xl font-medium leading-none tracking-tight text-fg sm:text-4xl">
-        {spec.value}
-        {spec.unit ? <span className="ml-1.5 text-base text-muted sm:text-lg">{spec.unit}</span> : null}
-      </p>
-      <p className="mt-3 text-sm font-medium leading-snug">{spec.label}</p>
-      <p className="mt-2 flex-1 text-[0.82rem] leading-relaxed text-muted">{spec.note}</p>
-      <p className="mt-4 border-t border-line pt-3 font-mono text-[0.6rem] leading-relaxed text-subtle">
+    <div className="flex flex-col border-t-2 border-fg pt-3">
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
+        <p className="font-mono text-[1.7rem] font-medium leading-none tracking-tight text-fg sm:text-3xl">
+          {spec.value}
+          {spec.unit ? <span className="ml-1 text-sm text-muted sm:text-base">{spec.unit}</span> : null}
+        </p>
+        {spec.status === "roadmap" ? (
+          <StatusBadge status={spec.status} label={spec.statusNote ?? statusLabel} />
+        ) : null}
+      </div>
+      <p className="mt-2 text-sm font-medium leading-snug">{spec.label}</p>
+      <p className="mt-1.5 flex-1 text-[0.8rem] leading-relaxed text-muted">{spec.note}</p>
+      <p className="mt-2.5 font-mono text-[0.6rem] leading-relaxed text-subtle">
         <span className="sr-only">{sourceLabel}: </span>
         {spec.source}
       </p>
@@ -211,7 +233,7 @@ export function ItemList({ items, className }: { items: Item[]; className?: stri
   return (
     <dl className={cn("grid gap-x-8", className)}>
       {items.map((item) => (
-        <div key={item.title} className="border-t border-line py-3">
+        <div key={item.title} className="border-t border-line py-2 sm:py-3">
           {/* A title may never render smaller than the body under it. */}
           <dt className="text-base font-medium leading-snug sm:text-[0.95rem]">{item.title}</dt>
           {item.body ? (
@@ -234,6 +256,8 @@ export function Figure({
   pendingLabel,
   className,
   priority,
+  compact,
+  bare,
 }: {
   media: Media;
   ratio?: string;
@@ -241,13 +265,27 @@ export function Figure({
   pendingLabel: string;
   className?: string;
   priority?: boolean;
+  /** Frame too small to print the brief — a rail card at 176px wide. */
+  compact?: boolean;
+  /** Drop the card and let the file sit on the page. For cut-outs on
+      transparency only: a filled panel behind one draws a box the picture does
+      not have. A pending frame must never be bare — the crossbar grid and the
+      corner ticks are only legible against `bg-surface`. */
+  bare?: boolean;
 }) {
   return (
-    <figure className={cn("relative overflow-hidden border border-line bg-surface", ratio, className)}>
+    <figure className={cn("@container relative overflow-hidden", !bare && "border border-line bg-surface", ratio, className)}>
       {media.src ? (
-        <Image src={media.src} alt={media.alt} fill sizes={sizes} priority={priority} className="object-cover" />
+        <Image
+          src={media.src}
+          alt={media.alt}
+          fill
+          sizes={sizes}
+          priority={priority}
+          className={bare ? "object-contain" : "object-cover"}
+        />
       ) : (
-        <MediaPending alt={media.alt} label={pendingLabel} />
+        <MediaPending alt={media.alt} label={pendingLabel} compact={compact} />
       )}
     </figure>
   );
@@ -312,11 +350,12 @@ export function ChipPlinth({
   return (
     <figure
       className={cn(
-        "tone-dark relative isolate overflow-hidden border border-line bg-bg",
-        // Square from `md`, where the plinth shares a row with the copy and costs
-        // no page height; shallower below that, where it would otherwise eat half
-        // a viewport before the reader has met the product.
-        "aspect-[5/4] md:aspect-square",
+        "@container tone-dark relative isolate overflow-hidden border border-line bg-bg",
+        // Square everywhere: the plinth shares a row with the copy on every
+        // width now, including phones, so it costs a column and not page height.
+        // Full-width on a phone it was 280px of an 788px budget that has to hold
+        // the whole product.
+        "aspect-square",
         className,
       )}
     >
@@ -331,8 +370,8 @@ export function ChipPlinth({
           src={media.src}
           alt={media.alt}
           fill
-          sizes="(min-width: 1024px) 36vw, (min-width: 640px) 62vw, 90vw"
-          className="object-contain p-[5%] lg:p-[7%]"
+          sizes="(min-width: 1024px) 26vw, (min-width: 768px) 30vw, 38vw"
+          className="chip-lift object-contain p-[5%] lg:p-[7%]"
         />
       ) : (
         <MediaPending alt={media.alt} label={pendingLabel} />
@@ -373,7 +412,7 @@ export function AppRail({
         aria-label={label}
         tabIndex={0}
         className={cn(
-          "rail mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-1",
+          "rail mt-3 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-1",
           // Bleeds to the screen edge below `lg` so the row is visibly a row that
           // continues; contained once every card fits.
           "-mx-5 px-5 sm:-mx-8 sm:px-8 lg:mx-0 lg:px-0",
@@ -385,24 +424,24 @@ export function AppRail({
         )}
       >
         {items.map((item) => (
-          <li
-            key={item.title}
-            className="w-[74%] shrink-0 snap-start sm:w-[46%] lg:w-[calc((100%-2rem)/3)]"
-          >
-            {/* No `src` yet: the placeholder prints the label as its own brief,
-                so the rail reads as a rail and doubles as the shot list. */}
+          <li key={item.title} className="w-32 shrink-0 snap-start sm:w-40 lg:w-44">
+            {/* Thumbnail plus label, no prose (GM, 2026-08-24): the rail names
+                where the part is used, it does not argue the case — that is what
+                the claim and the numbers above it are for. A fixed card width,
+                not a fraction, so all five rails on the page cut their pictures
+                to one size and read as one set. */}
             <Figure
               media={item.media ?? { alt: item.title }}
               ratio="aspect-[16/10]"
-              sizes="(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 74vw"
+              sizes="(min-width: 1024px) 176px, (min-width: 640px) 160px, 128px"
               pendingLabel={pendingLabel}
+              compact
+              // The app photos are cut-outs on transparency: framed, each one
+              // reads as a card of tinted background with a small object in it.
+              // Slots still waiting for a shot keep the frame.
+              bare={Boolean(item.media?.src)}
             />
-            <p className="mt-3 border-t border-line pt-2.5 text-base font-medium leading-snug sm:text-[0.95rem]">
-              {item.title}
-            </p>
-            {item.body ? (
-              <p className="mt-1.5 text-base leading-relaxed text-muted sm:text-sm">{item.body}</p>
-            ) : null}
+            <p className="mt-2 text-[0.82rem] font-medium leading-snug sm:text-sm">{item.title}</p>
           </li>
         ))}
       </ul>
@@ -410,26 +449,44 @@ export function AppRail({
   );
 }
 
-function MediaPending({ alt, label }: { alt: string; label: string }) {
+function MediaPending({ alt, label, compact }: { alt: string; label: string; compact?: boolean }) {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2.5 p-6 text-center">
+    <div
+      className={cn(
+        "absolute inset-0 flex flex-col items-center justify-center gap-2.5 text-center",
+        compact ? "p-3" : "p-6",
+      )}
+    >
       <div className="crossbar absolute inset-0 opacity-70" aria-hidden />
-      <Corners />
-      <p className="relative font-mono text-[0.6rem] uppercase tracking-[0.16em] text-subtle">{label}</p>
-      <p className="relative max-w-[30ch] text-xs leading-relaxed text-muted">{alt}</p>
+      <Corners compact={compact} />
+      <p
+        className={cn(
+          "relative font-mono uppercase tracking-[0.16em] text-subtle",
+          compact ? "text-[0.55rem]" : "text-[0.6rem]",
+        )}
+      >
+        {label}
+      </p>
+      {/* Whether the brief fits is a question about the frame, not about the
+          page — the same plinth is 139px beside a phone identity and 364px in a
+          desktop column — so a container query answers it. Under ~15rem only the
+          label shows; above it the placeholder goes on doubling as the shot list
+          (context/media-plan.md 5d). */}
+      <p className="relative hidden max-w-[30ch] text-xs leading-relaxed text-muted @min-[15rem]:block">{alt}</p>
     </div>
   );
 }
 
 /** Viewfinder ticks — reads as a frame waiting for a shot. */
-function Corners() {
-  const corner = "absolute h-3 w-3 border-line-strong";
+function Corners({ compact }: { compact?: boolean }) {
+  const corner = cn("absolute border-line-strong", compact ? "h-2 w-2" : "h-3 w-3");
+  const inset = compact ? ["left-2 top-2", "right-2 top-2", "bottom-2 left-2", "bottom-2 right-2"] : ["left-3 top-3", "right-3 top-3", "bottom-3 left-3", "bottom-3 right-3"];
   return (
     <span aria-hidden>
-      <span className={cn(corner, "left-3 top-3 border-l border-t")} />
-      <span className={cn(corner, "right-3 top-3 border-r border-t")} />
-      <span className={cn(corner, "bottom-3 left-3 border-b border-l")} />
-      <span className={cn(corner, "bottom-3 right-3 border-b border-r")} />
+      <span className={cn(corner, inset[0], "border-l border-t")} />
+      <span className={cn(corner, inset[1], "border-r border-t")} />
+      <span className={cn(corner, inset[2], "border-b border-l")} />
+      <span className={cn(corner, inset[3], "border-b border-r")} />
     </span>
   );
 }

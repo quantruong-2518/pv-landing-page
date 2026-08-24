@@ -55,6 +55,101 @@ state: open · assigned · fixed · verified · rejected · routed · backlog
 - ux-14 (MINOR) — slot ảnh #private-ai (sơ đồ 5 đích triển khai) đang lặp lại đúng nội dung của thang bậc chữ 60px bên dưới nó (cùng 5 bước, cùng tên phần cứng). Đề xuất: HOẶC bỏ slot ảnh (thang chữ chiếm trọn 1072px), HOẶC brief lại để sơ đồ thể hiện thứ chữ không làm được — thang điện năng từ milliwatt tới rack, vẽ theo tỉ lệ tương đối.
 - ux-12 — backlog #29 (bỏ `screen` khỏi khối index) đúng hướng nhưng số liệu ghi trong đó thấp hơn thực tế 1 bậc: thực đo 755px/703px budget ở 1024×768 (+52px), không phải mức lệch 4px như backlog ghi ở 1366×768. Cần cập nhật số trong docs/05-backlog.md #29 trước khi GM quyết.
 
+## Bố cục khối sản phẩm viết lại — GM chốt trực tiếp 2026-08-24 (ngoài vòng review)
+
+Yêu cầu của GM, nguyên văn: *ảnh một bên, một bên là thông tin cực kỳ gọn — dùng cho loại việc gì, số đo
+đã có — ứng dụng là dòng cuối cùng chạy ngang, ảnh nhỏ vừa đủ nhìn, có nhãn là đủ, không cần mô tả;
+mobile chủ động; content vừa phải, spacing tối ưu trong section nhưng không được quá dài.*
+Bố cục mới ghi ở `docs/03-structure.md` §4b. Đo trên build production, 1428×893:
+
+| | trước | sau |
+|---|---|---|
+| tổng trang | 9.326px | **7.012px** (−25%) |
+| MINT (cõng đầu mục 2.1) | 1.429px | **995px** |
+| PAPAYA · FLEX · ESPRESSO · GPU | 747 · 1.185 · 1.185 · 1.185 | **524 · 748 · 780 · 748** |
+| Enterprise · Private AI | 964 · 834 | **749 · 671** |
+| budget một màn | 829px | 829px — mọi khối lọt, trừ MINT |
+
+Ở 390×844 (production): không tràn ngang (`scrollWidth` = 390), không vùng chạm nào < 44px trong `<main>`.
+
+**Ảnh hưởng tới sổ finding — cần đo lại, không tự đóng (luật 3, CLAUDE.md §7):**
+
+| id | chuyện gì đã xảy ra |
+|---|---|
+| eng-01 | `md:sticky` đã bị **gỡ** khỏi `<ChipPlinth>` — câu hỏi "sticky có phá nhịp snap không" giờ vô nghĩa theo cách khác với lúc nêu. ux-reviewer đóng hay chuyển thành `rejected`, engineer không đóng hộ. |
+| eng-02 | Khối GPU vẫn lệch nhưng nhẹ hơn: bệ 419 → **364px**, cột chữ vẫn ~50px. Gốc vẫn là nội dung mỏng (0 spec) — không phải bố cục. |
+| eng-03 | Rail đã đổi hình: thẻ 237–334px → **136/160/176px cố định**, bỏ mô tả, placeholder chuyển sang bản `compact` (chỉ nhãn "Ảnh đang chờ", brief `alt` thành `sr-only`). Phải đo lại trên máy thật. |
+| ux-05 | Giữ nguyên nguyên tắc (rule chạy hết bề ngang được cấp), nhưng `SpecCard` đã nén còn ~140px và nhãn bằng chứng chuyển lên cùng dòng con số. |
+| ux-10 | Mốc ngang chung vẫn còn — dải nhận dạng vẫn full-width, chỉ còn một dòng thay vì ba. |
+
+**Sinh ra một mục backlog mới:** #37 — 15 câu `capabilities[].body` không còn được render. Chuỗi vẫn nằm
+trong `vi.ts`, nhưng những dữ kiện tra được trong đó (NDA MEISEI 3/2024, PoC 2/2024, 640 TOPS PCIe Gen4)
+đã rời khỏi mắt người đọc. Quyết định của GM + writer, không phải của engineer.
+
+## Vòng GM thứ hai — "một chip = một màn ở mọi khổ" (2026-08-24, cùng ngày)
+
+Yêu cầu GM, nguyên văn: *ở màn điện thoại tôi muốn fit trong screen, spacing thật logic, các ứng dụng
+thì nên slide, các divider ít thôi — bỏ đi nếu được, "ĐÃ CÓ" bỏ đi vì quá vô nghĩa. Nhớ nhé, dù ở size
+màn hình nào cũng phải tối ưu content để 1 chip section 1 màn.*
+
+Sáu thay đổi, không cái nào đụng vào một chuỗi content:
+
+1. **Điện thoại: ảnh đứng cạnh cái tên**, mô tả chạy hết bề ngang dưới đó. Thumbnail 139px tốn 0px
+   chiều cao; ảnh full-width tốn 280px của budget 788px.
+2. **Đầu mục 2.1/2.2 rời khỏi khối sản phẩm** thành một dải tối mỏng ~100px (`<GroupBand>`). Nó là
+   thứ đã đẩy MINT lên 995px. Không trả về `<Section>` riêng vì đó là `ux-04`.
+3. **Bỏ nhãn "ĐÃ CÓ"** ở cả dải nhận dạng lẫn `SpecCard` — chỉ `roadmap` còn nhãn. Sinh backlog #38
+   (`footer.statusLegend` giờ tả một quy ước chỉ còn đúng một nửa).
+4. **Còn một đường kẻ trong khối**: hairline dưới dải nhận dạng, chỉ từ `md`. Bỏ hairline mở dải số
+   đo và hairline mở rail ứng dụng.
+5. **Số đo trượt ngang dưới `lg`** — cùng affordance với rail ứng dụng. Không số đo nào bị rút gọn;
+   phương pháp và nguồn đi nguyên vẹn theo thẻ.
+6. **Ảnh 4/12 từ `md`** (trước 5/12), và `MediaPending` chuyển sang **container query** nên ô ảnh chờ
+   tự biết in được brief hay chỉ in nhãn.
+
+Đo trên build production **cách ly** (`next build` + `next start` từ một bản copy ở scratchdir — xem
+"Ghi chú hạ tầng" bên dưới):
+
+| | 390×844 (b. 788) | 360×800 (b. 744) | 1309×818 (b. 754) |
+|---|---|---|---|
+| MINT | **690** ✔ | **677** ✔ | **756** (+2) |
+| PAPAYA FLEX | **705** ✔ | **692** ✔ | 854 (+100) |
+| ESPRESSO | **699** ✔ | **725** ✔ | **767** (+13) |
+| GPU | **476** ✔ | **472** ✔ | **737** ✔ |
+| Enterprise | **788** (khít) | 788 (+44) | **630** ✔ |
+| Private AI | 819 (+31) | 819 (+75) | **730** ✔ |
+| Index | 888 (+100) | 918 (+174) | **754** ✔ |
+| cả trang | **6.572** | 6.659 | **6.406** |
+
+Trước hai vòng GM hôm nay: 9.326px ở desktop, 9.910px ở 390px. Không tràn ngang ở bất kỳ khổ nào
+(`maxScrollX` = 0), không vùng chạm nào < 44px trong `<main>`.
+
+**Bốn khối phần cứng đạt luật một-chip-một-màn trên điện thoại.** Ba chỗ còn vượt và vì sao:
+
+| chỗ | vượt | nguyên nhân | ai sở hữu |
+|---|---|---|---|
+| Private AI (điện thoại) | +31 / +75 | 3 module + 5 đích triển khai, mỗi mục tiêu đề + mô tả | writer/GM — cắt chữ |
+| Enterprise (360px) | +44 | 5 module, mỗi cái 2–3 dòng mô tả | writer/GM — cắt chữ |
+| PAPAYA FLEX (desktop) | +100 | hai số đo, chú thích phương pháp 4 dòng mỗi số (vừa được viết dài thêm) | writer/GM — hoặc chấp nhận |
+| Index | +100 / +174 | backlog #29, đã có khuyến nghị bỏ `screen` | GM |
+
+**Một lỗi tự tìm thấy khi đo, đã sửa:** cột chữ là grid item nên mặc định `min-width: auto`; hàng số
+đo trượt ngang bên trong nó nong cả lưới ra 1.509px trên viewport 931px. Thêm `min-w-0`.
+
+**Ảnh hưởng tới sổ finding (vẫn không tự đóng — luật 3):** `eng-01` chết hẳn (`sticky` đã gỡ, `md`
+cũng không còn cột 5/12). `eng-03` phải đo lại lần nữa: rail đổi từ 176px xuống `8rem/10rem/11rem` và
+placeholder chuyển sang container query. `ux-05` vẫn đúng — một số đo giữ trọn bề ngang, chỉ khi có
+từ hai số mới thành rail.
+
+## Ghi chú hạ tầng (không phải finding)
+
+`next dev` và `next start` ở repo này **dùng chung thư mục `.next`**, nên một lần `npm run build` là
+dev server đang chạy gãy với `Cannot find module './331.js'` và CSS 404 — xảy ra ba lần trong phiên
+này, mỗi lần đều bị nhầm thành lỗi layout trong lúc đo. Cách đo an toàn: copy `web/` sang scratchdir,
+symlink `node_modules`, build và `next start` ở đó. Cách sửa gốc rẻ hơn: cho `distDir` đọc biến môi
+trường trong `next.config.mjs` — **đề xuất, chưa làm**, vì nó là thay đổi cấu hình repo và không ai
+yêu cầu.
+
 ## Cần làm lại
 - Review ngôn ngữ/typo cho toàn bộ nội dung products.* (114 chuỗi giờ đã có chữ thật, chưa qua review vì content-market-critic chạy trước khi viết xong, và trang vẫn đang bị viết lại bởi phiên khác) — điều phối lại content-market-critic SAU KHI trang ngừng thay đổi.
 - mob-15/ux-01 còn dư 24,6px ở 1023×768 — cần writer rút ngắn h1 hoặc lead của khối index.

@@ -105,6 +105,26 @@ decisions:
       is named or the number does not ship.
     still_open: []
 
+  papaya_pair:
+    question: >-
+      PAPAYA and PAPAYA FLEX were two blocks, one of them empty — docs/05-backlog.md #33/#34
+    answered: >-
+      one block, presented as a pair ("thông tin đôi"). GM, 2026-08-24, recorded in
+      docs/03-structure.md §1. Surviving anchor `papaya-flex`; the standalone `papaya`
+      entry is deleted from web/content/vi.ts, not left empty.
+    but: >-
+      the STRUCTURAL decision is closed; the PRODUCT FACT under it is not. The proof bank
+      never says what PAPAYA is relative to PAPAYA FLEX — §D lists the family as
+      MOCHA → MINT → PAPAYA FLEX and §E2 carries one bare-PAPAYA row. GM's reading (family
+      name / lower performance tier) lives in docs/05-backlog.md #34, which is not a proof
+      bank row and has no claim id.
+    consequence: >-
+      The copy names each part by WHAT IT WAS MEASURED ON — sourced directly from §E2 — and
+      says nothing about how the two relate. The pairing is carried by the structure GM chose:
+      one block, one application rail, four labelled numbers. The tagline stays tier-neutral.
+      The heading is renamed — see open_decisions/papaya-pair-heading (resolved).
+    still_open: [papaya-pair-relationship]
+
   kicker_numbering:
     question: is products.intro.kicker an index number like home's `01 · …`
     answered: numbered. `2.1` and `2.2` are the section indices the structure doc already uses.
@@ -218,30 +238,61 @@ blocks:
         - value: energy efficiency, the backbone number
           must_carry: [architecture, throughput, die size, measured on real silicon, mass production date]
 
+  # ONE block for both names since 2026-08-24 — docs/03-structure.md §1, backlog #33/#34.
+  # The anchor stays `papaya-flex`; the standalone `papaya` entry is deleted, not emptied.
   - id: products.hardware.papaya
     origin: ps
     status: shipped
-    claims: [C005, C006, C007, C016]
+    claims: [C005, C006, C007, C034, C016]
     intent:
-      communicate: the vision part, and the honest shape of its advantage
-      reader_question: how can something this small beat a GPU
+      communicate: >-
+        the vision part, the honest shape of its advantage, and which of the two
+        names each measured number belongs to
+      reader_question: how can something this small beat a GPU — and what is PAPAYA next to PAPAYA FLEX
     mechanisms:
       - the same analog-PIM architecture applied to image workloads
     qualifiers:
-      - every multiple must name its counterparty — C005, C006, C007
+      - every multiple must name its counterparty — C005, C006, C007, C034
       - C006 must name ResNet-50; C007 applies to the AI task at the base station, not the station
       - the advantage is power and size, not general superiority — say so plainly
+      - >-
+        each spec label names WHICH of the two parts it measured. §E2 attributes three
+        rows to PAPAYA FLEX and one to bare PAPAYA; a merged block that hides that is
+        worse than two blocks, not better.
     forbidden:
       - a bare multiple with no counterparty
       - implying it replaces a GPU for training
+      - >-
+        stating the RELATIONSHIP between the two names as fact — family, tier, same die,
+        one entry point. See open_decisions/papaya-pair-relationship. The proof bank carries
+        no such row and the ledger no such id; only what each number was measured on may be said.
+      - inventing a tier scheme or a name the parent has not published
     slots:
-      name: product name, verbatim
-      tagline: architecture and the scale it operates at
-      body: what it is for, then the limit of the comparison stated by us before the reader finds it
+      name: >-
+        product name, verbatim. `PAPAYA · PAPAYA FLEX` — open_decisions/papaya-pair-heading
+        closed by GM, 2026-08-24 (main session).
+      tagline: architecture and the scale it operates at — true of both parts, names neither
+      body: >-
+        which of the two names each number was measured on, then the limit of the
+        comparison stated by us before the reader finds it
       capabilities: [vision AI, camera, inspection, robotics]
       specs:
-        - value: power multiple against the named counterparty
-        - value: multiple for the AI task at a 5G base station
+        - value: power multiple, PAPAYA FLEX against the named counterparty
+        - value: efficiency multiple, PAPAYA FLEX — must name ResNet-50
+        - value: package-size multiple, PAPAYA FLEX — C034
+        - value: multiple for the AI task at a 5G base station, PAPAYA
+      spec_strip:
+        order: the three PAPAYA FLEX rows first, the PAPAYA row last — grouped by part, not by axis
+        count: >-
+          four. docs/05-backlog.md #34 (GM, 2026-08-24) puts all four §E2 rows in this one
+          block. At `lg` the strip renders two columns, so four is two balanced rows and
+          three would leave an orphan; the choice is 2 or 4, never 3.
+        height_cost: >-
+          measured 2026-08-24 after apply — see revision_log. The block is `height: content`,
+          so a taller strip costs page length, not an overflow.
+        source_line: >-
+          all four carry the same vendor-published caveat. One row without it implies the
+          other three were verified independently.
 
   - id: products.hardware.espresso
     origin: ps
@@ -366,6 +417,38 @@ chrome:
     products: title and description for the catalogue page
 
 open_decisions:
+  - id: papaya-pair-relationship
+    blocks: >-
+      saying out loud what the reader is left to infer — that PAPAYA and PAPAYA FLEX are
+      two performance levels of one chip line, which is GM's own stated reason for merging
+      the block (docs/05-backlog.md #34).
+    owner: GM
+    route: >-
+      docs/01-proof-bank.md §D or §E2 gains one row naming what "PAPAYA" is, with its source;
+      content-system/claims/approved.yaml mirrors it as a new id. Then TWO keys regenerate —
+      products.hardware.items[1].tagline and .body — and nothing else moves.
+    until_then: >-
+      the copy states only what §E2 measured on which part. No family, no tier, no "cùng một
+      dòng chip" anywhere on the page.
+
+  - id: papaya-pair-heading
+    blocks: >-
+      whether the merged block's heading becomes `PAPAYA · PAPAYA FLEX`, the notation
+      docs/03-structure.md §1 itself uses for the pair.
+    owner: GM — a one-line change to products.hardware.items[1].name
+    argument_for: >-
+      the same string renders in three places (block h3, catalogue index card, header
+      dropdown). A buyer who arrived looking for PAPAYA does not find the word in the index
+      at all today; they meet it first inside a spec label, halfway down the block.
+    argument_against: >-
+      it is a name change with page-wide reach and it was not in the work order that
+      commissioned this run. Names are `never_rewritten` in this file's length_budget.
+    resolved: >-
+      GM, 2026-08-24 (main session) — rename to `PAPAYA · PAPAYA FLEX`, matching
+      docs/03-structure.md §1's own notation. Applied to
+      products.hardware.items[1].name in web/content/vi.ts and mirrored in
+      content-system/output/products.vi.json.
+
   - id: enterprise-platform-base
     blocks: naming what the suite is built on
     owner: GM — docs/05-backlog.md #17
@@ -401,4 +484,44 @@ scope:
     `status`, `origin`, `id` and `starred` are not content and are not touched by the apply
     (CLAUDE.md §3b). ui.* and origin.* are chrome shared with HOME and CONTACT — writing them
     here also clears the `ui-imagePending-placeholder` finding in specs/contact.yaml.
+
+# ── Repair run — PAPAYA pair, 2026-08-24 ───────────────────────────────────
+# Not a page rewrite. The requester's decision was structural (docs/03-structure.md §1);
+# what needed writing was the block's own copy plus the deletion of the empty entry.
+# Artifact: content-system/output/products.papaya-pair.vi.json (and products.vi.json,
+# kept in sync so the page artifact still matches what ships).
+repair_2026_08_24_papaya_pair:
+  regenerated:
+    - products.hardware.items[1].body
+    - products.hardware.items[1].specs[0].{label,note,source}
+    - products.hardware.items[1].specs[1].*        # new — efficiency, ResNet-50
+    - products.hardware.items[1].specs[2].*        # new — package size, C034
+    - products.hardware.items[1].specs[3].{label,source}   # the 5G row, moved from specs[1]
+  deleted:
+    - products.hardware.items[] entry `id: papaya` — emptied block, no copy, no numbers
+  untouched_on_purpose:
+    - products.hardware.items[1].name          # open_decisions/papaya-pair-heading
+    - products.hardware.items[1].tagline       # tier-neutral already; see below
+    - products.hardware.items[1].capabilities[].*   # the rail is out of this run's scope
+    - products.hardware.items[1].media.alt
+    - products.hardware.items[1].specs[3].note      # already carries C007's qualification
+    - products.hardware.{title,lead}           # "Ba con chip" becomes exactly true after the merge
+  measured_after_apply: >-
+    1440×900 and 1280×800, production build, CSS confirmed loaded (--header-h resolves):
+    #papaya-flex = 855px, page = 6404px, no horizontal overflow. The reference in
+    docs/07-loop/products.md for the same block with two numbers was 748px at 1428×893,
+    so the two extra SpecCards cost +107px and the block now sits just over the 829px
+    one-screen budget — inside the "~860px ≈ vừa một màn" figure docs/03-structure.md §3
+    itself uses, and the block is `height: content`, so nothing overflows. Below `lg` the
+    strip is a horizontal snap rail in the layout as built on 2026-08-24, not a stack, so
+    the two extra cards cost no vertical height there. Mobile belongs to mobile-ui-reviewer
+    on a real browser (CLAUDE.md §7); headless emulation below 500px was not trustworthy
+    in this run and no mobile number from it is recorded here.
+  tagline_note: >-
+    `Analog-PIM · thị giác máy ở mức miliwatt` survives the merge unchanged because it is
+    already true of both parts (§D puts the family on Analog-PIM; §E2 measures 0,1–0,15 W
+    and 0,03 W — both milliwatt-class) and it names neither. Every rewrite that signalled
+    the pair either asserted the relationship the proof bank does not carry, or promised a
+    second name the heading does not show. It also renders as the catalogue index subtitle,
+    where `thị giác máy` is what separates this entry from MINT.
 

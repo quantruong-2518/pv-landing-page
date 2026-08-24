@@ -12,12 +12,11 @@
 │   └── Lịch sử hình thành
 │
 ├── 2. SẢN PHẨM & GIẢI PHÁP     /vi/products
-│   ├── 2.1 HARDWARE            — một chip = một khối, theo thứ tự họ chip
-│   │   ├── MINT        → Sensor AI · Voice AI · Ultra-low-power edge AI
-│   │   ├── PAPAYA      → (nội dung chưa có — backlog #33)
-│   │   ├── PAPAYA FLEX → Vision AI · Camera · Inspection · Robotics
-│   │   ├── ESPRESSO    → Large-model inference · AI accelerator · AI server
-│   │   └── GPU / HPC   → GPU · AI training · Large-scale inference · HPC · AI data center
+│   ├── 2.1 HARDWARE                 — một chip = một khối, theo thứ tự họ chip
+│   │   ├── MINT                     → Sensor AI · Voice AI · Ultra-low-power edge AI
+│   │   ├── PAPAYA · PAPAYA FLEX     → Vision AI · Camera · Inspection · Robotics — một khối "thông tin đôi"
+│   │   ├── ESPRESSO                 → Large-model inference · AI accelerator · AI server
+│   │   └── GPU / HPC                → GPU · AI training · Large-scale inference · HPC · AI data center
 │   └── 2.2 SOFTWARE
 │       ├── AI-optimized enterprise software → CRM · ERP/Ops · Workflow · Data & reporting · AI agent
 │       └── Private AI  → Build · Train/Adapt · Deploy
@@ -26,7 +25,16 @@
 └── 3. LIÊN HỆ                  /vi/contact
 ```
 
-**Ba trang, không phải năm.** Mỗi sản phẩm là một khối có anchor (`#mint`, `#papaya`, `#papaya-flex`,
+> **PAPAYA gộp lại với PAPAYA FLEX thành một khối "thông tin đôi" — GM chốt 24/08/2026,** đóng luôn
+> `docs/05-backlog.md` #33 và #34. Lý do GM đưa ra: hai con dùng chung ứng dụng (vision/edge AI), chỉ khác
+> mức hiệu năng — không phải hai sản phẩm cần hai câu chuyện riêng. Có cơ sở trong proof-bank: §D chỉ ghi
+> họ chip *MOCHA → MINT → PAPAYA FLEX*, chưa từng liệt PAPAYA đứng riêng; §E2 có đúng một dòng gắn nhãn
+> "PAPAYA" trần (trạm gốc 5G, ~10.000×) cạnh ba dòng "PAPAYA FLEX" (điện, hiệu suất, kích thước, cả ba vs
+> Jetson Nano) — khớp với việc "PAPAYA" trong deck là tên họ/tầng hiệu năng thấp hơn, không phải một
+> sản phẩm tách biệt. Khối giữ `id`/anchor `papaya-flex` (đã có ảnh, đã có content thật); tagline, body và
+> dải số đo viết lại để mang cả hai mức hiệu năng — qua cổng A→E của skill `content-i18n`, không viết tay.
+
+**Ba trang, không phải năm.** Mỗi sản phẩm là một khối có anchor (`#mint`, `#papaya-flex`,
 `#espresso`, `#gpu`, `#enterprise`, `#private-ai`) chứ không phải một route riêng — vì nội dung chi tiết chưa có,
 mở thêm route chỉ tạo thêm trang rỗng. Khi một sản phẩm đủ dày để đứng một mình thì tách sau; anchor
 đã sẵn nên URL cũ vẫn trỏ đúng chỗ.
@@ -65,6 +73,10 @@ Mọi `<Section>` vẫn mang `scroll-snap-align: start`, nên cuộn luôn dừn
 |---|---|
 | Hero, index của `/products`, **khối LIÊN HỆ** | `min-h-[calc(100svh - var(--header-h))]` (`screen`) |
 | **Why Now**, Lịch sử, từng khối sản phẩm | theo nội dung |
+
+Chín khối `/products` dùng bước đệm hẹp `<Section dense>` (`py-10 sm:py-12 lg:py-14` thay cho
+`py-14 sm:py-20 lg:py-24`) từ 2026-08-24: mỗi khối đã tự mở bằng một dải có hairline và tự đóng
+bằng một hàng ngang, nên ranh giới đã rõ mà không cần thêm 80px trống, chín lần.
 
 > **`/vi/contact` bỏ khối `<dl>` điện thoại/email và khối văn phòng + pháp lý ngày 2026-08-24.**
 > GM chốt trực tiếp: mobile-ui-reviewer đo được footer lặp y nguyên bốn dữ kiện đó ngay sau nút
@@ -115,17 +127,20 @@ thì cắt ý khác hoặc tách khối mới.
 ```
 HOME                          /products                      /contact
 tối ▓▓▓  Hero                 tối ▓▓▓  Index                 sáng ░   Lời mời + form
-sáng ░   01 Why now           sáng ░   2.1 Hardware          tối ▓▓▓  Footer
+sáng ░   01 Why now           ▓▓ dải   2.1 Hardware          tối ▓▓▓  Footer
 tối ▓▓▓  02 Lịch sử           sáng ░   MINT
-tối ▓▓▓  Footer               xám ▒    PAPAYA
-                              sáng ░   PAPAYA FLEX
-                              xám ▒    ESPRESSO
-                              sáng ░   GPU / HPC
-                              tối ▓▓▓  2.2 Software     ← vạch ngăn phần cứng / phần mềm
+tối ▓▓▓  Footer               xám ▒    PAPAYA FLEX
+                              sáng ░   ESPRESSO
+                              xám ▒    GPU / HPC
+                              ▓▓ dải   2.2 Software     ← vạch ngăn phần cứng / phần mềm
                               sáng ░   Enterprise
                               xám ▒    Private AI
                               tối ▓▓▓  Lời mời          ← một nút duy nhất của cả trang
                               tối ▓▓▓  Footer
+
+`▓▓ dải` = dải tối mỏng ~100px mang đầu mục nhóm (§4b), không phải một khối. Từ 2026-08-24 khối
+Enterprise **không** còn bị tô tối để đánh dấu ranh giới 2.1/2.2 — dải làm việc đó, và khối sản phẩm
+được giữ lại nhịp sáng/xám như mọi khối khác.
 ```
 
 Dải tối = chỗ mắt **phải** dừng: mở màn, lịch sử công ty mẹ, ranh giới 2.1/2.2, lời mời. Xen kẽ sáng/xám
@@ -142,36 +157,79 @@ cả xếp dọc, theo đúng thứ tự đọc ở §4b.
 > sáu nút giống hệt nhau làm loãng đúng chỗ cần nhấn, và cộng ~90px mỗi khối. Reviewer nào nêu "trang
 > thiếu CTA" thì đọc lại dòng này trước khi rải nút.
 
-## 4b. Giải phẫu một khối phần cứng
+## 4b. Giải phẫu một khối sản phẩm
 
-Một chip = một `<Section>`. Thứ tự đọc **không đổi theo bề ngang**, chỉ hình học đổi:
+> **Luật GM, 2026-08-24: một chip = một màn, ở mọi khổ màn hình.** Không phải "gọn hơn" — vừa một
+> màn. Khi một khối không vừa, thứ phải co lại là **bố cục trước, rồi tới lượng chữ** (lượng chữ là
+> việc của writer, không phải của engineer — CLAUDE.md §7 ranh giới 2).
+
+Đo trên build production sau khi viết lại:
+
+| | điện thoại 390×844 (budget 788) | điện thoại 360×800 (budget 744) | desktop 1309×818 (budget 754) |
+|---|---|---|---|
+| MINT | **690** ✔ | **677** ✔ | **756** (+2) |
+| PAPAYA FLEX | **705** ✔ | **692** ✔ | 854 (+100) — hai số đo, mỗi số một chú thích 4 dòng |
+| ESPRESSO | **699** ✔ | **725** ✔ | **767** (+13) |
+| GPU | **476** ✔ | **472** ✔ | **737** ✔ |
+| Phần mềm doanh nghiệp | **788** (khít) | 788 (+44) | **630** ✔ |
+| AI riêng tư | 819 (+31) | 819 (+75) | **730** ✔ |
+| Index | 888 (+100, backlog #29) | 918 (+174) | **754** ✔ |
+| cả trang | **6.572px** (trước vòng này: 9.910) | 6.659 | **6.406px** |
+
+**Bốn khối phần cứng vừa một màn trên điện thoại.** Hai khối phần mềm và khối index thì chưa: phần
+còn lại của chúng là lượng chữ (5 module × tiêu đề + mô tả), không phải khoảng trắng.
+
+Một sản phẩm = một `<Section dense>`. **Một khung lưới, hai hình học:**
 
 ```
-điện thoại (<768)        md (768–1023)              lg (1024+)
-─────────────────        ──────────────────────     ──────────────────────────
-[ nhận dạng      ]       [ nhận dạng ──────── ]     [ nhận dạng ─────────────── ]  ← mốc ngang chung
-[ bệ chip 5:4    ]       [ bệ 5/12 │ mô tả    ]     [ bệ 5/12 │ mô tả          ]
-[ mô tả          ]       [ vuông   │ ── số đo ]     [ vuông   │ ── số đo (2 cột)]
-[ số đo          ]       [   dính  │          ]     [         │                ]
-[ rail ứng dụng →]       [ rail ứng dụng ──── ]     [ rail ứng dụng ─────────── ]
+điện thoại (<768)              md (768–1023)                lg (1024+)
+──────────────────────         ─────────────────────────    ──────────────────────────
+[ ảnh │ nhận dạng    ]         [ nhận dạng ──────────── ]   [ nhận dạng ────────────── ]
+[ mô tả ─────────────]         [ ảnh 4/12 │ mô tả       ]   [ ảnh 4/12 │ mô tả         ]
+[ số đo → trượt ─────]         [          │ số đo →     ]   [          │ số đo (2 cột) ]
+[ rail ứng dụng → ───]         [ rail ứng dụng ──────── ]   [ rail ứng dụng ────────── ]
 ```
 
-- **Dải nhận dạng** (origin + status + tên + tagline) chạy hết bề ngang, có hairline dưới. Đó là mốc
-  ngang chung của hai cột — sửa `ux-10`, nơi ảnh từng lệch 10–119px so với cột chữ, mỗi khối một kiểu.
-- **Bệ chip** là `<ChipPlinth>`: panel `tone-dark` + crossbar + vũng sáng trung tính, ảnh
-  `object-contain`. Bốn render chip là ảnh nền trong suốt có quầng sáng — trên dải sáng thì quầng đục
-  và mép die cháy, nên **mọi chip đứng trên cùng một bệ tối bất kể dải của khối**. Đó cũng là thứ khiến
-  bốn ảnh đọc ra *một bộ* (media-plan luật 1). Từ `md` bệ **dính** (`sticky`) trong ô đã kéo cao, nên
-  chip còn trong tầm mắt khi người đọc lướt qua số đo của chính nó.
-- **Hàng `roadmap` mang nhãn ngay trong khung ảnh.** Render đủ bóng bẩy để bị đọc là hàng đang bán nếu
-  nhãn và ảnh rời nhau — kể cả bằng một cú chụp màn hình (`CLAUDE.md` §2 luật 4).
-- **Dải số đo** mở bằng hairline, mỗi `SpecCard` giữ rule đậm của riêng nó và luôn chạy hết bề ngang
-  được cấp — một số đo không còn hứa ba cột rồi bỏ trống 68% (`ux-05`).
-- **Rail ứng dụng** là `<AppRail>`: scroll-snap thuần CSS, không JS, không mũi tên, không chấm. Thẻ kế
-  tiếp ló ra ở mép phải **chính là affordance**; đủ rộng cho hết thẻ thì rail thôi cuộn. Dưới `lg` rail
-  tràn ra mép màn hình (`-mx-5 px-5` + `scroll-pl-5`, để `snap-start` không nuốt mất lề). Nhãn thẻ là
-  `capabilities[].title`; ảnh là `capabilities[].media`, còn trống thì `<Figure>` vẽ placeholder lấy
-  chính nhãn làm brief — nên rail vẫn đọc ra rail, và tự làm luôn danh sách ảnh cần chụp.
+- **Trên điện thoại ảnh đứng cạnh cái tên, không đứng trên đoạn chữ.** Một thumbnail 139px cạnh dải
+  nhận dạng tốn **0px chiều cao**; cùng tấm ảnh đó trải hết bề ngang tốn 280px của một budget 788px,
+  và đặt nó thành một cột riêng thì cột chữ chạy quá đáy ảnh 200px. Đoạn mô tả nhờ thế được trọn
+  350px — đúng bề ngang cần để đọc ra văn xuôi.
+- **Từ `md` dải nhận dạng trở lại là mốc ngang full-width** phía trên chỗ chia cột (`ux-10`), và là
+  **một dòng**: tên · tagline · nhãn nguồn gốc đẩy về cuối dòng.
+- **Không còn nhãn "ĐÃ CÓ" (GM, 2026-08-24).** Hàng đang bán là mặc định; nhãn đó không nói gì với
+  người mua và trước đây in **hai lần mỗi khối** — một ở sản phẩm, một ở con số. Chỉ `roadmap` mới
+  mang nhãn, đúng quy ước dòng thời gian ở HOME vẫn dùng (`page-home.tsx`: `status="roadmap"`).
+  Luật #1 không đổi ở chỗ nó có nghĩa: `status` vẫn là trường bắt buộc, vẫn quyết định cái gì được
+  gắn nhãn, và dòng phương pháp + nguồn dưới mỗi số đo không bao giờ bị rút.
+- **Ảnh chiếm 4/12 từ `md`** (trước là 5/12): bệ chip vuông nên bề ngang quyết định chiều cao — ở
+  cửa sổ 931px nó cao 340px và một mình nó đẩy khối vượt màn laptop thấp.
+- **Số đo trượt ngang dưới `lg`**, giống hệt affordance của rail ứng dụng: hai số đo xếp dọc là 371px
+  của một màn điện thoại, và **không được phép bỏ bớt gì** — mỗi số giữ nguyên phương pháp đo và
+  nguồn. Từ `lg` cột chữ rộng 701px nên chúng nằm hai cột. Một số đo thì không phải rail: nó giữ trọn
+  bề ngang để rule đậm vẫn chạy hết (`ux-05`).
+- **Còn đúng một đường kẻ trong khối** (GM: bớt divider): hairline dưới dải nhận dạng, và chỉ từ `md`.
+  Hairline mở dải số đo và hairline mở rail đã bỏ — chữ mono nhỏ mở dải là đủ, và rule đậm của mỗi
+  số đo đứng ngay dưới đó 40px là một đường kẻ thứ hai không ai cần.
+- **Rail ứng dụng**: thẻ = ảnh nhỏ + nhãn, **không mô tả** (GM). Bề ngang thẻ cố định `8rem` ·
+  `sm:10rem` · `lg:11rem` nên năm rail trên trang cắt ảnh cùng một cỡ. Dưới `lg` rail tràn ra mép màn
+  hình (`-mx-5 px-5` + `scroll-pl-5`).
+- **Ô ảnh chờ tự biết mình rộng bao nhiêu.** `MediaPending` dùng **container query**: dưới ~15rem chỉ
+  in nhãn "Ảnh đang chờ", trên ngưỡng đó in cả brief (`alt`) — cùng một bệ chip là 139px cạnh dải
+  nhận dạng trên điện thoại và 364px trong cột desktop, nên câu hỏi "có in brief được không" là câu
+  hỏi về **cái khung**, không phải về bề ngang trang.
+- **Sản phẩm chưa có chữ thì ảnh không đổi bên**: lật một khối có cột chữ rỗng là để nửa màn trống.
+
+**Đầu mục 2.1 / 2.2 là một dải mỏng, không phải hành khách và cũng không phải một khối.** Trước đây nó
+cưỡi lên sản phẩm đầu nhóm và tốn của MINT ~230px — đúng thứ khiến "một chip một màn" gãy. Trả nó về
+một `<Section>` riêng thì tái phạm `ux-04` (một khối ngăn cách chiếm một điểm dừng rồi cắt cụt khối
+sau). Nên: một dải tối cao ~100px, kicker và tiêu đề chung một dòng, lead ở dòng dưới. Nó vẫn vẽ ranh
+giới 2.1/2.2 mà §4 cần, vẫn giữ anchor `#hardware` / `#software`, và quá thấp để bị nhầm là một màn.
+
+**Khối phần mềm đi cùng một nhịp** (`SoftwareBlock`): cùng khung lưới, cùng hai hình học, ảnh 16/10
+thay cho bệ chip. `modules` chạy **hết bề ngang dưới hàng ảnh–mô tả** (2 cột từ `sm`, 3 cột từ `lg`)
+chứ không nằm trong cột chữ: năm module xếp dọc trong một cột 197px trên điện thoại là một khối không
+màn nào chứa nổi, còn trên desktop ba module cuối đứng cạnh khoảng không. `targets` của AI riêng tư
+trượt ngang dưới `sm`, đúng vai "hàng đóng khối" mà rail ứng dụng giữ ở khối phần cứng.
 
 ## 5. Bảy ô ảnh
 
