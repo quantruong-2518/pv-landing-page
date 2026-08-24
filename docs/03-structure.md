@@ -12,9 +12,10 @@
 │   └── Lịch sử hình thành
 │
 ├── 2. SẢN PHẨM & GIẢI PHÁP     /vi/products
-│   ├── 2.1 HARDWARE
+│   ├── 2.1 HARDWARE            — một chip = một khối, theo thứ tự họ chip
 │   │   ├── MINT        → Sensor AI · Voice AI · Ultra-low-power edge AI
-│   │   ├── PAPAYA      → Vision AI · Camera · Inspection · Robotics
+│   │   ├── PAPAYA      → (nội dung chưa có — backlog #33)
+│   │   ├── PAPAYA FLEX → Vision AI · Camera · Inspection · Robotics
 │   │   ├── ESPRESSO    → Large-model inference · AI accelerator · AI server
 │   │   └── GPU / HPC   → GPU · AI training · Large-scale inference · HPC · AI data center
 │   └── 2.2 SOFTWARE
@@ -25,8 +26,8 @@
 └── 3. LIÊN HỆ                  /vi/contact
 ```
 
-**Ba trang, không phải năm.** Mỗi sản phẩm là một khối có anchor (`#mint`, `#papaya`, `#espresso`,
-`#gpu`, `#enterprise`, `#private-ai`) chứ không phải một route riêng — vì nội dung chi tiết chưa có,
+**Ba trang, không phải năm.** Mỗi sản phẩm là một khối có anchor (`#mint`, `#papaya`, `#papaya-flex`,
+`#espresso`, `#gpu`, `#enterprise`, `#private-ai`) chứ không phải một route riêng — vì nội dung chi tiết chưa có,
 mở thêm route chỉ tạo thêm trang rỗng. Khi một sản phẩm đủ dày để đứng một mình thì tách sau; anchor
 đã sẵn nên URL cũ vẫn trỏ đúng chỗ.
 
@@ -117,22 +118,60 @@ tối ▓▓▓  Hero                 tối ▓▓▓  Index                 sá
 sáng ░   01 Why now           sáng ░   2.1 Hardware          tối ▓▓▓  Footer
 tối ▓▓▓  02 Lịch sử           sáng ░   MINT
 tối ▓▓▓  Footer               xám ▒    PAPAYA
-                              sáng ░   ESPRESSO
-                              xám ▒    GPU / HPC
+                              sáng ░   PAPAYA FLEX
+                              xám ▒    ESPRESSO
+                              sáng ░   GPU / HPC
                               tối ▓▓▓  2.2 Software     ← vạch ngăn phần cứng / phần mềm
                               sáng ░   Enterprise
                               xám ▒    Private AI
+                              tối ▓▓▓  Lời mời          ← một nút duy nhất của cả trang
                               tối ▓▓▓  Footer
 ```
 
-Dải tối = chỗ mắt **phải** dừng: mở màn, lịch sử công ty mẹ, ranh giới 2.1/2.2. Xen kẽ sáng/xám
+Dải tối = chỗ mắt **phải** dừng: mở màn, lịch sử công ty mẹ, ranh giới 2.1/2.2, lời mời. Xen kẽ sáng/xám
 giữ ranh giới khối rõ ngay cả khi hai khối cùng tông đứng cạnh nhau.
 
 `/contact` là ngoại lệ có chủ ý kể từ 2026-08-24: trang chỉ có một việc, nên nó chỉ có một nền —
 trắng. Không có dải tối nào để "mở màn" vì không có gì phải cuộn qua trước khi tới form.
 
-Khối sản phẩm **đổi bên so le**: MINT ảnh phải, PAPAYA ảnh trái, ESPRESSO ảnh phải… Dưới `lg` tất cả
-xếp dọc: chữ trước, ảnh sau, số đo cuối.
+Khối sản phẩm **đổi bên so le**: MINT ảnh trái, PAPAYA ảnh phải, PAPAYA FLEX ảnh trái… Dưới `md` tất
+cả xếp dọc, theo đúng thứ tự đọc ở §4b.
+
+> **Một CTA cho cả trang (GM, 24/08/2026).** Khối đóng trang là dải tối cuối cùng trước footer: một câu
+> dẫn, một `<Lead>`, **đúng một nút** tới `/vi/contact`. Bản trước gắn nút vào cả sáu khối sản phẩm —
+> sáu nút giống hệt nhau làm loãng đúng chỗ cần nhấn, và cộng ~90px mỗi khối. Reviewer nào nêu "trang
+> thiếu CTA" thì đọc lại dòng này trước khi rải nút.
+
+## 4b. Giải phẫu một khối phần cứng
+
+Một chip = một `<Section>`. Thứ tự đọc **không đổi theo bề ngang**, chỉ hình học đổi:
+
+```
+điện thoại (<768)        md (768–1023)              lg (1024+)
+─────────────────        ──────────────────────     ──────────────────────────
+[ nhận dạng      ]       [ nhận dạng ──────── ]     [ nhận dạng ─────────────── ]  ← mốc ngang chung
+[ bệ chip 5:4    ]       [ bệ 5/12 │ mô tả    ]     [ bệ 5/12 │ mô tả          ]
+[ mô tả          ]       [ vuông   │ ── số đo ]     [ vuông   │ ── số đo (2 cột)]
+[ số đo          ]       [   dính  │          ]     [         │                ]
+[ rail ứng dụng →]       [ rail ứng dụng ──── ]     [ rail ứng dụng ─────────── ]
+```
+
+- **Dải nhận dạng** (origin + status + tên + tagline) chạy hết bề ngang, có hairline dưới. Đó là mốc
+  ngang chung của hai cột — sửa `ux-10`, nơi ảnh từng lệch 10–119px so với cột chữ, mỗi khối một kiểu.
+- **Bệ chip** là `<ChipPlinth>`: panel `tone-dark` + crossbar + vũng sáng trung tính, ảnh
+  `object-contain`. Bốn render chip là ảnh nền trong suốt có quầng sáng — trên dải sáng thì quầng đục
+  và mép die cháy, nên **mọi chip đứng trên cùng một bệ tối bất kể dải của khối**. Đó cũng là thứ khiến
+  bốn ảnh đọc ra *một bộ* (media-plan luật 1). Từ `md` bệ **dính** (`sticky`) trong ô đã kéo cao, nên
+  chip còn trong tầm mắt khi người đọc lướt qua số đo của chính nó.
+- **Hàng `roadmap` mang nhãn ngay trong khung ảnh.** Render đủ bóng bẩy để bị đọc là hàng đang bán nếu
+  nhãn và ảnh rời nhau — kể cả bằng một cú chụp màn hình (`CLAUDE.md` §2 luật 4).
+- **Dải số đo** mở bằng hairline, mỗi `SpecCard` giữ rule đậm của riêng nó và luôn chạy hết bề ngang
+  được cấp — một số đo không còn hứa ba cột rồi bỏ trống 68% (`ux-05`).
+- **Rail ứng dụng** là `<AppRail>`: scroll-snap thuần CSS, không JS, không mũi tên, không chấm. Thẻ kế
+  tiếp ló ra ở mép phải **chính là affordance**; đủ rộng cho hết thẻ thì rail thôi cuộn. Dưới `lg` rail
+  tràn ra mép màn hình (`-mx-5 px-5` + `scroll-pl-5`, để `snap-start` không nuốt mất lề). Nhãn thẻ là
+  `capabilities[].title`; ảnh là `capabilities[].media`, còn trống thì `<Figure>` vẽ placeholder lấy
+  chính nhãn làm brief — nên rail vẫn đọc ra rail, và tự làm luôn danh sách ảnh cần chụp.
 
 ## 5. Bảy ô ảnh
 
