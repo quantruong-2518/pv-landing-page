@@ -133,6 +133,23 @@ h3 {
   background-size: 56px 56px;
 }
 
+/* Silver-blue lettering mirrors the highlights on the 3D Pebble Vina mark. */
+.hero-brand-metal {
+  color: var(--color-fg);
+  background-image: linear-gradient(
+    105deg,
+    var(--color-fg) 8%,
+    color-mix(in srgb, var(--color-accent) 45%, var(--color-fg)) 34%,
+    var(--color-accent) 58%,
+    color-mix(in srgb, var(--color-accent) 38%, var(--color-fg)) 76%,
+    var(--color-fg) 94%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 28px color-mix(in srgb, var(--color-accent) 20%, transparent);
+}
+
 /* Pool of light under a chip render on <ChipPlinth>. Kept neutral: each render
    carries its own colour, and a tinted pool would fight the copper ESPRESSO. */
 .chip-pool {

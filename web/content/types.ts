@@ -112,6 +112,7 @@ export interface SoftwareGroup {
 export interface HomeContent {
   hero: {
     eyebrow: string;
+    brand: string;
     slogan: string;
     lead: string;
     ctaPrimary: string;
@@ -120,6 +121,8 @@ export interface HomeContent {
   };
   whyNow: Intro & {
     /** One illustration per point — the block has no single figure of its own. */
+    problemLabel: string;
+    solutionLabel: string;
     points: IllustratedItem[];
     pillarsTitle: string;
     pillars: Item[];

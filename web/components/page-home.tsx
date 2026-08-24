@@ -17,72 +17,63 @@ import { cn } from "@/lib/cn";
 /** 1. HOME — slogan, why now, history. */
 export function HomePage({ c }: { c: SiteContent }) {
   const { hero, whyNow, history } = c.home;
+  const problemPoints = whyNow.points.slice(0, 2);
+  const solutionPoint = whyNow.points[2];
 
   return (
     <PageShell c={c} page="home">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <Section tone="dark" screen className="overflow-hidden">
         <div className="crossbar absolute inset-0 opacity-40" aria-hidden />
-        <div className="aura absolute inset-0" aria-hidden />
 
-        {/* Two columns from `md`, not `lg`: stacked, the decorator sat under the
-            copy and pushed this `screen` block 304px past budget at 1023x768. */}
-        <div className={cn(SHELL, "relative isolate grid items-center gap-6 sm:gap-10 md:grid-cols-12 md:gap-12")}>
-          <div className="md:col-span-7">
+        {/* The brand mark is a full-bleed watermark. Its open centre keeps the
+            copy legible while the star remains the hero's visual signature. */}
+        <div
+          className="pointer-events-none absolute left-[58%] top-1/2 aspect-square w-[115vw] max-w-[46rem] -translate-x-1/2 -translate-y-1/2 opacity-30 sm:w-[72vw] lg:w-[50vw] lg:opacity-40"
+          aria-hidden
+        >
+          {hero.media.src ? (
+            <Image
+              src={hero.media.src}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 50vw, (min-width: 640px) 72vw, 115vw"
+              className="object-contain"
+              priority
+            />
+          ) : null}
+        </div>
+
+        <div className={cn(SHELL, "relative isolate flex items-center justify-center text-center")}>
+          <div className="mx-auto w-full max-w-5xl">
             {hero.eyebrow ? (
-              <p className="flex items-center gap-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-accent sm:text-[0.7rem] sm:tracking-[0.18em]">
-                <span className="h-px w-6 bg-accent/60 sm:w-8" aria-hidden />
+              <p className="flex items-center justify-center gap-3 font-mono text-[0.56rem] uppercase tracking-[0.08em] text-accent sm:text-[0.7rem] sm:tracking-[0.16em]">
+                <span className="hidden h-px w-8 bg-accent/60 sm:block" aria-hidden />
                 {hero.eyebrow}
+                <span className="hidden h-px w-8 bg-accent/60 sm:block" aria-hidden />
               </p>
             ) : null}
 
-            {hero.slogan ? (
-              <h1 className="mt-4 text-[2.1rem] font-semibold leading-[1.06] sm:mt-5 sm:text-5xl lg:text-[3.6rem]">
-                {hero.slogan}
+            {hero.brand && hero.slogan ? (
+              <h1 className="mx-auto mt-4 max-w-5xl tracking-normal sm:mt-5">
+                <span className="hero-brand-metal block text-[2.35rem] font-semibold leading-none sm:text-[3.2rem] md:text-[4.4rem] lg:text-[5.2rem]">
+                  {hero.brand}
+                </span>
+                <span className="mx-auto mt-2 block max-w-4xl text-[1.75rem] font-semibold leading-[1.1] sm:mt-3 sm:text-[2.35rem] md:text-[2.9rem] lg:text-[3.4rem]">
+                  {hero.slogan}
+                </span>
               </h1>
             ) : null}
 
-            <Lead className="md:text-xl">{hero.lead}</Lead>
+            <Lead className="mx-auto max-w-4xl md:text-xl">{hero.lead}</Lead>
 
-            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
+            <div className="mt-6 flex flex-col justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
               {/* Home hands off to the catalogue; booking stays on the sticky header. */}
               <Button href={path("products")}>{hero.ctaPrimary}</Button>
               <Button href={path("contact")} variant="ghost">
                 {hero.ctaSecondary}
               </Button>
             </div>
-          </div>
-
-          {/* Below `sm` the mark is the block's backdrop rather than a row under the
-              CTAs, bleeding off the top-right corner. Size and offset are percentages
-              of the same box, so 360–639 is one similarity transform: 110% wide and
-              pushed 44% right parks the artwork's dense corner — the star, at 60–90%
-              across — past the right edge at every width in that range, and leaves the
-              left 40% of the screen with no ink at all.
-
-              `bottom-full` stops the frame above the copy instead of dipping behind it.
-              The artwork carries near-opaque white in that lower-left arc: sunk far
-              enough to sit behind the eyebrow, 2.1% of that line's footprint drops
-              under 4.5:1 against `text-accent` (mean 6.12:1, floor 3.38:1). Held above,
-              ink clears the copy by 24px at 360 and 43px at 639, and no text is over it.
-
-              `-z-10` inside the `isolate`d grid keeps it under the copy and above the
-              section's own background. Every base class resets at `sm`, where the mark
-              is back in its grid column. */}
-          <div
-            className="absolute -right-[44%] bottom-full -z-10 aspect-square w-[110%] opacity-20 sm:relative sm:inset-auto sm:z-auto sm:mx-auto sm:w-1/2 sm:opacity-100 md:col-span-5 md:w-full"
-            aria-hidden
-          >
-            {hero.media.src ? (
-              <Image
-                src={hero.media.src}
-                alt=""
-                fill
-                sizes="(min-width: 768px) 38vw, (min-width: 640px) 46vw, 110vw"
-                className="object-contain"
-                priority
-              />
-            ) : null}
           </div>
         </div>
       </Section>
@@ -92,13 +83,17 @@ export function HomePage({ c }: { c: SiteContent }) {
         <div className={SHELL}>
           <SectionHead intro={whyNow} />
 
-          {/* One illustration per point: square on phones, a wider recomposition
-              from lg — see context/media-plan.md. */}
-          <ol className="mt-9 grid gap-9 md:mt-12 md:grid-cols-3 md:gap-10">
-            {whyNow.points.map((p, i) => (
+          <div className="mt-9 md:mt-12">
+            <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
+              {whyNow.problemLabel}
+            </p>
+          </div>
+
+          <ol className="mt-5 grid gap-9 md:grid-cols-2 md:gap-10">
+            {problemPoints.map((p, i) => (
               <li key={p.title} className="flex w-full max-w-md flex-col md:max-w-none">
                 <Illustration media={p.media} />
-                <div className="mt-5 border-t-2 border-fg pt-4">
+                <div className="mt-5">
                   <span className="font-mono text-sm font-medium tracking-[0.1em] text-accent" aria-hidden>
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -109,19 +104,37 @@ export function HomePage({ c }: { c: SiteContent }) {
             ))}
           </ol>
 
-          <div className="mt-10 border-t border-line pt-6 md:mt-14">
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
-              {whyNow.pillarsTitle}
-            </p>
-            <div className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2 md:grid-cols-4">
-              {whyNow.pillars.map((p) => (
-                <div key={p.title} className="border-t border-line-strong pt-3">
-                  <h4 className="text-sm font-semibold">{p.title}</h4>
-                  <Body className="mt-1.5">{p.body}</Body>
+          {solutionPoint ? (
+            <div className="mt-12 border-t-2 border-primary pt-7 md:mt-16 md:pt-9">
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent">
+                {whyNow.solutionLabel}
+              </p>
+
+              <div className="mt-5 grid items-center gap-8 md:grid-cols-12 md:gap-12">
+                <div className="md:col-span-5">
+                  <Illustration media={solutionPoint.media} />
                 </div>
-              ))}
+                <div className="md:col-span-7">
+                  <h3 className="text-2xl font-semibold leading-snug sm:text-3xl">{solutionPoint.title}</h3>
+                  <Body className="mt-3 max-w-2xl sm:text-lg">{solutionPoint.body}</Body>
+                </div>
+              </div>
+
+              <div className="mt-8 md:mt-10">
+                <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
+                  {whyNow.pillarsTitle}
+                </p>
+                <div className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-3">
+                  {whyNow.pillars.map((p) => (
+                    <div key={p.title}>
+                      <h4 className="text-sm font-semibold">{p.title}</h4>
+                      <Body className="mt-1.5">{p.body}</Body>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
       </Section>
 
@@ -131,15 +144,13 @@ export function HomePage({ c }: { c: SiteContent }) {
         <div className={cn(SHELL, "relative")}>
           <SectionHead intro={history} />
 
-          {/* Two columns flow by ROW, so the decorator is a rule per row, not a
-              rail per column: a vertical rail told the eye to read down the left
-              column and skip the five strongest milestones on the right. */}
-          <ol className="mt-9 grid gap-x-12 md:mt-11 md:grid-cols-2">
+          {/* One continuous rail: vertical on phones, horizontal from `md`. */}
+          <ol className="relative mt-10 grid gap-8 before:absolute before:bottom-2 before:left-[5px] before:top-[5px] before:w-px before:bg-line-strong md:mt-12 md:grid-cols-4 md:gap-8 md:before:bottom-auto md:before:left-0 md:before:right-0 md:before:h-px md:before:w-auto">
             {history.milestones.map((m) => (
-              <li key={m.date + m.title} className="relative border-t border-line-strong pb-5 pt-4">
+              <li key={m.date + m.title} className="relative pl-8 md:pl-0 md:pt-8">
                 <span
                   className={cn(
-                    "absolute -top-[4.5px] left-0 h-2 w-2 rounded-full",
+                    "absolute left-0 top-0 h-3 w-3 rounded-full md:top-0",
                     m.status === "roadmap"
                       ? "border border-roadmap bg-bg"
                       : m.starred
@@ -149,20 +160,20 @@ export function HomePage({ c }: { c: SiteContent }) {
                   aria-hidden
                 />
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-                  <span className="font-mono text-[0.68rem] tracking-[0.1em] text-subtle">{m.date}</span>
+                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.08em] text-subtle">{m.date}</span>
                   {m.status === "roadmap" ? (
                     <StatusBadge status="roadmap" label={m.statusNote ?? c.status.roadmap} />
                   ) : null}
                 </div>
-                <p
+                <h3
                   className={cn(
-                    "mt-1 text-base leading-snug sm:text-[0.95rem]",
+                    "mt-3 text-xl leading-snug",
                     m.starred ? "font-semibold text-fg" : "text-fg/85",
                   )}
                 >
                   {m.title}
-                </p>
-                <Body className="mt-1">{m.body}</Body>
+                </h3>
+                <Body className="mt-3">{m.body}</Body>
               </li>
             ))}
           </ol>
