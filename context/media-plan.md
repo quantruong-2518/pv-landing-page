@@ -34,16 +34,15 @@ Không cần sửa component.
 | 3–5b | `products.hardware.items[0..3].media` | 5/4 → 1/1 | `chips/{mint,papaya,papaya-flex,espresso}.webp` | **Đã có, GM cấp 24/08/2026.** Bốn render 3D nền trong suốt, cùng góc, cùng rig, mỗi con một màu quầng sáng. Chạy qua `<ChipPlinth>` — bệ tối + crossbar + vũng sáng trung tính — nên bốn ảnh đọc ra một bộ dù nền khối sáng/xám xen kẽ. |
 | 5c | `products.hardware.items[4].media` (GPU) | 5/4 → 1/1 | `gpu.webp` | **Còn trống.** Tủ rack Pebble Vina đã tích hợp, chụp chính diện, ánh sáng nguội. Chưa có rack thật thì đó là vấn đề claim (backlog #18), không phải vấn đề nhiếp ảnh. |
 | 5d | `products.hardware.items[*].capabilities[].media` | **16/9** | `apps/*.webp` | **Đã có 10/15 ô** (MINT · PAPAYA FLEX · ESPRESSO), cả 10 file 1200×675. **Còn trống 5 ô của GPU** — cùng chặn ở backlog #18 như ô 5c. Ảnh ứng dụng cho rail dưới mỗi chip. Nhãn thẻ đã có sẵn (`capabilities[].title`), và placeholder in đúng nhãn đó làm brief: mở trang ra là thấy danh sách ảnh cần chụp. |
-| 6 | `products.software.groups[].media` | 16/10 | `enterprise.webp` · `private-ai.webp` | Ảnh chụp màn hình sản phẩm trong khung trình duyệt tối giản. Với Private AI: một **sơ đồ** 5 đích triển khai (on-device → edge → on-premise → private cloud → GPU) xếp theo thang điện năng, có phần cứng thật đứng sau mỗi bậc, sẽ mạnh hơn ảnh chụp màn hình. |
+| 6 | `products.software.groups[].media` | 16/10 | `enterprise.webp` | **Còn một ô, không phải hai** — nhánh Private AI gỡ khỏi trang 24/08/2026 nên `private-ai.webp` không còn phải chụp. Ảnh chụp màn hình phần mềm doanh nghiệp trong khung trình duyệt tối giản. Brief cũ của ô kia (một **sơ đồ** 5 đích triển khai on-device → edge → on-premise → private cloud → GPU, xếp theo thang điện năng, có phần cứng thật đứng sau mỗi bậc) giữ ở `context/02-products/2.2-software/private-ai.md` phòng khi nhánh quay lại. |
 | 7 | `contact.media` | 3/2 | `office.webp` | Landmark 72 hoặc chính văn phòng O1912 — có người trong khung thì tốt hơn kiến trúc rỗng. |
 
 > **Cập nhật 24/08/2026 (GM) — ô 5d đổi tỉ lệ 16/10 → 16/9.** Mười file đã cấp đều là **1200×675**, tức
 > 16:9. Khung `aspect-[16/10]` cũ phủ kín theo chiều cao nên `object-cover` **xén mất ~10% bề ngang,
 > ~5% mỗi mép** trên cả mười ảnh — mà đó là ảnh thiết bị, phần bị cắt là rìa máy. Khung đi theo file đã
 > có, không bắt file đi theo khung: xuất lại thành 16:10 cũng mất đúng 10% ấy, chỉ khác là nướng chín
-> vào file và hết đường đổi ý. **Ô 6 (`enterprise` · `private-ai`) giữ nguyên 16/10** — chưa có file
-> nào, nên khung và ảnh chưa mâu thuẫn với nhau; đổi nó là đổi art direction cho ảnh chưa chụp, một
-> quyết định khác.
+> vào file và hết đường đổi ý. **Ô 6 (`enterprise`) giữ nguyên 16/10** — chưa có file nào, nên khung
+> và ảnh chưa mâu thuẫn với nhau; đổi nó là đổi art direction cho ảnh chưa chụp, một quyết định khác.
 
 ## Luật về ảnh
 

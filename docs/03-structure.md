@@ -18,12 +18,24 @@
 │   │   ├── ESPRESSO                 → Large-model inference · AI accelerator · AI server
 │   │   └── GPU / HPC                → GPU · AI training · Large-scale inference · HPC · AI data center
 │   └── 2.2 SOFTWARE
-│       ├── AI-optimized enterprise software → CRM · ERP/Ops · Workflow · Data & reporting · AI agent
-│       └── Private AI  → Build · Train/Adapt · Deploy
-│                         Deploy: on-device · edge · on-premise · private cloud · GPU/AI infra
+│       └── AI-optimized enterprise software → CRM · ERP/Ops · Workflow · Data & reporting · AI agent
 │
 └── 3. LIÊN HỆ                  /vi/contact
 ```
+
+> **Nhánh Private AI gỡ khỏi trang — GM chốt 24/08/2026.** `2.2 SOFTWARE` còn một nhánh. Khối, mục
+> trong mục lục `/products`, mục trong menu di động và anchor `#private-ai` đều sinh từ
+> `products.software.groups` nên biến mất theo — không có chỗ nào phải sửa tay. Đo lại sau khi gỡ:
+> `/vi/products` còn **7 khối**, dài **5.717px** ở 1440 (trước 6.448), và khối index về **788/788 ở
+> 390px** — đóng backlog #29 ở 390 và 430, còn thừa 106px ở 360.
+>
+> **Bốn khoá chữ chưa theo kịp và đang sai trên bản đang chạy:** `products.software.title`
+> ("**Hai nhánh** phần mềm…") và `products.software.lead` ("**Cả hai** trả lời một câu hỏi…") —
+> hai câu này người dùng nhìn thấy, đứng ngay trên khối phần mềm duy nhất còn lại; cùng với
+> `meta.products.title` và `meta.products.description`, cả hai vẫn kể tên "AI riêng tư". GM biết và
+> chấp nhận trạng thái tạm này khi chốt; chúng chờ một lượt qua skill `content-i18n`.
+> Vật liệu gốc của nhánh giữ nguyên ở `context/02-products/2.2-software/private-ai.md` — bàn soạn
+> không xoá theo trang (CLAUDE.md §1).
 
 > **PAPAYA gộp lại với PAPAYA FLEX thành một khối "thông tin đôi" — GM chốt 24/08/2026,** đóng luôn
 > `docs/05-backlog.md` #33 và #34. Lý do GM đưa ra: hai con dùng chung ứng dụng (vision/edge AI), chỉ khác
@@ -35,7 +47,7 @@
 > dải số đo viết lại để mang cả hai mức hiệu năng — qua cổng A→E của skill `content-i18n`, không viết tay.
 
 **Ba trang, không phải năm.** Mỗi sản phẩm là một khối có anchor (`#mint`, `#papaya-flex`,
-`#espresso`, `#gpu`, `#enterprise`, `#private-ai`) chứ không phải một route riêng — vì nội dung chi tiết chưa có,
+`#espresso`, `#gpu`, `#enterprise`) chứ không phải một route riêng — vì nội dung chi tiết chưa có,
 mở thêm route chỉ tạo thêm trang rỗng. Khi một sản phẩm đủ dày để đứng một mình thì tách sau; anchor
 đã sẵn nên URL cũ vẫn trỏ đúng chỗ.
 
@@ -133,8 +145,7 @@ tối ▓▓▓  Footer               xám ▒    PAPAYA FLEX
                               sáng ░   ESPRESSO
                               xám ▒    GPU / HPC
                               ▓▓ dải   2.2 Software     ← vạch ngăn phần cứng / phần mềm
-                              sáng ░   Enterprise
-                              xám ▒    Private AI
+                              sáng ░   Enterprise       ← nhánh phần mềm duy nhất từ 24/08/2026
                               tối ▓▓▓  Lời mời          ← một nút duy nhất của cả trang
                               tối ▓▓▓  Footer
 
@@ -172,9 +183,16 @@ cả xếp dọc, theo đúng thứ tự đọc ở §4b.
 | ESPRESSO | **699** ✔ | **725** ✔ | **767** (+13) |
 | GPU | **476** ✔ | **472** ✔ | **737** ✔ |
 | Phần mềm doanh nghiệp | **788** (khít) | 788 (+44) | **630** ✔ |
-| AI riêng tư | 819 (+31) | 819 (+75) | **730** ✔ |
+| ~~AI riêng tư~~ | *nhánh gỡ 24/08/2026 — xem §1* | — | — |
 | Index | 888 (+100, backlog #29) | 918 (+174) | **754** ✔ |
 | cả trang | **6.572px** (trước vòng này: 9.910) | 6.659 | **6.406px** |
+
+> **Bảng trên là số của vòng viết lại 20–23/08, giữ lại làm mốc.** Vòng review 24/08 đã đổi phần lớn
+> trong đó. Đo lại trên Chrome ở **390×844** (budget 788): MINT **674** · PAPAYA FLEX **692** ·
+> ESPRESSO **717** · GPU **464** · Phần mềm doanh nghiệp **788** · Index **788 ✔**. Ở **1455×900**
+> (budget 836, không cùng khung với cột desktop cũ): 745 · 844 · 756 · 726 · 631 · 836. Ba nguyên
+> nhân, theo thứ tự tác động: nhánh Private AI bị gỡ, khối `screen` có bậc đệm dọc riêng cho điện
+> thoại (`py-14` → `py-6`, chỉ ở base), và khung ảnh ứng dụng đổi 16/10 → 16/9.
 
 **Bốn khối phần cứng vừa một màn trên điện thoại.** Hai khối phần mềm và khối index thì chưa: phần
 còn lại của chúng là lượng chữ (5 module × tiêu đề + mô tả), không phải khoảng trắng.
@@ -228,8 +246,9 @@ giới 2.1/2.2 mà §4 cần, vẫn giữ anchor `#hardware` / `#software`, và 
 **Khối phần mềm đi cùng một nhịp** (`SoftwareBlock`): cùng khung lưới, cùng hai hình học, ảnh 16/10
 thay cho bệ chip. `modules` chạy **hết bề ngang dưới hàng ảnh–mô tả** (2 cột từ `sm`, 3 cột từ `lg`)
 chứ không nằm trong cột chữ: năm module xếp dọc trong một cột 197px trên điện thoại là một khối không
-màn nào chứa nổi, còn trên desktop ba module cuối đứng cạnh khoảng không. `targets` của AI riêng tư
-trượt ngang dưới `sm`, đúng vai "hàng đóng khối" mà rail ứng dụng giữ ở khối phần cứng.
+màn nào chứa nổi, còn trên desktop ba module cuối đứng cạnh khoảng không. Hàng `targets` trượt ngang
+dưới `sm` — vai "hàng đóng khối" mà rail ứng dụng giữ ở khối phần cứng — hiện không khối phần mềm nào
+dùng tới, vì nhánh duy nhất còn lại không khai `targets`.
 
 ## 5. Bảy ô ảnh
 
