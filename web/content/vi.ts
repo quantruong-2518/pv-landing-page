@@ -25,11 +25,11 @@ export const vi: SiteContent = {
 
   home: {
     hero: {
-      eyebrow: "Thành viên Việt Nam của nhóm Pebble Square Inc., Hàn Quốc",
-      slogan: "Dữ liệu ở đâu, AI chạy ở đó.",
-      lead: "Nhiều tổ chức không được phép đưa dữ liệu ra ngoài, trong khi AI lâu nay chỉ chạy được ở nơi có phòng máy. Pebble Square Inc. làm con chip đặt phép tính ngay trong bộ nhớ, nên việc tính chạy được ngay chỗ dữ liệu đang nằm. Pebble Vina là pháp nhân Việt Nam dựng lớp bên trên con chip đó và ký hợp đồng ở đây.",
-      ctaPrimary: "Xem sản phẩm & giải pháp",
-      ctaSecondary: "Đặt lịch tư vấn",
+      eyebrow: "NGHIÊN CỨU · THỰC NGHIỆM · PHÁT TRIỂN · ĐÀO TẠO",
+      slogan: "PEBBLE VINA - Đối tác chiến lược đưa AI và công nghệ mới vào doanh nghiệp",
+      lead: "Từ thế mạnh thiết kế chip, Pebble Vina nghiên cứu nhu cầu thị trường và phát triển phần mềm kết nối nhiều luồng công việc. Chúng tôi đi cùng doanh nghiệp qua từng bước: thực nghiệm, xây dựng lộ trình, đào tạo đội ngũ và đưa AI vào vận hành.",
+      ctaPrimary: "Khám phá năng lực",
+      ctaSecondary: "Trao đổi bài toán",
       media: {
         src: "/brand/pebble-vina-decorator.png",
         // Decorative brand mark — alt stays empty by design (context/media-plan.md).
