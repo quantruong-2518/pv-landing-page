@@ -8,7 +8,7 @@ export function ContactSection({ c, embedded = false }: { c: SiteContent; embedd
   const FormHeading = embedded ? "h3" : "h2";
 
   return (
-    <Section id="book" screen className="bg-surface">
+    <Section id="book" screen className="section-field section-field-soft">
       <div
         className={cn(
           SHELL,

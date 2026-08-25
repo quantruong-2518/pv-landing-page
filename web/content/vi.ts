@@ -414,7 +414,10 @@ export const vi: SiteContent = {
             { title: "DMS · Document Management System", body: "Kiểm soát, tìm và truy xuất tài liệu.", icon: "dms" },
             { title: "Trung tâm vận hành AI", body: "Theo dõi xuyên phân hệ, đề xuất và điều phối bước tiếp theo để người phụ trách phê duyệt.", icon: "ai" },
           ],
-          media: { alt: "Minh hoạ giao diện bộ phần mềm doanh nghiệp dự kiến 12/2026." },
+          media: {
+            src: "/media/software-enterprise-suite.webp",
+            alt: "Minh hoạ ba chiều các phân hệ phần mềm doanh nghiệp hội tụ vào một trung tâm vận hành AI.",
+          },
           status: "roadmap",
           stage: "roadmap",
           statusNote: "Dự kiến 12/2026",
@@ -442,6 +445,10 @@ export const vi: SiteContent = {
           { title: "Đi vào thực hành", body: "Làm trên tình huống gắn với công việc, không dừng ở lý thuyết.", icon: "practice" },
           { title: "Đo bằng ROI", body: "Thống nhất chỉ số đầu ra trước khi đào tạo; không cam kết một mức hoàn vốn.", icon: "roi" },
         ],
+        media: {
+          src: "/media/enterprise-ai-training.webp",
+          alt: "Minh hoạ ba chiều lộ trình đào tạo AI theo nhu cầu đi từ khảo sát đến mục tiêu đo lường được.",
+        },
         status: "roadmap",
         stage: "research",
         statusNote: "Khảo sát nhu cầu · 2027",

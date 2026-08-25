@@ -163,6 +163,7 @@ export interface TrainingOffer {
   transition: string;
   body: string;
   principles: Item[];
+  media: Media;
   status: FactStatus;
   stage: ProductStage;
   statusNote: string;

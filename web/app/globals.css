@@ -121,18 +121,91 @@ body {
   font-synthesis-weight: none;
 }
 
-/* Restrained atmosphere for the two brand anchors. The middle of every page
-   stays flat and readable; gradients are reserved for the opening and close. */
+/* Dark brand anchors. The grid is the same crossbar motif used throughout the
+   light sections, but at lower contrast so the hero remains calm behind type. */
 .hero-atmosphere {
   background-color: #101a2e;
   background-image:
+    linear-gradient(to right, rgb(110 151 245 / 4.5%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(110 151 245 / 4.5%) 1px, transparent 1px),
     radial-gradient(circle at 72% 42%, rgb(82 116 216 / 18%), transparent 34%),
     linear-gradient(135deg, #080f1d 0%, #101a2e 62%, #13254a 100%);
+  background-size: 64px 64px, 64px 64px, auto, auto;
 }
 
 .footer-atmosphere {
   background-color: #080f1d;
-  background-image: linear-gradient(145deg, #080f1d 0%, #101a2e 100%);
+  background-image:
+    radial-gradient(circle at 82% 0%, rgb(82 116 216 / 11%), transparent 30rem),
+    linear-gradient(145deg, #080f1d 0%, #101a2e 100%);
+}
+
+.header-atmosphere {
+  background-color: rgb(8 15 29 / 94%);
+  background-image: linear-gradient(90deg, rgb(8 15 29 / 96%) 0%, rgb(16 26 46 / 92%) 68%, rgb(19 37 74 / 90%) 100%);
+}
+
+/* Light content fields share one Pebble-blue atmosphere. Category colours are
+   deliberately limited to the secondary glow: they identify a catalogue band
+   without turning Software or Training into a separate visual brand. */
+.section-field {
+  --field-accent-rgb: 35 72 148;
+  position: relative;
+  isolation: isolate;
+  background-color: #fafbfc;
+  background-image:
+    radial-gradient(circle at 88% 8%, rgb(35 72 148 / 8%), transparent 30rem),
+    radial-gradient(circle at 8% 92%, rgb(var(--field-accent-rgb) / 5%), transparent 25rem),
+    linear-gradient(180deg, rgb(255 255 255 / 72%) 0%, transparent 42%);
+}
+
+.section-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(35 72 148 / 6%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(35 72 148 / 6%) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 0.5;
+  -webkit-mask-image: linear-gradient(135deg, transparent 38%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(135deg, transparent 38%, #000 72%, transparent 100%);
+}
+
+.section-field > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-field-soft {
+  background-color: #f3f6fa;
+}
+
+.section-field-quiet::before {
+  opacity: 0.28;
+}
+
+.section-field-hardware {
+  --field-accent-rgb: 49 90 145;
+}
+
+.section-field-software {
+  --field-accent-rgb: 102 88 138;
+}
+
+.section-field-training {
+  --field-accent-rgb: 144 99 76;
+}
+
+/* Featured light panels sit one step above their field without introducing a
+   new colour family. */
+.brand-panel {
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(circle at 92% 8%, rgb(35 72 148 / 9%), transparent 18rem),
+    linear-gradient(145deg, #ffffff 0%, #f1f5fc 100%);
 }
 
 h1,

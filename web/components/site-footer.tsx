@@ -1,4 +1,5 @@
 import type { PageKey, SiteContent } from "@/content/types";
+import Image from "next/image";
 import { MAIL_HREF, SITE } from "@/content/site";
 import { path } from "@/lib/routes";
 import { FactRow, SHELL } from "@/components/ui";
@@ -13,7 +14,7 @@ const LABEL = "font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle"
 const LINK = "inline-flex min-h-11 items-center text-sm text-muted transition-colors hover:text-accent";
 
 /**
- * Four columns — identity, pages, contact, legal — then a bottom bar for the
+ * A twelve-column information grid — identity, pages, contact, legal — then a bottom bar for the
  * copyright, the label legend and the source statement. Tax code, legal name
  * and address are both an E-E-A-T signal and the input for the Organization
  * JSON-LD.
@@ -34,9 +35,12 @@ export function SiteFooter({ c }: { c: SiteContent }) {
     // position always sat past maxScroll and could never be reached.
     <footer className="tone-dark footer-atmosphere text-fg">
       <div className={cn(SHELL, "py-10 sm:py-14")}>
-        <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
-          <div>
-            <p className="font-display text-lg font-semibold">{SITE.name}</p>
+        <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 sm:gap-10 lg:grid-cols-12 lg:gap-x-8">
+          <div className="border-t border-line pt-4 lg:col-span-4">
+            <a href={path("home")} className="inline-flex items-center gap-2.5 transition-colors hover:text-accent">
+              <Image src="/brand/pebble-vina-mark.png" alt="" width={30} height={28} className="h-7 w-auto" />
+              <span className="font-display text-lg font-semibold">{SITE.name}</span>
+            </a>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted">{c.footer.tagline}</p>
             <a
               href={SITE.parent.url}
@@ -48,7 +52,7 @@ export function SiteFooter({ c }: { c: SiteContent }) {
             </a>
           </div>
 
-          <nav aria-label={c.footer.navTitle}>
+          <nav className="border-t border-line pt-4 lg:col-span-2" aria-label={c.footer.navTitle}>
             <p className={LABEL}>{c.footer.navTitle}</p>
             <ul className="mt-1 flex flex-wrap gap-x-6 gap-y-1 sm:flex-col sm:gap-x-0">
               {links.map((l) => (
@@ -61,7 +65,7 @@ export function SiteFooter({ c }: { c: SiteContent }) {
             </ul>
           </nav>
 
-          <div>
+          <div className="border-t border-line pt-4 lg:col-span-3">
             <p className={LABEL}>{c.footer.contactTitle}</p>
             <ul className="mt-1 flex flex-wrap gap-x-6 gap-y-1 sm:flex-col sm:gap-x-0">
               <li>
@@ -80,7 +84,7 @@ export function SiteFooter({ c }: { c: SiteContent }) {
             </ul>
           </div>
 
-          <div>
+          <div className="border-t border-line pt-4 lg:col-span-3">
             <p className={LABEL}>{c.footer.legalTitle}</p>
             <dl className="mt-1 grid grid-cols-2 gap-x-6 sm:block">
               <FactRow label={c.labels.entity} value={SITE.legalName} />
@@ -94,9 +98,12 @@ export function SiteFooter({ c }: { c: SiteContent }) {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-t border-line pt-4 sm:mt-10 sm:pt-6">
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-line pt-5 sm:mt-10 sm:pt-6">
           <p className={LABEL}>{c.footer.copyright}</p>
-          <p className={LABEL}>{c.footer.statusLegend}</p>
+          <p className={cn(LABEL, "flex items-center gap-2")}>
+            <span className="h-1.5 w-1.5 rotate-45 bg-accent" aria-hidden />
+            {c.footer.statusLegend}
+          </p>
         </div>
 
         <p className="mt-4 max-w-3xl text-xs leading-relaxed text-subtle sm:mt-5">

@@ -18,7 +18,9 @@ export function PageShell({
     <>
       <SiteHeader c={c} page={page} />
       <main id="main">{children}</main>
-      <SectionDivider />
+      <div className="tone-dark bg-bg">
+        <SectionDivider />
+      </div>
       <SiteFooter c={c} />
     </>
   );

@@ -34,14 +34,16 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
     { title: c.nav.training, items: [c.products.training.offer] },
   ];
 
-  // On /vi/contact the button pointed at the page it was already on: the largest
-  // control on the only conversion page did nothing. There it jumps into the
-  // form's first field instead (`#name`, contact-form.tsx) — the action the
-  // label already promises. The other two routes keep the plain route.
-  const ctaHref = page === "contact" ? path("contact", "name") : path("contact");
+  // Keep the action local wherever a form is already present. Home has no form,
+  // so it hands off to the dedicated contact route.
+  const ctaHref = page === "contact"
+    ? path("contact", "name")
+    : page === "products"
+      ? path("products", "book")
+      : path("contact");
 
   return (
-    <header className="sticky top-0 z-50 bg-canvas/92 text-fg shadow-[0_1px_0_var(--color-line)] backdrop-blur">
+    <header className="tone-dark header-atmosphere sticky top-0 z-50 text-fg shadow-[0_1px_0_var(--color-line),0_10px_28px_rgb(8_15_29_/_0.16)] backdrop-blur-xl">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:bg-primary focus:px-3 focus:py-2 focus:text-sm focus:text-primary-fg"
@@ -52,22 +54,24 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
       <div className={cn(SHELL, "flex h-[var(--header-h)] items-center justify-between gap-3")}>
         <a
           href={path("home")}
-          className="flex items-center gap-2 py-3 transition-colors hover:text-accent"
+          className="flex h-full items-center gap-2.5 transition-colors hover:text-accent"
         >
           <Image src="/brand/pebble-vina-mark.png" alt="" width={28} height={26} className="h-6 w-auto sm:h-[1.625rem]" priority />
           <span className="font-display text-base font-semibold tracking-tight sm:text-lg">Pebble Vina</span>
         </a>
 
-        <div className="flex items-center gap-3 md:gap-5 lg:gap-6">
-          <nav className="hidden items-center gap-5 md:flex lg:gap-7" aria-label={c.nav.menuLabel}>
+        <div className="flex h-full items-center gap-3 md:gap-5 lg:gap-6">
+          <nav className="hidden h-full items-center gap-5 md:flex lg:gap-7" aria-label={c.nav.menuLabel}>
             {links.map((l) => (
               <a
                 key={l.key}
                 href={path(l.key)}
                 aria-current={l.key === page ? "page" : undefined}
                 className={cn(
-                  "text-sm transition-colors hover:text-accent",
-                  l.key === page ? "text-fg" : "text-muted",
+                  "relative flex h-full items-center text-sm transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:bg-accent after:transition-transform",
+                  l.key === page
+                    ? "text-fg after:scale-x-100"
+                    : "text-muted after:scale-x-0 hover:text-accent hover:after:scale-x-100",
                 )}
               >
                 {l.label}

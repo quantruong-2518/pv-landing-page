@@ -78,7 +78,7 @@ export function HomePage({ c }: { c: SiteContent }) {
       <SectionDivider />
 
       {/* ── 01 · Why now ─────────────────────────────────────────────────── */}
-      <Section id="why-now" className="bg-canvas">
+      <Section id="why-now" className="section-field">
         <div className={SHELL}>
           <SectionHead intro={whyNow} />
 
@@ -104,7 +104,7 @@ export function HomePage({ c }: { c: SiteContent }) {
           </ol>
 
           {solutionPoint ? (
-            <div className="mt-12 border border-line border-t-2 border-t-primary bg-surface-brand px-5 py-7 sm:px-7 md:mt-16 md:px-9 md:py-9">
+            <div className="brand-panel mt-12 border border-line border-t-2 border-t-primary px-5 py-7 shadow-[0_18px_50px_rgb(11_18_32_/_0.06)] sm:px-7 md:mt-16 md:px-9 md:py-9">
               <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent">
                 {whyNow.solutionLabel}
               </p>
@@ -140,7 +140,7 @@ export function HomePage({ c }: { c: SiteContent }) {
       <SectionDivider />
 
       {/* ── 02 · History ─────────────────────────────────────────────────── */}
-      <Section id="history" className="bg-surface">
+      <Section id="history" className="section-field section-field-soft section-field-quiet">
         <div className={cn(SHELL, "relative")}>
           <SectionHead intro={history} />
 

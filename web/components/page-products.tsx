@@ -2,6 +2,7 @@ import type {
   HardwareVariant,
   Intro,
   Item,
+  Media,
   Product,
   ProductMetric,
   ProductStage,
@@ -10,6 +11,7 @@ import type {
   SystemIconName,
   TrainingOffer,
 } from "@/content/types";
+import Image from "next/image";
 import { ContactForm } from "@/components/contact-form";
 import { PageShell } from "@/components/page-shell";
 import {
@@ -54,7 +56,7 @@ export function ProductsPage({ c }: { c: SiteContent }) {
 
   return (
     <PageShell c={c} page="products">
-      <Section screen className="products-index bg-surface">
+      <Section screen className="products-index section-field section-field-soft">
         <div className={cn(SHELL, "grid items-start gap-7 lg:grid-cols-12 lg:gap-12")}>
           <div className="lg:col-span-4 lg:pt-2">
             <SectionHead intro={intro} as="h1" />
@@ -109,7 +111,7 @@ export function ProductsPage({ c }: { c: SiteContent }) {
       </Section>
 
       <SectionDivider />
-      <div className="bg-surface-hardware">
+      <div className="section-field section-field-hardware">
         <GroupLead id="hardware" intro={hardware} category="hardware" />
         {hardware.items.map((product) => (
           <ChipBlock key={product.id} c={c} product={product} />
@@ -117,14 +119,14 @@ export function ProductsPage({ c }: { c: SiteContent }) {
       </div>
 
       <SectionDivider />
-      <div id="software" className="bg-surface-software">
+      <div id="software" className="section-field section-field-software">
         {software.groups.map((group) => (
           <SoftwareBlock key={group.id} c={c} intro={software} group={group} />
         ))}
       </div>
 
       <SectionDivider />
-      <div id="training" className="bg-surface-training">
+      <div id="training" className="section-field section-field-training">
         <TrainingBlock c={c} intro={training} offer={training.offer} />
       </div>
 
@@ -450,17 +452,22 @@ function SoftwareBlock({ c, intro, group }: { c: SiteContent; intro: Intro; grou
   return (
     <Section id={group.id} dense>
       <div className={SHELL}>
-        <CategorySectionHead
-          c={c}
-          intro={intro}
-          category="software"
-          origin={group.origin}
-          stage={group.stage}
-          stageLabel={group.statusNote ?? c.status[group.status]}
-          body={group.body}
-        />
-        <Transition category="software" className="mt-7">{group.transition}</Transition>
-        <IconCardGrid items={group.modules} category="software" className="mt-5 md:mt-7" />
+        <div className="grid items-center gap-7 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-5">
+            <CategorySectionHead
+              c={c}
+              intro={intro}
+              category="software"
+              origin={group.origin}
+              stage={group.stage}
+              stageLabel={group.statusNote ?? c.status[group.status]}
+              body={group.body}
+            />
+            <Transition category="software" className="mt-6">{group.transition}</Transition>
+          </div>
+          <CategoryVisual media={group.media} category="software" className="lg:col-span-7" />
+        </div>
+        <IconCardGrid items={group.modules} category="software" className="mt-7 md:mt-9" />
       </div>
     </Section>
   );
@@ -470,7 +477,7 @@ function TrainingBlock({ c, intro, offer }: { c: SiteContent; intro: Intro; offe
   return (
     <Section id={offer.id} dense>
       <div className={SHELL}>
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-12">
+        <div className="grid items-center gap-7 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
             <CategorySectionHead
               c={c}
@@ -483,11 +490,52 @@ function TrainingBlock({ c, intro, offer }: { c: SiteContent; intro: Intro; offe
             />
             <Transition category="training" className="mt-6">{offer.transition}</Transition>
           </div>
-
-          <IconCardGrid items={offer.principles} category="training" className="lg:col-span-7" />
+          <CategoryVisual media={offer.media} category="training" className="lg:col-span-7" />
         </div>
+        <IconCardGrid items={offer.principles} category="training" className="mt-7 md:mt-9 lg:grid-cols-4" />
       </div>
     </Section>
+  );
+}
+
+function CategoryVisual({
+  media,
+  category,
+  className,
+}: {
+  media: Media;
+  category: "software" | "training";
+  className?: string;
+}) {
+  if (!media.src) return null;
+
+  return (
+    <figure
+      className={cn(
+        "relative aspect-[3/2] overflow-hidden border border-line bg-bg shadow-[0_18px_55px_rgb(11_18_32_/_0.08)]",
+        category === "software" ? "border-t-software" : "border-t-training",
+        "border-t-2",
+        className,
+      )}
+    >
+      <Image
+        src={media.src}
+        alt={media.alt}
+        fill
+        sizes="(min-width: 1024px) 56vw, (min-width: 640px) 92vw, 100vw"
+        className="object-cover transition-transform duration-700 ease-out hover:scale-[1.015]"
+      />
+      <span
+        className={cn(
+          "pointer-events-none absolute inset-0",
+          category === "software"
+            ? "bg-[linear-gradient(135deg,rgba(102,88,138,0.10),transparent_42%,rgba(35,72,148,0.08))]"
+            : "bg-[linear-gradient(135deg,rgba(144,99,76,0.10),transparent_42%,rgba(35,72,148,0.07))]",
+        )}
+        aria-hidden
+      />
+      <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/50" aria-hidden />
+    </figure>
   );
 }
 
@@ -504,20 +552,37 @@ function IconCardGrid({ items, category, className }: { items: Item[]; category:
         <li
           key={item.title}
           className={cn(
-            "relative isolate min-h-40 overflow-hidden border border-line bg-bg p-4 sm:min-h-44 sm:p-5",
+            "group relative isolate min-h-40 overflow-hidden border border-line bg-bg p-4 transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgb(11_18_32_/_0.06)] sm:min-h-44 sm:p-5",
+            category === "software" ? "hover:border-software/50" : "hover:border-training/50",
             category === "software" && index === items.length - 1 && "col-span-2 lg:col-span-2",
           )}
         >
-          {item.icon ? (
-            <SystemIcon
-              name={item.icon}
-              className={cn("absolute -right-3 -top-3 -z-10 h-28 w-28 opacity-[0.09] sm:h-32 sm:w-32", CATEGORY_TEXT[category])}
-            />
-          ) : null}
-          <p className={cn("font-mono text-[0.62rem] uppercase tracking-[0.14em]", CATEGORY_TEXT[category])}>
-            {String(index + 1).padStart(2, "0")}
-          </p>
-          <p className="mt-7 max-w-[14rem] font-display text-lg font-semibold leading-tight sm:text-xl">{item.title}</p>
+          <span
+            className={cn(
+              "pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent opacity-70",
+              category === "software" ? "via-software" : "via-training",
+            )}
+            aria-hidden
+          />
+          <div className="flex items-center gap-3">
+            <p className={cn("font-mono text-[0.62rem] uppercase tracking-[0.14em]", CATEGORY_TEXT[category])}>
+              {String(index + 1).padStart(2, "0")}
+            </p>
+            <span className="h-px flex-1 bg-line" aria-hidden />
+            {item.icon ? (
+              <span
+                className={cn(
+                  "grid h-9 w-9 shrink-0 place-items-center border bg-bg transition-colors duration-300",
+                  category === "software"
+                    ? "border-software/25 text-software group-hover:bg-surface-software"
+                    : "border-training/25 text-training group-hover:bg-surface-training",
+                )}
+              >
+                <SystemIcon name={item.icon} className="h-[1.15rem] w-[1.15rem]" />
+              </span>
+            ) : null}
+          </div>
+          <p className="mt-6 max-w-[17rem] font-display text-lg font-semibold leading-tight sm:text-xl">{item.title}</p>
           <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted">{item.body}</p>
         </li>
       ))}
@@ -527,13 +592,13 @@ function IconCardGrid({ items, category, className }: { items: Item[]; category:
 
 function FollowUp({ c, kicker, title }: { c: SiteContent; kicker: string; title: string }) {
   return (
-    <Section id="book" dense className="bg-surface-brand">
+    <Section id="book" tone="dark" dense className="footer-atmosphere">
       <div className={SHELL}>
         <header className="grid gap-2 border-b border-line pb-5 md:grid-cols-12 md:items-end">
           <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-accent md:col-span-3">{kicker}</p>
           <h2 className="font-display text-2xl font-semibold leading-tight sm:text-3xl md:col-span-9 lg:text-4xl">{title}</h2>
         </header>
-        <div className="-mx-5 mt-6 max-w-4xl border-y border-line bg-bg px-5 py-6 sm:mx-0 sm:border sm:p-6 sm:shadow-[0_12px_40px_rgb(15_23_42_/_0.05)]">
+        <div className="-mx-5 mt-6 border-y border-line bg-surface px-5 py-6 sm:mx-0 sm:border sm:p-8 sm:shadow-[0_20px_60px_rgb(0_0_0_/_0.18)] lg:p-10">
           <ContactForm c={c} successHeadingAs="h3" />
         </div>
       </div>
