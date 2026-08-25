@@ -7,9 +7,9 @@ import type { SiteContent } from "./types";
  */
 export const vi: SiteContent = {
   meta: {
-    home: { title: "Pebble Vina — chip AI Analog-PIM của Pebble Square tại Việt Nam", description: "Pebble Vina — thành viên Việt Nam của nhóm Pebble Square Inc., hãng bán dẫn AI fabless Hàn Quốc. Chip tính ngay trong bộ nhớ để AI chạy tại chỗ. MINT đạt 17,6 TOPS/W, sản xuất hàng loạt từ 5/2023." },
+    home: { title: "Pebble Vina — giải pháp công nghệ mới và AI cho doanh nghiệp", description: "Pebble Vina nghiên cứu nhu cầu thị trường, thiết kế chip, phát triển phần mềm AI và đào tạo tại Việt Nam; hợp tác chiến lược với Pebble Square Inc. trong công nghệ bán dẫn AI." },
     products: { title: "Chip PIM, E-Series & phần mềm AI | Pebble Vina", description: "Phần cứng Pebble Square: MINT, PAPAYA, ESPRESSO, E10 và E20; cùng phần mềm doanh nghiệp dự kiến 12/2026 và khảo sát đào tạo AI năm 2027." },
-    contact: { title: "Liên hệ Pebble Vina — đặt lịch tư vấn, văn phòng Hà Nội", description: "Pebble Vina — thành viên Việt Nam của nhóm Pebble Square Inc. Văn phòng Hà Nội, MST 0111545175. Gọi 0345 913 369 hoặc email contact@pebblevina.com." },
+    contact: { title: "Liên hệ Pebble Vina — đặt lịch tư vấn, văn phòng Hà Nội", description: "Liên hệ trực tiếp Pebble Vina tại văn phòng Hà Nội, MST 0111545175. Gọi 0345 913 369 hoặc email contact@pebblevina.com." },
   },
 
   nav: {
@@ -40,45 +40,42 @@ export const vi: SiteContent = {
     },
 
     whyNow: {
-      kicker: "01 · Vì sao cần một cách làm khác",
-      title: "AI đang vướng ở hai chỗ: dữ liệu phải đi xa và thiết bị phải tốn điện cho quãng đường đó.",
-      lead: "",
-      problemLabel: "Hai điểm nghẽn",
-      solutionLabel: "Cách Pebble Square giải bài toán",
+      kicker: "01 · Cái giá của dữ liệu phải đi xa",
+      title: "Trước khi AI kịp tính, dữ liệu đã phải đi một quãng đường quá dài.",
+      lead: "Khi xử lý phụ thuộc cloud, dữ liệu rời hiện trường. Trong chip truyền thống, dữ liệu lại chạy giữa bộ nhớ và bộ xử lý. Mỗi chặng đều cộng thêm độ trễ, điện năng và một điểm phụ thuộc.",
+      problemLabel: "Hai quãng đường tạo ra nút thắt",
+      solutionLabel: "Rút ngắn đường đi",
       points: [
         {
-          title: "Đưa dữ liệu lên cloud đồng nghĩa với thêm một lớp rủi ro",
-          body: "Mỗi truy vấn phải đi qua mạng và hạ tầng bên ngoài. Doanh nghiệp khó giữ toàn bộ dữ liệu trong phạm vi kiểm soát; khi đường truyền chậm hoặc gián đoạn, phản hồi của hệ thống cũng bị kéo theo.",
+          title: "Dữ liệu phải rời nơi nó được tạo ra",
+          body: "Khi AI phụ thuộc vào cloud, mỗi truy vấn phải rời thiết bị, đi qua mạng rồi chờ hạ tầng bên ngoài xử lý. Doanh nghiệp phải chấp nhận thêm độ trễ, phụ thuộc kết nối và nhiều điểm trung gian hơn trên đường dữ liệu.",
           media: {
-            src: "/media/why-now-1-mobile.webp",
-            srcWide: "/media/why-now-1-desktop.webp",
-            alt: "Minh hoạ dữ liệu doanh nghiệp đi qua mạng tới một trung tâm dữ liệu bên ngoài.",
+            src: "/media/why-now-cloud-control-v2.webp",
+            alt: "Minh hoạ dữ liệu rời hệ thống tại doanh nghiệp, đi qua nhiều điểm trung gian tới hạ tầng cloud.",
           },
         },
         {
-          title: "Chip truyền thống tốn điện để chuyển dữ liệu qua lại",
-          body: "Trong kiến trúc von Neumann, bộ nhớ và bộ xử lý nằm tách nhau. Dữ liệu phải liên tục di chuyển giữa hai vùng, nên một phần đáng kể điện năng được dùng cho việc di chuyển dữ liệu, không phải phép tính.",
+          title: "Bên trong chip, dữ liệu vẫn phải chạy qua chạy lại",
+          body: "Trong kiến trúc von Neumann, bộ nhớ và bộ xử lý nằm tách nhau. Trong quá trình xử lý, dữ liệu phải di chuyển giữa hai khối; quãng đường lặp lại này tiêu tốn điện và trở thành nút thắt khi tải AI tăng.",
           media: {
-            src: "/media/why-now-2-mobile.webp",
-            srcWide: "/media/why-now-2-desktop.webp",
-            alt: "Minh hoạ các thiết bị thông minh tại hiện trường cùng giới hạn điện năng của chúng.",
+            src: "/media/why-now-memory-bottleneck-v2.webp",
+            alt: "Minh hoạ dữ liệu liên tục di chuyển giữa bộ nhớ và bộ xử lý tách rời.",
           },
         },
         {
-          title: "Đưa phép tính vào vùng nhớ, thay vì kéo dữ liệu sang bộ xử lý",
-          body: "Pebble Square Inc., đối tác chiến lược của Pebble Vina về công nghệ bán dẫn, phát triển kiến trúc Processing-In-Memory (PIM). PIM thực hiện phép tính ngay nơi dữ liệu được lưu, giảm quãng đường dữ liệu phải di chuyển và tạo nền tảng để AI chạy tại chỗ.",
+          title: "Tính ngay nơi dữ liệu được lưu",
+          body: "Processing-In-Memory (PIM) đưa phép tính vào vùng nhớ thay vì liên tục chuyển dữ liệu sang bộ xử lý. Pebble Square Inc.—đối tác công nghệ của Pebble Vina—phát triển kiến trúc này để tạo nền tảng cho AI chạy tại chỗ với đường dữ liệu ngắn hơn.",
           media: {
-            src: "/media/why-now-3-mobile.webp",
-            srcWide: "/media/why-now-3-desktop.webp",
-            alt: "Sơ đồ so sánh kiến trúc tách bộ nhớ và bộ xử lý với PIM xử lý trực tiếp trong vùng nhớ.",
+            src: "/media/why-now-pim-local-v2.webp",
+            alt: "Minh hoạ mảng PIM thực hiện phép tính trực tiếp trong các ô nhớ.",
           },
         },
       ],
-      pillarsTitle: "Kết quả",
+      pillarsTitle: "Điều thay đổi",
       pillars: [
-        { title: "Giữ dữ liệu tại chỗ", body: "Không phải gửi từng truy vấn lên cloud." },
-        { title: "Phản hồi nhanh hơn", body: "Không chờ vòng đi-về qua mạng." },
-        { title: "Dùng điện hiệu quả hơn", body: "Giảm điện cho việc di chuyển dữ liệu." },
+        { title: "Dữ liệu ở gần nguồn", body: "Giảm nhu cầu gửi từng truy vấn lên cloud." },
+        { title: "Bớt phụ thuộc đường truyền", body: "Giảm vòng đi-về tới hạ tầng bên ngoài." },
+        { title: "Giảm điện cho di chuyển", body: "Rút ngắn trao đổi lặp lại giữa vùng nhớ và bộ xử lý." },
       ],
     },
 
@@ -491,11 +488,11 @@ export const vi: SiteContent = {
     office: "Văn phòng",
     entity: "Pháp nhân",
     taxCode: "Mã số thuế",
-    parent: "Thành viên của",
+    partner: "Đối tác công nghệ",
   },
 
   footer: {
-    tagline: "Thành viên của nhóm Pebble Square, ký hợp đồng và xuất hoá đơn tại Việt Nam.",
+    tagline: "Pebble Vina nghiên cứu, thiết kế chip, phát triển phần mềm AI và đào tạo cho doanh nghiệp tại Việt Nam.",
     navTitle: "Các trang",
     contactTitle: "Thông tin liên hệ",
     legalTitle: "Hồ sơ doanh nghiệp",

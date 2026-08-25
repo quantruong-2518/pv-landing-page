@@ -358,7 +358,11 @@ export function Illustration({
         height={1254}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
-        className={cn("w-full object-contain", media.srcWide && "aspect-square md:aspect-[4/3]", className)}
+        className={cn(
+          "w-full bg-bg object-contain",
+          media.srcWide ? "aspect-square md:aspect-[4/3]" : "aspect-[3/2]",
+          className,
+        )}
       />
     </picture>
   );

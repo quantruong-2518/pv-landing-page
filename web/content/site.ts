@@ -1,5 +1,5 @@
 /**
- * Language-independent constants: legal entity, contact, parent company.
+ * Language-independent constants: legal entity, contact, technology partner.
  * Figures come from docs/01-proof-bank.md §A and §D — do not edit here alone.
  */
 export const SITE = {
@@ -20,12 +20,8 @@ export const SITE = {
     phone: "0345 913 369",
     phoneHref: "tel:+84345913369",
   },
-  /**
-   * Source: pebble-square.com (read 2026-08-20) — every line here is theirs, published.
-   * Only what the site actually renders lives here; the full parent-company record
-   * (CEO, phone, full address) is in docs/01-proof-bank.md §A.
-   */
-  parent: {
+  /** Technology partner, not a parent company or owner of Pebble Vina. */
+  partner: {
     name: "Pebble Square Inc.",
     url: "https://www.pebble-square.com",
     businessLicense: "879-88-02299",

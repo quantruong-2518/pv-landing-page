@@ -1,7 +1,7 @@
 import type { SiteContent } from "@/content/types";
 import { SITE } from "@/content/site";
 
-/** JSON-LD, so an answer engine knows which legal entity this is and whose subsidiary. */
+/** JSON-LD for Pebble Vina as its own legal entity. */
 export function JsonLd({ data }: { data: object }) {
   return (
     <script
@@ -30,17 +30,6 @@ export function organizationSchema(c: SiteContent) {
       streetAddress: SITE.office,
       addressLocality: "Hà Nội",
       addressCountry: "VN",
-    },
-    parentOrganization: {
-      "@type": "Organization",
-      name: SITE.parent.name,
-      url: SITE.parent.url,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Seongnam",
-        addressRegion: "Gyeonggi-do",
-        addressCountry: "KR",
-      },
     },
   };
 }

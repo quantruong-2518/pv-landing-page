@@ -39,16 +39,16 @@ export function SiteFooter({ c }: { c: SiteContent }) {
           <div className="border-t border-line pt-4 lg:col-span-4">
             <a href={path("home")} className="inline-flex items-center gap-2.5 transition-colors hover:text-accent">
               <Image src="/brand/pebble-vina-mark.png" alt="" width={30} height={28} className="h-7 w-auto" />
-              <span className="font-display text-lg font-semibold">{SITE.name}</span>
+              <span className="font-display text-lg font-semibold tracking-[0.04em] uppercase">{SITE.name}</span>
             </a>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted">{c.footer.tagline}</p>
             <a
-              href={SITE.parent.url}
+              href={SITE.partner.url}
               target="_blank"
               rel="noreferrer"
               className="mt-1 inline-flex min-h-11 items-center font-mono text-xs tracking-[0.1em] text-accent hover:underline"
             >
-              pebble-square.com ↗
+              {c.labels.partner} · pebble-square.com ↗
             </a>
           </div>
 
@@ -89,11 +89,6 @@ export function SiteFooter({ c }: { c: SiteContent }) {
             <dl className="mt-1 grid grid-cols-2 gap-x-6 sm:block">
               <FactRow label={c.labels.entity} value={SITE.legalName} />
               <FactRow label={c.labels.taxCode} value={SITE.taxId} />
-              <FactRow
-                className="col-span-2"
-                label={c.labels.parent}
-                value={`${SITE.parent.name} — ${SITE.parent.city}`}
-              />
             </dl>
           </div>
         </div>

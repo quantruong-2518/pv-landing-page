@@ -250,7 +250,7 @@ export interface SiteContent {
     office: string;
     entity: string;
     taxCode: string;
-    parent: string;
+    partner: string;
   };
 
   footer: {

@@ -57,7 +57,7 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
           className="flex h-full items-center gap-2.5 transition-colors hover:text-accent"
         >
           <Image src="/brand/pebble-vina-mark.png" alt="" width={28} height={26} className="h-6 w-auto sm:h-[1.625rem]" priority />
-          <span className="font-display text-base font-semibold tracking-tight sm:text-lg">Pebble Vina</span>
+          <span className="font-display text-base font-semibold tracking-[0.04em] sm:text-lg">PEBBLE VINA</span>
         </a>
 
         <div className="flex h-full items-center gap-3 md:gap-5 lg:gap-6">
