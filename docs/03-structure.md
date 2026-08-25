@@ -8,8 +8,11 @@
 ```
 ├── 1. HOME                     /vi
 │   ├── Slogan / Hero
-│   ├── Why Now?
-│   └── Lịch sử hình thành
+│   └── Why Now?                     — ba điểm bắt đầu
+│       ├── Phần cứng                — 4 cặp sức ép ↔ cơ chế xử lý
+│       │   └── Timeline chip        — nằm ngay dưới phần cứng
+│       ├── Phần mềm                 — ERP trung tâm, AI hỗ trợ quyết định
+│       └── Đào tạo                  — theo nhu cầu, đo đầu ra
 │
 ├── 2. SẢN PHẨM & GIẢI PHÁP     /vi/products
 │   ├── 2.1 HARDWARE                 — một chip = một khối, theo thứ tự họ chip
@@ -50,6 +53,22 @@
 `#espresso`, `#gpu`, `#enterprise`) chứ không phải một route riêng — vì nội dung chi tiết chưa có,
 mở thêm route chỉ tạo thêm trang rỗng. Khi một sản phẩm đủ dày để đứng một mình thì tách sau; anchor
 đã sẵn nên URL cũ vẫn trỏ đúng chỗ.
+
+### Why Now — tương quan pain/response
+
+Why Now không còn là ba thẻ năng lực. Nó giúp cùng một người ra quyết định xác định điểm nghẽn đầu
+tiên: hạ tầng, thông tin quản trị hay năng lực đội ngũ. Thứ tự đã chốt là **phần cứng → timeline chip
+→ phần mềm → đào tạo**.
+
+Nhánh phần cứng mở bằng bốn tương quan: **điện năng · nước làm mát · hao tổn do di chuyển dữ liệu ·
+bảo mật**. Desktop đặt pain bên trái và response bên phải theo từng hàng; một đường tín hiệu ở giữa
+nối đúng hai vế. Mobile không biến chúng thành hai danh sách: mỗi cặp xếp pain trước, response ngay sau.
+Đây là tương quan, không phải quy trình nên không đánh số bước. Không cần ảnh để khối hoàn chỉnh.
+
+Không lặp benchmark hoặc thông số sản phẩm trong bốn hàng. Các số của chip sống ở timeline ngay dưới
+và trang `/vi/products`. Dòng nước làm mát chỉ được nói như bối cảnh của hạ tầng tập trung; response
+được phép nói giảm phần suy luận phải gửi về data center, không được nói chip trực tiếp tiết kiệm nước
+hay loại bỏ data center.
 
 ## 2. Định tuyến
 

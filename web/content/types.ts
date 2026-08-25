@@ -170,6 +170,34 @@ export interface TrainingOffer {
   origin: Origin;
 }
 
+/** One company direction, framed from the buyer need before the response. */
+export interface WhyNowComparisonItem {
+  id: string;
+  painTitle: string;
+  painBody: string;
+  responseTitle: string;
+  responseBody: string;
+}
+
+export interface WhyNowComparison {
+  painLabel: string;
+  responseLabel: string;
+  items: WhyNowComparisonItem[];
+}
+
+export interface WhyNowDirection {
+  id: string;
+  need: string;
+  consequence: string;
+  title: string;
+  body: string;
+  media: Media;
+  status: FactStatus;
+  statusNote: string;
+  origin: Origin;
+  comparison?: WhyNowComparison;
+}
+
 export interface HomeContent {
   hero: {
     eyebrow: string;
@@ -181,12 +209,9 @@ export interface HomeContent {
     media: Media;
   };
   whyNow: Intro & {
-    /** One illustration per point — the block has no single figure of its own. */
-    problemLabel: string;
-    solutionLabel: string;
-    points: IllustratedItem[];
-    pillarsTitle: string;
-    pillars: Item[];
+    needLabel: string;
+    directionLabel: string;
+    directions: WhyNowDirection[];
   };
   history: Intro & {
     milestones: Milestone[];

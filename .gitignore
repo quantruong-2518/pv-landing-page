@@ -14,3 +14,9 @@ npm-debug.log*
 
 # Review screenshots — working artifacts from the ship-page loop, not source
 web/.review-shots/
+
+# Other AI CLI tool configs (mirror .claude/ for Codex etc.) — not project source
+.agents/
+.codex/
+AGENTS.md
+__pycache__/

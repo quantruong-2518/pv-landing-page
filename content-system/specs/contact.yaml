@@ -12,6 +12,10 @@
 # │ from the contact.form block. Everything the old mechanism licensed is    │
 # │ quoted inside decisions/submit-posts-to-endpoint, never left live where  │
 # │ a later compile could read it as current.                                │
+# │                                                                          │
+# │ SUCCESS REPAIR 2026-08-26 — requester rejected the live form title and  │
+# │ success panel as repetitive and contradictory. New Gate F is required    │
+# │ for three strings plus removal of the success-only phone/email list.      │
 # └──────────────────────────────────────────────────────────────────────────┘
 #
 # This is the ONLY input a locale writer may read. It exists so that `en` and `ko`
@@ -147,6 +151,23 @@ contract:
 # through the calling session. The two-pass protocol (return the gates, receive
 # the answers, then compile) is the documented path, not a fallback.
 decisions:
+
+  success_panel_repair_2026_08_26:
+    question: >-
+      why the live sequence reads awkwardly: the form says it books a consultation although it
+      only submits a request, then the success panel repeats receipt three ways while showing
+      phone and email directly below a sentence saying no further action is required
+    answered: >-
+      name the form as a request, make the success state confirm receipt once and state the
+      existing 24-hour human-response commitment, and remove phone/email from the success panel
+    but: >-
+      this does not change the endpoint, book a calendar slot, send an acknowledgement email,
+      or remove the phone/email fallback from the ERROR state. Phone and email remain in the footer.
+    consequence: >-
+      contact.form.title, successTitle and successBody are recompiled as one coherent state
+      transition. The success panel renders only heading and body. The error state still appends
+      SITE.contact.phone and SITE.contact.email as recovery actions.
+    still_open: [Gate F confirmation for this repair]
 
   thirty-minutes-as-a-claim:
     question: "is the 30-minute duration an offer or a claim needing a proof-bank line — this spec, first pass"
@@ -491,9 +512,9 @@ blocks:
       - marketing register inside the form — hành trình, nâng tầm, bứt phá, khai phá
     slots:
       title: >-
-        what this form is for. Renders as a mono uppercase eyebrow in the right
-        column, visually paired with the `labels.office` eyebrow ("VĂN PHÒNG") in the
-        left. A label, not a sentence: 2–4 words, no terminal period.
+        RECOMPILE 2026-08-26. Name what the form actually does: submit a consultation
+        request, not book or confirm a calendar appointment. Renders as a mono uppercase
+        label in the right column. A label, not a sentence: 2–4 words, no terminal period.
       nameLabel: the person's own name
       companyLabel: the organisation they are writing on behalf of — required, not a courtesy field
       emailLabel: email address
@@ -513,33 +534,15 @@ blocks:
         vi.ts; this slot is kept only so the next compile does not re-create it. The
         component's " *" suffix on required labels is unaffected and stays.
       successTitle: >-
-        RECOMPILED 2026-08-25 (decisions/submit-posts-to-endpoint). State the one thing
-        the visitor needs before anything else: the request is with Pebble Vina, and it
-        got there without them. Being wrong here costs a lead who thinks they are done
-        when they are not — or, now, one who writes again because nothing said it
-        landed. Renders as a 24-30px heading at the top of the panel that replaces the
-        form. Use the same noun the button used, so the reader who pressed
-        `Gửi yêu cầu …` reads back the word they pressed.
+        RECOMPILE 2026-08-26 (decisions/success_panel_repair_2026_08_26). Confirm receipt
+        once, with Pebble Vina as the receiver. Do not pad the state with `của bạn` when
+        the panel already follows that visitor's own submit action. No terminal period.
       successBody: >-
-        RECOMPILED 2026-08-25 (decisions/submit-posts-to-endpoint). Two facts the title
-        does not carry, in this order: how the reply reaches them — through the contact
-        details they just submitted, which is also why those details mattered — and that
-        nothing further is required of them. The second half is not filler: the panel
-        renders phone and email directly underneath, and without this line that <dl>
-        reads as an instruction to make contact a second time.
-        LENGTH CEILING, a spec fact and not a preference: at or under the string it
-        replaces, ~190 characters, two short sentences. `/vi/contact` is one `screen`
-        block measured at 836px against an 836px budget with zero slack
-        (decisions/one-white-surface, CLAUDE.md §4b), and the panel is deliberately
-        shorter than the form it replaces (contact-form.tsx, the scrollIntoView comment
-        depends on it).
-        WHAT IS GONE AND WHY, so it is not restored by reflex: the old sentence one told
-        the visitor to press send in their own client, and carried the privacy echo
-        `chưa có gì rời máy bạn`, which the previous compile called load-bearing. Under a
-        real POST it is false — the data left the machine, on purpose. The `ngay bên
-        dưới` fallback goes too: it was the recovery route for a mail client that never
-        opened, and that failure mode no longer exists. Failure now has its own string,
-        `errorBody`, and never reaches this panel.
+        RECOMPILE 2026-08-26 (decisions/success_panel_repair_2026_08_26). Carry the one
+        fact the title does not: a person from Pebble Vina responds through the submitted
+        contact details within 24 hours (C035). One short sentence. No `không cần làm gì
+        thêm`, no acknowledgement-email implication, and no direct-contact fallback; the
+        success-only phone/email list is removed and the footer already carries those facts.
       errorBody: >-
         NEW 2026-08-25. The only failure copy the form has. Shown when the POST does not
         return ok — inline, in the same flex row as the submit button, `role="alert"`, so

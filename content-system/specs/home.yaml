@@ -117,6 +117,60 @@ contract:
 
 decisions:
 
+  why_now_rejection_2026_08_26:
+    question: what failed in the live three-direction Why Now pass
+    answered: >-
+      the section classified three company directions but did not create commercial pressure:
+      the pains were abstract, the operational cost was weak, evidence was buried after the
+      solution, and the need/response relationship was not visually immediate
+    but: >-
+      the three-direction order remains hardware, software, training; the chip timeline remains
+      directly under hardware; images remain deferred
+    consequence: >-
+      Recompile only home.whyNow and the nested home.history copy needed to keep the hardware
+      story coherent. The hardware direction opens with four explicit pain/response pairs.
+      Software and training stay lean and use the same pain-before-response reading order.
+    still_open: []
+
+  why_now_reader_2026_08_26:
+    question: who shares the three pains even though the offers span hardware, software and training
+    answered: >-
+      the CEO, COO, CIO or digital-transformation owner who wants AI in operations but has not yet
+      decided whether the first constraint is infrastructure, management information or team capability
+    but: >-
+      this does not make every direction equally mature or equally relevant to every reader
+    consequence: >-
+      The section must help the reader recognize the constraint they carry, then select a direction.
+      It does not describe an undifferentiated audience called enterprises or list company capabilities.
+    still_open: []
+
+  why_now_evidence_2026_08_26:
+    question: whether Why Now should repeat the technical figures already shown in the product page and chip timeline
+    answered: >-
+      no. Hook with the operational pains and the physical response, not with repeated benchmarks.
+      Keep the existing figures in the nested timeline and the detailed product page.
+    but: >-
+      qualitative does not mean vague. Electricity, cooling water, data movement, network dependency,
+      deployment boundary and approval boundary must be named precisely.
+    consequence: >-
+      The four hardware pain/response rows carry no benchmark or saving figure. C020 licenses the
+      electricity-and-water context without its figures; C014 and C015 license the local-inference
+      and data-residency responses. No row promises a quantified reduction.
+    still_open: []
+
+  hardware_comparison_shape_2026_08_26:
+    question: how the four hardware pains and four responses should be read on desktop and mobile
+    answered: >-
+      desktop renders one paired row at a time with pain on the left, response on the right and a
+      central signal trace linking them. Mobile keeps each pair together in pain then response order.
+    but: >-
+      this is not two independent lists, not four interchangeable cards, and not a decorative process timeline.
+      The rows are correlations, not sequential steps.
+    consequence: >-
+      Add a comparison-pair data shape to the hardware direction. Use existing color and typography
+      tokens. The central trace is the single signature device; no new animation, image or ornamental icon set.
+    still_open: []
+
   rejection_2026_08_24:
     question: what was wrong with the home copy applied 2026-08-21
     answered: >-
@@ -306,72 +360,89 @@ blocks:
       longer will not. Check by eye after apply — docs/03-structure.md §3.
 
   - id: home.whyNow
-    origin: ps
+    origin: pv
     status: shipped
     height: content
     intent:
       communicate: >-
-        why keeping AI in-house is hard, and why it takes a different kind of chip rather than
-        a cheaper cloud contract
-      reader_question: if this were possible, why isn't everyone already doing it
-    claims: [C014, C020]
+        three different constraints can stop the same enterprise AI programme, and each constraint
+        requires a different starting point: hardware, operating software or team capability
+      reader_question: what is actually stopping us, and where should we start
+    claims: [C001, C014, C015, C020, C037, C040]
     mechanisms:
-      - a conventional machine keeps memory and processor apart, so most of the energy is spent moving data between them
-      - computing where the data already sits removes that journey
+      - Pebble Square computes inside the memory array and runs inference on the device
+      - Pebble Vina plans a central ERP with surrounding modules; AI proposes and coordinates while people approve
+      - Pebble Vina plans to survey the work problem and agree output measures before designing training
     values:
-      - inference becomes affordable at sites that have only a sensor's power budget
+      - the buyer can identify the first constraint before choosing a solution path
+      - each company direction answers a named operating problem rather than presenting a capability catalogue
     qualifiers:
-      - the data-centre electricity and water figures are industry context, not a Pebble Square claim, and must be attributed as such in the copy itself
-      - the four properties are what the parent designs for, never measured outcomes
+      - data-centre electricity and cooling water are industry context, never Pebble Square measurements
+      - edge inference can reduce work sent to a data centre; it does not eliminate data centres or cooling
+      - on-device and on-premise deployment can keep data inside the chosen boundary; neither is a complete security guarantee
+      - hardware belongs to Pebble Square Inc. and is shipped; software is roadmap December 2026; training survey is roadmap 2027
     forbidden:
       - attributing the industry figures to Pebble Square
-      - presenting the four properties as measured outcomes
-      - any acronym or architecture name — decisions.mechanism_vocabulary
+      - saying the chip eliminates electricity use, cooling water, data centres, latency or security risk
+      - saying edge inference directly or measurably reduces water consumption
+      - presenting the software or training direction as available now
+      - implying Pebble Vina designed or manufactured the chip
       - any saving expressed as a figure — F007
     slots:
-      kicker: section index
+      kicker: section index and the three-direction frame
       title: >-
-        what actually blocks in-house AI. Follows from the hero's permission problem, and must
-        not repeat it.
+        a commercially direct diagnosis: AI programmes stall for different reasons, so choosing
+        a solution before naming the constraint wastes time and budget
       lead: >-
-        only if it carries a fact the title cannot. The 21/08 pass left it empty and the block
-        read better for it — default to empty.
-      points:
-        - id: point_0
-          carries: >-
-            the cost side of sending the work away — what the industry's data centres already
-            consume in electricity and water, explicitly framed as industry figures
-          must_carry: [attribution as industry context, not a Pebble Square measurement]
-          claims: [C020]
-        - id: point_1
-          carries: >-
-            the location side — the work is moving to places that have no power budget:
-            substations, lines, wearables, battery sensors. Milliwatts, not watts.
-          claims: []
-        - id: point_2
-          carries: >-
-            the mechanism side — most of the energy pays for moving data, not for computing on
-            it, and computing inside the memory removes the journey. No architecture name.
-          claims: [C014]
-      pillarsTitle: the four properties the parent designs for
-      pillars:
-        - id: pillar_0
-          carries: privacy — inference finishes on the device, so the data does not leave; ordered first per decisions.pain_order
-          claims: [C014, C015]
-        - id: pillar_1
-          carries: low power — the arithmetic runs inside the memory array, with no named memory technology
-          claims: []
-        - id: pillar_2
-          carries: speed — the decision is made where the event happens, with no round trip
-          claims: [C014]
-        - id: pillar_3
-          carries: cost shape — hardware bought once instead of inference rented monthly. Shape only, never a figure.
-          claims: []
-    media_note: >-
-      three illustration slots already placed and art-directed (context/media-plan.md). Their
-      `src`, `srcWide` and `alt` are data. The alt text of point_2 describes a bus-versus-crossbar
-      diagram — if the point's wording no longer matches the artwork, raise it, do not silently
-      rewrite the alt.
+        one line that lets the shared reader recognize the three starting constraints: infrastructure,
+        management information and team capability. It must not summarize the three offers.
+      needLabel: label for the buyer-side constraint, not a generic `need`
+      directionLabel: label for the physical or operating response, not a generic `direction`
+      directions:
+        - id: hardware
+          origin: ps
+          status: shipped
+          claims: [C001, C014, C015, C020]
+          need: the commercial consequence of centralizing every AI workload away from where work happens
+          consequence: why electricity, cooling, data movement and data exposure are one infrastructure decision
+          title: the hardware starting point, attributed to Pebble Square Inc., using the protected PIM Edge AI term
+          body: the mechanism only; do not repeat timeline figures or product benchmarks
+          comparisons:
+            - id: electricity
+              pain: centralized AI infrastructure requires continuous power and field devices often have limited power budgets
+              response: computing inside the memory array reduces data movement and supports low-power inference at the edge
+              claims: [C014, C020]
+            - id: cooling
+              pain: centralized AI infrastructure also consumes cooling water as compute density rises
+              response: running the relevant inference at the device can reduce the portion of work sent back to the data centre
+              claims: [C020]
+              must_carry: [no claim that the chip directly saves water or removes data centres]
+            - id: performance
+              pain: moving data between memory and processor, then device and cloud, adds a transport cost and network round trip
+              response: compute where data sits and decide where the event occurs
+              claims: [C014]
+            - id: security
+              pain: sending sensitive data outside the device or organization expands the data boundary and creates network dependency
+              response: on-device or qualified on-premise deployment can keep data inside the chosen boundary
+              claims: [C014, C015]
+              must_carry: [on-premise qualification, no complete security guarantee]
+        - id: software
+          origin: pv
+          status: roadmap
+          claims: [C037]
+          need: management decisions are delayed when each operating module holds only one fragment of the business context
+          consequence: leaders assemble the picture manually before they can approve an action
+          title: central ERP as the management-information starting point
+          body: roadmap December 2026; CRM HRM DMS and operations monitoring surround ERP; AI proposes and coordinates while people approve
+        - id: training
+          origin: pv
+          status: roadmap
+          claims: [C040]
+          need: generic AI training creates attendance but gives the enterprise no agreed basis for judging changed work
+          consequence: without a work problem and output measure agreed first, course completion is not evidence of operating capability
+          title: a needs-led and measured training starting point
+          body: roadmap survey 2027; any later programme starts from the enterprise problem and agreed ROI indicators, never a fixed curriculum or guaranteed return
+    media_note: all three image sources stay empty; this redesign must be complete without them
 
   - id: home.history
     origin: ps
