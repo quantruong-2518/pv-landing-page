@@ -136,7 +136,8 @@ export const vi: SiteContent = {
           name: "MINT",
           tagline: "Analog-PIM · Edge AI đã sản xuất hàng loạt",
           decisionLabel: "AI chạy ngay trên thiết bị, trong giới hạn điện thấp.",
-          indexStageLabel: "Sản xuất hàng loạt",
+          indexStageLabel: "Sản xuất-5/2023",
+          technologyLabel: "Analog",
           transition: "Bắt đầu tại thiết bị, nơi điện năng là giới hạn đầu tiên.",
           body: "Dành cho suy luận Edge AI trong giới hạn điện của thiết bị hiện trường. MINT đã sản xuất hàng loạt từ 5/2023.",
           applicationLead: "MINT thường được định hướng cho Smart Home, IoT và thiết bị phân tích lỗi tại hiện trường.",
@@ -186,14 +187,58 @@ export const vi: SiteContent = {
           name: "PAPAYA · PAPAYA FLEX",
           tagline: "Analog-PIM · PoC khách hàng · 2024",
           decisionLabel: "Thị giác máy và hệ thống an ninh ở mốc PoC.",
-          indexStageLabel: "PoC · 2024",
+          indexStageLabel: "PoC-2024",
+          technologyLabel: "Analog",
           transition: "Khi thiết bị cần nhìn, bài toán chuyển từ tín hiệu sang hình ảnh.",
-          body: "PAPAYA đã đạt PoC với khách hàng cho thị giác máy và hệ thống an ninh. Mốc này chưa đồng nghĩa sản xuất hàng loạt hay mở bán.",
-          applicationLead: "PAPAYA thường được ứng dụng cho thị giác máy, nhận dạng hình ảnh và hệ thống an ninh.",
-          metrics: [
-            { label: "performance", value: "0,5 TOPS" },
-            { label: "efficiency", value: "30 TOPS/W" },
-            { label: "area", value: "5 × 5 mm²" },
+          body: "Số đo của PAPAYA FLEX lấy trên tải thị giác máy, còn PAPAYA ở trạm gốc 5G. Lợi thế nằm ở điện năng và kích thước; huấn luyện mô hình lớn vẫn cần GPU.",
+          applicationLead: "Hai mức hiệu năng trong cùng họ PAPAYA phục vụ thị giác máy và hệ thống tại hiện trường.",
+          metrics: [],
+          variants: [
+            {
+              name: "PAPAYA",
+              tagline: "PoC · Vision & 5G",
+              applicationLead: "Thông số nền tại mốc PoC và mức giảm điện cho tác vụ AI ở trạm gốc 5G.",
+              metrics: [
+                { label: "performance", value: "0,5 TOPS" },
+                { label: "efficiency", value: "30 TOPS/W" },
+                { label: "area", value: "5 × 5 mm²" },
+                {
+                  label: "power",
+                  value: "~10.000×",
+                  note: "So với NVIDIA L4: 320–332 W còn 0,03 W cho riêng tác vụ AI tại trạm gốc, không phải cả trạm.",
+                },
+              ],
+              media: {
+                src: "/media/chips/papaya.webp",
+                alt: "Chip PAPAYA, nhìn nghiêng từ phía trên.",
+              },
+            },
+            {
+              name: "PAPAYA FLEX",
+              tagline: "Machine Vision Benchmark",
+              applicationLead: "Ba benchmark trên tải thị giác máy so với NVIDIA Jetson Nano.",
+              metrics: [
+                {
+                  label: "power",
+                  value: "~50×",
+                  note: "0,1–0,15 W so với 5–10 W của NVIDIA Jetson Nano.",
+                },
+                {
+                  label: "efficiency",
+                  value: "~100×",
+                  note: "333–500 so với 3,6–7,2 FPS/W của NVIDIA Jetson Nano, đo trên ResNet-50.",
+                },
+                {
+                  label: "area",
+                  value: "~25×",
+                  note: "10 × 10 mm so với 70 × 45 mm của NVIDIA Jetson Nano.",
+                },
+              ],
+              media: {
+                src: "/media/chips/papaya-flex.webp",
+                alt: "Chip PAPAYA FLEX, nhìn nghiêng từ phía trên.",
+              },
+            },
           ],
           capabilities: [
             {
@@ -244,7 +289,8 @@ export const vi: SiteContent = {
           name: "ESPRESSO",
           tagline: "Digital-PIM · roadmap Q3/2026",
           decisionLabel: "Digital-PIM cho tải lớn hơn · dự kiến Q3/2026.",
-          indexStageLabel: "Roadmap · Q3/2026",
+          indexStageLabel: "Roadmap-Q3/2026",
+          technologyLabel: "Digital",
           transition: "Sau Edge AI hiện tại là lộ trình Digital-PIM dự kiến Q3/2026.",
           body: "Dự kiến Q3/2026, ESPRESSO sẽ đưa Digital-PIM lên AI PC, Robotics, ChatBot, Auto Pilot và Data Center. Đây là roadmap trong tài liệu nhà đầu tư, chưa có trong danh mục công khai.",
           applicationLead: "ESPRESSO hướng tới AI PC, Robotics và Data Center trong roadmap Q3/2026.",
@@ -286,7 +332,8 @@ export const vi: SiteContent = {
           indexName: "E-Series · E10 / E20",
           tagline: "GP-DSA · Training + Inference",
           decisionLabel: "Tăng tốc huấn luyện và suy luận từ một máy chủ đến cụm đa card.",
-          indexStageLabel: "Pebble Square",
+          indexStageLabel: "Product Data",
+          technologyLabel: "GP-DSA",
           transition: "Khi mô hình vượt khỏi thiết bị Edge AI, E-Series đưa tải lên máy chủ và cụm đa card.",
           body: "E-Series dùng GP-DSA cho huấn luyện và suy luận. Dải độ chính xác trải từ FP32 đến INT4, với PCIe 5.0 và RDMA.",
           applicationLead: "E-Series thường được ứng dụng cho máy chủ AI doanh nghiệp, LLM, thị giác máy, NLP, Speech AI và tính toán đa card.",
@@ -301,7 +348,10 @@ export const vi: SiteContent = {
                 { label: "memory", value: "48 GB" },
                 { label: "connectivity", value: "PCIe 5.0 ×16", note: "6 × 400G hoặc 12 × 200G RDMA · RoCEv2" },
               ],
-              media: { alt: "Ảnh card tăng tốc AI E10 PCIe của Pebble Square." },
+              media: {
+                src: "/media/chips/e10.webp",
+                alt: "Card tăng tốc AI E10 PCIe với vỏ nhôm bạc và đầu nối PCIe.",
+              },
             },
             {
               name: "E20",
@@ -312,7 +362,10 @@ export const vi: SiteContent = {
                 { label: "memory", value: "96 GB" },
                 { label: "connectivity", value: "2 × PCIe 5.0 ×16", note: "16 × 400G hoặc 32 × 200G RDMA · RoCEv2" },
               ],
-              media: { alt: "Ảnh card tăng tốc AI E20 của Pebble Square." },
+              media: {
+                src: "/media/chips/e20.webp",
+                alt: "Card tăng tốc AI E20 với hai khối tản nhiệt nhôm trên bo mạch xanh.",
+              },
             },
           ],
           supportingTitle: "Software stack đi cùng phần cứng",
@@ -452,6 +505,7 @@ export const vi: SiteContent = {
     metricLabels: {
       performance: "Performance",
       efficiency: "Efficiency",
+      power: "Power",
       area: "Die / Chip Area",
       compute: "Compute",
       memory: "Memory",

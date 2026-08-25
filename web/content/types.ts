@@ -79,7 +79,7 @@ export interface Spec {
 
 /** One deliberately ordered product figure. Order is part of the catalogue UI. */
 export interface ProductMetric {
-  label: "performance" | "efficiency" | "area" | "compute" | "memory" | "connectivity";
+  label: "performance" | "efficiency" | "power" | "area" | "compute" | "memory" | "connectivity";
   value: string;
   /** Precision, method or boundary that must travel with the foreground value. */
   note?: string;
@@ -113,6 +113,8 @@ export interface Product {
   tagline: string;
   decisionLabel: string;
   indexStageLabel: string;
+  /** Short architecture label shown beside origin and maturity in the dossier. */
+  technologyLabel: string;
   transition: string;
   body: string;
   applicationLead: string;

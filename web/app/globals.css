@@ -179,22 +179,7 @@ h3 {
   text-shadow: 0 0 28px color-mix(in srgb, var(--color-accent) 20%, transparent);
 }
 
-/* Pool of light under a chip render on <ChipPlinth>. Kept neutral: each render
-   carries its own colour, and a tinted pool would fight the copper ESPRESSO. */
-.chip-pool {
-  background: radial-gradient(
-    58% 44% at 50% 58%,
-    color-mix(in srgb, var(--color-fg) 15%, transparent) 0%,
-    transparent 70%
-  );
-}
-
-/* Lift for the chip render sitting on that pool. `drop-shadow` follows the
-   cut-out alpha, so the die casts a shadow shaped like itself instead of a box.
-   Two steps — a tight contact edge and a wider spill — because one blur alone
-   reads as a sticker outline. Colour is the darkest token we have, which is what
-   makes it legible: it lands on the lit pool, not on the raw plinth. Weight stays
-   under the pool's, since the pool is what seats the chip and this only raises it. */
+/* A restrained shadow seats the transparent chip render on its white box. */
 .chip-lift {
   /* Geometry steps at `md`, where the plinth stops being a phone thumbnail: the
      frame is square at every width now, but it is ~139px beside a phone identity
@@ -203,8 +188,8 @@ h3 {
   --chip-lift-contact: 0 1px 2px;
   --chip-lift-spill: 0 6px 9px;
   filter:
-    drop-shadow(var(--chip-lift-contact) color-mix(in srgb, var(--color-bg-deep) 45%, transparent))
-    drop-shadow(var(--chip-lift-spill) color-mix(in srgb, var(--color-bg-deep) 35%, transparent));
+    drop-shadow(var(--chip-lift-contact) rgb(11 18 32 / 18%))
+    drop-shadow(var(--chip-lift-spill) rgb(11 18 32 / 10%));
 }
 
 @media (min-width: 768px) {

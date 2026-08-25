@@ -10,7 +10,6 @@ import type {
   SystemIconName,
   TrainingOffer,
 } from "@/content/types";
-import { Fragment } from "react";
 import { ContactForm } from "@/components/contact-form";
 import { PageShell } from "@/components/page-shell";
 import {
@@ -112,22 +111,15 @@ export function ProductsPage({ c }: { c: SiteContent }) {
       <SectionDivider />
       <div className="bg-surface-hardware">
         <GroupLead id="hardware" intro={hardware} category="hardware" />
-        <SectionDivider variant="item" />
-        {hardware.items.map((product, index) => (
-          <Fragment key={product.id}>
-            {index > 0 ? <SectionDivider variant="item" /> : null}
-            <ChipBlock c={c} product={product} />
-          </Fragment>
+        {hardware.items.map((product) => (
+          <ChipBlock key={product.id} c={c} product={product} />
         ))}
       </div>
 
       <SectionDivider />
       <div id="software" className="bg-surface-software">
-        {software.groups.map((group, index) => (
-          <Fragment key={group.id}>
-            {index > 0 ? <SectionDivider variant="item" /> : null}
-            <SoftwareBlock c={c} intro={software} group={group} />
-          </Fragment>
+        {software.groups.map((group) => (
+          <SoftwareBlock key={group.id} c={c} intro={software} group={group} />
         ))}
       </div>
 
@@ -241,6 +233,29 @@ function StageBadge({
   );
 }
 
+function DossierPill({ label, className }: { label: string; className?: string }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex min-h-6 items-center border px-2.5 py-1 font-mono text-[0.6rem] uppercase leading-none tracking-[0.12em] sm:text-[0.65rem]",
+        className,
+      )}
+    >
+      {label}
+    </span>
+  );
+}
+
+function DossierPills({ c, product }: { c: SiteContent; product: Product }) {
+  return (
+    <div className="flex min-w-0 flex-wrap items-center gap-2 md:justify-end">
+      <DossierPill label={c.origin[product.origin]} className="border-line-strong text-subtle" />
+      <DossierPill label={product.indexStageLabel} className={STAGE_STYLE[product.stage]} />
+      <DossierPill label={product.technologyLabel} className="border-hardware text-hardware" />
+    </div>
+  );
+}
+
 function Transition({ children, category, className }: { children: string; category: Category; className?: string }) {
   return (
     <p className={cn("flex max-w-3xl items-start gap-3 text-sm leading-relaxed text-muted sm:text-base", className ?? "mb-4 sm:mb-5")}>
@@ -251,8 +266,6 @@ function Transition({ children, category, className }: { children: string; categ
 }
 
 function ChipBlock({ c, product }: { c: SiteContent; product: Product }) {
-  const stageLabel = product.statusNote ?? c.status[product.status];
-
   if (product.variants?.length) {
     return <AcceleratorBlock c={c} product={product} variants={product.variants} />;
   }
@@ -266,14 +279,8 @@ function ChipBlock({ c, product }: { c: SiteContent; product: Product }) {
           <header className="grid items-start gap-3 border-b border-line px-4 py-3 sm:px-5 md:grid-cols-[minmax(0,1fr)_auto]">
             <div className="min-w-0 flex-1">
               <h3 className="font-display text-2xl font-semibold leading-tight sm:text-3xl lg:text-[2.1rem]">{product.name}</h3>
-              <p className="mt-1 font-mono text-[0.66rem] uppercase leading-snug tracking-[0.1em] text-hardware sm:text-[0.75rem]">
-                {product.tagline}
-              </p>
             </div>
-            <div className="flex min-w-0 flex-wrap items-center gap-2 md:justify-end">
-              <OriginTag origin={product.origin} label={c.origin[product.origin]} />
-              <StageBadge stage={product.stage} label={stageLabel} compact />
-            </div>
+            <DossierPills c={c} product={product} />
           </header>
 
           <div className="grid grid-cols-12 items-stretch">
@@ -282,7 +289,6 @@ function ChipBlock({ c, product }: { c: SiteContent; product: Product }) {
                 media={product.media}
                 pendingLabel={c.ui.imagePending}
                 className="sticky top-[calc(var(--header-h)+1rem)]"
-                badge={product.stage === "roadmap" ? <StageBadge stage={product.stage} label={stageLabel} compact /> : undefined}
               />
             </div>
 
@@ -291,17 +297,13 @@ function ChipBlock({ c, product }: { c: SiteContent; product: Product }) {
                 {product.applicationLead}
               </p>
               <MetricList label={c.ui.productMetrics} labels={c.ui.metricLabels} metrics={product.metrics} />
-              {product.source ? (
-                <p className="mt-4 border-t border-line pt-3 font-mono text-[0.58rem] leading-relaxed text-subtle sm:text-[0.65rem]">
-                  <span className="mr-2 uppercase tracking-[0.12em]">{c.ui.source}</span>
-                  {product.source}
-                </p>
-              ) : null}
+              <AppRail
+                label={c.ui.applications}
+                items={product.capabilities}
+                pendingLabel={c.ui.imagePending}
+                className="mt-5 border-t border-line pt-4 sm:mt-6"
+              />
             </div>
-          </div>
-
-          <div className="border-t border-line px-4 py-3.5 sm:px-5 sm:py-4">
-            <AppRail label={c.ui.applications} items={product.capabilities} pendingLabel={c.ui.imagePending} />
           </div>
         </article>
       </div>
@@ -313,11 +315,11 @@ function MetricList({ label, labels, metrics }: { label: string; labels: SiteCon
   return (
     <div className="mt-3 sm:mt-4">
       <p className="sr-only">{label}</p>
-      <ol className="border-t border-line">
+      <ol className="mt-1 grid gap-1">
         {metrics.map((metric, index) => (
           <li
             key={metric.label}
-            className="grid grid-cols-[1.65rem_minmax(0,1fr)] gap-x-2 border-b border-line py-2 sm:grid-cols-[2rem_minmax(7rem,0.8fr)_minmax(0,1fr)] sm:items-baseline sm:gap-x-3"
+            className="grid grid-cols-[1.65rem_minmax(0,1fr)] gap-x-2 py-2 sm:grid-cols-[2rem_minmax(7rem,0.8fr)_minmax(0,1fr)] sm:items-baseline sm:gap-x-3"
           >
             <span className="font-mono text-[0.6rem] text-hardware">{String(index + 1).padStart(2, "0")}</span>
             <span className="text-[0.7rem] font-medium uppercase tracking-[0.06em] text-muted sm:text-xs">{labels[metric.label]}</span>
@@ -335,7 +337,7 @@ function MetricList({ label, labels, metrics }: { label: string; labels: SiteCon
 }
 
 function AcceleratorBlock({ c, product, variants }: { c: SiteContent; product: Product; variants: HardwareVariant[] }) {
-  const stageLabel = product.statusNote ?? c.status[product.status];
+  const wideMedia = product.id === "gpu";
 
   return (
     <Section id={product.id} dense className="product-dossier">
@@ -345,22 +347,36 @@ function AcceleratorBlock({ c, product, variants }: { c: SiteContent; product: P
           <header className="grid items-start gap-3 border-b border-line px-4 py-3 sm:px-5 sm:py-4 md:grid-cols-[minmax(0,1fr)_auto] lg:px-6">
             <div className="min-w-0 flex-1">
               <h3 className="font-display text-2xl font-semibold leading-tight sm:text-3xl lg:text-[2.1rem]">{product.name}</h3>
-              <p className="mt-1 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-hardware sm:text-[0.75rem]">{product.tagline}</p>
               <p className="mt-2 max-w-3xl text-[0.8rem] leading-relaxed text-muted sm:text-sm">{product.body}</p>
             </div>
-            <div className="flex min-w-0 flex-wrap items-center gap-2 md:justify-end">
-              <OriginTag origin={product.origin} label={c.origin[product.origin]} />
-              <StageBadge stage={product.stage} label={stageLabel} compact />
-            </div>
+            <DossierPills c={c} product={product} />
           </header>
 
-          <div className="grid divide-y divide-line lg:grid-cols-2 lg:divide-x lg:divide-y-0">
-            {variants.map((variant) => (
-              <div key={variant.name} className="grid grid-cols-12 items-stretch">
-                <div className="col-span-4 border-r border-line p-3 sm:p-4 lg:p-4">
-                  <ChipPlinth media={variant.media} pendingLabel={c.ui.imagePending} />
+          <div className="divide-y divide-line">
+            {variants.map((variant, index) => (
+              <div key={variant.name} className="grid items-center lg:grid-cols-12">
+                <div
+                  className={cn(
+                    "p-4 sm:p-6 lg:p-8",
+                    wideMedia ? "lg:col-span-7" : "lg:col-span-5",
+                    index % 2 === 1 && "lg:order-2",
+                  )}
+                >
+                  <ChipPlinth
+                    media={variant.media}
+                    pendingLabel={c.ui.imagePending}
+                    ratio={wideMedia ? "aspect-[16/9]" : undefined}
+                    sizes={wideMedia ? "(min-width: 1024px) 56vw, 92vw" : undefined}
+                    imageClassName={wideMedia ? "p-[4%] lg:p-[6%]" : undefined}
+                  />
                 </div>
-                <div className="col-span-8 min-w-0 p-3.5 sm:p-5 lg:p-5">
+                <div
+                  className={cn(
+                    "min-w-0 border-t border-line p-5 sm:p-6 lg:border-t-0 lg:p-8",
+                    wideMedia ? "lg:col-span-5" : "lg:col-span-7",
+                    index % 2 === 1 ? "lg:border-r" : "lg:border-l",
+                  )}
+                >
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                     <h4 className="font-display text-2xl font-semibold leading-none sm:text-3xl">{variant.name}</h4>
                     <p className="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-hardware sm:text-[0.7rem]">{variant.tagline}</p>
@@ -384,11 +400,6 @@ function AcceleratorBlock({ c, product, variants }: { c: SiteContent; product: P
               </ul>
             </div>
           ) : null}
-
-          <p className="border-t border-line px-4 py-2.5 font-mono text-[0.58rem] leading-relaxed text-subtle sm:px-5 sm:text-[0.65rem] lg:px-6">
-            <span className="mr-2 uppercase tracking-[0.12em]">{c.ui.source}</span>
-            {product.source}
-          </p>
 
           <div className="border-t border-line px-4 py-3.5 sm:px-5 sm:py-4 lg:px-6">
             <AppRail label={c.ui.applications} items={product.capabilities} pendingLabel={c.ui.imagePending} />

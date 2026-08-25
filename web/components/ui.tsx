@@ -364,59 +364,41 @@ export function Illustration({
   );
 }
 
-/**
- * Product rig for the chip renders. The four files are additive-light artwork on
- * transparency: on a light band the glow reads as haze and the die edge burns
- * out, so every chip gets the same dark plinth whatever band it sits in. That
- * shared rig is also what makes the four read as one photographic set
- * (context/media-plan.md, luật 1) rather than four borrowed pictures.
- *
- * `badge` pins an evidence label inside the frame. Used for `roadmap` parts:
- * the label then cannot be separated from the render, not even by a screenshot
- * (CLAUDE.md §2 luật 4).
- */
+/** Product render centred on the same white surface as the dossier. */
 export function ChipPlinth({
   media,
-  badge,
   pendingLabel,
+  ratio = "aspect-square",
+  sizes = "(min-width: 1024px) 26vw, (min-width: 768px) 30vw, 38vw",
+  imageClassName,
   className,
 }: {
   media: Media;
-  badge?: ReactNode;
   pendingLabel: string;
+  ratio?: string;
+  sizes?: string;
+  imageClassName?: string;
   className?: string;
 }) {
   return (
     <figure
       className={cn(
-        "@container tone-dark relative isolate overflow-hidden border border-line bg-bg",
-        // Square everywhere: the plinth shares a row with the copy on every
-        // width now, including phones, so it costs a column and not page height.
-        // Full-width on a phone it was 280px of an 788px budget that has to hold
-        // the whole product.
-        "aspect-square",
+        "@container relative isolate flex items-center justify-center overflow-hidden bg-bg shadow-[0_14px_36px_rgb(11_18_32_/_0.12)]",
+        ratio,
         className,
       )}
     >
-      <div className="crossbar absolute inset-0 opacity-25" aria-hidden />
-      {/* A pool of light under the die, so a cut-out render sits ON the plinth
-          instead of floating above it. Neutral on purpose: each chip brings its
-          own colour and a tinted pool would fight the copper one. */}
-      <div className="chip-pool absolute inset-0" aria-hidden />
-
       {media.src ? (
         <Image
           src={media.src}
           alt={media.alt}
           fill
-          sizes="(min-width: 1024px) 26vw, (min-width: 768px) 30vw, 38vw"
-          className="chip-lift object-contain p-[5%] lg:p-[7%]"
+          sizes={sizes}
+          className={cn("chip-lift object-contain object-center", imageClassName ?? "p-[10%] lg:p-[12%]")}
         />
       ) : (
         <MediaPending alt={media.alt} label={pendingLabel} />
       )}
-
-      {badge ? <div className="absolute bottom-3 left-3 z-10 sm:bottom-4 sm:left-4">{badge}</div> : null}
     </figure>
   );
 }
@@ -458,7 +440,7 @@ export function AppRail({
         )}
       >
         {items.map((item) => (
-          <li key={item.title} className="w-28 shrink-0 snap-start sm:w-32 lg:w-36">
+          <li key={item.title} className="w-32 shrink-0 snap-start text-center sm:w-40 lg:w-44">
             {/* Thumbnail plus label, no prose (GM, 2026-08-24): the rail names
                 where the part is used, it does not argue the case — that is what
                 the claim and the numbers above it are for. A fixed card width,
@@ -472,7 +454,7 @@ export function AppRail({
               // that edge is the device. The frame also lands 8–11px shorter,
               // which each rail block keeps for its own budget.
               ratio="aspect-[16/9]"
-              sizes="(min-width: 1024px) 144px, (min-width: 640px) 128px, 112px"
+              sizes="(min-width: 1024px) 176px, (min-width: 640px) 160px, 128px"
               pendingLabel={pendingLabel}
               compact
               // The app photos are cut-outs on transparency: framed, each one
