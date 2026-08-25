@@ -79,25 +79,36 @@
       "key": "contact.ctaPrimary",
       "component": "button",
       "primary_action": true,
-      "notes": "Released 2026-08-24 by decisions/submit-stays-mailto. The button names what pressing it does — the component fires a mailto and nothing reaches a server, so it may not say gửi. 20 of the 28 characters vi allows for a button.",
+      "notes": "Recompiled 2026-08-25 by decisions/submit-posts-to-endpoint — the form POSTs to /api/contact, so the button may now name a delivery it actually performs. Verb plus object in the reader's own terms: they came for tư vấn, not to submit a form. A bare `Gửi` is in lint_product's vi vague-action list and is rejected for the reason behind the rule, not only by it. 18 of the 28 characters vi allows for a button; it replaces a 20-character label, so the button does not grow.",
       "locales": {
-        "vi": "Mở email đã điền sẵn"
+        "vi": "Gửi yêu cầu tư vấn"
       }
     },
     {
       "key": "contact.form.successTitle",
       "component": "success",
-      "notes": "The panel that replaces the form. States the real state: a draft exists in the visitor's own mail client. `đã gửi` and `đã nhận` are both false here and are forbidden by the spec.",
+      "state": "success",
+      "notes": "Recompiled 2026-08-25. The panel that replaces the form. States the state that is now true: the request reached Pebble Vina, and it got there without the visitor doing anything else. Repeats the noun from the button so the reader reads back the word they pressed. `đã nhận được` was forbidden here until the POST landed and is true as of this commit — decisions/submit-posts-to-endpoint. No terminal period: it is a heading.",
       "locales": {
-        "vi": "Thư đã soạn sẵn trong ứng dụng mail của bạn"
+        "vi": "Đã nhận được yêu cầu của bạn"
       }
     },
     {
       "key": "contact.form.successBody",
       "component": "success",
-      "notes": "Repaired 2026-08-24 (decisions/drop-preform-contact-block). Sentence one is unchanged: it names the step the visitor still owns and carries the site's privacy line (`chưa có gì rời máy bạn`, echoing messagePlaceholder and the home hero). Only the fallback clause moved: the phone/email <dl> it used to point at (`ở đầu trang`) has been cut from the page, and docs/05-backlog.md #28 puts SITE.contact.phone/email inside this same panel directly under this paragraph — so the clause now points there. Still no address retyped into vi.ts; the values stay in web/content/site.ts.",
+      "state": "success",
+      "notes": "Recompiled 2026-08-25. Two facts the title does not carry: the reply comes back through the details just submitted, and nothing further is required. The second sentence is load-bearing rather than polite — the panel renders SITE.contact.phone/email in a <dl> directly underneath, and without this line that <dl> reads as an instruction to make contact a second time. Deliberately silent on the 24 hours: C035 is stated once, in contact.intro.lead, which sits in the same viewport on desktop; see decisions/success-panel-omits-the-clock for the one-line swap if the requester wants the clock here after all. Dropped with the mailto: `chưa có gì rời máy bạn` (false — the data left the machine, on purpose) and the `ngay bên dưới` fallback (it recovered a mail client that never opened; that failure mode is now contact.form.errorBody). 81 characters against the ~190 the old string spent, in a block with zero measured slack. Sentence two is `không cần làm gì thêm`, not `không cần làm thêm gì`: in Vietnamese `làm thêm` collocates first with working overtime, and the reordering costs nothing.",
       "locales": {
-        "vi": "Bấm gửi trong cửa sổ vừa mở thì yêu cầu mới tới chỗ chúng tôi — trước đó chưa có gì rời máy bạn. Nếu không có cửa sổ nào mở ra, dùng email hoặc số điện thoại ngay bên dưới."
+        "vi": "Chúng tôi sẽ liên hệ lại theo thông tin bạn vừa để lại. Bạn không cần làm gì thêm."
+      }
+    },
+    {
+      "key": "contact.form.errorBody",
+      "component": "error",
+      "state": "error_unknown",
+      "notes": "New field on ContactContent.form, first copy 2026-08-25. Shown when the POST does not return ok, inline beside the still-live submit button, role=\"alert\". State, then two actions (references/product/errors.md) — press the button again, or reach a person. No cause: the component is handed none, and 429, 5xx and a dead network are one state to the reader; naming one would be a guess printed as a fact, and a status code would be PRODUCT_TECHNICAL_LEAKAGE. No apology — `rất tiếc` / `có lỗi xảy ra` are the vi generic-failure patterns and vi.md's error rule is state, then action. `Chưa`, not `Không`: the failure is retryable and the word says so. ENDS ON A COLON BY REQUIREMENT — the component appends `<a>{phone}</a> · <a>{email}</a>` immediately after this string, so a full stop here would strand a phone number as its own sentence. Neither value is retyped into vi.ts; both stay in web/content/site.ts.",
+      "locales": {
+        "vi": "Chưa gửi được yêu cầu. Thử lại hoặc liên hệ trực tiếp:"
       }
     }
   ]

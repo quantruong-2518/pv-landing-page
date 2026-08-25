@@ -129,7 +129,7 @@ export const vi: SiteContent = {
     hardware: {
       kicker: "01 · Phần cứng",
       title: "Ba dòng chip. Hai cấp AI accelerator.",
-      lead: "MINT đã sản xuất hàng loạt. PAPAYA ở mốc PoC với khách hàng. ESPRESSO dự kiến Q3/2026. E10 và E20 thuộc E-Series của Pebble Square.",
+      lead: "Chọn theo nơi workload chạy, loại tác vụ và quy mô triển khai: từ thiết bị Edge AI tiết kiệm điện đến máy chủ và cụm đa card.",
       items: [
         {
           id: "mint",
@@ -341,7 +341,7 @@ export const vi: SiteContent = {
     },
 
     software: {
-      kicker: "02 · Phần mềm · dự kiến 12/2026",
+      kicker: "02 · Phần mềm",
       title: "Một bộ phần mềm để nhìn toàn bộ doanh nghiệp.",
       lead: "Dự kiến 12/2026: CRM, ERP, HRM và DMS cùng đổ về một màn hình vận hành. AI đề xuất; con người phê duyệt.",
       groups: [
@@ -353,7 +353,7 @@ export const vi: SiteContent = {
           decisionLabel: "Nối CRM, ERP, HRM và DMS vào một góc nhìn vận hành.",
           indexStageLabel: "Roadmap · 12/2026",
           transition: "Sau lớp tính toán là lớp đưa dữ liệu vào quyết định vận hành.",
-          body: "Bốn hệ thống nối dữ liệu về một góc nhìn vận hành: khách hàng, đơn hàng, nhân sự và tài liệu. AI theo dõi xuyên phân hệ, đề xuất việc tiếp theo; quyết định vẫn ở con người.",
+          body: "Dữ liệu vận hành được nối thành một luồng thống nhất để AI phát hiện điểm cần chú ý và đề xuất bước tiếp theo. Người phụ trách vẫn xem xét và phê duyệt quyết định.",
           modules: [
             { title: "CRM", body: "Theo dõi hồ sơ khách hàng và hoạt động bán hàng.", icon: "crm" },
             { title: "ERP", body: "Theo dõi đơn hàng, tồn kho, mua sắm và vận hành.", icon: "erp" },
@@ -371,7 +371,7 @@ export const vi: SiteContent = {
     },
 
     training: {
-      kicker: "03 · Đào tạo AI doanh nghiệp · khảo sát 2027",
+      kicker: "03 · Đào tạo AI doanh nghiệp",
       title: "Đào tạo AI đi từ bài toán riêng của doanh nghiệp.",
       lead: "Năm 2027, Pebble Vina dự kiến khảo sát nhu cầu trước khi thiết kế bất kỳ chương trình nào.",
       offer: {
@@ -382,7 +382,7 @@ export const vi: SiteContent = {
         decisionLabel: "Khảo sát nhu cầu trước khi thiết kế chương trình riêng.",
         indexStageLabel: "Khảo sát · 2027",
         transition: "Sau hệ thống là đội ngũ phải đưa AI vào một đầu việc có thể đo.",
-        body: "Mốc 2027 chỉ dành cho khảo sát. Nếu triển khai sau đó, nội dung sẽ đi theo bài toán riêng và tập trung vào thực hành. Đầu ra được đánh giá bằng bộ chỉ số ROI hai bên thống nhất trước, không phải cam kết hoàn vốn.",
+        body: "Mốc 2027 là giai đoạn xác định nhu cầu, chưa phải cam kết triển khai. Chương trình chỉ được xây dựng khi hai bên thống nhất rõ phạm vi, người tham gia và đầu ra cần đạt.",
         principles: [
           { title: "Khảo sát trước", body: "Xác định bài toán, nhóm tham gia và khoảng trống năng lực trước khi thiết kế.", icon: "survey" },
           { title: "Thiết kế riêng", body: "Không dùng một lộ trình cố định cho mọi doanh nghiệp.", icon: "tailored" },
@@ -408,7 +408,7 @@ export const vi: SiteContent = {
       title: "Kể bài toán của bạn, chúng ta xem giải được tới đâu.",
       lead: "Gửi form đi, trong vòng 24 giờ một người của Pebble Vina sẽ đọc và trả lời bạn. Cảm ơn bạn đã quan tâm — chúng tôi mong được làm việc cùng doanh nghiệp của bạn.",
     },
-    ctaPrimary: "Mở email đã điền sẵn",
+    ctaPrimary: "Gửi yêu cầu tư vấn",
     media: { alt: "Văn phòng Pebble Vina, tầng 19 toà Landmark 72, Hà Nội." },
     form: {
       title: "Đặt lịch tư vấn",
@@ -419,8 +419,9 @@ export const vi: SiteContent = {
       messageLabel: "Bài toán cần giải",
       messagePlaceholder: "Ví dụ: 12 máy CNC, cần phát hiện rung bất thường trước khi hỏng, dữ liệu không được rời nhà máy.",
       optionalLabel: "Không bắt buộc",
-      successTitle: "Thư đã soạn sẵn trong ứng dụng mail của bạn",
-      successBody: "Bấm gửi trong cửa sổ vừa mở thì yêu cầu mới tới chỗ chúng tôi — trước đó chưa có gì rời máy bạn. Nếu không có cửa sổ nào mở ra, dùng email hoặc số điện thoại ngay bên dưới.",
+      successTitle: "Đã nhận được yêu cầu của bạn",
+      successBody: "Chúng tôi sẽ liên hệ lại theo thông tin bạn vừa để lại. Bạn không cần làm gì thêm.",
+      errorBody: "Chưa gửi được yêu cầu. Thử lại hoặc liên hệ trực tiếp:",
     },
   },
 

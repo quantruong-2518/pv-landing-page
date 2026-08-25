@@ -217,6 +217,7 @@ export interface ContactContent {
     optionalLabel: string;
     successTitle: string;
     successBody: string;
+    errorBody: string;
   };
 }
 

@@ -7,6 +7,30 @@ import type { Application, FactStatus, Intro, Item, Media, Origin, Spec } from "
 
 export const SHELL = "mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10";
 
+/** Two hierarchy levels: a marked boundary between groups and a quiet rule
+ * between sibling items inside one group. */
+export function SectionDivider({
+  variant = "section",
+  className,
+}: {
+  variant?: "section" | "item";
+  className?: string;
+}) {
+  return (
+    <div className={cn(SHELL, className)} aria-hidden="true">
+      {variant === "section" ? (
+        <div className="flex items-center gap-3 sm:gap-4">
+          <span className="h-px flex-1 bg-line-strong" />
+          <span className="h-2 w-2 rotate-45 border border-line-strong" />
+          <span className="h-px flex-1 bg-line-strong" />
+        </div>
+      ) : (
+        <div className="h-px bg-line" />
+      )}
+    </div>
+  );
+}
+
 /**
  * One block. `screen` pins a block to a full viewport — reserved for the
  * openers; catalogue blocks grow with their content (docs/03-structure.md §2).
@@ -285,11 +309,11 @@ export function Figure({
   /** Drop the card and let the file sit on the page. For cut-outs on
       transparency only: a filled panel behind one draws a box the picture does
       not have. A pending frame must never be bare — the crossbar grid and the
-      corner ticks are only legible against `bg-surface`. */
+      corner ticks are only legible against the white media surface. */
   bare?: boolean;
 }) {
   return (
-    <figure className={cn("@container relative overflow-hidden", !bare && "border border-line bg-surface", ratio, className)}>
+    <figure className={cn("@container relative overflow-hidden", !bare && "border border-line bg-bg", ratio, className)}>
       {media.src ? (
         <Image
           src={media.src}

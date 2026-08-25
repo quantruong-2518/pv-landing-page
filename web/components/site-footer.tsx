@@ -32,10 +32,7 @@ export function SiteFooter({ c }: { c: SiteContent }) {
   return (
     // No `snap-start`: the footer is shorter than a viewport, so its snap
     // position always sat past maxScroll and could never be reached.
-    // Closing rule, not a hairline: on /vi and /vi/products the last block is
-    // dark too, and `bg` → `bg-deep` is a 5% step — the two read as one mass.
-    // `border-t-2 border-fg` is the strong rule the spec cards already use.
-    <footer className="tone-dark border-t-2 border-fg bg-bg-deep text-fg">
+    <footer className="tone-dark footer-atmosphere text-fg">
       <div className={cn(SHELL, "py-10 sm:py-14")}>
         <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
           <div>

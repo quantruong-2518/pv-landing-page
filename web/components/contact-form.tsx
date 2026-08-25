@@ -7,9 +7,9 @@ import { cn } from "@/lib/cn";
 
 /**
  * Client-side by necessity: form state + a submit-time swap to a thank-you
- * panel. There is no backend in this lab (docs/00-brief.md), so "submit"
- * hands the filled-in fields to the visitor's own mail client via `mailto:`.
- * Every CTA on the site routes here; this form is the only thing that mails.
+ * panel. "submit" posts to POST /api/contact, which saves the submission and
+ * emails the team; nothing here talks to email directly. Every CTA on the
+ * site routes here; this form is the only one that writes anywhere.
  */
 export function ContactForm({
   c,
@@ -22,6 +22,8 @@ export function ContactForm({
   const [values, setValues] = useState({ name: "", company: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [pending, setPending] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
   // The panel is shorter than the form it replaces, so without this the
@@ -39,7 +41,7 @@ export function ContactForm({
     };
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     // The form is `noValidate`: iOS Safari draws no native bubble, so the page
@@ -57,20 +59,26 @@ export function ContactForm({
       return;
     }
     setErrors({});
+    setSubmitError(false);
+    setPending(true);
 
-    const subject = `Consultation request — ${values.company || values.name}`;
-    const body = [
-      `Name: ${values.name}`,
-      `Company: ${values.company}`,
-      `Email: ${values.email}`,
-      values.phone ? `Phone: ${values.phone}` : null,
-      "",
-      values.message,
-    ]
-      .filter((line) => line !== null)
-      .join("\n");
-    window.location.href = `mailto:${SITE.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSubmitted(true);
+    // Not React state: a bot fills every input it finds via the DOM, a human
+    // never sees this one to type into. Read it straight off the element.
+    const website = (e.currentTarget.elements.namedItem("website") as HTMLInputElement | null)?.value ?? "";
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, website }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      setSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setPending(false);
+    }
   }
 
   if (submitted) {
@@ -126,6 +134,19 @@ export function ContactForm({
     // `gap-5`, not `gap-6`: 16px controls are 4px taller each, and this block is
     // still one screen.
     <form onSubmit={handleSubmit} noValidate className="grid gap-5 sm:grid-cols-2">
+      {/* Honeypot: invisible to a person (off-screen, unreachable by Tab), but a
+          bot's DOM scraper fills every input it finds. Matches the `website`
+          check in app/api/contact/route.ts. Not part of `values` — read off the
+          DOM at submit time so nothing has to render or track its state. */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+      />
+
       <Field id="name" label={form.nameLabel} required error={errors.name}>
         <input type="text" required autoComplete="name" {...control("name")} />
       </Field>
@@ -160,10 +181,27 @@ export function ContactForm({
       <div className="flex flex-wrap items-center gap-4 sm:col-span-2">
         <button
           type="submit"
-          className="inline-flex min-h-11 items-center justify-center rounded-sm bg-primary px-5 py-3 text-sm font-medium tracking-wide text-primary-fg transition-colors hover:opacity-90 sm:px-6"
+          disabled={pending}
+          aria-disabled={pending}
+          className={cn(
+            "inline-flex min-h-11 items-center justify-center rounded-sm bg-primary px-5 py-3 text-sm font-medium tracking-wide text-primary-fg transition-colors hover:opacity-90 sm:px-6",
+            pending && "opacity-60",
+          )}
         >
           {c.contact.ctaPrimary}
         </button>
+        {submitError ? (
+          <p role="alert" className="text-sm font-medium leading-snug text-fg">
+            {form.errorBody}{" "}
+            <a href={SITE.contact.phoneHref} className="underline">
+              {SITE.contact.phone}
+            </a>
+            {" · "}
+            <a href={MAIL_HREF} className="underline">
+              {SITE.contact.email}
+            </a>
+          </p>
+        ) : null}
       </div>
     </form>
   );

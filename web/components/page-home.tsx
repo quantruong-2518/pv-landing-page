@@ -8,6 +8,7 @@ import {
   Illustration,
   Lead,
   Section,
+  SectionDivider,
   SectionHead,
   SHELL,
   StatusBadge,
@@ -23,13 +24,9 @@ export function HomePage({ c }: { c: SiteContent }) {
   return (
     <PageShell c={c} page="home">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <Section tone="dark" screen className="overflow-hidden">
-        <div className="crossbar absolute inset-0 opacity-40" aria-hidden />
-
-        {/* The brand mark is a full-bleed watermark. Its open centre keeps the
-            copy legible while the star remains the hero's visual signature. */}
+      <Section tone="dark" screen className="hero-atmosphere overflow-hidden">
         <div
-          className="pointer-events-none absolute left-[58%] top-1/2 aspect-square w-[115vw] max-w-[46rem] -translate-x-1/2 -translate-y-1/2 opacity-30 sm:w-[72vw] lg:w-[50vw] lg:opacity-40"
+          className="pointer-events-none absolute left-[60%] top-1/2 aspect-square w-[112vw] max-w-[46rem] -translate-x-1/2 -translate-y-1/2 opacity-[0.12] sm:w-[70vw] lg:w-[48vw]"
           aria-hidden
         >
           {hero.media.src ? (
@@ -37,7 +34,7 @@ export function HomePage({ c }: { c: SiteContent }) {
               src={hero.media.src}
               alt=""
               fill
-              sizes="(min-width: 1024px) 50vw, (min-width: 640px) 72vw, 115vw"
+              sizes="(min-width: 1024px) 48vw, (min-width: 640px) 70vw, 112vw"
               className="object-contain"
               priority
             />
@@ -78,8 +75,10 @@ export function HomePage({ c }: { c: SiteContent }) {
         </div>
       </Section>
 
+      <SectionDivider />
+
       {/* ── 01 · Why now ─────────────────────────────────────────────────── */}
-      <Section id="why-now">
+      <Section id="why-now" className="bg-canvas">
         <div className={SHELL}>
           <SectionHead intro={whyNow} />
 
@@ -105,7 +104,7 @@ export function HomePage({ c }: { c: SiteContent }) {
           </ol>
 
           {solutionPoint ? (
-            <div className="mt-12 border-t-2 border-primary pt-7 md:mt-16 md:pt-9">
+            <div className="mt-12 border border-line border-t-2 border-t-primary bg-surface-brand px-5 py-7 sm:px-7 md:mt-16 md:px-9 md:py-9">
               <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent">
                 {whyNow.solutionLabel}
               </p>
@@ -138,9 +137,10 @@ export function HomePage({ c }: { c: SiteContent }) {
         </div>
       </Section>
 
+      <SectionDivider />
+
       {/* ── 02 · History ─────────────────────────────────────────────────── */}
-      <Section id="history" tone="dark">
-        <div className="crossbar absolute inset-0 opacity-30" aria-hidden />
+      <Section id="history" className="bg-surface">
         <div className={cn(SHELL, "relative")}>
           <SectionHead intro={history} />
 

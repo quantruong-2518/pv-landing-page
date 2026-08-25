@@ -5,6 +5,13 @@
 # │ questions; the answers are in `decisions:` with what each does NOT       │
 # │ license. 15 keys written, 3 held — see `scope:`. What remains open is    │
 # │ in `open_decisions:` and none of it blocks the 15.                       │
+# │                                                                          │
+# │ REVISED 2026-08-25 — the form now POSTs to /api/contact. Four keys       │
+# │ recompiled (ctaPrimary, form.successTitle, form.successBody, and the     │
+# │ new form.errorBody); the mailto mechanism is gone from `contract` and    │
+# │ from the contact.form block. Everything the old mechanism licensed is    │
+# │ quoted inside decisions/submit-posts-to-endpoint, never left live where  │
+# │ a later compile could read it as current.                                │
 # └──────────────────────────────────────────────────────────────────────────┘
 #
 # This is the ONLY input a locale writer may read. It exists so that `en` and `ko`
@@ -21,6 +28,10 @@
 # docs/03-structure.md §1 §3 §4, docs/05-backlog.md, web/content/site.ts,
 # web/content/types.ts, web/components/page-contact.tsx, web/components/contact-form.tsx,
 # web/components/ui.tsx, context/03-contact/contact.md.
+# Added 2026-08-25 for the POST recompile: web/app/api/contact/route.ts and the current
+# web/components/contact-form.tsx — read before writing, because the failure state, the
+# appended phone/email in both panels, and the absence of any cause the copy could name
+# are all facts of that component, not of the brief.
 # Claim ids resolve against content-system/claims/approved.yaml.
 #
 # Reading rule, inherited from specs/home.yaml, unchanged:
@@ -90,10 +101,14 @@ contract:
   product:
     name: a thirty-minute consultation
     mechanism: >-
-      There is no backend in this repository (docs/00-brief.md). The form composes a
-      mail draft in the visitor's own client via `mailto:` — the same mechanism as
-      CTA_HREF in web/content/site.ts. Nothing is transmitted to a server, so no copy
-      may promise receipt, a ticket, a queue or a reply time.
+      REWRITTEN 2026-08-25. The form POSTs to /api/contact
+      (web/app/api/contact/route.ts), which validates server-side, rate-limits per IP,
+      stores the submission in Postgres and notifies the team by email. Nothing opens
+      on the visitor's machine. Receipt is therefore TRUE and may be stated; the
+      delivery plumbing may not be narrated — from the visitor's side they filled in a
+      form and it arrived. See decisions/submit-posts-to-endpoint for what that does and
+      does not license. The previous text of this field described the `mailto:` draft
+      and is kept only in that decision's `question`.
   proof:
     verified: []
     contextual: [C019]
@@ -110,7 +125,9 @@ contract:
     - a new Vietnamese entity with no record of its own
     - will this turn into a sales call
   cta:
-    primary: submit the form, which hands the filled-in fields to the visitor's own mail client
+    primary: >-
+      submit the form, which sends the request to Pebble Vina. REWRITTEN 2026-08-25 —
+      it no longer hands the fields to the visitor's own mail client.
   tone:
     desired: [precise, understated, engineer-readable, honest about status]
     avoid: [luxury language, emotional hype, urgency pressure, false scarcity, thought-leadership voice]
@@ -271,7 +288,65 @@ decisions:
       and any response time stay forbidden. The day contact-form.tsx POSTs instead of
       mailing, all three keys are false and must be recompiled from this spec — that is a
       content dependency of the wiring task, not a follow-up someone may skip.
-    still_open: ["wiring the form to POST /api/contact — engineer task, and it invalidates these three keys when it lands"]
+    still_open: []
+    superseded_by: decisions/submit-posts-to-endpoint, 2026-08-25. The wiring landed; the three
+      keys it released are now false and were recompiled in that pass. Kept for the record only —
+      nothing in this decision may be applied to today's copy.
+
+  submit-posts-to-endpoint:
+    question: >-
+      2026-08-25 the engineer wired contact-form.tsx to POST /api/contact — validate,
+      rate-limit, save to Postgres, notify the team by email. This is exactly the commit
+      decisions/submit-stays-mailto named as the one that invalidates ctaPrimary,
+      successTitle and successBody. What may the copy now say, and what is still off-limits?
+    answered: >-
+      Write the three keys against real receipt, plus contact.form.errorBody, which is a new
+      field on ContactContent.form and had no copy at all. Requester's brief, 2026-08-25,
+      relayed through the calling session with the four scoped decisions below already closed.
+    but: >-
+      receipt is not correspondence. No confirmation email is sent to the visitor — only an
+      internal notification — so nothing may imply an email is on its way to their inbox as
+      an acknowledgement. The only reply promised anywhere is the human one in
+      contact.intro.lead (C035).
+    consequence: >-
+      `đã nhận` and `đã gửi` become TRUE and are released from the block's forbidden list.
+      In exchange four things are newly forbidden: (a) any local-machine language — mail
+      client, cửa sổ vừa mở, thư đã soạn sẵn, and the privacy clause `chưa có gì rời máy
+      bạn`, which described the mailto draft and is false the moment the POST succeeds;
+      (b) narrating the plumbing — lưu vào hệ thống, cơ sở dữ liệu, máy chủ, gửi email tới
+      chúng tôi as a customer-facing action. The visitor filled in a form and it arrived;
+      how it arrived is ours to know; (c) any acknowledgement email to the visitor;
+      (d) any new SLA. C035's 24 hours is the only clock this page has.
+    still_open: []
+
+  success-panel-omits-the-clock:
+    question: >-
+      The brief permits contact.form.successBody to echo C035's 24 hours. The block's own
+      `forbidden` list bans a response time inside the form, for two reasons: one commitment
+      should live in one place, and a mail draft that has not been sent cannot start a reply
+      clock. The second reason died with the mailto. Does the number now appear twice on
+      the page?
+    answered: >-
+      No. successBody confirms that a reply is coming and by which route, without restating
+      the number. Compiler decision, 2026-08-25, inside the permission the brief granted —
+      it said `may echo`, not `must`.
+    but: >-
+      it is a judgement, not a rule, and it is cheap to reverse. On desktop both strings are
+      on screen at once in one `screen` block, and contact.intro.lead already reads `trong
+      vòng 24 giờ một người của Pebble Vina sẽ đọc và trả lời bạn` — a panel repeating that
+      clause forty centimetres to its right reads as boilerplate. On mobile the lead has
+      scrolled away and the echo would earn more.
+    consequence: >-
+      The block's `forbidden` line against a response time inside the form STANDS, on the
+      surviving half of its reasoning. successBody instead adds what the lead does not
+      carry: the reply arrives through the details just submitted, and nothing more is
+      required of the visitor.
+    swap_without_recompile: >-
+      If the requester prefers the clock in the panel, replace successBody sentence one with
+      `Trong vòng 24 giờ một người của Pebble Vina sẽ đọc và trả lời bạn.` verbatim — C035,
+      wall-clock, weekends included — and keep sentence two unchanged. That swap also
+      re-opens this decision and the forbidden line above; it does not need a new compile,
+      but it does need this file edited in the same commit.
 
   drop-preform-contact-block:
     question: >-
@@ -322,8 +397,18 @@ scope:
     - "contact.ctaPrimary — released by decisions/submit-stays-mailto"
     - "contact.form.successTitle — released by decisions/submit-stays-mailto"
     - "contact.form.successBody — released by decisions/submit-stays-mailto"
+  recompiled_2026_08_25:
+    - "contact.ctaPrimary — the button now sends rather than opens a draft"
+    - "contact.form.successTitle — receipt is real; the mail-client sentence was false the moment the POST shipped"
+    - "contact.form.successBody — same, plus the privacy echo and the mail-client fallback both removed"
+    - "contact.form.errorBody — NEW field on ContactContent.form; had no copy before this run"
+  recompiled_note: >-
+    Four keys, decisions/submit-posts-to-endpoint. This is the recompile
+    decisions/submit-stays-mailto said would be owed the day contact-form.tsx POSTed;
+    the engineer wired it on 2026-08-25 and it came due the same day. No other key on
+    this page was touched — the mechanism changed, the offer did not.
   held: []
-  held_note: "Nothing held. The three keys that were placeholders describe the mailto mechanism, which the requester confirmed on 2026-08-24 is the shipping behaviour."
+  held_note: "Nothing held."
   deleted_2026_08_24:
     - "contact.form.requiredNote — cut by decisions/drop-preform-contact-block. Removed from
        web/content/vi.ts and from content-system/output/contact-form.vi.json in the same pass.
@@ -383,16 +468,24 @@ blocks:
       communicate: what pressing the button does, before it is pressed
       task: describe a problem and hand over a way to be reached
     mechanisms:
-      - submit opens the visitor's own mail client with subject and body pre-filled
-      - nothing reaches a server; there is no record on our side until the visitor sends the mail
-      - the mail client may not open at all — a webmail user with no handler registered sees nothing
+      # REWRITTEN 2026-08-25 by decisions/submit-posts-to-endpoint. The three mailto lines
+      # that stood here are quoted in that decision and are not describing this component.
+      - submit POSTs the five fields to /api/contact; the request reaches Pebble Vina without the visitor doing anything else
+      - the form has exactly three visible states — filling in, sent (the panel replaces the form), failed (one line beside the button, the button still live)
+      - a failure gives the component no cause it can name. 429, 5xx and a dead network are one state to the reader, and the code passes none of them to the copy
+      - the panel that replaces the form renders SITE.contact.phone and SITE.contact.email under it; the failure line renders the same two, appended after the string
     qualifiers:
-      - "Success copy describes a COMPOSED DRAFT, never a received message. The visitor still has to press send in their own client."
+      - "Success copy describes a RECEIVED request. `đã nhận` is true here as of 2026-08-25 and nowhere else on the site."
+      - "Receipt is not correspondence: no acknowledgement email goes to the visitor. Copy may not imply one is on its way."
       - "Required fields are name, company, email and message. Optional is phone only. The component appends a space-asterisk after each required label and a middot plus {optionalLabel} after the optional one — the copy must not repeat the marker, only explain it."
       - "Every field label renders mono, ~10px, uppercase, letter-spaced (contact-form.tsx Field). Two or three words maximum, no terminal period, and diacritics must survive uppercasing — VĂN PHÒNG, never VAN PHONG (references/locales/vi.md)."
     forbidden:
-      - '"phản hồi trong N giờ" inside the FORM block. The 24-hour commitment (C035) is stated once, in contact.intro.lead. Repeating it beside the button turns one commitment into two places to keep it in sync, and the success panel describes a mail draft that has not been sent yet — a reply clock cannot start there.'
-      - '"đã gửi" / "đã nhận được" — untrue; the mail client has not sent anything yet'
+      - '"phản hồi trong N giờ" inside the FORM block. The 24-hour commitment (C035) is stated once, in contact.intro.lead. Repeating it beside the button turns one commitment into two places to keep it in sync. STANDS on that half alone — the other half of the old reasoning (a mail draft cannot start a reply clock) died with the mailto; see decisions/success-panel-omits-the-clock, which carries the swap if the requester wants the clock in the panel after all.'
+      - 'LIFTED 2026-08-25: "đã gửi" / "đã nhận được" were forbidden as untrue under the mailto. The POST makes them true — decisions/submit-posts-to-endpoint.'
+      - 'anything on the visitor''s machine: ứng dụng mail, cửa sổ vừa mở, thư đã soạn sẵn, and the old privacy clause `chưa có gì rời máy bạn`. Nothing opens locally any more, and the data does leave the machine — that is the point of the button.'
+      - 'the plumbing, in either direction: lưu vào hệ thống / cơ sở dữ liệu / máy chủ, and "gửi email tới chúng tôi" as a customer-facing action. The visitor filled in a form and it arrived.'
+      - 'any acknowledgement email to the visitor — none is sent'
+      - 'a cause for the failure. The component knows none, so inventing one (mạng, máy chủ, Resend) is a guess printed as a fact. A status code is additionally PRODUCT_TECHNICAL_LEAKAGE.'
       - "`vui lòng`, `bạn hãy`, `quý khách`, an apology, or a pronoun in a field label"
       - "a bare vague verb as the button — lint_product flags gửi · xác nhận · tiếp tục · đồng ý · hoàn tất for vi. The button names the action it performs."
       - marketing register inside the form — hành trình, nâng tầm, bứt phá, khai phá
@@ -420,35 +513,62 @@ blocks:
         vi.ts; this slot is kept only so the next compile does not re-create it. The
         component's " *" suffix on required labels is unaffected and stays.
       successTitle: >-
-        State what just happened, in the visitor's own terms: a draft is now open in
-        their mail client, and nothing has reached us. Being wrong here costs a lead
-        who thinks they are done. Renders as a 24-30px heading at the top of the panel
-        that replaces the form, so it is read before anything else on the screen.
+        RECOMPILED 2026-08-25 (decisions/submit-posts-to-endpoint). State the one thing
+        the visitor needs before anything else: the request is with Pebble Vina, and it
+        got there without them. Being wrong here costs a lead who thinks they are done
+        when they are not — or, now, one who writes again because nothing said it
+        landed. Renders as a 24-30px heading at the top of the panel that replaces the
+        form. Use the same noun the button used, so the reader who pressed
+        `Gửi yêu cầu …` reads back the word they pressed.
       successBody: >-
-        what the visitor must still do (press send in their own client), and the
-        fallback for the case where no mail client opened. Sentence one also carries the
-        site's privacy line — `chưa có gì rời máy bạn`, which echoes messagePlaceholder's
-        `dữ liệu không được rời nhà máy` and the home hero. That echo is load-bearing:
-        a shorter successBody may not buy its length back by dropping it.
-        REPAIRED 2026-08-24 (decisions/drop-preform-contact-block): the phone/email <dl>
-        the fallback used to point at (`ở đầu trang`) no longer exists, and per
-        docs/05-backlog.md #28 the panel now renders SITE.contact.phone/email itself,
-        directly under this paragraph. The fallback therefore points DOWN, inside this
-        panel (`ngay bên dưới`) — never at another part of the page, and never by
-        retyping the address into vi.ts, which would fork a value that lives in
-        web/content/site.ts. If a future change moves those two values out of the panel
-        again, this clause is false the same day and must be recompiled.
+        RECOMPILED 2026-08-25 (decisions/submit-posts-to-endpoint). Two facts the title
+        does not carry, in this order: how the reply reaches them — through the contact
+        details they just submitted, which is also why those details mattered — and that
+        nothing further is required of them. The second half is not filler: the panel
+        renders phone and email directly underneath, and without this line that <dl>
+        reads as an instruction to make contact a second time.
+        LENGTH CEILING, a spec fact and not a preference: at or under the string it
+        replaces, ~190 characters, two short sentences. `/vi/contact` is one `screen`
+        block measured at 836px against an 836px budget with zero slack
+        (decisions/one-white-surface, CLAUDE.md §4b), and the panel is deliberately
+        shorter than the form it replaces (contact-form.tsx, the scrollIntoView comment
+        depends on it).
+        WHAT IS GONE AND WHY, so it is not restored by reflex: the old sentence one told
+        the visitor to press send in their own client, and carried the privacy echo
+        `chưa có gì rời máy bạn`, which the previous compile called load-bearing. Under a
+        real POST it is false — the data left the machine, on purpose. The `ngay bên
+        dưới` fallback goes too: it was the recovery route for a mail client that never
+        opened, and that failure mode no longer exists. Failure now has its own string,
+        `errorBody`, and never reaches this panel.
+      errorBody: >-
+        NEW 2026-08-25. The only failure copy the form has. Shown when the POST does not
+        return ok — inline, in the same flex row as the submit button, `role="alert"`, so
+        it is announced whole.
+        THE COMPONENT APPENDS THE FALLBACK: it renders `{errorBody} <a>phone</a> ·
+        <a>email</a>`. The string must therefore END by introducing those two — a colon,
+        or a phrase that governs what follows — never with a full stop, which would leave
+        a phone number stranded as a sentence of its own. Do not retype either value into
+        vi.ts; they live in web/content/site.ts.
+        CARRIES, in order (references/product/errors.md): the state, then two actions —
+        press the button again, or reach a person directly. No cause: the component is
+        given none, and 429, 5xx and a dead network are one state to the reader. No
+        apology — `rất tiếc` and `có lỗi xảy ra` are the Vietnamese generic-failure
+        patterns lint_product flags, and vi.md's error rule is state, then action.
+        LENGTH: one line beside the button. The block has no slack, and the appended
+        phone and email add roughly 40 characters the copy does not control.
     slots_outside_the_form_object:
       # Both live at contact.* rather than contact.form.*, but belong to this block.
       ctaPrimary: >-
-        The submit button names what pressing it does, and what it does is open a
-        pre-filled mail draft (decisions/submit-stays-mailto). It may not promise a
-        delivery the button cannot perform. VI ceiling 28 characters
+        RECOMPILED 2026-08-25. The submit button names what pressing it does, and what it
+        does is now send the request to Pebble Vina
+        (decisions/submit-posts-to-endpoint) — a delivery the button DOES perform, which
+        is what changed. Name the object in the reader's terms, not `form`: they came to
+        ask for a consultation. VI ceiling 28 characters
         (brand/voice.yaml ui_limits.button.vi) and lint_product rejects a bare
-        gửi · xác nhận · tiếp tục · đồng ý · hoàn tất. Note home.hero.ctaPrimary now
-        ships "Đặt lịch tư vấn" as a LINK TO THIS PAGE, not a mailto — CTA_HREF was
-        deleted from content/site.ts, so the form is the only thing on the site that
-        mails.
+        gửi · xác nhận · tiếp tục · đồng ý · hoàn tất — so a bare `Gửi` is rejected by the
+        linter and by the rule behind it; the verb needs its object. Every CTA on the site
+        routes to this page and this button is the only thing on the site that submits
+        anything.
       media.alt: >-
         the artwork brief for the empty image slot in the success panel. Because
         `media.src` is empty, this string is PRINTED ON SCREEN under the
@@ -530,7 +650,7 @@ findings:
 open_decisions:
 
   - id: submit-behaviour-copy
-    status: ANSWERED 2026-08-24 — mailto stays; see decisions/submit-stays-mailto
+    status: CLOSED 2026-08-25 — the form POSTs; see decisions/submit-posts-to-endpoint
     question: >-
       What do contact.ctaPrimary, contact.form.successTitle and
       contact.form.successBody say once submit saves to Postgres instead of opening
@@ -538,10 +658,26 @@ open_decisions:
     owner: the separate endpoint task, then the requester
     blocks: []
     note: >-
-      The three keys now carry prose describing the MAIL DRAFT. The endpoint exists in
-      the repo but is unwired, so the question above returns the moment contact-form.tsx
-      POSTs: at that commit all three strings become false and must be recompiled from
-      this spec. Whoever wires the form owns that recompile.
+      Answered by the recompile of 2026-08-25, which also wrote contact.form.errorBody —
+      a field that did not exist when this question was asked. Nothing about the offer
+      moved; only the mechanism, and the copy no longer narrates a mechanism at all.
+
+  - id: error-line-height-in-a-zero-slack-block
+    status: OPEN — a measurement, and it is not the writer's to take
+    question: >-
+      In the failure state the form grows by one `role="alert"` paragraph in the button's
+      flex row — errorBody plus the phone and email the component appends, roughly 93
+      characters in total, wrapping to two or three lines in the space left beside a
+      ~180px button. `/vi/contact` is a `screen` block measured at 836px against an 836px
+      budget. Does the failure state overflow the viewport, and at which width first?
+    owner: mobile-ui-reviewer at 360-430px, web-ux-reviewer at 1440x900
+    blocks: []
+    note: >-
+      Copy has already spent what it can: errorBody is 53 characters and cannot lose the
+      state or the fallback without losing the two things it exists to say. The appended
+      phone and email are code, not copy. If it overflows, the fix is structural — the
+      alert moving under the button row, or the row wrapping earlier — and that belongs to
+      web-ui-engineer, not to a shorter sentence.
 
   - id: intro-lead-measurement
     status: OPEN — a measurement, not a question

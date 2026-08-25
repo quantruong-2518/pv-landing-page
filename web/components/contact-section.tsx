@@ -8,7 +8,7 @@ export function ContactSection({ c, embedded = false }: { c: SiteContent; embedd
   const FormHeading = embedded ? "h3" : "h2";
 
   return (
-    <Section id="book" screen>
+    <Section id="book" screen className="bg-surface">
       <div
         className={cn(
           SHELL,
@@ -17,7 +17,7 @@ export function ContactSection({ c, embedded = false }: { c: SiteContent; embedd
       >
         <SectionHead intro={c.contact.intro} as={embedded ? "h2" : "h1"} className="md:col-start-1 md:row-start-1" />
 
-        <div className="md:col-start-2 md:row-span-2 md:row-start-1">
+        <div className="-mx-5 border-y border-line bg-bg px-5 py-6 sm:mx-0 sm:border sm:p-6 sm:shadow-[0_12px_40px_rgb(15_23_42_/_0.05)] md:col-start-2 md:row-span-2 md:row-start-1 lg:p-8">
           <FormHeading className="font-display text-xl font-semibold leading-snug sm:text-2xl">
             {c.contact.form.title}
           </FormHeading>

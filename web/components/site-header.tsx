@@ -41,7 +41,7 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
   const ctaHref = page === "contact" ? path("contact", "name") : path("contact");
 
   return (
-    <header className="tone-dark sticky top-0 z-50 bg-bg/92 text-fg shadow-[0_1px_0_var(--color-line)] backdrop-blur">
+    <header className="sticky top-0 z-50 bg-canvas/92 text-fg shadow-[0_1px_0_var(--color-line)] backdrop-blur">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:bg-primary focus:px-3 focus:py-2 focus:text-sm focus:text-primary-fg"

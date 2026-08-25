@@ -17,30 +17,34 @@
   --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* ── LIGHT zone (body copy) ───────────────────────────────────────────── */
+  --color-canvas: #fafbfc;      /* pearl-white page canvas */
   --color-bg: #ffffff;
-  --color-surface: #f4f6fa;
+  --color-surface: #f3f6fa;
+  --color-surface-brand: #f1f5fc;
+  --color-surface-hardware: #f3f6fa;
+  --color-surface-software: #f6f4f9;
+  --color-surface-training: #faf6f3;
   --color-bg-deep: #eef1f7;     /* deepest light step — closing band */
-  --color-fg: #0f172a;          /* Deep Navy */
-  --color-muted: #5e6b80;       /* Slate Gray */
+  --color-fg: #0b1220;          /* Ink */
+  --color-muted: #667085;       /* Slate Gray */
   /* Lifted from #97a4bd (2026-08-24): the old step read 2.51:1 on white and
      2.32:1 on --color-surface, and it carries every mono label on the site.
      Kept bluer than --color-muted so the two steps still read apart by hue
      once lightness alone can no longer separate them. 5.01:1 / 4.63:1. */
   --color-subtle: #5f6f94;
-  --color-line: #e5e7eb;        /* Light Gray — hairline */
-  /* Darkened from #cbd5e1 (2026-08-24): every use is either an interactive
-     border (ghost button, origin tag, form field) or a rule meant to be seen,
-     and 1.48:1 missed the 3:1 non-text floor. Now 3.26:1 / 3.02:1. */
-  --color-line-strong: #818fa9;
-  --color-primary: #133a8a;     /* Pebble Blue */
+  --color-line: #dce3ed;        /* Cool Gray — hairline */
+  /* Strong enough for interactive borders and rules without turning every
+     technical card into a dark box. */
+  --color-line-strong: #8492a8;
+  --color-primary: #234894;     /* Pebble Blue */
   --color-primary-fg: #ffffff;
-  --color-accent: #133a8a;
+  --color-accent: #234894;
 
-  /* Catalogue categories: accents only. PRODUCTS uses one page canvas until
-     its final background system is reviewed. */
-  --color-hardware: #174c9b;
-  --color-software: #5b3fa3;
-  --color-training: #9a4311;
+  /* Desaturated catalogue accents. Their matching surfaces below carry only a
+     trace of the hue so category grouping never competes with status colours. */
+  --color-hardware: #315a91;
+  --color-software: #66588a;
+  --color-training: #90634c;
 
   /* Buyer-facing maturity stages. These do not replace evidence status. */
   --color-poc: #006b68;
@@ -54,21 +58,21 @@
   --color-roadmap-bg: #fdf3d8;
 }
 
-/* ── DARK zone: hero, history, CTA, footer ──────────────────────────────────
-   Remap the tokens instead of re-classing each component — change once, the
-   whole zone follows. */
+/* ── DARK brand/media surface ───────────────────────────────────────────────
+   Remap tokens for the hero, footer and chip presentation rigs. Reading-heavy
+   middle sections stay on restrained light surfaces. */
 .tone-dark {
-  --color-bg: #0f172a;
-  --color-surface: #17233d;
-  --color-bg-deep: #0a1020;     /* bottom of the atmosphere — footer sits here */
+  --color-bg: #101a2e;
+  --color-surface: #18243b;
+  --color-bg-deep: #080f1d;     /* bottom of the atmosphere — footer sits here */
   --color-fg: #f4f7fc;
   --color-muted: #97a4bd;
   /* Lifted from #64748b (2026-08-24): the old step read 3.98:1 on --color-bg-deep,
      under AA, and it carries the status legend that decodes every badge. */
   --color-subtle: #8290a8;
-  --color-line: #24324e;
-  --color-line-strong: #33435f;
-  --color-primary: #2f5bd0;
+  --color-line: #2a3850;
+  --color-line-strong: #52617a;
+  --color-primary: #5274d8;
   --color-primary-fg: #ffffff;
   --color-accent: #6e97f5;
 
@@ -111,10 +115,24 @@ html {
 }
 
 body {
-  background-color: var(--color-bg);
+  background-color: var(--color-canvas);
   color: var(--color-fg);
   font-family: var(--font-sans);
   font-synthesis-weight: none;
+}
+
+/* Restrained atmosphere for the two brand anchors. The middle of every page
+   stays flat and readable; gradients are reserved for the opening and close. */
+.hero-atmosphere {
+  background-color: #101a2e;
+  background-image:
+    radial-gradient(circle at 72% 42%, rgb(82 116 216 / 18%), transparent 34%),
+    linear-gradient(135deg, #080f1d 0%, #101a2e 62%, #13254a 100%);
+}
+
+.footer-atmosphere {
+  background-color: #080f1d;
+  background-image: linear-gradient(145deg, #080f1d 0%, #101a2e 100%);
 }
 
 h1,

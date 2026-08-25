@@ -10,6 +10,7 @@ import type {
   SystemIconName,
   TrainingOffer,
 } from "@/content/types";
+import { Fragment } from "react";
 import { ContactForm } from "@/components/contact-form";
 import { PageShell } from "@/components/page-shell";
 import {
@@ -18,6 +19,7 @@ import {
   ChipPlinth,
   OriginTag,
   Section,
+  SectionDivider,
   SectionHead,
   SHELL,
 } from "@/components/ui";
@@ -53,7 +55,7 @@ export function ProductsPage({ c }: { c: SiteContent }) {
 
   return (
     <PageShell c={c} page="products">
-      <Section screen className="products-index border-b border-line">
+      <Section screen className="products-index bg-surface">
         <div className={cn(SHELL, "grid items-start gap-7 lg:grid-cols-12 lg:gap-12")}>
           <div className="lg:col-span-4 lg:pt-2">
             <SectionHead intro={intro} as="h1" />
@@ -107,31 +109,34 @@ export function ProductsPage({ c }: { c: SiteContent }) {
         </div>
       </Section>
 
-      <GroupLead id="hardware" intro={hardware} category="hardware" />
-      {hardware.items.map((product) => (
-        <ChipBlock key={product.id} c={c} product={product} />
-      ))}
+      <SectionDivider />
+      <div className="bg-surface-hardware">
+        <GroupLead id="hardware" intro={hardware} category="hardware" />
+        <SectionDivider variant="item" />
+        {hardware.items.map((product, index) => (
+          <Fragment key={product.id}>
+            {index > 0 ? <SectionDivider variant="item" /> : null}
+            <ChipBlock c={c} product={product} />
+          </Fragment>
+        ))}
+      </div>
 
-      <GroupLead
-        id="software"
-        intro={software}
-        category="software"
-        stage={software.groups[0]?.stage}
-        stageLabel={software.groups[0]?.statusNote}
-      />
-      {software.groups.map((group) => (
-        <SoftwareBlock key={group.id} c={c} group={group} />
-      ))}
+      <SectionDivider />
+      <div id="software" className="bg-surface-software">
+        {software.groups.map((group, index) => (
+          <Fragment key={group.id}>
+            {index > 0 ? <SectionDivider variant="item" /> : null}
+            <SoftwareBlock c={c} intro={software} group={group} />
+          </Fragment>
+        ))}
+      </div>
 
-      <GroupLead
-        id="training"
-        intro={training}
-        category="training"
-        stage={training.offer.stage}
-        stageLabel={training.offer.statusNote}
-      />
-      <TrainingBlock c={c} offer={training.offer} />
+      <SectionDivider />
+      <div id="training" className="bg-surface-training">
+        <TrainingBlock c={c} intro={training} offer={training.offer} />
+      </div>
 
+      <SectionDivider />
       <FollowUp c={c} kicker={followUp.kicker} title={followUp.title} />
     </PageShell>
   );
@@ -165,7 +170,7 @@ function DecisionGroup({
             <a
               href={path("products", entry.id)}
               className={cn(
-                "group flex h-full min-h-[6.75rem] flex-col border border-line-strong border-t-2 p-3 transition-transform hover:-translate-y-0.5 sm:min-h-32 sm:p-4",
+                "group flex h-full min-h-[6.75rem] flex-col border border-line-strong border-t-2 bg-bg p-3 transition-transform hover:-translate-y-0.5 sm:min-h-32 sm:p-4",
                 CATEGORY_BORDER[category],
               )}
             >
@@ -189,28 +194,23 @@ function GroupLead({
   id,
   intro,
   category,
-  stage,
-  stageLabel,
 }: {
   id: string;
   intro: Intro;
   category: Category;
-  stage?: ProductStage;
-  stageLabel?: string;
 }) {
   return (
-    <div id={id} className={cn("border-t-2 py-6 sm:py-8", CATEGORY_BORDER[category])}>
+    <section id={id} className="py-8 sm:py-10">
       <div className={SHELL}>
-        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+        <header className="max-w-4xl">
           <p className={cn("font-mono text-[0.68rem] uppercase tracking-[0.18em]", CATEGORY_TEXT[category])}>
             {intro.kicker}
           </p>
-          <h2 className="font-display text-xl font-semibold leading-tight sm:text-2xl">{intro.title}</h2>
-          {stage && stageLabel ? <StageBadge stage={stage} label={stageLabel} /> : null}
-        </div>
-        {intro.lead ? <p className="mt-2 max-w-4xl text-sm leading-relaxed text-muted sm:text-base">{intro.lead}</p> : null}
+          <h2 className="mt-3 font-display text-2xl font-semibold leading-tight sm:text-3xl">{intro.title}</h2>
+          {intro.lead ? <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">{intro.lead}</p> : null}
+        </header>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -241,9 +241,9 @@ function StageBadge({
   );
 }
 
-function Transition({ children, category }: { children: string; category: Category }) {
+function Transition({ children, category, className }: { children: string; category: Category; className?: string }) {
   return (
-    <p className="mb-4 flex max-w-3xl items-start gap-3 text-sm leading-relaxed text-muted sm:mb-5 sm:text-base">
+    <p className={cn("flex max-w-3xl items-start gap-3 text-sm leading-relaxed text-muted sm:text-base", className ?? "mb-4 sm:mb-5")}>
       <span className={cn("mt-[0.65em] h-px w-8 shrink-0", category === "hardware" ? "bg-hardware" : category === "software" ? "bg-software" : "bg-training")} aria-hidden />
       {children}
     </p>
@@ -258,11 +258,11 @@ function ChipBlock({ c, product }: { c: SiteContent; product: Product }) {
   }
 
   return (
-    <Section id={product.id} dense className="product-dossier border-t border-line">
+    <Section id={product.id} dense className="product-dossier">
       <div className={SHELL}>
         <Transition category="hardware">{product.transition}</Transition>
 
-        <article className="overflow-hidden border border-line">
+        <article className="overflow-hidden border border-line bg-bg">
           <header className="grid items-start gap-3 border-b border-line px-4 py-3 sm:px-5 md:grid-cols-[minmax(0,1fr)_auto]">
             <div className="min-w-0 flex-1">
               <h3 className="font-display text-2xl font-semibold leading-tight sm:text-3xl lg:text-[2.1rem]">{product.name}</h3>
@@ -338,10 +338,10 @@ function AcceleratorBlock({ c, product, variants }: { c: SiteContent; product: P
   const stageLabel = product.statusNote ?? c.status[product.status];
 
   return (
-    <Section id={product.id} dense className="product-dossier border-t border-line">
+    <Section id={product.id} dense className="product-dossier">
       <div className={SHELL}>
         <Transition category="hardware">{product.transition}</Transition>
-        <article className="overflow-hidden border border-line">
+        <article className="overflow-hidden border border-line bg-bg">
           <header className="grid items-start gap-3 border-b border-line px-4 py-3 sm:px-5 sm:py-4 md:grid-cols-[minmax(0,1fr)_auto] lg:px-6">
             <div className="min-w-0 flex-1">
               <h3 className="font-display text-2xl font-semibold leading-tight sm:text-3xl lg:text-[2.1rem]">{product.name}</h3>
@@ -399,44 +399,79 @@ function AcceleratorBlock({ c, product, variants }: { c: SiteContent; product: P
   );
 }
 
-function SoftwareBlock({ c, group }: { c: SiteContent; group: SoftwareGroup }) {
+function CategorySectionHead({
+  c,
+  intro,
+  category,
+  stage,
+  stageLabel,
+  origin,
+  body,
+  className,
+}: {
+  c: SiteContent;
+  intro: Intro;
+  category: "software" | "training";
+  stage: ProductStage;
+  stageLabel: string;
+  origin: "ps" | "pv";
+  body: string;
+  className?: string;
+}) {
   return (
-    <Section id={group.id} dense className="border-t border-line">
+    <header className={className}>
+      <p className={cn("font-mono text-[0.68rem] uppercase tracking-[0.18em]", CATEGORY_TEXT[category])}>
+        {intro.kicker}
+      </p>
+      <h2 className="mt-3 max-w-4xl font-display text-2xl font-semibold leading-tight sm:text-3xl lg:text-[2.1rem]">
+        {intro.title}
+      </h2>
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <OriginTag origin={origin} label={c.origin[origin]} />
+        <StageBadge stage={stage} label={stageLabel} compact />
+      </div>
+      <Body className="mt-4 max-w-3xl">{body}</Body>
+    </header>
+  );
+}
+
+function SoftwareBlock({ c, intro, group }: { c: SiteContent; intro: Intro; group: SoftwareGroup }) {
+  return (
+    <Section id={group.id} dense>
       <div className={SHELL}>
-        <Transition category="software">{group.transition}</Transition>
-
-        <header className="flex flex-wrap items-baseline gap-x-4 gap-y-2 border-b border-line pb-4">
-          <h3 className="font-display text-2xl font-semibold leading-tight sm:text-3xl lg:text-[2.1rem]">{group.name}</h3>
-          <p className="font-mono text-[0.68rem] uppercase tracking-[0.1em] text-software sm:text-[0.75rem]">{group.tagline}</p>
-          <div className="flex flex-wrap items-center gap-2 sm:ml-auto">
-            <OriginTag origin={group.origin} label={c.origin[group.origin]} />
-            <StageBadge stage={group.stage} label={group.statusNote ?? c.status[group.status]} compact />
-          </div>
-        </header>
-
-        <Body className="mt-4 max-w-3xl">{group.body}</Body>
-        <IconCardGrid items={group.modules} category="software" className="mt-5 md:mt-6" />
+        <CategorySectionHead
+          c={c}
+          intro={intro}
+          category="software"
+          origin={group.origin}
+          stage={group.stage}
+          stageLabel={group.statusNote ?? c.status[group.status]}
+          body={group.body}
+        />
+        <Transition category="software" className="mt-7">{group.transition}</Transition>
+        <IconCardGrid items={group.modules} category="software" className="mt-5 md:mt-7" />
       </div>
     </Section>
   );
 }
 
-function TrainingBlock({ c, offer }: { c: SiteContent; offer: TrainingOffer }) {
+function TrainingBlock({ c, intro, offer }: { c: SiteContent; intro: Intro; offer: TrainingOffer }) {
   return (
-    <Section id={offer.id} dense className="border-t border-line">
+    <Section id={offer.id} dense>
       <div className={SHELL}>
-        <Transition category="training">{offer.transition}</Transition>
-
-        <div className="grid gap-5 lg:grid-cols-12 lg:gap-10">
-          <header className="lg:col-span-5">
-            <h3 className="font-display text-2xl font-semibold leading-tight sm:text-3xl lg:text-[2.1rem]">{offer.name}</h3>
-            <p className="mt-2 font-mono text-[0.68rem] uppercase tracking-[0.1em] text-training sm:text-[0.75rem]">{offer.tagline}</p>
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <OriginTag origin={offer.origin} label={c.origin[offer.origin]} />
-              <StageBadge stage={offer.stage} label={offer.statusNote} compact />
-            </div>
-            <Body className="mt-4 max-w-xl">{offer.body}</Body>
-          </header>
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-12">
+          <div className="lg:col-span-5">
+            <CategorySectionHead
+              c={c}
+              intro={intro}
+              category="training"
+              origin={offer.origin}
+              stage={offer.stage}
+              stageLabel={offer.statusNote}
+              body={offer.body}
+            />
+            <Transition category="training" className="mt-6">{offer.transition}</Transition>
+          </div>
 
           <IconCardGrid items={offer.principles} category="training" className="lg:col-span-7" />
         </div>
@@ -447,12 +482,18 @@ function TrainingBlock({ c, offer }: { c: SiteContent; offer: TrainingOffer }) {
 
 function IconCardGrid({ items, category, className }: { items: Item[]; category: "software" | "training"; className?: string }) {
   return (
-    <ul className={cn("grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3", className)}>
+    <ul
+      className={cn(
+        "grid grid-cols-2 gap-3 sm:gap-4",
+        category === "software" && "lg:grid-cols-3",
+        className,
+      )}
+    >
       {items.map((item, index) => (
         <li
           key={item.title}
           className={cn(
-            "relative isolate min-h-40 overflow-hidden border border-line-strong p-4 sm:min-h-44 sm:p-5",
+            "relative isolate min-h-40 overflow-hidden border border-line bg-bg p-4 sm:min-h-44 sm:p-5",
             category === "software" && index === items.length - 1 && "col-span-2 lg:col-span-2",
           )}
         >
@@ -475,13 +516,13 @@ function IconCardGrid({ items, category, className }: { items: Item[]; category:
 
 function FollowUp({ c, kicker, title }: { c: SiteContent; kicker: string; title: string }) {
   return (
-    <Section id="book" dense className="border-t-2 border-fg">
+    <Section id="book" dense className="bg-surface-brand">
       <div className={SHELL}>
         <header className="grid gap-2 border-b border-line pb-5 md:grid-cols-12 md:items-end">
           <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-accent md:col-span-3">{kicker}</p>
           <h2 className="font-display text-2xl font-semibold leading-tight sm:text-3xl md:col-span-9 lg:text-4xl">{title}</h2>
         </header>
-        <div className="mt-6 max-w-4xl">
+        <div className="-mx-5 mt-6 max-w-4xl border-y border-line bg-bg px-5 py-6 sm:mx-0 sm:border sm:p-6 sm:shadow-[0_12px_40px_rgb(15_23_42_/_0.05)]">
           <ContactForm c={c} successHeadingAs="h3" />
         </div>
       </div>

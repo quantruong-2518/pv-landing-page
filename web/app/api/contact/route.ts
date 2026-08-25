@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { LIMITS, hashIp, insert, isRateLimited, validate } from "@/lib/contact-submission";
+import { notifyContactSubmission } from "@/lib/notify-email";
 
 /**
  * POST /api/contact — store one contact-form submission.
@@ -80,6 +81,18 @@ export async function POST(req: Request) {
     console.error("[contact] submission failed:", err instanceof Error ? err.message : "unknown");
     return fail(500, "server_error");
   }
+
+  // Runs after the response is already on the wire: the visitor isn't kept
+  // waiting on Resend's round trip, and the platform still guarantees this
+  // completes. The submission is already saved, so a delivery failure here
+  // must never be able to reach the caller as an error.
+  after(async () => {
+    try {
+      await notifyContactSubmission(result.input);
+    } catch (err) {
+      console.error("[contact] notification email failed:", err instanceof Error ? err.message : "unknown");
+    }
+  });
 
   return NextResponse.json({ ok: true }, { status: 201 });
 }
