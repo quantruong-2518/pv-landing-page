@@ -28,8 +28,8 @@ export const vi: SiteContent = {
     hero: {
       eyebrow: "NGHIÊN CỨU · THỰC NGHIỆM · PHÁT TRIỂN · ĐÀO TẠO",
       brand: "PEBBLE VINA",
-      slogan: "Đối tác chiến lược về công nghệ mới và AI",
-      lead: "Chúng tôi nghiên cứu nhu cầu thị trường, thiết kế chip, phát triển phần mềm điều phối và đào tạo đội ngũ. Bốn năng lực cùng phục vụ một mục tiêu: đưa AI vào vận hành thực tế.",
+      slogan: "Đối tác chiến lược công nghệ cao",
+      lead: "Cùng đồng hành nghiên cứu, trang bị năng lực bán dẫn, phát triển phần mềm điều phối và đào tạo đội ngũ. Dịch vụ đa dạng nhưng tầm nhìn đồng nhất - trao giá trị thực cho doanh nghiệp",
       ctaPrimary: "Khám phá năng lực",
       ctaSecondary: "Trao đổi bài toán",
       media: {
@@ -40,18 +40,18 @@ export const vi: SiteContent = {
     },
 
     whyNow: {
-      kicker: "01 · Tìm đúng điểm nghẽn",
-      title: "Đừng chọn giải pháp khi chưa biết AI đang mắc ở đâu.",
-      lead: "Điểm nghẽn có thể nằm ở hạ tầng, luồng thông tin quản trị hoặc năng lực đội ngũ.",
-      needLabel: "Điểm nghẽn",
-      directionLabel: "Điểm bắt đầu",
+      kicker: "01 · Bắt đầu từ bài toán",
+      title: "Ba bài toán doanh nghiệp cần giải",
+      lead: "Phần cứng, luồng thông tin và năng lực đội ngũ là ba nơi cần nhìn trước khi chọn giải pháp.",
+      needLabel: "Bài toán doanh nghiệp",
+      directionLabel: "Hướng xử lý",
       directions: [
         {
           id: "hardware",
-          need: "Không phải mọi tác vụ AI đều nên quay về một hạ tầng tập trung.",
-          consequence: "Chọn sai nơi xử lý buộc doanh nghiệp giải cùng lúc bài toán điện, làm mát, đường truyền và phạm vi dữ liệu.",
-          title: "PIM Edge AI của Pebble Square Inc.",
-          body: "Chip tính toán trong mảng nhớ và chạy suy luận tại thiết bị, thay vì đưa mọi tác vụ qua mạng về hạ tầng tập trung.",
+          need: "Chuyển dữ liệu tốn điện; cloud buộc AI phụ thuộc đường truyền.",
+          consequence: "Điện bị tiêu hao, phản hồi chậm hơn và phạm vi dữ liệu phải bảo vệ rộng hơn.",
+          title: "PIM xử lý ngay nơi dữ liệu nằm",
+          body: "Pebble Square Inc. đặt phép tính vào bộ nhớ và chạy suy luận tại thiết bị. Hai thay đổi này tạo ra lợi thế về điện năng, độ trễ và phạm vi dữ liệu.",
           media: {
             src: "",
             alt: "Minh hoạ chip PIM xử lý AI tại thiết bị Edge có giới hạn về điện và kết nối.",
@@ -60,36 +60,27 @@ export const vi: SiteContent = {
           statusNote: "Đã có",
           origin: "ps",
           comparison: {
-            painLabel: "Hạ tầng tập trung",
-            responseLabel: "PIM Edge AI",
+            painLabel: "Bài toán",
+            responseLabel: "Giải pháp",
+            resultLabel: "Kết quả",
             items: [
               {
                 id: "electricity",
-                painTitle: "Điện quyết định nơi AI có thể chạy",
-                painBody: "Hạ tầng tập trung cần nguồn điện liên tục, còn nhiều thiết bị hiện trường chỉ có mức công suất rất hạn chế.",
-                responseTitle: "Suy luận trong giới hạn công suất thiết bị",
-                responseBody: "Khi phép tính diễn ra trong mảng nhớ, dữ liệu phải di chuyển ít hơn. Nhờ đó, tác vụ suy luận phù hợp có thể chạy trong giới hạn công suất của thiết bị Edge.",
+                painTitle: "Điện mất vào việc chuyển dữ liệu",
+                painBody: "Chip truyền thống phải đưa dữ liệu qua lại giữa bộ nhớ và bộ xử lý. Mỗi lượt di chuyển đều tiêu tốn điện.",
+                responseTitle: "Tính ngay trong bộ nhớ (PIM)",
+                responseBody: "Dữ liệu được lưu và xử lý tại cùng một điểm, giảm phần điện dùng để di chuyển dữ liệu.",
+                resultTitle: "Ít điện hơn khoảng 50 lần so với NVIDIA Jetson Nano",
+                resultBody: "PAPAYA FLEX dùng 0,1–0,15 W, so với 5–10 W của NVIDIA Jetson Nano. Trên ResNet-50, hiệu suất tính toán cao hơn khoảng 100 lần.",
               },
               {
-                id: "cooling",
-                painTitle: "Mật độ tính toán kéo theo làm mát",
-                painBody: "Hạ tầng AI tập trung còn dùng nước làm mát khi mật độ tính toán tăng.",
-                responseTitle: "Bớt phần việc gửi về trung tâm",
-                responseBody: "Khi một phần suy luận chạy tại thiết bị, khối lượng xử lý gửi về trung tâm dữ liệu có thể giảm. Tác động đến làm mát vì thế chỉ là gián tiếp.",
-              },
-              {
-                id: "performance",
-                painTitle: "Hai vòng di chuyển cho một kết quả",
-                painBody: "Dữ liệu đi từ bộ nhớ sang bộ xử lý, rồi từ thiết bị lên cloud; mỗi lượt đi-về kéo dài thời gian phản hồi.",
-                responseTitle: "Ra kết quả tại nơi sự kiện xảy ra",
-                responseBody: "Chip xử lý dữ liệu tại nơi dữ liệu được lưu và trả kết quả trên thiết bị, không phải chờ vòng lên cloud rồi quay lại.",
-              },
-              {
-                id: "security",
-                painTitle: "Ranh giới dữ liệu bị mở rộng",
-                painBody: "Khi dữ liệu nhạy cảm đi ra ngoài thiết bị hoặc hệ thống nội bộ, phạm vi cần kiểm soát mở rộng. Việc xử lý cũng phụ thuộc nhiều hơn vào mạng.",
-                responseTitle: "Giữ dữ liệu trong ranh giới đã chọn",
-                responseBody: "Khi suy luận chạy trên thiết bị, hoặc được triển khai tại chỗ khi phù hợp, doanh nghiệp kiểm soát ranh giới dữ liệu rõ hơn. Mức an toàn của ranh giới đó vẫn phụ thuộc vào thiết kế toàn hệ thống.",
+                id: "cloud",
+                painTitle: "Cloud kéo dữ liệu ra khỏi thiết bị",
+                painBody: "Truy vấn AI đưa dữ liệu ra ngoài hệ thống, tạo thêm độ trễ và mở rộng rủi ro rò rỉ dữ liệu doanh nghiệp.",
+                responseTitle: "Đưa mô hình suy luận xuống thiết bị",
+                responseBody: "Chip Pebble Square xử lý suy luận tại chỗ. Pebble AI Studio triển khai và tối ưu mô hình AI nhẹ lên chip PIM.",
+                resultTitle: "AI nhẹ chạy cục bộ trên thiết bị",
+                resultBody: "Kết quả được tạo ngay nơi dữ liệu phát sinh. Dữ liệu không phải rời thiết bị chỉ để nhận một quyết định AI.",
               },
             ],
           },
@@ -127,8 +118,8 @@ export const vi: SiteContent = {
 
     history: {
       kicker: "Nền tảng phần cứng",
-      title: "Bốn bước mở rộng phạm vi Edge AI.",
-      lead: "Đây là hành trình chip của Pebble Square Inc., từ thế hệ đầu tiên đến hướng suy luận mô hình lớn tại chỗ.",
+      title: "Liên tục được kế thừa và cải tiến mạnh mẽ",
+      lead: "Lộ trình chip của Pebble Square Inc.",
       milestones: [
         {
           date: "2021 · Thế hệ 1",
@@ -154,10 +145,9 @@ export const vi: SiteContent = {
           title: "ESPRESSO 9/2026 hướng tới suy luận mô hình lớn tại chỗ",
           body: "Tài liệu nhà đầu tư ghi mốc 9/2026 và 160 TOPS cho INT8; ESPRESSO chưa có trong danh mục công khai của Pebble Square.",
           status: "roadmap",
-          statusNote: "Dự kiến 9/2026 · tài liệu nhà đầu tư",
+          statusNote: "Dự kiến 9/2026",
         },
       ],
-      footnote: "MOCHA và MINT theo lịch sử công khai của Pebble Square; PAPAYA theo tài liệu lộ trình sản phẩm do hãng cung cấp. ESPRESSO, dự kiến 9/2026, chỉ xuất hiện trong tài liệu nhà đầu tư và chưa có trong danh mục công khai.",
     },
   },
 
@@ -542,8 +532,6 @@ export const vi: SiteContent = {
     navTitle: "Các trang",
     contactTitle: "Thông tin liên hệ",
     legalTitle: "Hồ sơ doanh nghiệp",
-    statusLegend: "Mỗi số liệu đều mang nhãn đã có hoặc dự kiến",
-    disclaimer: "Số liệu về Pebble Square Inc. lấy từ trang chính thức pebble-square.com, đọc ngày 20/08/2026.",
     copyright: "© 2026 Công ty TNHH Pebble Vina",
   },
 

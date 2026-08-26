@@ -20,55 +20,71 @@ function DirectionComparison({ comparison }: { comparison: WhyNowComparison }) {
   if (comparison.items.length === 0) return null;
 
   return (
-    <div className="mt-10 border-y border-line-strong sm:mt-12">
-      <div className="hidden grid-cols-[minmax(0,1fr)_4.5rem_minmax(0,1fr)] border-b border-line md:grid">
-        <p className="py-3 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
-          {comparison.painLabel}
-        </p>
-        <span aria-hidden />
-        <p className="py-3 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent">
-          {comparison.responseLabel}
-        </p>
-      </div>
+    <div className="mt-6 sm:mt-8">
+      <ol className="grid gap-5 sm:gap-6">
+        {comparison.items.map((item, index) => {
+          const alternateSurface = index % 2 === 1;
 
-      <ol>
-        {comparison.items.map((item) => (
-          <li key={item.id} className="border-b border-line py-7 last:border-b-0 md:py-8">
-            <div className="md:hidden">
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
-                {comparison.painLabel}
-              </p>
-              <h4 className="mt-2 text-lg font-semibold leading-snug text-fg">{item.painTitle}</h4>
-              <Body className="mt-2">{item.painBody}</Body>
+          return (
+            <li
+              key={item.id}
+              className={cn(
+                "relative isolate overflow-hidden border border-line-strong",
+                alternateSurface ? "bg-surface" : "bg-bg",
+              )}
+            >
+              <span
+                className="pointer-events-none absolute -right-2 -top-6 z-0 font-display text-[7rem] font-semibold leading-none text-line opacity-[0.45] sm:-right-1 sm:text-[8rem]"
+                aria-hidden
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
 
-              <div className="flex h-12 justify-center py-2" aria-hidden>
-                <span className="relative h-full w-px bg-line-strong after:absolute after:bottom-0 after:left-1/2 after:h-2 after:w-2 after:-translate-x-1/2 after:rotate-45 after:border after:border-accent after:bg-bg" />
+              <div className="relative z-10 hidden grid-cols-3 divide-x divide-line border-b border-line md:grid">
+                <p className="px-6 py-3 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
+                  {comparison.painLabel}
+                </p>
+                <p className="px-6 py-3 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent">
+                  {comparison.responseLabel}
+                </p>
+                <p className="px-6 py-3 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent">
+                  {comparison.resultLabel}
+                </p>
               </div>
 
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent">
-                {comparison.responseLabel}
-              </p>
-              <h4 className="mt-2 text-lg font-semibold leading-snug text-fg">{item.responseTitle}</h4>
-              <Body className="mt-2">{item.responseBody}</Body>
-            </div>
+              <article className="relative z-10 grid divide-y divide-line md:grid-cols-3 md:divide-x md:divide-y-0">
+                <div className="px-4 py-6 sm:px-5 sm:py-7 md:px-6 md:py-8">
+                  <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle md:hidden">
+                    {comparison.painLabel}
+                  </p>
+                  <h4 className="mt-2 text-lg font-semibold leading-snug text-fg md:mt-0">{item.painTitle}</h4>
+                  <Body className="mt-2">{item.painBody}</Body>
+                </div>
 
-            <div className="hidden grid-cols-[minmax(0,1fr)_4.5rem_minmax(0,1fr)] items-center md:grid">
-              <div className="pr-6">
-                <h4 className="text-lg font-semibold leading-snug text-fg">{item.painTitle}</h4>
-                <Body className="mt-2">{item.painBody}</Body>
-              </div>
-              <div className="flex items-center gap-2" aria-hidden>
-                <span className="h-px flex-1 bg-line-strong" />
-                <span className="h-2 w-2 rotate-45 border border-accent bg-bg" />
-                <span className="h-px flex-1 bg-line-strong" />
-              </div>
-              <div className="pl-6">
-                <h4 className="text-lg font-semibold leading-snug text-fg">{item.responseTitle}</h4>
-                <Body className="mt-2">{item.responseBody}</Body>
-              </div>
-            </div>
-          </li>
-        ))}
+                <div
+                  className={cn(
+                    "px-4 py-6 sm:px-5 sm:py-7 md:px-6 md:py-8",
+                    alternateSurface ? "bg-bg" : "bg-surface",
+                  )}
+                >
+                  <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent md:hidden">
+                    {comparison.responseLabel}
+                  </p>
+                  <h4 className="mt-2 text-xl font-semibold leading-snug text-fg md:mt-0">{item.responseTitle}</h4>
+                  <Body className="mt-2">{item.responseBody}</Body>
+                </div>
+
+                <div className="border-l-2 border-accent px-4 py-6 sm:px-5 sm:py-7 md:px-6 md:py-8">
+                  <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent md:hidden">
+                    {comparison.resultLabel}
+                  </p>
+                  <h4 className="mt-2 text-xl font-semibold leading-snug text-primary md:mt-0">{item.resultTitle}</h4>
+                  <Body className="mt-2">{item.resultBody}</Body>
+                </div>
+              </article>
+            </li>
+          );
+        })}
       </ol>
     </div>
   );
@@ -145,50 +161,61 @@ export function HomePage({ c }: { c: SiteContent }) {
 
               return (
                 <li key={direction.id} id={direction.id} className="border-b border-line-strong py-9 sm:py-12 lg:py-14">
-                  <article
-                    className={cn(
-                      direction.media.src && "grid items-start gap-7 md:grid-cols-2 md:gap-12 lg:gap-16",
-                    )}
-                  >
-                    <div
-                      className={cn(
-                        direction.media.src
-                          ? mediaFirst && "md:col-start-2 md:row-start-1"
-                          : "md:grid md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-x-12 lg:gap-x-16",
-                      )}
-                    >
-                      <div className={cn("flex flex-wrap items-center gap-2.5", !direction.media.src && "md:col-span-2")}>
+                  {direction.comparison ? (
+                    <>
+                      <div className="flex flex-wrap items-center gap-2.5">
                         <OriginTag origin={direction.origin} label={c.origin[direction.origin]} />
                         <StatusBadge status={direction.status} label={direction.statusNote || c.status[direction.status]} />
                       </div>
+                      <DirectionComparison comparison={direction.comparison} />
+                    </>
+                  ) : (
+                    <article
+                      className={cn(
+                        direction.media.src && "grid items-start gap-7 md:grid-cols-2 md:gap-12 lg:gap-16",
+                      )}
+                    >
+                      <div
+                        className={cn(
+                          direction.media.src
+                            ? mediaFirst && "md:col-start-2 md:row-start-1"
+                            : "md:grid md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-x-12 lg:gap-x-16",
+                        )}
+                      >
+                        <div className={cn("flex flex-wrap items-center gap-2.5", !direction.media.src && "md:col-span-2")}>
+                          <OriginTag origin={direction.origin} label={c.origin[direction.origin]} />
+                          <StatusBadge
+                            status={direction.status}
+                            label={direction.statusNote || c.status[direction.status]}
+                          />
+                        </div>
 
-                      <div className="mt-6 border-l-2 border-primary pl-4 sm:pl-5">
-                        <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
-                          {whyNow.needLabel}
-                        </p>
-                        <p className="mt-2 text-lg font-semibold leading-snug text-fg sm:text-xl">{direction.need}</p>
-                        <Body className="mt-2.5">{direction.consequence}</Body>
+                        <div className="mt-6 border-l-2 border-primary pl-4 sm:pl-5">
+                          <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">
+                            {whyNow.needLabel}
+                          </p>
+                          <p className="mt-2 text-lg font-semibold leading-snug text-fg sm:text-xl">{direction.need}</p>
+                          <Body className="mt-2.5">{direction.consequence}</Body>
+                        </div>
+
+                        <div className={cn("mt-7", !direction.media.src && "md:mt-6")}>
+                          <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent">
+                            {whyNow.directionLabel}
+                          </p>
+                          <h3 className="mt-2 text-2xl font-semibold leading-snug sm:text-3xl">{direction.title}</h3>
+                          <Body className={cn("mt-3 sm:text-base", direction.media.src && "max-w-xl")}>
+                            {direction.body}
+                          </Body>
+                        </div>
                       </div>
 
-                      <div className={cn("mt-7", !direction.media.src && "md:mt-6")}>
-                        <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent">
-                          {whyNow.directionLabel}
-                        </p>
-                        <h3 className="mt-2 text-2xl font-semibold leading-snug sm:text-3xl">{direction.title}</h3>
-                        <Body className={cn("mt-3 sm:text-base", direction.media.src && "max-w-xl")}>
-                          {direction.body}
-                        </Body>
-                      </div>
-                    </div>
-
-                    {direction.media.src ? (
-                      <div className={cn("md:row-start-1", mediaFirst ? "md:col-start-1" : "md:col-start-2")}>
-                        <Illustration media={direction.media} />
-                      </div>
-                    ) : null}
-                  </article>
-
-                  {direction.comparison ? <DirectionComparison comparison={direction.comparison} /> : null}
+                      {direction.media.src ? (
+                        <div className={cn("md:row-start-1", mediaFirst ? "md:col-start-1" : "md:col-start-2")}>
+                          <Illustration media={direction.media} />
+                        </div>
+                      ) : null}
+                    </article>
+                  )}
 
                   {index === 0 ? (
                     <div id="history" className="mt-10 bg-surface px-5 py-7 sm:mt-12 sm:px-7 sm:py-8 lg:px-9">
@@ -223,10 +250,6 @@ export function HomePage({ c }: { c: SiteContent }) {
                           </li>
                         ))}
                       </ol>
-
-                      <p className="mt-7 max-w-4xl font-mono text-[0.62rem] leading-relaxed text-subtle">
-                        {history.footnote}
-                      </p>
                     </div>
                   ) : null}
                 </li>

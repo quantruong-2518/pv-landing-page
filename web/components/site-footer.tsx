@@ -14,10 +14,9 @@ const LABEL = "font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle"
 const LINK = "inline-flex min-h-11 items-center text-sm text-muted transition-colors hover:text-accent";
 
 /**
- * A twelve-column information grid — identity, pages, contact, legal — then a bottom bar for the
- * copyright, the label legend and the source statement. Tax code, legal name
- * and address are both an E-E-A-T signal and the input for the Organization
- * JSON-LD.
+ * A twelve-column information grid — identity, pages, contact, legal — then the copyright.
+ * Tax code, legal name and address are both an E-E-A-T signal and the input for the
+ * Organization JSON-LD.
  *
  * Below `sm` the four groups stack, so inside a group the items run across the
  * line instead of down it: a stacked list of tall touch targets is what pushed
@@ -93,17 +92,9 @@ export function SiteFooter({ c }: { c: SiteContent }) {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-line pt-5 sm:mt-10 sm:pt-6">
+        <div className="mt-8 border-t border-line pt-5 sm:mt-10 sm:pt-6">
           <p className={LABEL}>{c.footer.copyright}</p>
-          <p className={cn(LABEL, "flex items-center gap-2")}>
-            <span className="h-1.5 w-1.5 rotate-45 bg-accent" aria-hidden />
-            {c.footer.statusLegend}
-          </p>
         </div>
-
-        <p className="mt-4 max-w-3xl text-xs leading-relaxed text-subtle sm:mt-5">
-          {c.footer.disclaimer}
-        </p>
       </div>
     </footer>
   );

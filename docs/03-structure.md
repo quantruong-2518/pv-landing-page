@@ -9,7 +9,7 @@
 ├── 1. HOME                     /vi
 │   ├── Slogan / Hero
 │   └── Why Now?                     — ba điểm bắt đầu
-│       ├── Phần cứng                — 4 cặp sức ép ↔ cơ chế xử lý
+│       ├── Phần cứng                — 2 luận điểm: bài toán → giải pháp → kết quả
 │       │   └── Timeline chip        — nằm ngay dưới phần cứng
 │       ├── Phần mềm                 — ERP trung tâm, AI hỗ trợ quyết định
 │       └── Đào tạo                  — theo nhu cầu, đo đầu ra
@@ -54,21 +54,22 @@
 mở thêm route chỉ tạo thêm trang rỗng. Khi một sản phẩm đủ dày để đứng một mình thì tách sau; anchor
 đã sẵn nên URL cũ vẫn trỏ đúng chỗ.
 
-### Why Now — tương quan pain/response
+### Why Now — bài toán / giải pháp / kết quả
 
-Why Now không còn là ba thẻ năng lực. Nó giúp cùng một người ra quyết định xác định điểm nghẽn đầu
+Why Now không còn là ba thẻ năng lực. Nó giúp cùng một người ra quyết định xác định bài toán đầu
 tiên: hạ tầng, thông tin quản trị hay năng lực đội ngũ. Thứ tự đã chốt là **phần cứng → timeline chip
 → phần mềm → đào tạo**.
 
-Nhánh phần cứng mở bằng bốn tương quan: **điện năng · nước làm mát · hao tổn do di chuyển dữ liệu ·
-bảo mật**. Desktop đặt pain bên trái và response bên phải theo từng hàng; một đường tín hiệu ở giữa
-nối đúng hai vế. Mobile không biến chúng thành hai danh sách: mỗi cặp xếp pain trước, response ngay sau.
-Đây là tương quan, không phải quy trình nên không đánh số bước. Không cần ảnh để khối hoàn chỉnh.
+GM đổi khung ngày 26/08/2026: nhánh phần cứng chỉ giữ hai luận điểm, **điện hao vì di chuyển dữ liệu**
+và **độ trễ/phạm vi bảo vệ khi đưa dữ liệu qua cloud**. Mỗi luận điểm đọc theo ba phần có nhãn rõ:
+**Bài toán → Giải pháp → Kết quả**. Desktop đặt ba phần thành ba cột thẳng hàng; mobile xếp dọc đúng
+thứ tự trong từng luận điểm. Mũi tên chỉ đường đọc, không biến ba phần thành một lời đảm bảo kết quả.
+Không cần ảnh hoặc bộ icon trang trí để khối hoàn chỉnh.
 
-Không lặp benchmark hoặc thông số sản phẩm trong bốn hàng. Các số của chip sống ở timeline ngay dưới
-và trang `/vi/products`. Dòng nước làm mát chỉ được nói như bối cảnh của hạ tầng tập trung; response
-được phép nói giảm phần suy luận phải gửi về data center, không được nói chip trực tiếp tiết kiệm nước
-hay loại bỏ data center.
+Ngoại lệ duy nhất cho luật không lặp thông số trên HOME là hai benchmark đã xác minh của PAPAYA FLEX:
+điện năng so với NVIDIA Jetson Nano và hiệu suất ResNet-50. Đối tượng so sánh và workload phải đứng
+cùng con số. Không dùng claim về nước làm mát, không mở rộng benchmark thành kết quả của mọi chip,
+mọi thiết bị hoặc mọi workload.
 
 ## 2. Định tuyến
 

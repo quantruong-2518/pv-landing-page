@@ -1,0 +1,160 @@
+{
+  "content_type": "marketing",
+  "id": "home.whyNow.hardware.repair-2026-08-26",
+  "locales": ["vi"],
+  "semantic_spec": "content-system/specs/home.yaml",
+  "entries": [
+    {
+      "key": "home.whyNow.kicker",
+      "component": "eyebrow",
+      "locales": { "vi": "01 · Bắt đầu từ bài toán" }
+    },
+    {
+      "key": "home.whyNow.title",
+      "component": "headline",
+      "locales": { "vi": "Ba bài toán doanh nghiệp cần giải" }
+    },
+    {
+      "key": "home.whyNow.lead",
+      "component": "body",
+      "locales": { "vi": "Phần cứng, luồng thông tin và năng lực đội ngũ là ba nơi cần nhìn trước khi chọn giải pháp." }
+    },
+    {
+      "key": "home.whyNow.needLabel",
+      "component": "label",
+      "locales": { "vi": "Bài toán doanh nghiệp" }
+    },
+    {
+      "key": "home.whyNow.directionLabel",
+      "component": "label",
+      "locales": { "vi": "Hướng xử lý" }
+    },
+    {
+      "key": "home.whyNow.directions[0].need",
+      "component": "headline",
+      "claims": ["C014", "C031", "C047", "C048"],
+      "label": "shipped",
+      "locales": { "vi": "Chuyển dữ liệu tốn điện; cloud buộc AI phụ thuộc đường truyền." }
+    },
+    {
+      "key": "home.whyNow.directions[0].consequence",
+      "component": "body",
+      "claims": ["C014", "C031", "C047", "C048"],
+      "label": "shipped",
+      "locales": { "vi": "Điện bị tiêu hao, phản hồi chậm hơn và phạm vi dữ liệu phải bảo vệ rộng hơn." }
+    },
+    {
+      "key": "home.whyNow.directions[0].title",
+      "component": "headline",
+      "claims": ["C031", "C047"],
+      "label": "shipped",
+      "locales": { "vi": "PIM xử lý ngay nơi dữ liệu nằm" }
+    },
+    {
+      "key": "home.whyNow.directions[0].body",
+      "component": "body",
+      "claims": ["C014", "C031", "C047", "C048"],
+      "label": "shipped",
+      "locales": { "vi": "Pebble Square Inc. đặt phép tính vào bộ nhớ và chạy suy luận tại thiết bị. Hai thay đổi này tạo ra lợi thế về điện năng, độ trễ và phạm vi dữ liệu." }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.painLabel",
+      "component": "label",
+      "locales": { "vi": "Bài toán" }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.responseLabel",
+      "component": "label",
+      "locales": { "vi": "Giải pháp" }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.resultLabel",
+      "component": "label",
+      "locales": { "vi": "Kết quả" }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[0].painTitle",
+      "component": "list_item",
+      "claims": ["C031", "C047"],
+      "label": "shipped",
+      "locales": { "vi": "Điện mất vào việc chuyển dữ liệu" }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[0].painBody",
+      "component": "body",
+      "claims": ["C031", "C047"],
+      "label": "shipped",
+      "locales": { "vi": "Chip truyền thống phải đưa dữ liệu qua lại giữa bộ nhớ và bộ xử lý. Mỗi lượt di chuyển đều tiêu tốn điện." }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[0].responseTitle",
+      "component": "list_item",
+      "claims": ["C031", "C047"],
+      "label": "shipped",
+      "locales": { "vi": "Tính ngay trong bộ nhớ (PIM)" }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[0].responseBody",
+      "component": "body",
+      "claims": ["C031", "C047"],
+      "label": "shipped",
+      "locales": { "vi": "Dữ liệu được lưu và xử lý tại cùng một điểm, giảm phần điện dùng để di chuyển dữ liệu." }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[0].resultTitle",
+      "component": "list_item",
+      "claims": ["C005"],
+      "label": "shipped",
+      "locales": { "vi": "Ít điện hơn khoảng 50 lần so với NVIDIA Jetson Nano" }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[0].resultBody",
+      "component": "body",
+      "claims": ["C005", "C006"],
+      "label": "shipped",
+      "locales": { "vi": "PAPAYA FLEX dùng 0,1–0,15 W, so với 5–10 W của NVIDIA Jetson Nano. Trên ResNet-50, hiệu suất tính toán cao hơn khoảng 100 lần." }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[1].painTitle",
+      "component": "list_item",
+      "claims": ["C014", "C048"],
+      "label": "shipped",
+      "locales": { "vi": "Cloud kéo dữ liệu ra khỏi thiết bị" }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[1].painBody",
+      "component": "body",
+      "claims": ["C014", "C048"],
+      "label": "shipped",
+      "locales": { "vi": "Truy vấn AI đưa dữ liệu ra ngoài hệ thống, tạo thêm độ trễ và mở rộng rủi ro rò rỉ dữ liệu doanh nghiệp." }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[1].responseTitle",
+      "component": "list_item",
+      "claims": ["C014", "C046", "C048"],
+      "label": "shipped",
+      "locales": { "vi": "Đưa mô hình suy luận xuống thiết bị" }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[1].responseBody",
+      "component": "body",
+      "claims": ["C014", "C046", "C048"],
+      "label": "shipped",
+      "locales": { "vi": "Chip Pebble Square xử lý suy luận tại chỗ. Pebble AI Studio triển khai và tối ưu mô hình AI nhẹ lên chip PIM." }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[1].resultTitle",
+      "component": "list_item",
+      "claims": ["C014", "C048"],
+      "label": "shipped",
+      "locales": { "vi": "AI nhẹ chạy cục bộ trên thiết bị" }
+    },
+    {
+      "key": "home.whyNow.directions[0].comparison.items[1].resultBody",
+      "component": "body",
+      "claims": ["C014", "C048"],
+      "label": "shipped",
+      "locales": { "vi": "Kết quả được tạo ngay nơi dữ liệu phát sinh. Dữ liệu không phải rời thiết bị chỉ để nhận một quyết định AI." }
+    }
+  ]
+}

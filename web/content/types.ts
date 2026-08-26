@@ -177,11 +177,14 @@ export interface WhyNowComparisonItem {
   painBody: string;
   responseTitle: string;
   responseBody: string;
+  resultTitle: string;
+  resultBody: string;
 }
 
 export interface WhyNowComparison {
   painLabel: string;
   responseLabel: string;
+  resultLabel: string;
   items: WhyNowComparisonItem[];
 }
 
@@ -215,7 +218,6 @@ export interface HomeContent {
   };
   history: Intro & {
     milestones: Milestone[];
-    footnote: string;
   };
 }
 
@@ -283,8 +285,6 @@ export interface SiteContent {
     navTitle: string;
     contactTitle: string;
     legalTitle: string;
-    statusLegend: string;
-    disclaimer: string;
     copyright: string;
   };
 

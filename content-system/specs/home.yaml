@@ -6,6 +6,8 @@
 #
 # Compiled 2026-08-21. RECOMPILED 2026-08-24 after a full intake with the requester —
 # the 21/08 pass was rejected on all four counts at once (decisions.rejection_2026_08_24).
+# RECOMPILED 2026-08-26: hardware reduced to two problem/solution/result arguments and three
+# visible source notes removed after requester confirmation at Gates A-F.
 # Sources: docs/00-brief.md, docs/01-proof-bank.md, docs/02-message-map.md,
 # docs/03-structure.md, docs/06-strategy-review.md, context/01-home/*, context/media-plan.md.
 # Claim ids resolve against content-system/claims/approved.yaml.
@@ -59,14 +61,14 @@ contract:
       - ESPRESSO is not shipping and is not on the parent's public catalogue
       - Pebble Vina is a member of the group; the ownership structure is unverified
   proof:
-    verified: [C001, C004, C008, C009, C010, C014, C021, C022, C023, C024, C025, C026, C027, C028, C029]
-    contextual: [C002, C015, C017, C019, C020, C030]
+    verified: [C001, C004, C008, C009, C010, C014, C021, C022, C023, C024, C025, C026, C027, C028, C029, C031, C046]
+    contextual: [C002, C005, C006, C015, C017, C019, C020, C030, C047, C048]
     unavailable:
       - any customer, deployment, unit count or revenue figure — docs/05-backlog.md
       - Pebble Vina incorporation date — docs/05-backlog.md
       - support model in Vietnam, engineer headcount and response time — docs/05-backlog.md B10
       - which eNVM type the analog array uses — parent states the class only, docs/06-strategy-review.md §3.13
-      - any energy, cost or token-spend saving expressed as a figure — F007
+      - any customer business cost or token-spend saving expressed as a figure — F007
   differentiators:
     - a Korean fabless parent with a chip in mass production since May 2023, reachable through a Vietnamese legal entity
     - every technical fact on the page carries a visible shipped or roadmap label
@@ -117,6 +119,43 @@ contract:
 
 decisions:
 
+  hardware_three_part_repair_2026_08_26:
+    question: how the Pebble Square hardware argument should be reduced and made visually legible
+    answered: >-
+      keep exactly two hardware arguments, each read as problem, solution and result; desktop uses
+      three aligned columns and mobile stacks the same three parts in that order
+    but: >-
+      software, training and the chip timeline remain in place; the new structure is not a licence
+      to remove their blocks or to present a benchmark as universal across every Pebble Square chip
+    consequence: >-
+      replace the four pain/response rows with two problem/solution/result rows. Use short keyword-led
+      titles, no decorative icon set, and enough plain-language mechanism for a non-technical reader.
+    still_open: []
+
+  hardware_claim_set_2026_08_26:
+    question: which proof is allowed to carry the two hardware selling points
+    answered: [C005, C006, C014, C031, C046, C047, C048]
+    but: >-
+      C005 and C006 apply only to PAPAYA FLEX against NVIDIA Jetson Nano and C006 only on ResNet-50.
+      C046 licenses lightweight model deployment and optimization, not a disclosed quantization method.
+      C047 and C048 are qualitative and do not license universal savings or a security guarantee.
+    consequence: >-
+      name the benchmark counterparty and method beside the figures; say that on-device processing
+      reduces network round trips and intermediate systems to protect, never that cloud is inherently
+      unsafe or that on-device inference guarantees security.
+    still_open: []
+
+  visible_source_note_removal_2026_08_26:
+    question: whether the global status legend, source disclaimer and history footnote stay visible
+    answered: remove all three from the rendered page
+    but: >-
+      status badges remain attached to every factual statement and all sources remain in the proof
+      bank, claim ledger and semantic spec
+    consequence: >-
+      remove home.history.footnote, footer.statusLegend and footer.disclaimer from the content shape
+      and their render sites; do not replace them with empty shipped strings.
+    still_open: []
+
   why_now_rejection_2026_08_26:
     question: what failed in the live three-direction Why Now pass
     answered: >-
@@ -127,8 +166,8 @@ decisions:
       the three-direction order remains hardware, software, training; the chip timeline remains
       directly under hardware; images remain deferred
     consequence: >-
-      Recompile only home.whyNow and the nested home.history copy needed to keep the hardware
-      story coherent. The hardware direction opens with four explicit pain/response pairs.
+      Recompile only home.whyNow and remove the requested home.history footnote. The hardware
+      direction opens with two explicit problem/solution/result arguments.
       Software and training stay lean and use the same pain-before-response reading order.
     still_open: []
 
@@ -147,28 +186,25 @@ decisions:
   why_now_evidence_2026_08_26:
     question: whether Why Now should repeat the technical figures already shown in the product page and chip timeline
     answered: >-
-      no. Hook with the operational pains and the physical response, not with repeated benchmarks.
-      Keep the existing figures in the nested timeline and the detailed product page.
+      yes for the two PAPAYA FLEX comparisons that make the selling point concrete; keep every
+      other product figure in the nested timeline and detailed product page
     but: >-
-      qualitative does not mean vague. Electricity, cooling water, data movement, network dependency,
-      deployment boundary and approval boundary must be named precisely.
+      the figures are not generic PIM outcomes and do not apply to every Pebble Square chip or workload
     consequence: >-
-      The four hardware pain/response rows carry no benchmark or saving figure. C020 licenses the
-      electricity-and-water context without its figures; C014 and C015 license the local-inference
-      and data-residency responses. No row promises a quantified reduction.
+      C005 and C006 appear only with PAPAYA FLEX, NVIDIA Jetson Nano and ResNet-50. C014 and C046
+      carry the on-device and lightweight-model argument. Cooling-water claims are removed.
     still_open: []
 
   hardware_comparison_shape_2026_08_26:
-    question: how the four hardware pains and four responses should be read on desktop and mobile
+    question: how the two hardware arguments should be read on desktop and mobile
     answered: >-
-      desktop renders one paired row at a time with pain on the left, response on the right and a
-      central signal trace linking them. Mobile keeps each pair together in pain then response order.
+      desktop renders problem, solution and result as three aligned columns. Mobile stacks those
+      three parts in the same order inside each argument.
     but: >-
-      this is not two independent lists, not four interchangeable cards, and not a decorative process timeline.
-      The rows are correlations, not sequential steps.
+      the arrows show reading order, not a guaranteed causal outcome for every workload; no decorative icon set
     consequence: >-
-      Add a comparison-pair data shape to the hardware direction. Use existing color and typography
-      tokens. The central trace is the single signature device; no new animation, image or ornamental icon set.
+      Add a three-part comparison data shape to the hardware direction and use existing color and
+      typography tokens. A fifth-grade reader should understand the three labels before reading body copy.
     still_open: []
 
   rejection_2026_08_24:
@@ -256,15 +292,12 @@ decisions:
     question: >-
       the page says PIM; the parent's current deck says CIM throughout; the parent's public
       site still says Analog-PIM — docs/06-strategy-review.md §4.5
-    answered: drop both abbreviations from home copy entirely
+    answered: use PIM once in the hardware direction and define it in plain Vietnamese; omit CIM and von Neumann
     but: >-
-      neither term is wrong, and Analog-PIM stays a protected proper noun under CLAUDE.md §4
-      wherever a later page needs it
+      the acronym does not replace the explanation and the hero remains acronym-free
     consequence: >-
-      Home states the mechanism in plain Vietnamese — the arithmetic happens inside the memory
-      instead of travelling to a processor — and names no acronym at all. This also removes the
-      whyNow point's "von Neumann", which is jargon by the same test. The acronym decision for
-      /vi/products is deferred to that page's spec and is NOT settled by this one.
+      The hardware direction pairs PIM with "tính ngay trong bộ nhớ" on first use. The hero names
+      no acronym. The acronym decision for /vi/products is deferred to that page's spec.
     still_open: [which term /vi/products leads with]
 
   espresso_date:
@@ -276,9 +309,8 @@ decisions:
       the conflict is not resolved, only deferred. The proof bank has not been amended and HQ
       has not arbitrated.
     consequence: >-
-      The milestone keeps its date, its amber roadmap label and its statusNote naming investor
-      material as the source. The footnote must keep saying the entry is absent from the
-      parent's public catalogue.
+      The milestone keeps its date, amber roadmap label and statusNote naming investor material.
+      The removed global footnote does not remove the local qualification.
     still_open:
       - HQ arbitration between proof-bank §E3 and deck v4 slide 17 — docs/05-backlog.md #9 and B4
       - "HARD DEADLINE — revisit before 1 October 2026. After that date a September 2026 promise stops reading as a citation and starts reading as a missed one, on the page whose whole differentiation is honest labelling."
@@ -301,15 +333,14 @@ decisions:
 
   scope_history:
     question: whether the history block is rewritten or only its prose
-    answered: prose only — lead, footnote, and the one milestone body that already carries text
+    answered: remove the footnote only; all remaining history content stays unchanged
     but: >-
       the emphasis rule holds: only the four starred milestones plus the MINT mass-production
       entry get a body. Filling all fifteen flattens the block and reads as a template
       (anti-ai-slop §9).
     consequence: >-
-      Fifteen milestones, their dates, their titles, their status labels and their starred flags
-      are data and stay byte-identical. Only `lead`, `footnote` and the single existing `body`
-      (milestones[6], MINT mass production) are rewritten.
+      Fifteen milestones, their dates, titles, status labels, starred flags, lead and existing body
+      stay byte-identical. Remove only `home.history.footnote` from the content shape and render site.
     still_open: []
 
 blocks:
@@ -368,7 +399,7 @@ blocks:
         three different constraints can stop the same enterprise AI programme, and each constraint
         requires a different starting point: hardware, operating software or team capability
       reader_question: what is actually stopping us, and where should we start
-    claims: [C001, C014, C015, C020, C037, C040]
+    claims: [C001, C005, C006, C014, C031, C037, C040, C046, C047, C048]
     mechanisms:
       - Pebble Square computes inside the memory array and runs inference on the device
       - Pebble Vina plans a central ERP with surrounding modules; AI proposes and coordinates while people approve
@@ -377,55 +408,49 @@ blocks:
       - the buyer can identify the first constraint before choosing a solution path
       - each company direction answers a named operating problem rather than presenting a capability catalogue
     qualifiers:
-      - data-centre electricity and cooling water are industry context, never Pebble Square measurements
-      - edge inference can reduce work sent to a data centre; it does not eliminate data centres or cooling
-      - on-device and on-premise deployment can keep data inside the chosen boundary; neither is a complete security guarantee
+      - the power and efficiency benchmarks apply only to PAPAYA FLEX against NVIDIA Jetson Nano
+      - the efficiency benchmark applies to ResNet-50
+      - on-device inference avoids the network round trip; it is not a complete security guarantee
+      - lightweight model deployment is public; quantization is not disclosed by the source
       - hardware belongs to Pebble Square Inc. and is shipped; software is roadmap December 2026; training survey is roadmap 2027
     forbidden:
-      - attributing the industry figures to Pebble Square
-      - saying the chip eliminates electricity use, cooling water, data centres, latency or security risk
-      - saying edge inference directly or measurably reduces water consumption
+      - extending PAPAYA FLEX benchmarks to every Pebble Square chip, every device or every workload
+      - saying the chip eliminates electricity use, cooling, data centres, latency, attack or data theft
+      - saying cloud is unusable or inherently unsafe for enterprises
+      - naming quantization or a model-compression ratio
       - presenting the software or training direction as available now
       - implying Pebble Vina designed or manufactured the chip
       - any saving expressed as a figure — F007
     slots:
       kicker: section index and the three-direction frame
-      title: >-
-        a commercially direct diagnosis: AI programmes stall for different reasons, so choosing
-        a solution before naming the constraint wastes time and budget
+      title: a commercially direct diagnosis using the word problem, never bottleneck
       lead: >-
         one line that lets the shared reader recognize the three starting constraints: infrastructure,
         management information and team capability. It must not summarize the three offers.
-      needLabel: label for the buyer-side constraint, not a generic `need`
-      directionLabel: label for the physical or operating response, not a generic `direction`
+      needLabel: BAI TOAN label for the buyer-side constraint, with Vietnamese diacritics in production
+      directionLabel: GIAI PHAP label for the physical or operating response, with Vietnamese diacritics in production
       directions:
         - id: hardware
           origin: ps
           status: shipped
-          claims: [C001, C014, C015, C020]
-          need: the commercial consequence of centralizing every AI workload away from where work happens
-          consequence: why electricity, cooling, data movement and data exposure are one infrastructure decision
-          title: the hardware starting point, attributed to Pebble Square Inc., using the protected PIM Edge AI term
-          body: the mechanism only; do not repeat timeline figures or product benchmarks
+          claims: [C005, C006, C014, C031, C046, C047, C048]
+          need: two concrete hardware problems, power spent moving data and data sent through cloud infrastructure
+          consequence: the buyer should see the PIM selling points before reading the chip timeline
+          title: two hardware problems solved by PIM, attributed to Pebble Square Inc.
+          body: define PIM in one plain sentence; do not name von Neumann
           comparisons:
             - id: electricity
-              pain: centralized AI infrastructure requires continuous power and field devices often have limited power budgets
-              response: computing inside the memory array reduces data movement and supports low-power inference at the edge
-              claims: [C014, C020]
-            - id: cooling
-              pain: centralized AI infrastructure also consumes cooling water as compute density rises
-              response: running the relevant inference at the device can reduce the portion of work sent back to the data centre
-              claims: [C020]
-              must_carry: [no claim that the chip directly saves water or removes data centres]
-            - id: performance
-              pain: moving data between memory and processor, then device and cloud, adds a transport cost and network round trip
-              response: compute where data sits and decide where the event occurs
-              claims: [C014]
-            - id: security
-              pain: sending sensitive data outside the device or organization expands the data boundary and creates network dependency
-              response: on-device or qualified on-premise deployment can keep data inside the chosen boundary
-              claims: [C014, C015]
-              must_carry: [on-premise qualification, no complete security guarantee]
+              problem: traditional chips repeatedly move data between memory and processor, spending power on transport
+              solution: PIM performs the computation in the memory array and reduces unnecessary data movement
+              result: PAPAYA FLEX power and ResNet-50 efficiency benchmarks against NVIDIA Jetson Nano
+              claims: [C005, C006, C031, C047]
+              must_carry: [PAPAYA FLEX, NVIDIA Jetson Nano, ResNet-50, 0.1 to 0.15 W, 5 to 10 W]
+            - id: cloud
+              problem: sending AI requests to cloud makes data cross a network and intermediate systems, adding latency and points to protect
+              solution: inference runs on the device; Pebble AI Studio deploys and optimizes lightweight AI models on PIM chips
+              result: the decision returns where data is created without a cloud round trip, and fewer intermediate systems handle the data
+              claims: [C014, C046, C048]
+              must_carry: [no security guarantee, no claim that cloud is inherently unsafe, no quantization mechanism]
         - id: software
           origin: pv
           status: roadmap
@@ -481,11 +506,15 @@ blocks:
       milestones: >-
         DATA — fifteen entries, dates, titles, status labels and starred flags are byte-identical
         and are not rewritten. Only milestones[6].body is.
-      footnote: >-
-        where the record was read and on what date, and what the single roadmap entry is sourced
-        to, including that it is absent from the parent's public catalogue
+      footnote: removed from the content shape by decisions.visible_source_note_removal_2026_08_26
 
 chrome:
+  footer.statusLegend:
+    removed: true
+    reason: requester removed the global legend; per-fact status badges remain mandatory
+  footer.disclaimer:
+    removed: true
+    reason: requester removed the visible source disclaimer; evidence remains in the ledger and spec
   meta.home.title:
     carries: the entity, its relationship to the parent, and the search term a buyer would type
     note: >-

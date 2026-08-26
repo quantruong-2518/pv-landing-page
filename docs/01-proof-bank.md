@@ -85,7 +85,10 @@ Trang **Technical Leadership** của họ công khai đủ bốn người kèm h
    Computing"*, **"256-State Synaptic Cell (8-bit)"**; Mixed Signal Processors (Digital/Analog);
    Large-Scale Neural Network with PIM; thuật toán **FCNN, CNN, DNN, RNN**.
    Họ chip: **MOCHA → MINT → PAPAYA FLEX**.
-2. **Pebble AI Studio** — *"Integrated SDK"*, deploy/tối ưu mô hình lên chip PIM; kèm **AI Accelerator**.
+2. **Pebble AI Studio** — *"Integrated SDK"*, triển khai và tối ưu mô hình AI nhẹ lên chip PIM; kèm
+   **AI Accelerator**. Trang Technology chính thức mô tả mô hình ở mức *lightweight AI models* và SDK
+   hỗ trợ triển khai/tối ưu; nguồn đọc ngày 26/08/2026. Nguồn không công bố cơ chế lượng tử hóa, nên
+   không được suy diễn "lượng tử hóa" từ chữ *lightweight*.
 3. **On-Device AI Applications** — **Sound** (speech recognition cho smart home/wearable) · **Vision**
    (image processing cho healthcare/manufacturing) · **Security** (threat detection *"without network
    dependency"*); và **AI-driven Failure Analysis** — **Risk Management** (real-time anomaly detection) ·
