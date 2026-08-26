@@ -191,7 +191,7 @@ Framework Compatibility.
 | Liên hệ | contact@pebblevina.com · 0345 913 369 |
 | Quan hệ với PS | **Thành viên Việt Nam của nhóm Pebble Square** (ADR 0002, 2026-06-16) |
 | Hậu thuẫn | Nhà đầu tư là **Phó Chủ tịch KOCHAM** |
-| Cam kết phản hồi | **Trong vòng 24 giờ** kể từ khi nhận yêu cầu qua form trang LIÊN HỆ |
+| Cam kết phản hồi | **Nhân viên kinh doanh Pebble Vina liên hệ qua thông tin đã cung cấp trong chậm nhất 24 giờ** kể từ khi form báo gửi thành công |
 
 ### F1. Phần mềm doanh nghiệp — 🟡 `roadmap`
 
@@ -221,13 +221,17 @@ Framework Compatibility.
 > được hai bên thống nhất trước, không phải lời hứa hoàn vốn.
 
 > **Dòng "cam kết phản hồi" khác mọi dòng còn lại trong bảng này.** Nó không phải số đo, cũng không
-> phải nguồn công khai của ai — nó là **cam kết vận hành do GM chốt ngày 2026-08-24** khi duyệt copy
+> phải nguồn công khai của ai — nó là **cam kết vận hành do GM chốt ngày 2026-08-24 và làm rõ ngày
+> 2026-08-26** khi duyệt copy
 > khối trái trang LIÊN HỆ. Ghi ở đây vì luật của repo là mọi con số lên trang phải tra được về một
 > dòng trong file này; nhãn `shipped` ở đây nghĩa là *đang có hiệu lực*, không phải *đã đo được*.
 >
 > Hệ quả: **24 giờ là đồng hồ chạy thật, tính cả cuối tuần.** Một email tối thứ Sáu vẫn phải được trả
 > lời trước tối thứ Bảy. Ngày nào đội không giữ nổi mốc này thì sửa dòng này trước, rồi mới sửa trang —
 > không phải ngược lại. Phương án an toàn hơn đã được nêu ra và GM bác: xem `docs/07-loop/contact.md`.
+> Đồng hồ bắt đầu khi giao diện xác nhận form đã được gửi thành công. Cam kết này chỉ bao gồm việc
+> nhân viên kinh doanh liên hệ qua thông tin người gửi đã cung cấp; không cam kết chẩn đoán, phương án
+> hay kết quả giải quyết bài toán trong cùng 24 giờ.
 
 ## G. `internal` — chưa đưa lên trang
 

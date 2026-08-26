@@ -13,9 +13,9 @@
 # │ quoted inside decisions/submit-posts-to-endpoint, never left live where  │
 # │ a later compile could read it as current.                                │
 # │                                                                          │
-# │ SUCCESS REPAIR 2026-08-26 — requester rejected the live form title and  │
-# │ success panel as repetitive and contradictory. New Gate F is required    │
-# │ for three strings plus removal of the success-only phone/email list.      │
+# │ LEAN RECOMPILE 2026-08-26 — Gates A–F closed. The requester rejected    │
+# │ both the copy and layout as verbose, then returned `go` for the visible  │
+# │ CONTACT strings and removal of the office figure/success-only channels.  │
 # └──────────────────────────────────────────────────────────────────────────┘
 #
 # This is the ONLY input a locale writer may read. It exists so that `en` and `ko`
@@ -49,12 +49,12 @@
 #
 # Mixed routing, deliberate:
 #   meta.contact.* / contact.intro.*                 -> marketing
-#   contact.ctaPrimary / contact.media.alt / contact.form.*  -> product_ui
+#   contact.ctaPrimary / contact.form.*                    -> product_ui
 # The form is an interface, not a pitch. It is graded on task completion, never on
 # persuasion (content-i18n §1). Labels take no pronoun and no `vui lòng`.
 
 id: contact
-type: marketing            # the page; the form block overrides to product_ui
+type: marketing # the page; the form block overrides to product_ui
 
 # ── What the first draft got wrong, and why it mattered ─────────────────────
 # Kept for the next session so the same slot is not re-misplaced.
@@ -74,6 +74,8 @@ revision_log:
       contact-form.tsx:47. And `contact.media` has no `src`, so <Figure> falls through
       to <MediaPending>, which prints the alt as VISIBLE ON-SCREEN TEXT (ui.tsx:284),
       not as assistive text. A human reads this string.
+    superseded_2026_08_26: >-
+      The entire slot and Figure are deleted by decisions/lean_contact_recompile_2026_08_26.
   - slot: contact.form.requiredNote
     was: 'premised on "optional fields must be marked, so the required set reads as short"'
     is: >-
@@ -91,7 +93,7 @@ revision_log:
 contract:
   page:
     type: contact
-    goal: convert an interested reader into a scheduled conversation
+    goal: convert an interested reader into a submitted consultation request
     funnel_stage: decision
   audience:
     primary: Vietnamese industrial and enterprise buyers; Korean FDI firms in Vietnam
@@ -103,7 +105,7 @@ contract:
       reader therefore reads this page in Vietnamese, and stays primary
       (decisions/audience-after-en-removal).
   product:
-    name: a thirty-minute consultation
+    name: a consultation request
     mechanism: >-
       REWRITTEN 2026-08-25. The form POSTs to /api/contact
       (web/app/api/contact/route.ts), which validates server-side, rate-limits per IP,
@@ -115,10 +117,10 @@ contract:
       and is kept only in that decision's `question`.
   proof:
     verified: []
-    contextual: [C019]
+    contextual: [C019, C035, C049]
     unavailable:
-      - business hours — docs/05-backlog.md
-      - response time and support model in Vietnam — docs/05-backlog.md B10
+      - diagnosis, proposed-solution or delivery timing after the first sales contact
+      - a named sales representative
       - office photography, Landmark 72 — docs/05-backlog.md #5, G9 still open
       - Pebble Vina incorporation date — docs/05-backlog.md
       - any customer, deployment, unit count or revenue figure — docs/01-proof-bank.md §H4
@@ -134,7 +136,14 @@ contract:
       it no longer hands the fields to the visitor's own mail client.
   tone:
     desired: [precise, understated, engineer-readable, honest about status]
-    avoid: [luxury language, emotional hype, urgency pressure, false scarcity, thought-leadership voice]
+    avoid:
+      [
+        luxury language,
+        emotional hype,
+        urgency pressure,
+        false scarcity,
+        thought-leadership voice,
+      ]
   claims_policy:
     allow_inference: false
     require_proof_for_numbers: true
@@ -151,6 +160,37 @@ contract:
 # through the calling session. The two-pass protocol (return the gates, receive
 # the answers, then compile) is the documented path, not a fallback.
 decisions:
+  lean_contact_recompile_2026_08_26:
+    question: >-
+      what remains when the contact page is reduced to the one decision the buyer must make
+    answered: >-
+      one white screen. A narrow invitation tells the reader to fill in the form and highlights
+      the 24-hour sales-contact commitment; a wider, compact form immediately accepts the request.
+      On mobile the invitation comes first and the form follows. The office figure is removed.
+    but: >-
+      the form submits a request; it does not book a calendar appointment. The 24 hours covers the
+      first contact by a Pebble Vina sales team member, not diagnosis, a proposed solution, delivery
+      or a business outcome. It is wall-clock time, including weekends.
+    consequence: >-
+      contact.intro renders only kicker, one direct headline and one highlighted sentence.
+      contact.form keeps all five fields but uses a 2–4 word title and an explicit submit CTA.
+      The success panel renders only title and one sentence containing C049. Its phone/email list
+      is removed; the error state keeps those recovery channels. contact.media is deleted from
+      the content shape and no Figure renders on this route.
+    still_open: []
+
+  sales_owner_and_clock_start_2026_08_26:
+    question: who responds, through which route, and when the 24-hour clock starts
+    answered: >-
+      a Pebble Vina sales team member contacts the submitter through the details supplied in the
+      form, within 24 wall-clock hours after the interface reports a successful submission (C049)
+    but: >-
+      this is an in-force operating commitment, not a measured result, and does not promise that
+      the business problem is assessed or solved within the same period
+    consequence: >-
+      use the sales owner and the clock once before submission and once in the post-submit success
+      state, because they serve different interface states. Never weaken it to business hours.
+    still_open: []
 
   success_panel_repair_2026_08_26:
     question: >-
@@ -167,13 +207,14 @@ decisions:
       contact.form.title, successTitle and successBody are recompiled as one coherent state
       transition. The success panel renders only heading and body. The error state still appends
       SITE.contact.phone and SITE.contact.email as recovery actions.
-    still_open: [Gate F confirmation for this repair]
+    still_open: []
+    superseded_by: decisions/lean_contact_recompile_2026_08_26 and decisions/sales_owner_and_clock_start_2026_08_26
 
   thirty-minutes-as-a-claim:
-    question: "is the 30-minute duration an offer or a claim needing a proof-bank line — this spec, first pass"
+    question: 'is the 30-minute duration an offer or a claim needing a proof-bank line — this spec, first pass'
     answered: neither; drop the number. The page offers `tư vấn` with no duration.
     but: nothing may take its place.
-    consequence: "No slot may state a duration, a headcount or any other bounded promise to compensate for the missing number. An unbounded invitation is the whole point."
+    consequence: 'No slot may state a duration, a headcount or any other bounded promise to compensate for the missing number. An unbounded invitation is the whole point.'
     superseded_in_part: >-
       The words `a response time` stood in the consequence above until 2026-08-24. The GM struck
       them and committed a real number instead — see decisions/response-time-commitment. The rest
@@ -196,7 +237,8 @@ decisions:
       promising a response time is lifted for THIS number only; any other bounded promise still
       falls under decisions/thirty-minutes-as-a-claim. If the team stops keeping the mark, the fix
       order is docs/01-proof-bank.md §F first, then this spec, then the page — never the page alone.
-    still_open: [whether 24h wall-clock survives contact with a real weekend inbox]
+    still_open:
+      [whether 24h wall-clock survives contact with a real weekend inbox]
 
   voice-override-contact-intro:
     question: >-
@@ -219,9 +261,12 @@ decisions:
       contract/differentiators still lists `the offer includes being told the answer is no`. With
       the intro rewritten, that differentiator is no longer stated anywhere on the page. Raised, not
       resolved — it is a positioning question for the GM, not a compiler decision.
+    superseded_2026_08_26: >-
+      The requester explicitly replaced the warm, thankful register with lean professional copy.
+      No gratitude, hope-to-work-together sentence, urgency label or vague emotional language survives.
 
   nav-drops-contact-link:
-    question: "the header carried both a `Liên hệ` nav link and a `Đặt lịch tư vấn` button pointing at the same route"
+    question: 'the header carried both a `Liên hệ` nav link and a `Đặt lịch tư vấn` button pointing at the same route'
     answered: drop the nav link, keep the button. GM, 2026-08-24.
     but: the route is unchanged and the page keeps its own URL.
     consequence: >-
@@ -232,75 +277,81 @@ decisions:
     still_open: []
 
   one-white-surface:
-    question: "does CONTACT keep a dark hero above the form"
+    question: 'does CONTACT keep a dark hero above the form'
     answered: no. One light block holds the invitation and the form together. GM, 2026-08-24.
     but: this is a layout decision, and it moved the block-height budget.
     consequence: >-
-      contact.intro is no longer its own Section. It is the left column of a single
-      `<Section id="book" screen>` whose right column is the form, and it now carries the office
-      <Figure> beneath the lead. Measured at 836px against an 836px budget at 1440x900 BEFORE this
-      rewrite — the block has no headroom at all. Prose added to the lead overflows the viewport,
-      which is why the lead below carries a hard sentence ceiling rather than a soft word limit.
-    still_open: [the 390x844 measurement, which the engineer reported at 1323px against a 788px budget]
+      contact.intro is no longer its own Section. It is the narrow left column of a single
+      `<Section id="book" screen>` whose wider right column is the form. The office <Figure> is
+      removed. The intro contains only three short slots and the form remains compact; desktop and
+      390x844 mobile must be measured after apply rather than inferred from the previous layout.
+    still_open: [post-apply browser measurements at 1440x900 and 390x844]
 
   kicker-numbering:
     question: "is contact.intro.kicker numbered `03 · …` like home's section indices"
     answered: no page numbering. The kicker is a plain label.
     but: this is not licence to leave it a bare nav echo; it still has to orient a reader who arrived from the catalogue.
-    consequence: "contact.intro.kicker is a short label naming where the reader is in the sequence, not an index number."
+    consequence: 'contact.intro.kicker is a short label naming where the reader is in the sequence, not an index number.'
     still_open: []
-    also_binds: "products.intro.kicker takes the same treatment — record as inherited_from when that spec is next touched."
+    also_binds: 'products.intro.kicker takes the same treatment — record as inherited_from when that spec is next touched.'
 
   success-panel-image:
-    question: "what does the empty success-panel image slot hold — docs/05-backlog.md #5"
+    question: 'what does the empty success-panel image slot hold — docs/05-backlog.md #5'
     answered: the Landmark 72 office.
     but: no file exists, so the alt is on-screen text today and real alt text later.
-    consequence: "contact.media.alt is written as an art-direction brief a customer can read without embarrassment — not accessibility phrasing, not a note to a photographer. It must work unchanged as the alt attribute once the photograph lands."
+    consequence: 'contact.media.alt is written as an art-direction brief a customer can read without embarrassment — not accessibility phrasing, not a note to a photographer. It must work unchanged as the alt attribute once the photograph lands.'
     moved_2026_08_24: >-
       The image is no longer in the success panel. Two pending frames were on screen at once after
       submit (the engineer measured 1 before submit, 2 after); the GM cut the panel one and kept the
       left-column one. The picture is now evidence a reader sees BEFORE deciding to write, which is
       where it earns its place — a thank-you note does not need a photograph. `contact.media.alt` is
       unchanged and still the only writable slot for it.
-    still_open: ["the photograph itself — GM, docs/05-backlog.md #5, G9 still open"]
+    still_open:
+      ['the photograph itself — GM, docs/05-backlog.md #5, G9 still open']
+    superseded_2026_08_26: >-
+      The requester removed the office figure from the route. contact.media and its render path are
+      deleted; the photography backlog remains a company asset gap, not a CONTACT dependency.
 
   meta-tax-code:
-    question: "does meta.contact.description carry the tax code"
+    question: 'does meta.contact.description carry the tax code'
     answered: yes, 0111545175.
     but: the tax code is the only number the ledger licenses here (C019).
-    consequence: "No other figure may enter the description. The street address is excluded — Landmark 72 and floor 19 are numbers with no ledger entry, and check_claims reads the marketing artifact."
+    consequence: 'No other figure may enter the description. The street address is excluded — Landmark 72 and floor 19 are numbers with no ledger entry, and check_claims reads the marketing artifact.'
     still_open: []
 
   audience-after-en-removal:
-    question: "do Korean FDI readers still count as primary now that the English build is gone"
+    question: 'do Korean FDI readers still count as primary now that the English build is gone'
     answered: yes, they remain primary and they read Vietnamese.
     but: this rules out idiom and wordplay, NOT natural sentence rhythm.
-    consequence: "contact.intro.title, contact.intro.lead and contact.form.messagePlaceholder avoid colloquialism and figurative language. Flattened textbook Vietnamese is a failure of this decision, not a satisfaction of it."
+    consequence: 'contact.intro.title, contact.intro.lead and contact.form.messagePlaceholder avoid colloquialism and figurative language. Flattened textbook Vietnamese is a failure of this decision, not a satisfaction of it.'
     still_open: []
 
   intro-lead-budget:
-    question: "one sentence or two in contact.intro.lead, given the screen block already carries the phone/email dl"
+    question: 'one sentence or two in contact.intro.lead, given the screen block already carries the phone/email dl'
     answered: not decided by argument — decided by measurement, which happens after this run.
     but: the measurement has not been taken yet.
-    consequence: "Write BOTH. Apply the two-sentence version, because it carries the honesty move. Report the one-sentence fallback verbatim so the calling session can swap it at 1440x900 without another compile."
-    still_open: [the measurement at 1440x900 — does the phone/email dl stay above the fold]
+    consequence: 'Write BOTH. Apply the two-sentence version, because it carries the honesty move. Report the one-sentence fallback verbatim so the calling session can swap it at 1440x900 without another compile.'
+    still_open:
+      [
+        the measurement at 1440x900 — does the phone/email dl stay above the fold,
+      ]
 
   cta-label-honesty:
-    question: "does the submit button keep promise-wording or name the mail-draft mechanism"
+    question: 'does the submit button keep promise-wording or name the mail-draft mechanism'
     answered: superseded. The code moved under this spec.
     but: the replacement behaviour does not exist yet.
-    consequence: "CTA_HREF is deleted from content/site.ts and page-home.tsx now routes to path(contact), so `đặt lịch` means `go to the contact page` and the form is the only thing that mails. The requester wants submit to SAVE and show a thank-you panel. Until that endpoint exists, contact.ctaPrimary is HELD as a placeholder."
+    consequence: 'CTA_HREF is deleted from content/site.ts and page-home.tsx now routes to path(contact), so `đặt lịch` means `go to the contact page` and the form is the only thing that mails. The requester wants submit to SAVE and show a thank-you panel. Until that endpoint exists, contact.ctaPrimary is HELD as a placeholder.'
     still_open: [what submit says once it saves rather than mails]
 
   real-form-endpoint:
-    question: "is there a submission endpoint"
+    question: 'is there a submission endpoint'
     answered: a Postgres-backed endpoint on Vercel is being built as a separate task.
     but: it does not exist yet; the component still fires a mailto.
-    consequence: "Nothing may describe a saved, received, queued or acknowledged submission. contact.form.successTitle and contact.form.successBody are HELD as placeholders — writing them now guarantees copy that is false on the day it ships."
+    consequence: 'Nothing may describe a saved, received, queued or acknowledged submission. contact.form.successTitle and contact.form.successBody are HELD as placeholders — writing them now guarantees copy that is false on the day it ships.'
     still_open: [all three held keys, which land with the endpoint]
 
   submit-stays-mailto:
-    question: "the endpoint landed in the repo (app/api/contact/route.ts, lib/contact-submission.ts, db/001_contact_submission.sql) but contact-form.tsx still fires a mailto. Which behaviour does the copy describe — asked 2026-08-24"
+    question: 'the endpoint landed in the repo (app/api/contact/route.ts, lib/contact-submission.ts, db/001_contact_submission.sql) but contact-form.tsx still fires a mailto. Which behaviour does the copy describe — asked 2026-08-24'
     answered: mailto stays. The copy describes the mail draft, not a saved submission.
     but: the endpoint exists and is unwired, so the two can drift apart in one commit.
     consequence: >-
@@ -310,7 +361,8 @@ decisions:
       mailing, all three keys are false and must be recompiled from this spec — that is a
       content dependency of the wiring task, not a follow-up someone may skip.
     still_open: []
-    superseded_by: decisions/submit-posts-to-endpoint, 2026-08-25. The wiring landed; the three
+    superseded_by:
+      decisions/submit-posts-to-endpoint, 2026-08-25. The wiring landed; the three
       keys it released are now false and were recompiled in that pass. Kept for the record only —
       nothing in this decision may be applied to today's copy.
 
@@ -368,6 +420,10 @@ decisions:
       wall-clock, weekends included — and keep sentence two unchanged. That swap also
       re-opens this decision and the forbidden line above; it does not need a new compile,
       but it does need this file edited in the same commit.
+    superseded_2026_08_26: >-
+      The requester now requires the 24-hour commitment in the success state. C049 adds the sales
+      owner and starts the clock only after successful receipt, so the intro and success panel serve
+      distinct pre-submit and post-submit states.
 
   drop-preform-contact-block:
     question: >-
@@ -405,7 +461,6 @@ scope:
     - contact.intro.kicker
     - contact.intro.title
     - contact.intro.lead
-    - contact.media.alt
     - contact.form.title
     - contact.form.nameLabel
     - contact.form.companyLabel
@@ -415,70 +470,67 @@ scope:
     - contact.form.messagePlaceholder
     - contact.form.optionalLabel
   written_2026_08_24:
-    - "contact.ctaPrimary — released by decisions/submit-stays-mailto"
-    - "contact.form.successTitle — released by decisions/submit-stays-mailto"
-    - "contact.form.successBody — released by decisions/submit-stays-mailto"
+    - 'contact.ctaPrimary — released by decisions/submit-stays-mailto'
+    - 'contact.form.successTitle — released by decisions/submit-stays-mailto'
+    - 'contact.form.successBody — released by decisions/submit-stays-mailto'
   recompiled_2026_08_25:
-    - "contact.ctaPrimary — the button now sends rather than opens a draft"
-    - "contact.form.successTitle — receipt is real; the mail-client sentence was false the moment the POST shipped"
-    - "contact.form.successBody — same, plus the privacy echo and the mail-client fallback both removed"
-    - "contact.form.errorBody — NEW field on ContactContent.form; had no copy before this run"
+    - 'contact.ctaPrimary — the button now sends rather than opens a draft'
+    - 'contact.form.successTitle — receipt is real; the mail-client sentence was false the moment the POST shipped'
+    - 'contact.form.successBody — same, plus the privacy echo and the mail-client fallback both removed'
+    - 'contact.form.errorBody — NEW field on ContactContent.form; had no copy before this run'
+  recompiled_2026_08_26:
+    - 'meta.contact.title — booking language removed because the form submits a request'
+    - 'contact.intro.kicker, title and lead — lean action plus C049'
+    - 'contact.form.title — request, not calendar booking'
+    - 'contact.form.successTitle and successBody — one receipt state plus C049'
   recompiled_note: >-
     Four keys, decisions/submit-posts-to-endpoint. This is the recompile
     decisions/submit-stays-mailto said would be owed the day contact-form.tsx POSTed;
     the engineer wired it on 2026-08-25 and it came due the same day. No other key on
     this page was touched — the mechanism changed, the offer did not.
   held: []
-  held_note: "Nothing held."
+  held_note: 'Nothing held.'
   deleted_2026_08_24:
     - "contact.form.requiredNote — cut by decisions/drop-preform-contact-block. Removed from
-       web/content/vi.ts and from content-system/output/contact-form.vi.json in the same pass.
-       The matching field in web/content/types.ts and the <p> in contact-form.tsx are the
-       engineer's half of the same change. Do NOT re-add it from revision_log: the reasoning
-       there (four of five fields required, so the ` *` mark needed explaining) is correct and
-       was overridden anyway. The ` *` suffix itself stays."
-
+      web/content/vi.ts and from content-system/output/contact-form.vi.json in the same pass.
+      The matching field in web/content/types.ts and the <p> in contact-form.tsx are the
+      engineer's half of the same change. Do NOT re-add it from revision_log: the reasoning
+      there (four of five fields required, so the ` *` mark needed explaining) is correct and
+      was overridden anyway. The ` *` suffix itself stays."
+  deleted_2026_08_26:
+    - 'contact.media.alt — office Figure removed from CONTACT by decisions/lean_contact_recompile_2026_08_26'
 
 blocks:
-
   - id: contact.intro
     origin: pv
     status: shipped
-    height: screen          # left column of <Section id="book" screen> — page-contact.tsx
+    height: screen # left column of <Section id="book" screen> — page-contact.tsx
     intent:
       communicate: that writing in starts something, and what happens on our side once it is sent
       reader_question: if I fill this in, does anyone actually come back to me
-    claims: [C019, C035]
+    claims: [C049]
     qualifiers:
-      - "Rewritten 2026-08-24 under decisions/voice-override-contact-intro. The register here is warm and inviting and does NOT follow brand/voice.yaml's persona. That is deliberate and scoped to these three keys — do not normalise it back."
-      - "The block shares one viewport with the form (decisions/one-white-surface) and carries the office <Figure> under the lead. Measured 836px against an 836px budget at 1440x900 BEFORE this rewrite: there is no headroom. This is why the lead is capped at two sentences and the title at one line of thought, not at a word count someone can argue with."
-      - "C019 is conditional. Thành viên nhóm survives into every locale; công ty con, 100% and any ownership percentage do not (F005)."
-      - "C035 is the 24-hour reply. It is wall-clock, weekends included. `trong 1 ngày làm việc` is a DIFFERENT, weaker promise and is not what the GM committed to."
+      - 'Lean professional register replaces the 2026-08-24 warm override. Direct, calm and action-led; no thanks, hope, urgency or emotional close.'
+      - 'The block shares one viewport with the form and contains no Figure. One headline and one promise sentence only.'
+      - 'C049 is wall-clock, weekends included, and starts after successful form receipt. It promises sales contact only.'
     forbidden:
       - any bounded promise other than the 24 hours C035 licenses — no duration for the call, no headcount, no delivery date
-      - "`trong 1 ngày làm việc` or any business-hours softening of the 24-hour commitment"
+      - '`trong 1 ngày làm việc` or any business-hours softening of the 24-hour commitment'
       - scarcity, "limited slots", countdowns, or a deadline the market did not create
       - implying Pebble Vina is a subsidiary rather than a member of the group
       - "`chúng tôi` as the subject of the parent's work — docs/02-message-map.md §5"
-      - turning warmth into capability — thanking a reader for writing is not a promise that the problem can be solved
+      - gratitude, hope-to-work-together language, `nhanh nhất có thể`, `quý doanh nghiệp`, `trao giá trị`, or `đặt lịch`
+      - promising diagnosis, a ready solution or a resolved business problem within 24 hours
     slots:
       kicker: >-
-        the GM's own words are `Bắt đầu ngay`. Written as a plain label, no index number
-        (decisions/kicker-numbering). It renders mono uppercase, so diacritics must survive
-        uppercasing (references/locales/vi.md).
+        a short category label for a consultation request, not an urgency prompt. Plain label,
+        no index number. It renders mono uppercase, so Vietnamese diacritics must survive.
       title: >-
-        the invitation to start, in the reader's interest rather than ours. Renders as the page
-        <h1>. Soft limit 12 words (brand/voice.yaml marketing.hero.headline_soft_limit.vi).
-        Replaces `Kể bài toán của bạn. Câu trả lời có thể là không.` — see
-        decisions/voice-override-contact-intro for what that retirement costs and who decided it.
+        directly ask the business to fill in the form so Pebble Vina can receive its problem.
+        Renders as the page <h1>. One line of thought, soft limit 12 Vietnamese words.
       lead: >-
-        two sentences, hard ceiling — the block has zero measured headroom. Sentence one: what to
-        send and that a Pebble Vina person answers within 24 hours (C035, wall-clock). Sentence two:
-        the thanks and the wish to work alongside the reader's company. The old lead's list of three
-        things to bring moves out of here. It is not lost: contact.form.messagePlaceholder already
-        carries all three as a worked example — which machines, which signal, whether the data may
-        leave — sitting in the field where the reader is about to type them. Restating them in the
-        lead costs two lines of a block that has none, and says them further from the point of use.
+        exactly one short sentence, highlighted by layout: a Pebble Vina sales team member contacts
+        the submitter through the supplied details within 24 hours (C049). Do not add a second idea.
 
   - id: contact.form
     type: product_ui
@@ -494,21 +546,21 @@ blocks:
       - submit POSTs the five fields to /api/contact; the request reaches Pebble Vina without the visitor doing anything else
       - the form has exactly three visible states — filling in, sent (the panel replaces the form), failed (one line beside the button, the button still live)
       - a failure gives the component no cause it can name. 429, 5xx and a dead network are one state to the reader, and the code passes none of them to the copy
-      - the panel that replaces the form renders SITE.contact.phone and SITE.contact.email under it; the failure line renders the same two, appended after the string
+      - the panel that replaces the form renders only successTitle and successBody; the failure line still appends SITE.contact.phone and SITE.contact.email after the string
     qualifiers:
-      - "Success copy describes a RECEIVED request. `đã nhận` is true here as of 2026-08-25 and nowhere else on the site."
-      - "Receipt is not correspondence: no acknowledgement email goes to the visitor. Copy may not imply one is on its way."
-      - "Required fields are name, company, email and message. Optional is phone only. The component appends a space-asterisk after each required label and a middot plus {optionalLabel} after the optional one — the copy must not repeat the marker, only explain it."
-      - "Every field label renders mono, ~10px, uppercase, letter-spaced (contact-form.tsx Field). Two or three words maximum, no terminal period, and diacritics must survive uppercasing — VĂN PHÒNG, never VAN PHONG (references/locales/vi.md)."
+      - 'Success copy describes a RECEIVED request. `đã nhận` is true here as of 2026-08-25 and nowhere else on the site.'
+      - 'Receipt is not correspondence: no acknowledgement email goes to the visitor. Copy may not imply one is on its way.'
+      - 'Required fields are name, company, email and message. Optional is phone only. The component appends a space-asterisk after each required label and a middot plus {optionalLabel} after the optional one — the copy must not repeat the marker, only explain it.'
+      - 'Every field label renders mono, ~10px, uppercase, letter-spaced (contact-form.tsx Field). Two or three words maximum, no terminal period, and diacritics must survive uppercasing — VĂN PHÒNG, never VAN PHONG (references/locales/vi.md).'
     forbidden:
-      - '"phản hồi trong N giờ" inside the FORM block. The 24-hour commitment (C035) is stated once, in contact.intro.lead. Repeating it beside the button turns one commitment into two places to keep it in sync. STANDS on that half alone — the other half of the old reasoning (a mail draft cannot start a reply clock) died with the mailto; see decisions/success-panel-omits-the-clock, which carries the swap if the requester wants the clock in the panel after all.'
+      - 'any response-time number other than C049; 24 hours is permitted in successBody because the successful state starts the clock'
       - 'LIFTED 2026-08-25: "đã gửi" / "đã nhận được" were forbidden as untrue under the mailto. The POST makes them true — decisions/submit-posts-to-endpoint.'
-      - 'anything on the visitor''s machine: ứng dụng mail, cửa sổ vừa mở, thư đã soạn sẵn, and the old privacy clause `chưa có gì rời máy bạn`. Nothing opens locally any more, and the data does leave the machine — that is the point of the button.'
+      - "anything on the visitor's machine: ứng dụng mail, cửa sổ vừa mở, thư đã soạn sẵn, and the old privacy clause `chưa có gì rời máy bạn`. Nothing opens locally any more, and the data does leave the machine — that is the point of the button."
       - 'the plumbing, in either direction: lưu vào hệ thống / cơ sở dữ liệu / máy chủ, and "gửi email tới chúng tôi" as a customer-facing action. The visitor filled in a form and it arrived.'
       - 'any acknowledgement email to the visitor — none is sent'
       - 'a cause for the failure. The component knows none, so inventing one (mạng, máy chủ, Resend) is a guess printed as a fact. A status code is additionally PRODUCT_TECHNICAL_LEAKAGE.'
-      - "`vui lòng`, `bạn hãy`, `quý khách`, an apology, or a pronoun in a field label"
-      - "a bare vague verb as the button — lint_product flags gửi · xác nhận · tiếp tục · đồng ý · hoàn tất for vi. The button names the action it performs."
+      - '`vui lòng`, `bạn hãy`, `quý khách`, an apology, or a pronoun in a field label'
+      - 'a bare vague verb as the button — lint_product flags gửi · xác nhận · tiếp tục · đồng ý · hoàn tất for vi. The button names the action it performs.'
       - marketing register inside the form — hành trình, nâng tầm, bứt phá, khai phá
     slots:
       title: >-
@@ -538,9 +590,10 @@ blocks:
         once, with Pebble Vina as the receiver. Do not pad the state with `của bạn` when
         the panel already follows that visitor's own submit action. No terminal period.
       successBody: >-
-        RECOMPILE 2026-08-26 (decisions/success_panel_repair_2026_08_26). Carry the one
-        fact the title does not: a person from Pebble Vina responds through the submitted
-        contact details within 24 hours (C035). One short sentence. No `không cần làm gì
+        RECOMPILE 2026-08-26 (decisions/lean_contact_recompile_2026_08_26). Carry the one
+        fact the title does not: a Pebble Vina sales team member contacts the submitter through
+        the supplied details within 24 hours after this successful receipt (C049). One short
+        sentence. No `không cần làm gì
         thêm`, no acknowledgement-email implication, and no direct-contact fallback; the
         success-only phone/email list is removed and the footer already carries those facts.
       errorBody: >-
@@ -573,16 +626,8 @@ blocks:
         routes to this page and this button is the only thing on the site that submits
         anything.
       media.alt: >-
-        the artwork brief for the empty image slot in the success panel. Because
-        `media.src` is empty, this string is PRINTED ON SCREEN under the
-        `ui.imagePending` label inside a viewfinder frame, wrapped at 30ch. It is read
-        by a visitor who has just submitted, not only by a screen reader. It must
-        therefore describe the intended photograph in a register a customer can read.
-        DECIDED: the Landmark 72 office (decisions/success-panel-image). Written as
-        an art-direction brief a customer can read without embarrassment, and it must
-        still work unchanged as the alt attribute once the photograph lands. Numbers
-        in the address are safe HERE and only here, because check_claims skips number
-        checks on a product_ui artifact.
+        DELETED 2026-08-26 by decisions/lean_contact_recompile_2026_08_26. The office Figure
+        no longer renders on CONTACT and contact.media is removed from the content shape.
 
 chrome:
   meta:
@@ -611,9 +656,10 @@ findings:
       CLEARED 2026-08-24 — scope was extended. ui.specs, ui.source and ui.imagePending are
       written as chrome in the PRODUCTS run (specs/products.yaml chrome/ui) and applied in
       the same pass, so the success panel no longer prints a key path above the alt text.
+      SUPERSEDED 2026-08-26 — CONTACT no longer renders contact.media at all.
   - id: nav-cta-dead-string
     what: >-
-      web/content/vi.ts `nav.cta` ships "Đặt lịch tư vấn 30 phút" and is rendered
+      web/content/vi.ts `nav.cta` ships "Đặt lịch tư vấn" and is rendered
       NOWHERE — web/components/site-header.tsx builds its nav from nav.home,
       nav.products and nav.contact and has no CTA button. It is a dead string, and it
       is the last surviving instance of the 30-minute duration that
@@ -651,7 +697,6 @@ findings:
 
 # ── Gate F closed 2026-08-24. What is still open after it ──────────────────
 open_decisions:
-
   - id: submit-behaviour-copy
     status: CLOSED 2026-08-25 — the form POSTs; see decisions/submit-posts-to-endpoint
     question: >-
@@ -683,7 +728,7 @@ open_decisions:
       web-ui-engineer, not to a shorter sentence.
 
   - id: intro-lead-measurement
-    status: OPEN — a measurement, not a question
+    status: SUPERSEDED 2026-08-26 — previous layout and lead were removed
     question: >-
       At 1440x900, does the phone/email <dl> stay above the fold with the
       two-sentence lead applied?
@@ -699,11 +744,9 @@ open_decisions:
       `screen` (docs/03-structure.md §3) — this block has still never been measured.
 
   - id: office-photograph
-    status: OPEN — content decided, asset missing
+    status: ROUTED — no longer a CONTACT dependency after 2026-08-26
     question: The Landmark 72 photograph itself.
     owner: GM — docs/05-backlog.md #5, G9
-    blocks: [contact.media.alt]
+    blocks: []
     note: >-
-      contact.media.alt is written to survive the transition: it reads as an
-      art-direction brief while `media.src` is empty and as alt text the moment a
-      file lands. No copy change is needed when the photograph arrives.
+      Keep the asset gap in the company backlog if still wanted. Do not recreate a CONTACT slot.

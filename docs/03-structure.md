@@ -119,14 +119,13 @@ bằng một hàng ngang, nên ranh giới đã rõ mà không cần thêm 80px 
 
 > **Rồi `/vi/contact` gộp luôn hai khối còn lại thành một, cùng ngày 2026-08-24.** GM chốt trực
 > tiếp: một nền trắng, lời mời và form nằm chung **một** `<Section id="book" screen>` — hero tối,
-> `crossbar` và `aura` bị bỏ. Hai cột từ 768px (lời mời + ảnh văn phòng bên trái, form bên phải),
-> xếp chồng dưới ngưỡng đó. Ảnh văn phòng chuyển từ panel cảm ơn lên cột trái: sau submit từng có
-> **hai** khung ảnh chờ cùng lúc, và tấm ảnh đó là bằng chứng để người ta quyết định viết, không
-> phải lời cảm ơn sau khi đã viết.
+> `crossbar` và `aura` bị bỏ. Từ 768px, cột lời mời hẹp và cột form rộng; dưới ngưỡng đó xếp chồng,
+> lời mời trước, form sau. **Ảnh văn phòng bị bỏ khỏi route ngày 2026-08-26**: cột trái chỉ giữ
+> kicker, một headline trực tiếp và một câu cam kết 24 giờ được nhấn thị giác.
 >
 > Vì thế bảng trên đọc là **khối LIÊN HỆ**, không còn là "hero của `/contact`" — trang chỉ còn đúng
 > một khối. **Đo được 836px trên budget 836px ở 1440×900 trước khi viết lại copy: khối này không còn
-> một pixel dư nào.** Thêm chữ vào `contact.intro.lead` là tràn màn, nên spec khoá nó ở hai câu
+> một pixel dư nào.** Bản lean bỏ Figure và khoá `contact.intro.lead` ở đúng một câu
 > (`content-system/specs/contact.yaml` → `decisions/one-white-surface`).
 
 > **Why Now bỏ `screen` ngày 2026-08-21.** Đo trên build production: khối này cao **1018px** ở 1440×900 (budget 836px) và **1093px** khi mới điền chữ. Quan trọng hơn: đo lúc còn là i18n key thì đã **922px** — tức khối tràn từ trước khi có một chữ nào, do ảnh minh hoạ 248px cộng lưới ba cột. Cắt chữ không cứu được, nên trả nó về chiều cao theo nội dung. `snap-start` giữ nguyên nên nhịp cuộn không đổi.

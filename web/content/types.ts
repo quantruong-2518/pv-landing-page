@@ -235,7 +235,6 @@ export interface ProductsContent {
 export interface ContactContent {
   intro: Intro;
   ctaPrimary: string;
-  media: Media;
   form: {
     title: string;
     nameLabel: string;

@@ -88,31 +88,6 @@ export function ContactForm({
           {form.successTitle}
         </SuccessHeading>
         <p className="mt-3 max-w-md text-base leading-relaxed text-muted">{form.successBody}</p>
-
-        {/* The page shows these nowhere else since the pre-form block was dropped,
-            so successBody's fallback clause points at this panel (backlog #28).
-            The office picture used to close this panel; it moved to the left
-            column on 2026-08-24 (GM) — two pending frames were on screen at once
-            after submit, and the photograph is evidence for the decision to
-            write, not a thank-you note. */}
-        <dl className="mt-5 flex flex-wrap gap-x-10 border-t border-line pt-4">
-          <div>
-            <dt className={LABEL}>{c.labels.call}</dt>
-            <dd>
-              <a href={SITE.contact.phoneHref} className={CONTACT_LINK}>
-                {SITE.contact.phone}
-              </a>
-            </dd>
-          </div>
-          <div>
-            <dt className={LABEL}>{c.labels.email}</dt>
-            <dd>
-              <a href={MAIL_HREF} className={CONTACT_LINK}>
-                {SITE.contact.email}
-              </a>
-            </dd>
-          </div>
-        </dl>
       </div>
     );
   }
@@ -131,9 +106,8 @@ export function ContactForm({
   }
 
   return (
-    // `gap-5`, not `gap-6`: 16px controls are 4px taller each, and this block is
-    // still one screen.
-    <form onSubmit={handleSubmit} noValidate className="grid gap-5 sm:grid-cols-2">
+    // Two compact contact pairs keep all five controls in the phone viewport.
+    <form onSubmit={handleSubmit} noValidate className="grid grid-cols-2 gap-3 sm:gap-4">
       {/* Honeypot: invisible to a person (off-screen, unreachable by Tab), but a
           bot's DOM scraper fills every input it finds. Matches the `website`
           check in app/api/contact/route.ts. Not part of `values` — read off the
@@ -173,18 +147,18 @@ export function ContactForm({
         label={form.messageLabel}
         required
         error={errors.message}
-        className="sm:col-span-2"
+        className="col-span-2"
       >
-        <textarea required rows={4} placeholder={form.messagePlaceholder} {...control("message")} />
+        <textarea required rows={3} placeholder={form.messagePlaceholder} {...control("message")} />
       </Field>
 
-      <div className="flex flex-wrap items-center gap-4 sm:col-span-2">
+      <div className="col-span-2 flex flex-wrap items-center gap-4">
         <button
           type="submit"
           disabled={pending}
           aria-disabled={pending}
           className={cn(
-            "inline-flex min-h-11 items-center justify-center rounded-sm bg-primary px-5 py-3 text-sm font-medium tracking-wide text-primary-fg transition-colors hover:opacity-90 sm:px-6",
+            "inline-flex min-h-11 w-full items-center justify-center rounded-sm bg-primary px-5 py-3 text-sm font-medium tracking-wide text-primary-fg transition-colors hover:opacity-90 sm:w-auto sm:px-6",
             pending && "opacity-60",
           )}
         >
@@ -216,9 +190,6 @@ const INPUT =
 /* One step above the site's mono data label (FactRow, footer): 10.4px is fine
    for a fact you read once and a poor size for a field you have to fill in. */
 const LABEL = "font-mono text-xs uppercase tracking-[0.14em] text-subtle";
-
-/** 44px touch floor, same as the header and footer links. */
-const CONTACT_LINK = "inline-flex min-h-11 items-center font-mono text-sm text-fg hover:text-accent";
 
 function Field({
   id,

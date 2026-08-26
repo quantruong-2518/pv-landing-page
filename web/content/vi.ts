@@ -9,7 +9,7 @@ export const vi: SiteContent = {
   meta: {
     home: { title: "Pebble Vina — giải pháp công nghệ mới và AI cho doanh nghiệp", description: "Pebble Vina nghiên cứu nhu cầu thị trường, thiết kế chip, phát triển phần mềm AI và đào tạo tại Việt Nam; hợp tác chiến lược với Pebble Square Inc. trong công nghệ bán dẫn AI." },
     products: { title: "Chip PIM, E-Series & phần mềm AI | Pebble Vina", description: "Phần cứng Pebble Square: MINT, PAPAYA, ESPRESSO, E10 và E20; cùng phần mềm doanh nghiệp dự kiến 12/2026 và khảo sát đào tạo AI năm 2027." },
-    contact: { title: "Liên hệ Pebble Vina — đặt lịch tư vấn, văn phòng Hà Nội", description: "Liên hệ trực tiếp Pebble Vina tại văn phòng Hà Nội, MST 0111545175. Gọi 0345 913 369 hoặc email contact@pebblevina.com." },
+    contact: { title: "Liên hệ Pebble Vina — gửi yêu cầu tư vấn", description: "Liên hệ trực tiếp Pebble Vina tại văn phòng Hà Nội, MST 0111545175. Gọi 0345 913 369 hoặc email contact@pebblevina.com." },
   },
 
   nav: {
@@ -19,7 +19,7 @@ export const vi: SiteContent = {
     hardware: "Phần cứng",
     software: "Phần mềm",
     training: "Đào tạo AI",
-    cta: "Đặt lịch tư vấn 30 phút",
+    cta: "Đặt lịch tư vấn",
     menuLabel: "Menu chính",
     skipToContent: "Bỏ qua, tới nội dung chính",
   },
@@ -491,20 +491,19 @@ export const vi: SiteContent = {
 
     followUp: {
       kicker: "Bước tiếp theo",
-      title: "Mang nhánh phù hợp vào bài toán doanh nghiệp của bạn.",
+      title: "Bài toán doanh nghiệp nào của khách hàng đang được ưu tiên?",
     },
   },
 
   contact: {
     intro: {
-      kicker: "Bắt đầu ngay",
-      title: "Kể bài toán của bạn, chúng ta xem giải được tới đâu.",
-      lead: "Gửi form đi, trong vòng 24 giờ một người của Pebble Vina sẽ đọc và trả lời bạn. Cảm ơn bạn đã quan tâm — chúng tôi mong được làm việc cùng doanh nghiệp của bạn.",
+      kicker: "Trao đổi bài toán",
+      title: "Điền form để Pebble Vina tiếp nhận bài toán",
+      lead: "Trong vòng 24 giờ sau khi doanh nghiệp gửi form thành công, nhân viên kinh doanh Pebble Vina sẽ liên hệ qua email hoặc số điện thoại đã cung cấp.",
     },
     ctaPrimary: "Gửi yêu cầu tư vấn",
-    media: { alt: "Văn phòng Pebble Vina, tầng 19 toà Landmark 72, Hà Nội." },
     form: {
-      title: "Đặt lịch tư vấn",
+      title: "Yêu cầu tư vấn",
       nameLabel: "Họ và tên",
       companyLabel: "Công ty",
       emailLabel: "Email",
@@ -512,8 +511,8 @@ export const vi: SiteContent = {
       messageLabel: "Bài toán cần giải",
       messagePlaceholder: "Ví dụ: 12 máy CNC, cần phát hiện rung bất thường trước khi hỏng, dữ liệu không được rời nhà máy.",
       optionalLabel: "Không bắt buộc",
-      successTitle: "Đã nhận được yêu cầu của bạn",
-      successBody: "Chúng tôi sẽ liên hệ lại theo thông tin bạn vừa để lại. Bạn không cần làm gì thêm.",
+      successTitle: "Pebble Vina đã nhận yêu cầu",
+      successBody: "Nhân viên kinh doanh sẽ liên hệ qua email hoặc số điện thoại đã cung cấp trong vòng 24 giờ.",
       errorBody: "Chưa gửi được yêu cầu. Thử lại hoặc liên hệ trực tiếp:",
     },
   },

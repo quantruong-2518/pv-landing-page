@@ -22,19 +22,19 @@ thành viên nhóm.
 
 ## Đối tượng
 
-| Tệp | Họ tự hỏi gì trong 5 giây đầu | Trang trả lời bằng khối nào |
-|---|---|---|
-| **Doanh nghiệp / tập đoàn VN** (sản xuất, năng lượng, tài chính) | "Đây là ai, có thật không?" | Hero + Proof strip + Con số |
-| **Doanh nghiệp Hàn tại VN** (qua mạng lưới KOCHAM) | "Công ty mẹ Hàn nào? Tôi tra được không?" | Proof strip + Dòng chip + Footer có link PS |
-| **Khối gov / đơn vị nhạy cảm dữ liệu** | "Chạy AI mà dữ liệu không ra khỏi nhà được không?" | Vấn đề + Công nghệ + Ứng dụng (private LLM) |
-| **Kỹ sư / người thẩm định kỹ thuật** | "Số đâu? Đo thế nào? Có gì đã ship?" | Con số có nhãn `shipped`/`roadmap` + FAQ |
+| Tệp                                                              | Họ tự hỏi gì trong 5 giây đầu                      | Trang trả lời bằng khối nào                 |
+| ---------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------- |
+| **Doanh nghiệp / tập đoàn VN** (sản xuất, năng lượng, tài chính) | "Đây là ai, có thật không?"                        | Hero + Proof strip + Con số                 |
+| **Doanh nghiệp Hàn tại VN** (qua mạng lưới KOCHAM)               | "Công ty mẹ Hàn nào? Tôi tra được không?"          | Proof strip + Dòng chip + Footer có link PS |
+| **Khối gov / đơn vị nhạy cảm dữ liệu**                           | "Chạy AI mà dữ liệu không ra khỏi nhà được không?" | Vấn đề + Công nghệ + Ứng dụng (private LLM) |
+| **Kỹ sư / người thẩm định kỹ thuật**                             | "Số đâu? Đo thế nào? Có gì đã ship?"               | Con số có nhãn `shipped`/`roadmap` + FAQ    |
 
 Tệp kỹ sư là **người phá trang**. Một con số không nguồn hoặc một claim quá tay là đủ để họ đóng tab —
 và họ là người khuyên sếp ký. Vì vậy trang này gắn **nhãn trạng thái công khai** lên từng fact.
 
 ## Một hành động
 
-**`Đặt lịch tư vấn 30 phút`** — đích chuyển đổi chính, giống site chính.
+**`Đặt lịch tư vấn`** — đích chuyển đổi chính, giống site chính.
 
 Lối thứ hai (theo khuyến nghị G5 của research cũ): **`Xem hồ sơ năng lực`** — cho người chưa sẵn sàng
 nói chuyện. Hiện là placeholder, chờ file PDF (xem `05-backlog.md`).
@@ -55,7 +55,7 @@ bản nào bị rút gọn.
 animation nặng, **FAQ + JSON-LD `FAQPage`** (khung mới không có ô — xem `05-backlog.md` #14).
 Đây là lab để kiểm chứng **cấu trúc + thông điệp**, không phải sản phẩm cuối.
 
-> **Sửa phạm vi 2026-08-24 (GM chốt).** Bản trước ghi *"không có form gửi thật (chỉ `mailto:`/`tel:`)"*.
+> **Sửa phạm vi 2026-08-24 (GM chốt).** Bản trước ghi _"không có form gửi thật (chỉ `mailto:`/`tel:`)"_.
 > Không còn đúng: nút CTA ở hero điều hướng sang `/vi/contact` thay vì mở nháp mail, và form ghi
 > submission vào Postgres trên Vercel. Repo do đó **không còn thuần tĩnh** — cần runtime Node, hai
 > biến môi trường (`.env.example`), và mang **dữ liệu cá nhân thật**: Nghị định 13/2023/NĐ-CP áp dụng,

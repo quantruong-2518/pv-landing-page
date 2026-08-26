@@ -7,19 +7,11 @@
   "semantic_spec": "content-system/specs/contact.yaml",
   "entries": [
     {
-      "key": "contact.media.alt",
-      "component": "caption",
-      "notes": "Printed on screen under the ui.imagePending label while media.src is empty, and becomes the alt attribute unchanged once the Landmark 72 photograph lands — decisions/success-panel-image.",
-      "locales": {
-        "vi": "Văn phòng Pebble Vina, tầng 19 toà Landmark 72, Hà Nội."
-      }
-    },
-    {
       "key": "contact.form.title",
       "component": "label",
-      "notes": "Mono uppercase eyebrow paired with labels.office (VĂN PHÒNG) in the left column. Closes the scent from home.hero.ctaPrimary, which now links here rather than opening a mail draft.",
+      "notes": "Lean recompile 2026-08-26. Two-to-four-word label naming the request the form submits; no calendar-booking implication.",
       "locales": {
-        "vi": "Đặt lịch tư vấn"
+        "vi": "Yêu cầu tư vấn"
       }
     },
     {
@@ -88,18 +80,21 @@
       "key": "contact.form.successTitle",
       "component": "success",
       "state": "success",
-      "notes": "Recompiled 2026-08-25. The panel that replaces the form. States the state that is now true: the request reached Pebble Vina, and it got there without the visitor doing anything else. Repeats the noun from the button so the reader reads back the word they pressed. `đã nhận được` was forbidden here until the POST landed and is true as of this commit — decisions/submit-posts-to-endpoint. No terminal period: it is a heading.",
+      "notes": "Lean recompile 2026-08-26. Confirms successful receipt once and names Pebble Vina as the receiver. No terminal period.",
       "locales": {
-        "vi": "Đã nhận được yêu cầu của bạn"
+        "vi": "Pebble Vina đã nhận yêu cầu"
       }
     },
     {
       "key": "contact.form.successBody",
       "component": "success",
       "state": "success",
-      "notes": "Recompiled 2026-08-25. Two facts the title does not carry: the reply comes back through the details just submitted, and nothing further is required. The second sentence is load-bearing rather than polite — the panel renders SITE.contact.phone/email in a <dl> directly underneath, and without this line that <dl> reads as an instruction to make contact a second time. Deliberately silent on the 24 hours: C035 is stated once, in contact.intro.lead, which sits in the same viewport on desktop; see decisions/success-panel-omits-the-clock for the one-line swap if the requester wants the clock here after all. Dropped with the mailto: `chưa có gì rời máy bạn` (false — the data left the machine, on purpose) and the `ngay bên dưới` fallback (it recovered a mail client that never opened; that failure mode is now contact.form.errorBody). 81 characters against the ~190 the old string spent, in a block with zero measured slack. Sentence two is `không cần làm gì thêm`, not `không cần làm thêm gì`: in Vietnamese `làm thêm` collocates first with working overtime, and the reordering costs nothing.",
+      "claims": [
+        "C049"
+      ],
+      "notes": "Lean recompile 2026-08-26. The successful receipt starts C049's 24-hour clock. One sentence names the sales owner and the route through the submitted details; no acknowledgement email, diagnosis or solution promise.",
       "locales": {
-        "vi": "Chúng tôi sẽ liên hệ lại theo thông tin bạn vừa để lại. Bạn không cần làm gì thêm."
+        "vi": "Nhân viên kinh doanh sẽ liên hệ qua email hoặc số điện thoại đã cung cấp trong vòng 24 giờ."
       }
     },
     {

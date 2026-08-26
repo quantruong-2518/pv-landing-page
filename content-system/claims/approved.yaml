@@ -475,6 +475,18 @@ claims:
     qualification: "no complete security guarantee and no claim that cloud is inherently unsafe; state the reduced network dependency and data path"
     source: "Pebble Square official Technology page /en/page/21, read 2026-08-26; docs/01-proof-bank.md §D"
 
+  # Added 2026-08-26 after the GM narrowed C035's operating commitment to an owner and a clock start.
+  # This is still an in-force promise, not a measured service-level result.
+  C049:
+    statement: A Pebble Vina sales team member contacts the submitter through the supplied details within 24 hours after the contact form reports successful receipt
+    type: status
+    confidence: supported
+    usable: true
+    label: shipped
+    qualification: "wall-clock hours including weekends; the commitment covers contact only, not diagnosis, a proposed solution, delivery or business outcome"
+    source: "docs/01-proof-bank.md §F — GM operating commitment clarified 2026-08-26"
+    numbers: ["24"]
+
 # Never usable. Present so a writer reaching for one finds the refusal instead of an empty ledger.
 forbidden:
 
