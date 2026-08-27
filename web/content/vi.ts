@@ -514,6 +514,9 @@ export const vi: SiteContent = {
       successTitle: "Pebble Vina đã nhận yêu cầu",
       successBody: "Nhân viên kinh doanh sẽ liên hệ qua email hoặc số điện thoại đã cung cấp trong vòng 24 giờ.",
       errorBody: "Chưa gửi được yêu cầu. Thử lại hoặc liên hệ trực tiếp:",
+      invalidBody: "Thông tin chưa hợp lệ. Kiểm tra lại các ô vừa nhập.",
+      rateLimitBody: "Bạn gửi hơi nhanh. Vui lòng thử lại sau {minutes} phút.",
+      networkErrorBody: "Không nối được máy chủ. Kiểm tra mạng rồi thử lại.",
     },
   },
 

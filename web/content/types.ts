@@ -247,6 +247,9 @@ export interface ContactContent {
     successTitle: string;
     successBody: string;
     errorBody: string;
+    invalidBody: string;
+    rateLimitBody: string;
+    networkErrorBody: string;
   };
 }
 

@@ -5,11 +5,16 @@ import type { SiteContent } from "@/content/types";
 import { MAIL_HREF, SITE } from "@/content/site";
 import { cn } from "@/lib/cn";
 
+const CRM_API_URL = (
+  process.env.NEXT_PUBLIC_PV_ONE_CRM_API_URL ?? "https://pvone-crm-api.fly.dev"
+).trim().replace(/\/+$/, "");
+const CRM_LANDING_PAGE = (process.env.NEXT_PUBLIC_PV_ONE_CRM_LANDING_PAGE ?? "pv-one-main").trim();
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
+
 /**
  * Client-side by necessity: form state + a submit-time swap to a thank-you
- * panel. "submit" posts to POST /api/contact, which saves the submission and
- * emails the team; nothing here talks to email directly. Every CTA on the
- * site routes here; this form is the only one that writes anywhere.
+ * panel. The public CRM intake endpoint receives the lead directly from the
+ * browser; no API key or secret is shipped with the request.
  */
 export function ContactForm({
   c,
@@ -22,7 +27,7 @@ export function ContactForm({
   const [values, setValues] = useState({ name: "", company: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -59,7 +64,7 @@ export function ContactForm({
       return;
     }
     setErrors({});
-    setSubmitError(false);
+    setSubmitError(null);
     setPending(true);
 
     // Not React state: a bot fills every input it finds via the DOM, a human
@@ -67,15 +72,58 @@ export function ContactForm({
     const website = (e.currentTarget.elements.namedItem("website") as HTMLInputElement | null)?.value ?? "";
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, website }),
+      if (!CRM_API_URL || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(CRM_LANDING_PAGE)) {
+        setSubmitError(form.errorBody);
+        return;
+      }
+
+      const query = new URLSearchParams({
+        from: "landingpage",
+        landingPage: CRM_LANDING_PAGE,
       });
-      if (!res.ok) throw new Error(String(res.status));
-      setSubmitted(true);
+      const pageQuery = new URLSearchParams(window.location.search);
+      for (const key of UTM_KEYS) {
+        const value = pageQuery.get(key);
+        if (value) query.set(key, value);
+      }
+
+      const res = await fetch(`${CRM_API_URL}/sales/leads/intake?${query.toString()}`, {
+        method: "POST",
+        credentials: "omit",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          company: values.company,
+          contactName: values.name,
+          email: values.email.trim().toLowerCase(),
+          phone: values.phone,
+          pain: values.message,
+          website,
+        }),
+      });
+
+      if (res.status === 202) {
+        setValues({ name: "", company: "", email: "", phone: "", message: "" });
+        setSubmitted(true);
+        return;
+      }
+
+      if (res.status === 429) {
+        const retryAfter = Number(res.headers.get("Retry-After") ?? 60);
+        const waitSeconds = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter : 60;
+        setSubmitError(form.rateLimitBody.replace("{minutes}", String(Math.ceil(waitSeconds / 60))));
+        return;
+      }
+
+      const problem = await res.json().catch(() => null) as { title?: unknown } | null;
+      setSubmitError(
+        res.status === 400
+          ? form.invalidBody
+          : typeof problem?.title === "string" && problem.title
+            ? problem.title
+            : form.errorBody,
+      );
     } catch {
-      setSubmitError(true);
+      setSubmitError(form.networkErrorBody);
     } finally {
       setPending(false);
     }
@@ -108,29 +156,28 @@ export function ContactForm({
   return (
     // Two compact contact pairs keep all five controls in the phone viewport.
     <form onSubmit={handleSubmit} noValidate className="grid grid-cols-2 gap-3 sm:gap-4">
-      {/* Honeypot: invisible to a person (off-screen, unreachable by Tab), but a
-          bot's DOM scraper fills every input it finds. Matches the `website`
-          check in app/api/contact/route.ts. Not part of `values` — read off the
-          DOM at submit time so nothing has to render or track its state. */}
-      <input
-        type="text"
-        name="website"
-        tabIndex={-1}
-        autoComplete="off"
+      {/* Off-screen rather than type="hidden", so simple form-filling bots still
+          see it. It is unreachable by keyboard and hidden from assistive tech. */}
+      <div
         aria-hidden="true"
-        className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
-      />
+        className="absolute -left-[10000px] h-px w-px overflow-hidden"
+      >
+        <label>
+          Website
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
 
       <Field id="name" label={form.nameLabel} required error={errors.name}>
-        <input type="text" required autoComplete="name" {...control("name")} />
+        <input name="contactName" type="text" required maxLength={120} autoComplete="name" {...control("name")} />
       </Field>
 
       <Field id="company" label={form.companyLabel} required error={errors.company}>
-        <input type="text" required autoComplete="organization" {...control("company")} />
+        <input name="company" type="text" required maxLength={200} autoComplete="organization" {...control("company")} />
       </Field>
 
       <Field id="email" label={form.emailLabel} required error={errors.email}>
-        <input type="email" required autoComplete="email" {...control("email")} />
+        <input name="email" type="email" required maxLength={254} autoComplete="email" {...control("email")} />
       </Field>
 
       <Field
@@ -139,17 +186,25 @@ export function ContactForm({
         optionalLabel={form.optionalLabel}
         error={errors.phone}
       >
-        <input type="tel" autoComplete="tel" {...control("phone")} />
+        <input
+          name="phone"
+          type="tel"
+          inputMode="tel"
+          maxLength={40}
+          pattern={"(?=(?:\\D*\\d){8,15}\\D*$)[\\d\\s+\\.\\(\\)\\-]+"}
+          autoComplete="tel"
+          {...control("phone")}
+        />
       </Field>
 
       <Field
         id="message"
         label={form.messageLabel}
-        required
+        optionalLabel={form.optionalLabel}
         error={errors.message}
         className="col-span-2"
       >
-        <textarea required rows={3} placeholder={form.messagePlaceholder} {...control("message")} />
+        <textarea name="pain" maxLength={1000} rows={3} placeholder={form.messagePlaceholder} {...control("message")} />
       </Field>
 
       <div className="col-span-2 flex flex-wrap items-center gap-4">
@@ -166,7 +221,7 @@ export function ContactForm({
         </button>
         {submitError ? (
           <p role="alert" className="text-sm font-medium leading-snug text-fg">
-            {form.errorBody}{" "}
+            {submitError}{" "}
             <a href={SITE.contact.phoneHref} className="underline">
               {SITE.contact.phone}
             </a>
