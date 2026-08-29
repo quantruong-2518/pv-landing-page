@@ -16,6 +16,27 @@
   --font-display: var(--font-space-grotesk), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
+  /* ── Canva master: "Home - Pebble Vina" 1408×768, read 2026-08-30 ─────────
+     HOME and the header are drawn 1:1 from that file, so their type and colour
+     are sampled from it rather than derived from the tokens above. PRODUCTS and
+     CONTACT still run on the site palette until their own masters exist. */
+  --font-artboard: var(--font-bricolage), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-artboard-alt: var(--font-cabin), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-art-ink: #21293f;         /* body + headings on light sections */
+  --color-art-navy: #001270;        /* NEWS section ink */
+  --color-art-navy-deep: #001534;   /* CONTACT form ink */
+  --color-art-black: #040c13;       /* header bar, SOLUTIONS field */
+  --color-art-card: #04234d;        /* SOLUTIONS row card */
+  --color-art-blue: #095cff;        /* primary blue — header button, PIM title */
+  --color-art-blue-alt: #2160ff;    /* PIM card titles and links */
+  --color-art-blue-bright: #387aff; /* "đột phá" */
+  --color-art-blue-deep: #0062c9;   /* hero outline button */
+  --color-art-blue-num: #0069c6;    /* WHY-PIM numerals */
+  --color-art-blue-solution: #008afe;/* SOLUTIONS numerals and title half */
+  --color-art-cyan: #00c2ff;        /* CORE capability emphasis */
+  --color-art-dot: #8a8f98;         /* inactive hero slide dot */
+
   /* ── LIGHT zone (body copy) ───────────────────────────────────────────── */
   --color-canvas: #fafbfc;      /* pearl-white page canvas */
   --color-bg: #ffffff;
@@ -214,6 +235,15 @@ h3 {
   font-family: var(--font-display);
   letter-spacing: -0.025em;
   text-wrap: balance;
+}
+
+/* Inside an artboard the heading defaults above would fight the design: the
+   Canva master sets its own family and breaks its own lines, and `balance`
+   would re-wrap a headline the layout has already been measured against. */
+.font-artboard :is(h1, h2, h3) {
+  font-family: inherit;
+  letter-spacing: inherit;
+  text-wrap: wrap;
 }
 
 :focus-visible {

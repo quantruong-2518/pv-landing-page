@@ -19,138 +19,272 @@ export const vi: SiteContent = {
     hardware: "Phần cứng",
     software: "Phần mềm",
     training: "Đào tạo AI",
-    cta: "Đặt lịch tư vấn",
+    cta: "Liên hệ ngay",
     menuLabel: "Menu chính",
     skipToContent: "Bỏ qua, tới nội dung chính",
   },
 
+  /* ------------------------------------------------------------------------
+     HOME — transcribed from the Canva master "Home - Pebble Vina" (1408×768,
+     read 2026-08-30). Canva is the single source for this page: the strings
+     below are what that file says, not a rewrite of them.
+
+     Two things in here are NOT cleared against docs/01-proof-bank.md and must
+     be before launch (CLAUDE.md §2): the four partnership entries under `news`
+     name unverified Japanese, Korean, Vietnamese and international partners,
+     and `core.capabilities` carries "400.000 điểm xử lý" with no evidence label.
+     ------------------------------------------------------------------------ */
   home: {
     hero: {
-      eyebrow: "NGHIÊN CỨU · THỰC NGHIỆM · PHÁT TRIỂN · ĐÀO TẠO",
-      brand: "PEBBLE VINA",
-      slogan: "Đối tác chiến lược công nghệ cao",
-      lead: "Cùng đồng hành nghiên cứu, trang bị năng lực bán dẫn, phát triển phần mềm điều phối và đào tạo đội ngũ. Dịch vụ đa dạng nhưng tầm nhìn đồng nhất - trao giá trị thực cho doanh nghiệp",
-      ctaPrimary: "Khám phá năng lực",
-      ctaSecondary: "Trao đổi bài toán",
+      slides: [
+        {
+          title: "Chip bán dẫn tích hợp AI ngoại biên thế hệ mới",
+          lead: "Pebble Vina tập trung nghiên cứu và phát triển các công nghệ bán dẫn AI, từ thiết kế kiến trúc chip, công nghệ xử lý trong bộ nhớ (PIM) đến phát triển phần mềm và các giải pháp AI ứng dụng.",
+        },
+        {
+          title: "Kiến tạo công nghệ bán dẫn cho kỷ nguyên AI",
+          lead: "Với định hướng kết hợp giữa phần cứng và phần mềm, Pebble Vina phát triển các nền tảng tính toán phục vụ AI, Edge AI, On-device AI và các mô hình AI thế hệ mới.",
+        },
+      ],
+      cta: "Tìm hiểu thêm",
+      pillars: ["Nghiên cứu", "Thực nghiệm", "Phát triển", "Đào tạo"],
       media: {
-        src: "/brand/pebble-vina-decorator.png",
-        // Decorative brand mark — alt stays empty by design (context/media-plan.md).
+        src: "/media/home/hero-chip.png",
+        // Full-bleed brand photograph behind the headline — decorative.
         alt: "",
       },
     },
 
-    whyNow: {
-      kicker: "01 · Bắt đầu từ bài toán",
-      title: "Ba bài toán doanh nghiệp cần giải",
-      lead: "Phần cứng, luồng thông tin và năng lực đội ngũ là ba nơi cần nhìn trước khi chọn giải pháp.",
-      needLabel: "Bài toán doanh nghiệp",
-      directionLabel: "Hướng xử lý",
-      directions: [
+    pim: {
+      title: "Công nghệ PIM",
+      titleAccent: "Nền tảng tính toán cho AI",
+      body: "PIM (Processing-in-Memory) là công nghệ tính toán đưa hoạt động xử lý đến gần nơi dữ liệu được lưu trữ, qua đó giảm lượng dữ liệu phải di chuyển giữa bộ nhớ và bộ xử lý. Pebble Vina phát triển hai hướng công nghệ PIM gồm Analog và Digital nhằm đáp ứng các nhu cầu tính toán AI khác nhau.",
+      branches: [
         {
-          id: "hardware",
-          need: "Chuyển dữ liệu tốn điện; cloud buộc AI phụ thuộc đường truyền.",
-          consequence: "Điện bị tiêu hao, phản hồi chậm hơn và phạm vi dữ liệu phải bảo vệ rộng hơn.",
-          title: "PIM xử lý ngay nơi dữ liệu nằm",
-          body: "Pebble Square Inc. đặt phép tính vào bộ nhớ và chạy suy luận tại thiết bị. Hai thay đổi này tạo ra lợi thế về điện năng, độ trễ và phạm vi dữ liệu.",
+          id: "analog",
+          index: "01",
+          name: "Analog PIM",
+          tagline: "Tính toán tại nơi dữ liệu được lưu trữ",
+          body: "Công nghệ Analog tích hợp năng lực tính toán với bộ nhớ, hạn chế di chuyển dữ liệu giữa memory và processor, từ đó nâng cao hiệu quả tính toán cho các workload AI phù hợp.",
+          cta: "Khám phá CHIP analog",
+          iconLabel: "Analog",
           media: {
-            src: "",
-            alt: "Minh hoạ chip PIM xử lý AI tại thiết bị Edge có giới hạn về điện và kết nối.",
-          },
-          status: "shipped",
-          statusNote: "Đã có",
-          origin: "ps",
-          comparison: {
-            painLabel: "Bài toán",
-            responseLabel: "Giải pháp",
-            resultLabel: "Kết quả",
-            items: [
-              {
-                id: "electricity",
-                painTitle: "Điện mất vào việc chuyển dữ liệu",
-                painBody: "Chip truyền thống phải đưa dữ liệu qua lại giữa bộ nhớ và bộ xử lý. Mỗi lượt di chuyển đều tiêu tốn điện.",
-                responseTitle: "Tính ngay trong bộ nhớ (PIM)",
-                responseBody: "Dữ liệu được lưu và xử lý tại cùng một điểm, giảm phần điện dùng để di chuyển dữ liệu.",
-                resultTitle: "Ít điện hơn khoảng 50 lần so với NVIDIA Jetson Nano",
-                resultBody: "PAPAYA FLEX dùng 0,1–0,15 W, so với 5–10 W của NVIDIA Jetson Nano. Trên ResNet-50, hiệu suất tính toán cao hơn khoảng 100 lần.",
-              },
-              {
-                id: "cloud",
-                painTitle: "Cloud kéo dữ liệu ra khỏi thiết bị",
-                painBody: "Truy vấn AI đưa dữ liệu ra ngoài hệ thống, tạo thêm độ trễ và mở rộng rủi ro rò rỉ dữ liệu doanh nghiệp.",
-                responseTitle: "Đưa mô hình suy luận xuống thiết bị",
-                responseBody: "Chip Pebble Square xử lý suy luận tại chỗ. Pebble AI Studio triển khai và tối ưu mô hình AI nhẹ lên chip PIM.",
-                resultTitle: "AI nhẹ chạy cục bộ trên thiết bị",
-                resultBody: "Kết quả được tạo ngay nơi dữ liệu phát sinh. Dữ liệu không phải rời thiết bị chỉ để nhận một quyết định AI.",
-              },
-            ],
+            src: "/media/home/pim-photo-analog.png",
+            alt: "Chip Analog-PIM đặt trên bảng mạch phát sáng tím.",
           },
         },
         {
-          id: "software",
-          need: "Dữ liệu khách hàng, nhân sự, tài liệu và vận hành nằm rải ở nhiều hệ thống.",
-          consequence: "Lãnh đạo phải ghép dữ liệu thủ công trước khi có thể phê duyệt hành động.",
-          title: "ERP làm trục cho thông tin quản trị",
-          body: "Dự kiến 12/2026: ERP ở trung tâm, kết nối CRM, HRM, DMS và giám sát vận hành. AI tổng hợp, đề xuất và điều phối; con người phê duyệt.",
+          id: "digital",
+          index: "02",
+          name: "Digital PIM",
+          tagline: "Nền tảng tính toán số cho AI",
+          body: "Công nghệ Digital được phát triển nhằm đáp ứng các yêu cầu về khả năng tính toán và tích hợp linh hoạt, tạo nền tảng cho các sản phẩm và hệ thống AI đa dạng.",
+          cta: "Khám phá CHIP digital",
+          iconLabel: "Digital",
           media: {
-            src: "",
-            alt: "Minh hoạ ERP trung tâm kết nối các module nghiệp vụ và đưa thông tin tới nhiều cấp ra quyết định.",
+            src: "/media/home/pim-photo-digital.png",
+            alt: "Chip Digital-PIM đặt trên bảng mạch phát sáng xanh.",
           },
-          status: "roadmap",
-          statusNote: "Dự kiến 12/2026",
-          origin: "pv",
-        },
-        {
-          id: "training",
-          need: "Doanh nghiệp hoàn thành đào tạo nhưng không có thước đo để biết đội ngũ đã áp dụng AI vào công việc đến đâu.",
-          consequence: "Không chốt bài toán và chỉ số từ đầu thì hoàn thành khóa học cũng chưa chứng minh được năng lực vận hành.",
-          title: "Bắt đầu từ việc cần thay đổi và cách đo",
-          body: "Dự kiến khảo sát nhu cầu năm 2027. Nếu phát triển chương trình, Pebble Vina sẽ thống nhất bài toán và chỉ số đầu ra trước khi thiết kế nội dung riêng. Khi phù hợp, ROI là một phần của khung đánh giá đã thống nhất.",
-          media: {
-            src: "",
-            alt: "Minh hoạ lộ trình đào tạo AI đi từ nhu cầu doanh nghiệp đến thực hành và đo đầu ra.",
-          },
-          status: "roadmap",
-          statusNote: "Dự kiến khảo sát nhu cầu · 2027",
-          origin: "pv",
         },
       ],
+      calloutLead: "Hai hướng tiếp cận công nghệ, một mục tiêu chung:",
+      calloutGoal: "NÂNG CAO Hiệu suất tính toán cho AI.",
     },
 
-    history: {
-      kicker: "Nền tảng phần cứng",
-      title: "Liên tục được kế thừa và cải tiến mạnh mẽ",
-      lead: "Lộ trình chip của Pebble Square Inc.",
-      milestones: [
+    whyPim: {
+      // The newline is the master's own line break: no box width can both keep
+      // "PIM quan trọng đối với AI?" together and push it off line one.
+      title: [
+        { text: "Tại sao công nghệ\n" },
+        { text: "PIM", accent: true },
+        { text: " quan trọng đối với AI?" },
+      ],
+      body: "Khi các mô hình AI ngày càng lớn, nhu cầu xử lý và truyền dữ liệu cũng tăng theo. Việc liên tục di chuyển dữ liệu giữa bộ nhớ (DRAM) và bộ xử lý (NPU) có thể ảnh hưởng đến hiệu quả của quá trình tính toán. Công nghệ PIM (Processing-in-Memory) tiếp cận bài toán này bằng cách đưa hoạt động tính toán đến gần nơi dữ liệu được lưu trữ, từ đó giảm nhu cầu di chuyển dữ liệu đối với các workload AI phù hợp.",
+      items: [
         {
-          date: "2021 · Thế hệ 1",
-          title: "MOCHA đặt nền cho PIM Edge AI",
-          body: "Pebble Square hoàn tất thế hệ chip đầu tiên vào 11/2021.",
-          status: "shipped",
+          id: "movement",
+          index: "01",
+          title: "Giảm di chuyển dữ liệu",
+          body: "Giảm nhu cầu truyền dữ liệu qua lại giữa bộ nhớ và bộ xử lý đối với các workload AI phù hợp.",
         },
         {
-          date: "2022–2023 · Thế hệ 2",
-          title: "MINT đi vào sản xuất hàng loạt",
-          body: "Hoàn tất phát triển 12/2022, sản xuất hàng loạt từ 5/2023 và đạt 17,6 TOPS/W.",
-          status: "shipped",
-          starred: true,
+          id: "workload",
+          index: "02",
+          title: "Tối ưu tính toán AI",
+          body: "Thiết kế kiến trúc tính toán phù hợp với đặc thù của từng workload AI, hướng tới nâng cao hiệu quả xử lý cho các ứng dụng AI phù hợp.",
         },
         {
-          date: "2024 · Thế hệ 3",
-          title: "PAPAYA mở rộng sang AI thị giác",
-          body: "Đạt mốc PoC khách hàng năm 2024 với 0,5 TOPS và 30 TOPS/W trên die 5 × 5 mm.",
-          status: "shipped",
-        },
-        {
-          date: "9/2026 · Lộ trình",
-          title: "ESPRESSO 9/2026 hướng tới suy luận mô hình lớn tại chỗ",
-          body: "Tài liệu nhà đầu tư ghi mốc 9/2026 và 160 TOPS cho INT8; ESPRESSO chưa có trong danh mục công khai của Pebble Square.",
-          status: "roadmap",
-          statusNote: "Dự kiến 9/2026",
+          id: "platform",
+          index: "03",
+          title: "Nền tảng cho AI thế hệ mới",
+          body: "Công nghệ PIM mở ra các hướng ứng dụng cho Edge AI, AI trên thiết bị (On-device AI) và suy luận AI (AI Inference).",
         },
       ],
+      media: {
+        src: "/media/home/why-npu.png",
+        alt: "Bo mạch với khối NPU ở giữa và các khối DRAM nối quanh.",
+      },
+    },
+
+    core: {
+      title: "Năng lực cốt lõi của công nghệ chip",
+      body: [
+        { text: "Pebble Vina phát triển kiến trúc công nghệ chip bán dẫn tích hợp AI ngoại biên với trọng tâm " },
+        { text: "tối ưu luồng dữ liệu, năng lực xử lý song song", accent: true },
+        { text: " và " },
+        { text: "hiệu quả tính toán", accent: true },
+        { text: ". Các công nghệ được phát triển nhằm đáp ứng yêu cầu ngày càng cao của các workload AI, đồng thời hướng tới khả năng xử lý ổn định và hiệu quả năng lượng." },
+      ],
+      capabilities: [
+        {
+          id: "pim",
+          index: "01",
+          name: "pim",
+          caption: "tối ưu data movement",
+          body: "Xử lý dữ liệu trực tiếp tại nơi lưu trữ, giảm nhu cầu truyền dữ liệu giữa bộ nhớ và bộ xử lý.",
+          outcome: "→ Energy Efficiency",
+        },
+        {
+          id: "neurons",
+          index: "02",
+          value: "400k",
+          name: "điểm noron tính toán",
+          body: "400.000 điểm xử lý tạo nền tảng cho khả năng thực hiện đồng thời khối lượng lớn phép tính AI.",
+          outcome: "→ High Throughput",
+        },
+        {
+          id: "distribution",
+          index: "03",
+          name: "phân Bổ dữ liệu ĐỒNG ĐỀU",
+          body: "Phân bổ dữ liệu đồng đều trên các điểm xử lý giúp duy trì sự cân bằng trong quá trình tính toán.",
+          outcome: "→ Stable & Consistent Processing",
+        },
+      ],
+      media: {
+        src: "/media/home/core-bg.png",
+        // Full-bleed technical field behind the three capability cards.
+        alt: "",
+      },
+    },
+
+    solutions: {
+      title: "Giải pháp chip bán dẫn &",
+      titleAccent: "phần mềm AI ngoại biên",
+      body: "Pebble Vina kết hợp công nghệ phần cứng bán dẫn với phần mềm AI để phát triển các giải pháp tính toán phù hợp với nhu cầu doanh nghiệp, từ chip bán dẫn tích hợp AI ngoại biên, nền tảng PIM đến huấn luyện mô hình ngôn ngữ lớn và phần mềm AI tùy chỉnh.",
+      items: [
+        {
+          id: "chip",
+          index: "01",
+          title: "Chip bán dẫn và giải pháp tích hợp AI ngoại biên",
+          body: "Phát triển kiến trúc chip và tích hợp AI ngoại biên nhằm đáp ứng nhu cầu tính toán cho các workload AI chuyên biệt.",
+        },
+        {
+          id: "llm",
+          index: "02",
+          title: "Huấn luyện LLM cá nhân hóa",
+          body: "Xây dựng và tinh chỉnh các mô hình ngôn ngữ lớn (LLM) theo yêu cầu riêng của từng doanh nghiệp, hỗ trợ kiểm soát dữ liệu và tối ưu hóa chi phí vận hành.",
+        },
+        {
+          id: "reuse",
+          index: "03",
+          title: "Tái sử dụng linh hoạt với khả năng ghi đè dữ liệu",
+          body: "Cho phép doanh nghiệp dễ dàng xóa bỏ dữ liệu cũ sau mỗi chu kỳ huấn luyện để nạp và đào tạo các mô hình AI hoàn toàn mới trên cùng một phần cứng chip PIM - tối ưu hóa chi phí đầu tư dài hạn.",
+        },
+        {
+          id: "crm",
+          index: "04",
+          title: "Hệ thống CRM thông minh may đo riêng",
+          body: "Phát triển phần mềm quản trị quan hệ khách hàng (CRM) tích hợp AI, được thiết kế linh hoạt theo quy trình vận hành và đặc thù của từng doanh nghiệp.",
+        },
+      ],
+      media: {
+        src: "/media/home/solutions-pim.png",
+        alt: "Chip PIM AI-Powered đặt trên bảng mạch phát sáng xanh.",
+      },
+    },
+
+    news: {
+      title: "Tin tức & Hợp tác",
+      lead: "Pebbles Square luôn động đạt mở rộng hợp tác chiến lược với các đối tác, khách hàng và tổ chức hàng đầu để thúc đẩy đối mới công nghệ và tạo ra giá trị bền vững.",
+      items: [
+        {
+          id: "japan",
+          date: "15.05.2025",
+          title: "Gặp gỡ và trao đổi cùng đối tác chiến lược Nhật Bản",
+          body: "Thảo luận về xu hướng AI on-device và cơ hội hợp tác phát triển thị trường bản dẫn thề hệ mới.",
+          cta: "Xem chi tiết",
+          media: {
+            src: "/media/home/news-photo-1.png",
+            alt: "Buổi trao đổi giữa hai nhóm làm việc trong phòng họp.",
+          },
+        },
+        {
+          id: "korea",
+          date: "02.04.2025",
+          title: "Kỷ kết MOU với đối tác công nghệ hàng đầu Hàn Quốc",
+          body: "Hợp tác nghiên cứu và phát triển giải pháp PIM AI nhẫm tới tưi hiệu nang và mở rộng ứng dụng.",
+          cta: "Xem chi tiết",
+          media: {
+            src: "/media/home/news-photo-2.png",
+            alt: "Lễ ký kết biên bản ghi nhớ giữa hai đại diện.",
+          },
+        },
+        {
+          id: "vietnam",
+          date: "20.03.2025",
+          title: "Hợp tác triển khai giải pháp AI cùng doanh nghiệp Việt Nam",
+          body: "Dông hành xây dựng hệ thống AI tùy chỉnh, phù hợp với dặc thủ ngành và nhu cậu vành hệ thực tế.",
+          cta: "Xem chi tiết",
+          // Cards 3 and 4 reuse one flattened image in the master that already
+          // contains its photograph, so there is no separate photo to name here.
+          media: { src: "", alt: "" },
+        },
+        {
+          id: "global",
+          date: "10.02.2025",
+          title: "Kỷ kết hợp tác chiến lược với đối tác Quốc tế",
+          body: "Cùng nhúc thức dậy đối mới AI và mang các giá pháp tiến tiến đến thị trường toàn cầu.",
+          cta: "Xem chi tiết",
+          media: { src: "", alt: "" },
+        },
+      ],
+      cta: "Xem tất cả tin tức",
+    },
+
+    contact: {
+      // Three lines in the master, broken where it breaks them.
+      title: [
+        { text: "Cùng nhau kiến tạo giải pháp\nchip bán dẫn tích hợp\nAI ngoại biên " },
+        { text: "đột phá", accent: true },
+      ],
+      lead: "Chúng tôi luôn sẵn sàng lắng nghe và đồng hành cùng bạn để biến ý tưởng thành giá trị thực tiễn, dẫn đặt tương lai công nghệ.",
+      badges: [
+        {
+          id: "trust",
+          title: "Hợp tác tin cậy",
+          body: "Đồng hành bền vững",
+          media: { src: "/media/home/contact-badge-1.png", alt: "" },
+        },
+        {
+          id: "technology",
+          title: "Công nghệ tiên phong",
+          body: "Giải pháp tối ưu",
+          media: { src: "/media/home/contact-badge-2.png", alt: "" },
+        },
+        {
+          id: "security",
+          title: "Bảo mật tuyệt đời",
+          body: "An tâm hợp tác",
+          media: { src: "/media/home/contact-badge-3.png", alt: "" },
+        },
+      ],
+      media: {
+        src: "/media/home/contact-building.png",
+        // Building exterior behind the invitation — decorative.
+        alt: "",
+      },
     },
   },
-
   products: {
     intro: {
       kicker: "Danh mục sản phẩm",
@@ -501,16 +635,24 @@ export const vi: SiteContent = {
       title: "Điền form để Pebble Vina tiếp nhận bài toán",
       lead: "Trong vòng 24 giờ sau khi doanh nghiệp gửi form thành công, nhân viên kinh doanh Pebble Vina sẽ liên hệ qua email hoặc số điện thoại đã cung cấp.",
     },
-    ctaPrimary: "Gửi yêu cầu tư vấn",
+    // Labels, placeholders and the submit wording come from the Canva master's
+    // contact artboard (page 8) — the form is shared with /vi/contact, so both
+    // now read the same way.
+    ctaPrimary: "Gửi thông tin",
     form: {
-      title: "Yêu cầu tư vấn",
+      title: "Liên hệ với chúng tôi",
       nameLabel: "Họ và tên",
+      namePlaceholder: "Nhập họ và tên của bạn",
       companyLabel: "Công ty",
+      companyPlaceholder: "Nhập tên công ty",
       emailLabel: "Email",
+      emailPlaceholder: "Nhập email của bạn",
       phoneLabel: "Số điện thoại",
-      messageLabel: "Bài toán cần giải",
-      messagePlaceholder: "Ví dụ: 12 máy CNC, cần phát hiện rung bất thường trước khi hỏng, dữ liệu không được rời nhà máy.",
+      phonePlaceholder: "Nhập số điện thoại của bạn",
+      messageLabel: "Mô tả như cầu của bạn",
+      messagePlaceholder: "Vui lòng chia sẻ nhu cầu hoặc thông tin bạn quan tâm...",
       optionalLabel: "Không bắt buộc",
+      privacyNote: "Thông tin của bạn được bảo mật và chỉ sử dụng để hỗ trợ theo yêu cầu.",
       successTitle: "Pebble Vina đã nhận yêu cầu",
       successBody: "Nhân viên kinh doanh sẽ liên hệ qua email hoặc số điện thoại đã cung cấp trong vòng 24 giờ.",
       errorBody: "Chưa gửi được yêu cầu. Thử lại hoặc liên hệ trực tiếp:",

@@ -94,16 +94,6 @@ export interface HardwareVariant {
   media: Media;
 }
 
-export interface Milestone {
-  date: string;
-  title: string;
-  body: string;
-  status: FactStatus;
-  statusNote?: string;
-  /** Highlighted milestone. */
-  starred?: boolean;
-}
-
 /** One hardware family — MINT, PAPAYA, ESPRESSO, GPU. */
 export interface Product {
   /** Anchor id, also the deep link from the nav. */
@@ -170,54 +160,127 @@ export interface TrainingOffer {
   origin: Origin;
 }
 
-/** One company direction, framed from the buyer need before the response. */
-export interface WhyNowComparisonItem {
-  id: string;
-  painTitle: string;
-  painBody: string;
-  responseTitle: string;
-  responseBody: string;
-  resultTitle: string;
-  resultBody: string;
+/* ==========================================================================
+   HOME — shaped by the Canva master "Home - Pebble Vina" (1408×768, read
+   2026-08-30), which is the source of truth for this page. Each interface below
+   is one artboard in that file; the field names follow what the design shows,
+   not what the old site happened to have.
+   ========================================================================== */
+
+/**
+ * A line with accented runs inside it — the design colours single phrases mid
+ * sentence ("PIM", "tối ưu luồng dữ liệu", "đột phá"). Splitting the string in
+ * content keeps the component from having to know which words are special.
+ */
+export type RichText = Array<{ text: string; accent?: boolean }>;
+
+/** One frame of the hero carousel. */
+export interface HeroSlide {
+  title: string;
+  lead: string;
 }
 
-export interface WhyNowComparison {
-  painLabel: string;
-  responseLabel: string;
-  resultLabel: string;
-  items: WhyNowComparisonItem[];
+/** ANALOG or DIGITAL — the two PIM directions shown side by side. */
+export interface PimBranch {
+  id: string;
+  index: string;
+  name: string;
+  tagline: string;
+  body: string;
+  cta: string;
+  iconLabel: string;
+  media: Media;
 }
 
-export interface WhyNowDirection {
+/** A numbered card or row: WHY-PIM uses three, SOLUTIONS uses four. */
+export interface NumberedItem {
   id: string;
-  need: string;
-  consequence: string;
+  index: string;
+  title: string;
+  body: string;
+}
+
+/** One of the three chip capabilities, each closing on a named outcome. */
+export interface CoreCapability {
+  id: string;
+  index: string;
+  /** Foreground figure when the capability leads with a number ("400K"). */
+  value?: string;
+  name: string;
+  /** Second line under the name, e.g. "TỐI ƯU DATA MOVEMENT". */
+  caption?: string;
+  body: string;
+  outcome: string;
+}
+
+export interface NewsItem {
+  id: string;
+  date: string;
+  title: string;
+  body: string;
+  cta: string;
+  media: Media;
+}
+
+/** A two-line trust badge beside the contact form. */
+export interface ContactBadge {
+  id: string;
   title: string;
   body: string;
   media: Media;
-  status: FactStatus;
-  statusNote: string;
-  origin: Origin;
-  comparison?: WhyNowComparison;
 }
 
 export interface HomeContent {
   hero: {
-    eyebrow: string;
-    brand: string;
-    slogan: string;
-    lead: string;
-    ctaPrimary: string;
-    ctaSecondary: string;
+    slides: HeroSlide[];
+    cta: string;
+    pillars: string[];
     media: Media;
   };
-  whyNow: Intro & {
-    needLabel: string;
-    directionLabel: string;
-    directions: WhyNowDirection[];
+
+  pim: {
+    title: string;
+    titleAccent: string;
+    body: string;
+    branches: PimBranch[];
+    calloutLead: string;
+    calloutGoal: string;
   };
-  history: Intro & {
-    milestones: Milestone[];
+
+  whyPim: {
+    title: RichText;
+    body: string;
+    items: NumberedItem[];
+    media: Media;
+  };
+
+  core: {
+    title: string;
+    body: RichText;
+    capabilities: CoreCapability[];
+    media: Media;
+  };
+
+  solutions: {
+    title: string;
+    titleAccent: string;
+    body: string;
+    items: NumberedItem[];
+    media: Media;
+  };
+
+  news: {
+    title: string;
+    lead: string;
+    items: NewsItem[];
+    cta: string;
+  };
+
+  contact: {
+    title: RichText;
+    lead: string;
+    badges: ContactBadge[];
+    media: Media;
   };
 }
 
@@ -238,12 +301,18 @@ export interface ContactContent {
   form: {
     title: string;
     nameLabel: string;
+    namePlaceholder: string;
     companyLabel: string;
+    companyPlaceholder: string;
     emailLabel: string;
+    emailPlaceholder: string;
     phoneLabel: string;
+    phonePlaceholder: string;
     messageLabel: string;
     messagePlaceholder: string;
     optionalLabel: string;
+    /** Line under the submit button — what happens to what was just typed. */
+    privacyNote: string;
     successTitle: string;
     successBody: string;
     errorBody: string;

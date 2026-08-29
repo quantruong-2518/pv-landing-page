@@ -19,10 +19,18 @@ const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "ut
 export function ContactForm({
   c,
   successHeadingAs: SuccessHeading = "h2",
+  skin = "site",
 }: {
   c: SiteContent;
   successHeadingAs?: "h2" | "h3";
+  /**
+   * `artboard` is the HOME contact section (Canva page 8): one column, rules
+   * instead of boxes, and every size in `em` so the form scales with the canvas
+   * that sets the em around it.
+   */
+  skin?: SkinName;
 }) {
+  const s = SKINS[skin];
   const { form } = c.contact;
   const [values, setValues] = useState({ name: "", company: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -132,10 +140,8 @@ export function ContactForm({
   if (submitted) {
     return (
       <div ref={panelRef} tabIndex={-1} className="scroll-mt-6 focus:outline-none">
-        <SuccessHeading className="text-2xl font-semibold leading-snug sm:text-3xl">
-          {form.successTitle}
-        </SuccessHeading>
-        <p className="mt-3 max-w-md text-base leading-relaxed text-muted">{form.successBody}</p>
+        <SuccessHeading className={s.success}>{form.successTitle}</SuccessHeading>
+        <p className={s.successBody}>{form.successBody}</p>
       </div>
     );
   }
@@ -149,13 +155,13 @@ export function ContactForm({
       onChange: update(id),
       "aria-invalid": invalid || undefined,
       "aria-describedby": invalid ? `${id}-error` : undefined,
-      className: cn(INPUT, invalid && "border-fg"),
+      className: cn(s.input, invalid && s.invalid),
     };
   }
 
   return (
     // Two compact contact pairs keep all five controls in the phone viewport.
-    <form onSubmit={handleSubmit} noValidate className="grid grid-cols-2 gap-3 sm:gap-4">
+    <form onSubmit={handleSubmit} noValidate className={s.form}>
       {/* Off-screen rather than type="hidden", so simple form-filling bots still
           see it. It is unreachable by keyboard and hidden from assistive tech. */}
       <div
@@ -168,16 +174,16 @@ export function ContactForm({
         </label>
       </div>
 
-      <Field id="name" label={form.nameLabel} required error={errors.name}>
-        <input name="contactName" type="text" required maxLength={120} autoComplete="name" {...control("name")} />
+      <Field id="name" label={form.nameLabel} required error={errors.name} skin={s}>
+        <input name="contactName" type="text" required maxLength={120} autoComplete="name" placeholder={form.namePlaceholder} {...control("name")} />
       </Field>
 
-      <Field id="company" label={form.companyLabel} required error={errors.company}>
-        <input name="company" type="text" required maxLength={200} autoComplete="organization" {...control("company")} />
+      <Field id="company" label={form.companyLabel} required error={errors.company} skin={s}>
+        <input name="company" type="text" required maxLength={200} autoComplete="organization" placeholder={form.companyPlaceholder} {...control("company")} />
       </Field>
 
-      <Field id="email" label={form.emailLabel} required error={errors.email}>
-        <input name="email" type="email" required maxLength={254} autoComplete="email" {...control("email")} />
+      <Field id="email" label={form.emailLabel} required error={errors.email} skin={s}>
+        <input name="email" type="email" required maxLength={254} autoComplete="email" placeholder={form.emailPlaceholder} {...control("email")} />
       </Field>
 
       <Field
@@ -185,6 +191,7 @@ export function ContactForm({
         label={form.phoneLabel}
         optionalLabel={form.optionalLabel}
         error={errors.phone}
+        skin={s}
       >
         <input
           name="phone"
@@ -193,6 +200,7 @@ export function ContactForm({
           maxLength={40}
           pattern={"(?=(?:\\D*\\d){8,15}\\D*$)[\\d\\s+\\.\\(\\)\\-]+"}
           autoComplete="tel"
+          placeholder={form.phonePlaceholder}
           {...control("phone")}
         />
       </Field>
@@ -202,25 +210,30 @@ export function ContactForm({
         label={form.messageLabel}
         optionalLabel={form.optionalLabel}
         error={errors.message}
-        className="col-span-2"
+        className={s.wide}
+        skin={s}
       >
-        <textarea name="pain" maxLength={1000} rows={3} placeholder={form.messagePlaceholder} {...control("message")} />
+        <textarea
+          name="pain"
+          maxLength={1000}
+          rows={3}
+          placeholder={form.messagePlaceholder}
+          {...control("message")}
+          className={cn(s.textarea || s.input, errors.message && s.invalid)}
+        />
       </Field>
 
-      <div className="col-span-2 flex flex-wrap items-center gap-4">
+      <div className={s.actions}>
         <button
           type="submit"
           disabled={pending}
           aria-disabled={pending}
-          className={cn(
-            "inline-flex min-h-11 w-full items-center justify-center rounded-sm bg-primary px-5 py-3 text-sm font-medium tracking-wide text-primary-fg transition-colors hover:opacity-90 sm:w-auto sm:px-6",
-            pending && "opacity-60",
-          )}
+          className={cn(s.button, pending && "opacity-60")}
         >
           {c.contact.ctaPrimary}
         </button>
         {submitError ? (
-          <p role="alert" className="text-sm font-medium leading-snug text-fg">
+          <p role="alert" className={s.error}>
             {submitError}{" "}
             <a href={SITE.contact.phoneHref} className="underline">
               {SITE.contact.phone}
@@ -231,20 +244,56 @@ export function ContactForm({
             </a>
           </p>
         ) : null}
+        <p className={s.note}>{form.privacyNote}</p>
       </div>
     </form>
   );
 }
 
+type SkinName = "site" | "artboard";
+
 /* `text-base`, not `text-sm`: anything under 16px makes iOS Safari zoom the page
    on focus and never zoom back. It also lifts the control to 46px, over the 44px
-   touch floor. `line-strong` carries the 3:1 the old hairline border missed. */
-const INPUT =
-  "mt-1.5 w-full border border-line-strong bg-transparent px-3 py-2.5 text-base text-fg placeholder:text-subtle focus:border-primary focus:outline-none";
+   touch floor. `line-strong` carries the 3:1 the old hairline border missed.
 
-/* One step above the site's mono data label (FactRow, footer): 10.4px is fine
-   for a fact you read once and a poor size for a field you have to fill in. */
-const LABEL = "font-mono text-xs uppercase tracking-[0.14em] text-subtle";
+   The artboard skin sizes in `em` on purpose — CONTACT on HOME lives inside a
+   canvas that scales with the viewport, and a px control inside it would be the
+   one element that refuses to scale. */
+const SKINS = {
+  site: {
+    form: "grid grid-cols-2 gap-3 sm:gap-4",
+    label: "font-mono text-xs uppercase tracking-[0.14em] text-subtle",
+    input:
+      "mt-1.5 w-full border border-line-strong bg-transparent px-3 py-2.5 text-base text-fg placeholder:text-subtle focus:border-primary focus:outline-none",
+    textarea: "",
+    invalid: "border-fg",
+    wide: "col-span-2",
+    actions: "col-span-2 flex flex-wrap items-center gap-4",
+    button:
+      "inline-flex min-h-11 w-full items-center justify-center rounded-sm bg-primary px-5 py-3 text-sm font-medium tracking-wide text-primary-fg transition-colors hover:opacity-90 sm:w-auto sm:px-6",
+    note: "hidden",
+    error: "text-sm font-medium leading-snug text-fg",
+    success: "text-2xl font-semibold leading-snug sm:text-3xl",
+    successBody: "mt-3 max-w-md text-base leading-relaxed text-muted",
+  },
+  artboard: {
+    form: "text-art-navy-deep grid grid-cols-1 gap-[0.6em]",
+    label: "text-[1.03em] font-extrabold",
+    input:
+      "border-art-navy-deep/25 focus:border-art-blue mt-[0.3em] w-full border-0 border-b bg-transparent pb-[0.4em] text-[0.97em] font-light placeholder:text-art-navy-deep/55 focus:outline-none",
+    textarea:
+      "border-art-navy-deep/25 focus:border-art-blue mt-[0.3em] w-full rounded-[0.35em] border bg-transparent p-[0.6em] text-[0.97em] font-light placeholder:text-art-navy-deep/55 focus:outline-none",
+    invalid: "border-art-blue-bright",
+    wide: "",
+    actions: "mt-[0.35em] flex flex-col gap-[0.55em]",
+    button:
+      "bg-art-blue flex w-full items-center justify-center gap-[0.5em] rounded-[0.4em] py-[0.8em] text-[1.15em] font-bold text-white transition-opacity hover:opacity-90",
+    note: "text-art-navy-deep/85 text-center text-[0.78em] font-light",
+    error: "text-[0.9em] font-medium leading-snug",
+    success: "text-[1.6em] font-extrabold leading-snug",
+    successBody: "mt-[0.6em] text-[1em] font-light leading-relaxed",
+  },
+} as const;
 
 function Field({
   id,
@@ -253,6 +302,7 @@ function Field({
   optionalLabel,
   error,
   className,
+  skin,
   children,
 }: {
   id: string;
@@ -262,6 +312,7 @@ function Field({
   /** The browser's own localized validationMessage — never a string written here. */
   error?: string;
   className?: string;
+  skin: (typeof SKINS)[SkinName];
   children: React.ReactNode;
 }) {
   return (
@@ -271,13 +322,13 @@ function Field({
     // the bottom aligns the controls at any width, and keeps the label next to
     // the field it names rather than opening a hole between them.
     <div className={cn("flex flex-col justify-end", className)}>
-      <label htmlFor={id} className={LABEL}>
+      <label htmlFor={id} className={skin.label}>
         {label}
         {required ? " *" : optionalLabel ? ` · ${optionalLabel}` : ""}
       </label>
       {children}
       {error ? (
-        <p id={`${id}-error`} role="alert" className="mt-1.5 text-sm font-medium leading-snug text-fg">
+        <p id={`${id}-error`} role="alert" className={cn("mt-1.5", skin.error)}>
           {error}
         </p>
       ) : null}

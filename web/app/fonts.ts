@@ -1,4 +1,4 @@
-import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, IBM_Plex_Mono, Bricolage_Grotesque, Cabin } from "next/font/google";
 
 /**
  * All three load the `vietnamese` subset — without it Vietnamese diacritics break.
@@ -25,4 +25,22 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
-export const fontVars = `${display.variable} ${sans.variable} ${mono.variable}`;
+/**
+ * HOME and the site header are set from the Canva master, which uses Bricolage
+ * Grotesque throughout and Cabin on two link labels (read 2026-08-30). Both
+ * carry the `vietnamese` subset — without it the diacritics fall back and the
+ * page stops matching the design.
+ */
+const artboard = Bricolage_Grotesque({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-bricolage",
+  display: "swap",
+});
+
+const artboardAlt = Cabin({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-cabin",
+  display: "swap",
+});
+
+export const fontVars = `${display.variable} ${sans.variable} ${mono.variable} ${artboard.variable} ${artboardAlt.variable}`;
