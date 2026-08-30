@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import type { SiteContent } from "@/content/types";
 import { MAIL_HREF, SITE } from "@/content/site";
 import { cn } from "@/lib/cn";
@@ -34,6 +34,11 @@ export function ContactForm({
 }) {
   const s = SKINS[skin];
   const { form } = c.contact;
+  // HOME renders this form twice — once per Artboard tree, one of them
+  // `display:none` — so a literal `id` would bind every `htmlFor` to the hidden
+  // copy. `useId` gives each instance its own id namespace.
+  const uid = useId();
+  const fieldId = (key: string) => `${uid}${key}`;
   const [values, setValues] = useState({ name: "", company: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -65,12 +70,15 @@ export function ContactForm({
     const invalid: Record<string, string> = {};
     for (const el of Array.from(e.currentTarget.elements)) {
       const field = el as HTMLInputElement | HTMLTextAreaElement;
-      if (!field.id || typeof field.checkValidity !== "function") continue;
-      if (!field.checkValidity()) invalid[field.id] = field.validationMessage;
+      // `data-field`, not `id`: the id is namespaced per instance, the errors
+      // map is keyed by the logical field.
+      const key = field.dataset.field;
+      if (!key || typeof field.checkValidity !== "function") continue;
+      if (!field.checkValidity()) invalid[key] = field.validationMessage;
     }
     if (Object.keys(invalid).length > 0) {
       setErrors(invalid);
-      document.getElementById(Object.keys(invalid)[0])?.focus();
+      document.getElementById(fieldId(Object.keys(invalid)[0]))?.focus();
       return;
     }
     setErrors({});
@@ -152,11 +160,12 @@ export function ContactForm({
   function control(id: keyof typeof values) {
     const invalid = Boolean(errors[id]);
     return {
-      id,
+      id: fieldId(id),
+      "data-field": id,
       value: values[id],
       onChange: update(id),
       "aria-invalid": invalid || undefined,
-      "aria-describedby": invalid ? `${id}-error` : undefined,
+      "aria-describedby": invalid ? `${fieldId(id)}-error` : undefined,
       className: cn(s.input, invalid && s.invalid),
     };
   }
@@ -176,20 +185,20 @@ export function ContactForm({
         </label>
       </div>
 
-      <Field id="name" label={form.nameLabel} required error={errors.name} skin={s}>
+      <Field id={fieldId("name")} label={form.nameLabel} required error={errors.name} skin={s}>
         <input name="contactName" type="text" required maxLength={120} autoComplete="name" placeholder={form.namePlaceholder} {...control("name")} />
       </Field>
 
-      <Field id="company" label={form.companyLabel} required error={errors.company} skin={s}>
+      <Field id={fieldId("company")} label={form.companyLabel} required error={errors.company} skin={s}>
         <input name="company" type="text" required maxLength={200} autoComplete="organization" placeholder={form.companyPlaceholder} {...control("company")} />
       </Field>
 
-      <Field id="email" label={form.emailLabel} required error={errors.email} skin={s}>
+      <Field id={fieldId("email")} label={form.emailLabel} required error={errors.email} skin={s}>
         <input name="email" type="email" required maxLength={254} autoComplete="email" placeholder={form.emailPlaceholder} {...control("email")} />
       </Field>
 
       <Field
-        id="phone"
+        id={fieldId("phone")}
         label={form.phoneLabel}
         optionalLabel={form.optionalLabel}
         error={errors.phone}
@@ -208,7 +217,7 @@ export function ContactForm({
       </Field>
 
       <Field
-        id="message"
+        id={fieldId("message")}
         label={form.messageLabel}
         optionalLabel={form.optionalLabel}
         error={errors.message}
