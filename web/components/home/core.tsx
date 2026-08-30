@@ -1,5 +1,6 @@
 import type { HomeContent } from "@/content/types";
 import { Abs, Artboard, Img, Rich, Txt, u } from "@/components/artboard";
+import { CoreFlow } from "@/components/home/flow";
 
 /**
  * Canva page 5. The three capability panels are not a grid — each sits in its
@@ -55,7 +56,7 @@ const PANELS: PanelLayout[] = [
 
 export function Core({ c }: { c: HomeContent["core"] }) {
   return (
-    <Artboard id="core" className="bg-art-black text-white">
+    <Artboard id="core" className="bg-art-black text-white" flow={<CoreFlow c={c} />}>
       <Img src={c.media.src ?? ""} alt={c.media.alt} x={0} y={0} w={1408} h={768} fit="cover" />
       <Img src="/media/home/core-deco-tl.png" x={0} y={47} w={302} h={80} />
       <Img src="/media/home/core-deco-tr.png" x={1072} y={78} w={336} h={221} />
@@ -63,12 +64,13 @@ export function Core({ c }: { c: HomeContent["core"] }) {
       <Img src="/media/home/core-deco-grid.png" x={0} y={472} w={402} h={253} />
       <Img src="/media/home/core-deco-bl.png" x={83} y={567} w={118} h={79} />
       <Img src="/media/home/core-engine.png" x={417} y={114} w={901} h={601} />
+      <Abs x={395} y={92} w={950} h={630} className="core-signal" />
 
-      <Txt as="h2" x={66} y={99} w={562} size={50} weight={700} leading={64} uppercase>
+      <Txt as="h2" x={66} y={99} w={562} size={50} weight={700} leading={64} uppercase reveal={1}>
         {c.title}
       </Txt>
 
-      <Txt x={67} y={236} w={560} size={21.2} leading={29}>
+      <Txt x={67} y={236} w={560} size={21.2} leading={29} reveal={2}>
         <Rich value={c.body} accent="text-art-cyan font-bold" />
       </Txt>
 
@@ -79,6 +81,7 @@ export function Core({ c }: { c: HomeContent["core"] }) {
             <Abs
               {...g.panel}
               className="rounded-xl border border-white/25 bg-black/45 backdrop-blur-[2px]"
+              reveal={3 + i}
             />
             <Img src={g.icon} {...g.iconAt} />
 

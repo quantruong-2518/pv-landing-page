@@ -24,9 +24,11 @@ export function ContactForm({
   c: SiteContent;
   successHeadingAs?: "h2" | "h3";
   /**
-   * `artboard` is the HOME contact section (Canva page 8): one column, rules
-   * instead of boxes, and every size in `em` so the form scales with the canvas
-   * that sets the em around it.
+   * `artboard` is the HOME contact section on the canvas (Canva page 8): one
+   * column, rules instead of boxes, and every size in `em` so the form scales
+   * with the canvas that sets the em around it. `artboard-flow` is the same
+   * design for the flow layout, where there is no canvas to scale against and
+   * the controls have to hold the 44px touch floor on their own.
    */
   skin?: SkinName;
 }) {
@@ -250,7 +252,7 @@ export function ContactForm({
   );
 }
 
-type SkinName = "site" | "artboard";
+type SkinName = "site" | "artboard" | "artboard-flow";
 
 /* `text-base`, not `text-sm`: anything under 16px makes iOS Safari zoom the page
    on focus and never zoom back. It also lifts the control to 46px, over the 44px
@@ -277,21 +279,44 @@ const SKINS = {
     successBody: "mt-3 max-w-md text-base leading-relaxed text-muted",
   },
   artboard: {
-    form: "text-art-navy-deep grid grid-cols-1 gap-[0.6em]",
+    form: "text-art-navy-deep grid grid-cols-1 gap-[0.45em]",
     label: "text-[1.03em] font-extrabold",
     input:
-      "border-art-navy-deep/25 focus:border-art-blue mt-[0.3em] w-full border-0 border-b bg-transparent pb-[0.4em] text-[0.97em] font-light placeholder:text-art-navy-deep/55 focus:outline-none",
+      "border-art-navy-deep/25 focus:border-art-blue mt-[0.2em] min-h-[3.22em] w-full border-0 border-b bg-transparent px-[0.15em] py-[0.45em] text-[0.97em] font-light placeholder:text-art-navy-deep/55 focus:outline-none",
     textarea:
-      "border-art-navy-deep/25 focus:border-art-blue mt-[0.3em] w-full rounded-[0.35em] border bg-transparent p-[0.6em] text-[0.97em] font-light placeholder:text-art-navy-deep/55 focus:outline-none",
+      "border-art-navy-deep/25 focus:border-art-blue mt-[0.2em] min-h-[5.5em] w-full rounded-[0.35em] border bg-transparent p-[0.55em] text-[0.97em] font-light placeholder:text-art-navy-deep/55 focus:outline-none",
     invalid: "border-art-blue-bright",
     wide: "",
-    actions: "mt-[0.35em] flex flex-col gap-[0.55em]",
+    actions: "mt-[0.25em] flex flex-col gap-[0.4em]",
     button:
-      "bg-art-blue flex w-full items-center justify-center gap-[0.5em] rounded-[0.4em] py-[0.8em] text-[1.15em] font-bold text-white transition-opacity hover:opacity-90",
+      "bg-art-blue flex min-h-[3.12em] w-full items-center justify-center gap-[0.5em] rounded-[0.4em] px-[1em] py-[0.55em] text-[1.15em] font-bold text-white transition-opacity hover:opacity-90",
     note: "text-art-navy-deep/85 text-center text-[0.78em] font-light",
     error: "text-[0.9em] font-medium leading-snug",
     success: "text-[1.6em] font-extrabold leading-snug",
     successBody: "mt-[0.6em] text-[1em] font-light leading-relaxed",
+  },
+  /* The Canva look, measured in px. Outside the canvas there is no em to scale
+     against, and the `artboard` sizes then resolve against whatever the flow
+     block sets: at 390px they produced 22.8px and 29px controls, under half the
+     touch floor. So this skin keeps the drawn style — ruled fields, extrabold
+     labels, the blue pill — and takes its numbers from the `site` skin's rules
+     instead: `text-base` so iOS does not zoom on focus, and a 44px floor. */
+  "artboard-flow": {
+    form: "text-art-navy-deep grid grid-cols-1 gap-4",
+    label: "text-[0.95rem] font-extrabold",
+    input:
+      "border-art-navy-deep/25 focus:border-art-blue mt-1.5 min-h-11 w-full border-0 border-b bg-transparent pb-2 text-base font-light placeholder:text-art-navy-deep/55 focus:outline-none",
+    textarea:
+      "border-art-navy-deep/25 focus:border-art-blue mt-1.5 w-full rounded-md border bg-transparent p-3 text-base font-light placeholder:text-art-navy-deep/55 focus:outline-none",
+    invalid: "border-art-blue-bright",
+    wide: "",
+    actions: "mt-2 flex flex-col gap-3",
+    button:
+      "bg-art-blue flex min-h-12 w-full items-center justify-center gap-2 rounded-md py-3 text-[1.05rem] font-bold text-white transition-opacity hover:opacity-90",
+    note: "text-art-navy-deep/85 text-center text-[0.8rem] font-light",
+    error: "text-[0.85rem] font-medium leading-snug",
+    success: "text-[1.5rem] font-extrabold leading-snug",
+    successBody: "mt-3 text-base font-light leading-relaxed",
   },
 } as const;
 

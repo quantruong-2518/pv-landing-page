@@ -1,5 +1,6 @@
 import type { HomeContent } from "@/content/types";
 import { Abs, Artboard, Img, Txt, u } from "@/components/artboard";
+import { PimFlow } from "@/components/home/flow";
 import { path } from "@/lib/routes";
 
 /**
@@ -19,25 +20,25 @@ const ICONS = [
 
 export function Pim({ c }: { c: HomeContent["pim"] }) {
   return (
-    <Artboard id="pim" className="text-art-ink bg-white">
+    <Artboard id="pim" className="text-art-ink bg-white" flow={<PimFlow c={c} />}>
       <Img src="/media/home/pim-deco-left.png" x={0} y={352} w={239} h={429} />
       <Img src="/media/home/pim-deco-right.png" x={1183} y={57} w={224} h={628} />
 
-      <Txt as="h2" x={68} y={115} size={34.6} weight={700} leading={49} uppercase>
+      <Txt as="h2" x={68} y={115} size={34.6} weight={700} leading={49} uppercase reveal={1}>
         {c.title}
       </Txt>
-      <Txt x={68} y={164} size={34.6} weight={700} leading={49} uppercase className="text-art-blue">
+      <Txt x={68} y={164} size={34.6} weight={700} leading={49} uppercase className="text-art-blue" reveal={1}>
         {c.titleAccent}
       </Txt>
-      <Abs x={68} y={216} w={60} h={4} className="bg-art-blue" />
+      <Abs x={68} y={216} w={60} h={4} className="bg-art-blue" reveal={1} />
 
-      <Txt x={68} y={246} w={523} size={22.7} leading={36}>
+      <Txt x={68} y={246} w={523} size={22.7} leading={36} reveal={2}>
         {c.body}
       </Txt>
 
       {ICONS.map((icon, i) => (
         <div key={c.branches[i].id}>
-          <Img src={icon.src} x={icon.x} y={489} w={120} h={123} />
+          <Img src={icon.src} x={icon.x} y={489} w={120} h={123} reveal={3 + i} />
           <Txt
             x={icon.x}
             y={617}
@@ -66,8 +67,8 @@ export function Pim({ c }: { c: HomeContent["pim"] }) {
         const g = BRANCHES[i];
         return (
           <div key={b.id}>
-            <Img src={g.card} x={g.cardX} y={115} w={g.cardW} h={643} />
-            <Img src={b.media.src ?? ""} alt={b.media.alt} x={g.photoX} y={115} w={g.photoW} h={307} />
+            <Img src={g.card} x={g.cardX} y={115} w={g.cardW} h={643} reveal={2 + i} />
+            <Img src={b.media.src ?? ""} alt={b.media.alt} x={g.photoX} y={115} w={g.photoW} h={307} className="media-image" reveal={2 + i} />
 
             <Abs
               x={g.textX - 18}
@@ -99,10 +100,10 @@ export function Pim({ c }: { c: HomeContent["pim"] }) {
               {b.body}
             </Txt>
 
-            <Abs x={g.textX} y={705} w={300}>
+            <Abs x={g.textX} y={697} w={300} h={44}>
               <a
                 href={path("products", "hardware")}
-                className="text-art-blue-alt flex items-center justify-between uppercase hover:underline"
+                className="text-art-blue-alt flex h-full items-center justify-between uppercase hover:underline"
                 style={{ fontSize: u(13), fontWeight: 700, lineHeight: u(29), width: u(230) }}
               >
                 {b.cta}

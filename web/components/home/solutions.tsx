@@ -1,5 +1,6 @@
 import type { HomeContent } from "@/content/types";
 import { Abs, Artboard, Img, Txt, u } from "@/components/artboard";
+import { SolutionsFlow } from "@/components/home/flow";
 
 /**
  * Canva page 6. The four rows look like a grid but are not one: the master
@@ -49,14 +50,14 @@ const PANEL_W = 786;
 
 export function Solutions({ c }: { c: HomeContent["solutions"] }) {
   return (
-    <Artboard id="solutions" className="bg-art-black text-white">
-      <Img src={c.media.src ?? ""} alt={c.media.alt} x={-10} y={-11} w={576} h={557} />
+    <Artboard id="solutions" className="bg-art-black text-white" flow={<SolutionsFlow c={c} />}>
+      <Img src={c.media.src ?? ""} alt={c.media.alt} x={-10} y={-11} w={576} h={557} className="media-image" reveal={2} />
 
-      <Txt as="h2" x={72} y={99} w={1264} size={45.5} weight={700} leading={53} uppercase className="text-center">
+      <Txt as="h2" x={72} y={99} w={1264} size={45.5} weight={700} leading={53} uppercase className="text-center" reveal={1}>
         {c.title} <span className="text-art-blue-solution">{c.titleAccent}</span>
       </Txt>
 
-      <Txt x={41} y={558} w={520} size={22} leading={30}>
+      <Txt x={41} y={558} w={520} size={22} leading={30} reveal={3}>
         {c.body}
       </Txt>
 
@@ -64,7 +65,7 @@ export function Solutions({ c }: { c: HomeContent["solutions"] }) {
         const g = ROWS[i];
         return (
           <div key={item.id}>
-            <Abs x={PANEL_X} y={g.panel.y} w={PANEL_W} h={g.panel.h} className="bg-art-card rounded-xl" />
+            <Abs x={PANEL_X} y={g.panel.y} w={PANEL_W} h={g.panel.h} className="precision-card bg-art-card rounded-xl" reveal={2 + i} />
 
             <Abs
               x={604}

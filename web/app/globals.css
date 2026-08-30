@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+/**
+ * The Canva canvas ships at 1:1 or not at all.
+ *
+ * HOME's seven sections are one 1408×768 master each and there is no second
+ * artboard, so under 1408 the canvas can only be scaled — and measured on the
+ * built page it stops being honest quickly: runs under 12px go 1 → 10 → 39 →
+ * 88 → 113 as the canvas goes 1408 → 1280 → 1024 → 768 → 390. A tablet
+ * "compromise" at 1024 is not a compromise, it is 39 unreadable runs.
+ *
+ * So the switch is not a width breakpoint but the exact condition under which
+ * the master renders as drawn: a frame that can reach 1408 (viewport 1425 less
+ * the widest classic scrollbar) and a screen budget that can hold 768 (viewport
+ * 832 less the 64px header). Below either, `components/home/flow.tsx` takes
+ * over — a real responsive layout, not a fallback.
+ */
+@custom-variant canvas (@media (min-width: 1425px) and (min-height: 832px));
+
 /* ==========================================================================
    DESIGN TOKENS
 
@@ -103,15 +120,76 @@
   --color-roadmap-bg: #3a2c0c;
 }
 
-/* Sticky header height — anchors, snap points and full-screen blocks all read it. */
+/* ==========================================================================
+   THE FRAME — one outer layout for the whole site (GM, 2026-08-30)
+
+   Before this the site shipped three different outer frames side by side: the
+   header full-bleed, the seven HOME artboards full-bleed, and PRODUCTS /
+   CONTACT / footer capped at `max-w-6xl`. Measured at 1857px the header's left
+   edge sat 344px away from the body's. Every width on the site now comes from
+   the four tokens below, and nothing may invent its own.
+
+   `--frame-max` is the Canva canvas width, so an artboard renders at exactly
+   1:1 at the cap and never scales past it.
+
+   `--frame-pad` is the canvas's own left margin — the hero headline starts at
+   x=61 of 1408, i.e. 4.332% — expressed so that it stays that same fraction at
+   every width up to the cap, then holds at 61px. Below ~462px the 20px floor
+   takes over, which is the phone gutter the site already used. `vw` rather than
+   a container query because up to the cap the frame *is* the viewport, and the
+   scrollbar's ~17px costs under a pixel of accuracy.
+   ========================================================================== */
 :root {
   --header-h: 3.5rem;
+  --reading-progress: 0;
+
+  --frame-max: 88rem; /* 1408px — the Canva canvas */
+  --frame-pad-min: 1.25rem; /* 20px — phone gutter */
+  --frame-pad-max: 3.8125rem; /* 61px — the canvas margin at 1:1 */
+  --frame-pad: clamp(var(--frame-pad-min), 4.332vw, var(--frame-pad-max));
+
+  /* The one vertical unit. Every full-screen block and every artboard measures
+     itself against this, so "one block = one screen" means one number. */
+  --screen-budget: calc(100svh - var(--header-h));
 }
 
 @media (min-width: 640px) {
   :root {
     --header-h: 4rem;
   }
+}
+
+/* The frame with its inset — text content: header row, PRODUCTS, CONTACT, footer. */
+.frame {
+  width: 100%;
+  max-width: var(--frame-max);
+  margin-inline: auto;
+  padding-inline: var(--frame-pad);
+}
+
+/* The same box without the inset — for art that carries its own margins. */
+.frame-bleed {
+  width: 100%;
+  max-width: var(--frame-max);
+  margin-inline: auto;
+}
+
+/**
+ * A HOME artboard, from `md` up. A fixed-aspect canvas can obey the width law
+ * or the height law but not both, so it obeys whichever binds first: it fits
+ * inside the frame AND inside the one-screen budget. That is what stops the
+ * hero from standing 1004px tall in an 877px budget at 1857x941, which is what
+ * it did while the canvas was merely `w-full`.
+ *
+ * The colour band around it is painted by the parent <section>, so a window
+ * wider than 1408 or shorter than ~830 letterboxes the art in its own tone
+ * rather than showing bare page canvas.
+ */
+.artboard {
+  width: min(100%, var(--frame-max), calc(var(--screen-budget) * 1408 / 768));
+  margin-inline: auto;
+  aspect-ratio: 1408 / 768;
+  container-type: inline-size;
 }
 
 html {
@@ -140,6 +218,255 @@ body {
   color: var(--color-fg);
   font-family: var(--font-sans);
   font-synthesis-weight: none;
+}
+
+/* HOME — Precision in Motion
+   Motion decorates the reading order without becoming another information
+   layer. Durations are short, distances stay inside one text line, and only
+   composited properties move. */
+.site-header {
+  isolation: isolate;
+  backdrop-filter: blur(14px) saturate(1.08);
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-art-blue-solution) 24%, transparent);
+  pointer-events: none;
+}
+
+.header-cta {
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--color-art-blue) 24%, transparent);
+}
+
+.reading-progress {
+  position: absolute;
+  z-index: 2;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-art-blue), var(--color-art-cyan));
+  transform: scaleX(var(--reading-progress));
+  transform-origin: left center;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.home-flow-block {
+  position: relative;
+}
+
+.hero-experience > [data-motion-section] {
+  min-height: var(--screen-budget);
+  display: flex;
+  align-items: center;
+}
+
+.hero-experience > [data-motion-section] > .canvas\:hidden {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .hero-flow {
+    min-height: var(--screen-budget);
+    align-content: center;
+    gap: 1rem;
+    padding-block: 1.5rem;
+  }
+
+  .hero-copy-slot {
+    min-height: 14.125rem;
+  }
+}
+
+.home-flow-block::before {
+  content: "";
+  position: absolute;
+  inset-inline: var(--frame-pad);
+  top: 0;
+  height: 1px;
+  background: color-mix(in srgb, currentColor 11%, transparent);
+  pointer-events: none;
+}
+
+.hero-copy {
+  animation: hero-copy-in 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-copy-lead {
+  animation-delay: 80ms;
+}
+
+.hero-cta {
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--color-art-blue-deep) 14%, transparent);
+}
+
+.hero-rail {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--color-art-dot);
+}
+
+.hero-rail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-art-blue), var(--color-art-cyan));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-rail.is-active::after {
+  transform: scaleX(1);
+}
+
+.media-frame {
+  isolation: isolate;
+  box-shadow: 0 18px 46px color-mix(in srgb, var(--color-art-black) 16%, transparent);
+}
+
+.media-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.media-image {
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), filter 350ms ease;
+  will-change: transform;
+}
+
+.home-flow-block .precision-card {
+  box-shadow: 0 14px 36px color-mix(in srgb, var(--color-art-black) 10%, transparent);
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    box-shadow 260ms ease;
+}
+
+.core-engine {
+  overflow: hidden;
+}
+
+.core-signal {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.core-signal::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -24%;
+  width: 18%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-art-cyan) 34%, transparent),
+    transparent
+  );
+  filter: blur(8px);
+  transform: skewX(-12deg) translateX(0);
+  opacity: 0;
+}
+
+.motion-ready [data-motion-section]:not(.is-revealed) [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+}
+
+.motion-ready [data-motion-section].is-revealed [data-reveal] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.motion-ready [data-motion-section].is-revealed [data-reveal="2"] {
+  transition-delay: 70ms;
+}
+
+.motion-ready [data-motion-section].is-revealed [data-reveal="3"] {
+  transition-delay: 140ms;
+}
+
+.motion-ready [data-motion-section].is-revealed [data-reveal="4"] {
+  transition-delay: 210ms;
+}
+
+.motion-ready [data-motion-section].is-revealed [data-reveal="5"] {
+  transition-delay: 280ms;
+}
+
+.motion-ready [data-motion-section].is-revealed [data-reveal="6"] {
+  transition-delay: 350ms;
+}
+
+.motion-ready [data-motion-section].is-revealed .core-signal::before {
+  animation: core-signal-sweep 1100ms 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .header-cta:hover {
+    box-shadow: 0 12px 30px color-mix(in srgb, var(--color-art-blue) 34%, transparent);
+  }
+
+  .media-frame:hover .media-image,
+  .media-image:hover {
+    transform: scale(1.018);
+  }
+
+  .home-flow-block .precision-card:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--color-art-cyan) 42%, currentColor);
+    box-shadow: 0 22px 48px color-mix(in srgb, var(--color-art-black) 16%, transparent);
+  }
+
+  .news-item .media-image:hover {
+    transform: none;
+  }
+}
+
+@keyframes hero-copy-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes core-signal-sweep {
+  0% {
+    opacity: 0;
+    transform: skewX(-12deg) translateX(0);
+  }
+  18%,
+  72% {
+    opacity: 0.82;
+  }
+  100% {
+    opacity: 0;
+    transform: skewX(-12deg) translateX(780%);
+  }
 }
 
 /* Dark brand anchors. The grid is the same crossbar motif used throughout the
@@ -352,6 +679,23 @@ h3 {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .hero-copy,
+  .motion-ready [data-motion-section].is-revealed .core-signal::before {
+    animation: none;
+  }
+
+  .media-image,
+  .hero-rail::after,
+  .home-flow-block .precision-card,
+  .motion-ready [data-motion-section].is-revealed [data-reveal] {
+    transition: none;
+  }
+
+  .motion-ready [data-motion-section] [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 
 }

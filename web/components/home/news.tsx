@@ -1,5 +1,6 @@
 import type { HomeContent } from "@/content/types";
 import { Abs, Artboard, Img, Txt, u } from "@/components/artboard";
+import { NewsFlow } from "@/components/home/flow";
 
 /**
  * Canva page 7. Four cards, but not four identical cards: the master shrank
@@ -59,16 +60,16 @@ const CARDS = [
 
 export function News({ c }: { c: HomeContent["news"] }) {
   return (
-    <Artboard id="news" className="text-art-navy bg-white">
+    <Artboard id="news" className="text-art-navy bg-white" flow={<NewsFlow c={c} />}>
       <Img src="/media/home/news-deco-left.png" x={0} y={104} w={200} h={171} />
       <Img src="/media/home/news-deco-right.png" x={1234} y={69} w={216} h={188} />
       <Img src="/media/home/news-rule-left.png" x={305} y={130} w={100} h={18} />
       <Img src="/media/home/news-rule-right.png" x={1003} y={130} w={100} h={18} />
 
-      <Txt as="h2" x={449} y={107} w={511} size={53.9} weight={700} leading={59} uppercase className="text-center">
+      <Txt as="h2" x={449} y={107} w={511} size={53.9} weight={700} leading={59} uppercase className="text-center" reveal={1}>
         {c.title}
       </Txt>
-      <Txt x={265} y={186} w={880} size={20.3} leading={26} className="text-center">
+      <Txt x={265} y={186} w={880} size={20.3} leading={26} className="text-center" reveal={2}>
         {c.lead}
       </Txt>
 
@@ -76,9 +77,9 @@ export function News({ c }: { c: HomeContent["news"] }) {
         const g = CARDS[i];
         return (
           <div key={item.id}>
-            <Img src={g.art} x={g.x} y={257} w={g.w} h={461} />
+            <Img src={g.art} x={g.x} y={257} w={g.w} h={461} reveal={3 + i} />
             {item.media.src ? (
-              <Img src={item.media.src} alt={item.media.alt} x={g.x} y={274} w={g.w} h={222} fit="cover" />
+              <Img src={item.media.src} alt={item.media.alt} x={g.x} y={274} w={g.w} h={222} fit="cover" reveal={3 + i} />
             ) : null}
 
             <Txt x={g.textX} y={497} size={g.dateSize} weight={700} uppercase>

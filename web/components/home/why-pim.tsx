@@ -1,5 +1,6 @@
 import type { HomeContent } from "@/content/types";
 import { Abs, Artboard, Img, Rich, Txt } from "@/components/artboard";
+import { WhyPimFlow } from "@/components/home/flow";
 
 /**
  * Canva page 4. The three cards are not identical in the master — Canva shrank
@@ -72,8 +73,8 @@ const CARDS = [
 
 export function WhyPim({ c }: { c: HomeContent["whyPim"] }) {
   return (
-    <Artboard id="why-pim" className="bg-art-black text-white">
-      <Img src={c.media.src ?? ""} alt={c.media.alt} x={798} y={-34} w={674} h={644} />
+    <Artboard id="why-pim" className="bg-art-black text-white" flow={<WhyPimFlow c={c} />}>
+      <Img src={c.media.src ?? ""} alt={c.media.alt} x={798} y={-34} w={674} h={644} className="media-image" reveal={2} />
 
       {/* The master breaks this headline itself; `whitespace-pre-line` keeps
           that break instead of letting the box width invent another one. */}
@@ -85,11 +86,12 @@ export function WhyPim({ c }: { c: HomeContent["whyPim"] }) {
         weight={600}
         leading={56}
         className="whitespace-pre-line"
+        reveal={1}
       >
         <Rich value={c.title} accent="text-art-blue-num" />
       </Txt>
 
-      <Txt x={121} y={231} w={800} size={21.1} leading={31}>
+      <Txt x={121} y={231} w={800} size={21.1} leading={31} reveal={2}>
         {c.body}
       </Txt>
 
@@ -97,7 +99,7 @@ export function WhyPim({ c }: { c: HomeContent["whyPim"] }) {
         const g = CARDS[i];
         return (
           <div key={item.id}>
-            <Img src={g.card} x={g.x} y={455} w={g.w} h={298} />
+            <Img src={g.card} x={g.x} y={455} w={g.w} h={298} reveal={3 + i} />
             <Img src={g.ring} x={g.ringX} y={393} w={138} h={126} />
             <Img src={g.glyph} x={g.glyph_.x} y={g.glyph_.y} w={g.glyph_.w} h={g.glyph_.h} />
 

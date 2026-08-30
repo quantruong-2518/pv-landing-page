@@ -13,10 +13,26 @@ import { cn } from "@/lib/cn";
  * the same helper has to size type, line-height and vertical offsets too, and
  * only a width-derived unit keeps all of them in proportion.
  *
- * Reflowing this for narrow viewports is a separate pass (GM: "UI/UX tối ưu sau").
+ * The canvas is the site's width standard: `--frame-max` in `globals.css` is
+ * 1408px, so at and above the cap this art renders at exactly the size it was
+ * drawn, and the header and the body text below it share its margins.
+ *
+ * **The canvas ships at 1:1 or not at all** — the `canvas:` variant defined at
+ * the top of `globals.css`, which is where the reasoning and the measurements
+ * live. Under that condition every section renders the responsive flow layout
+ * in `components/home/flow.tsx` instead: same content, same order, type on a
+ * rem scale (GM, 2026-08-30, closing `docs/05-backlog.md` #42).
  */
 export const CANVAS_W = 1408;
 export const CANVAS_H = 768;
+
+/**
+ * The viewport the canvas needs to render at 1:1 — `CANVAS_W` plus the widest
+ * classic scrollbar, and `CANVAS_H` plus the header. These are the two numbers
+ * inside the `canvas:` variant; they are exported so a reviewer measuring the
+ * switch reads them from one place rather than from a media query string.
+ */
+export const CANVAS_MIN_VIEWPORT = { width: 1425, height: 832 };
 
 export const u = (px: number) => `${((px / CANVAS_W) * 100).toFixed(4)}cqw`;
 
@@ -34,22 +50,39 @@ const textTop = (y: number, size: number, leading?: number) =>
 /** Viewport share an image occupies, so `next/image` picks a sane srcset entry. */
 const sizeHint = (w: number) => `${Math.min(100, Math.ceil((w / CANVAS_W) * 100))}vw`;
 
+/**
+ * One section of HOME: a colour band spanning the viewport, with the canvas
+ * centred inside it on the site frame.
+ *
+ * The band carries the background so that a window wider than the frame — or
+ * shorter than the canvas needs — letterboxes the art in its own tone instead
+ * of exposing the page canvas behind it. Geometry lives in `.artboard`
+ * (globals.css), which fits the canvas to the frame and to the screen budget
+ * at once.
+ *
+ * `flow` is the same section written as flow, shown whenever the `canvas:`
+ * condition fails. Both trees are in the DOM and one is `display:none`, which
+ * takes it out of the accessibility tree and stops its lazy images from
+ * loading; the two share image URLs, so a shot used by both is fetched once.
+ */
 export function Artboard({
   id,
   className,
+  flow,
   children,
 }: {
   id?: string;
   className?: string;
+  flow?: ReactNode;
   children: ReactNode;
 }) {
   return (
-    <section
-      id={id}
-      className={cn("font-artboard relative w-full overflow-hidden", className)}
-      style={{ aspectRatio: `${CANVAS_W} / ${CANVAS_H}`, containerType: "inline-size" }}
-    >
-      {children}
+    <section id={id} data-motion-section className={cn("font-artboard relative w-full snap-start", className)}>
+      {flow ? <div className="canvas:hidden">{flow}</div> : null}
+
+      <div className={cn("artboard relative overflow-hidden", flow ? "hidden canvas:block" : undefined)}>
+        {children}
+      </div>
     </section>
   );
 }
@@ -62,6 +95,7 @@ export function Abs({
   h,
   className,
   style,
+  reveal,
   children,
 }: {
   x: number;
@@ -70,10 +104,12 @@ export function Abs({
   h?: number;
   className?: string;
   style?: CSSProperties;
+  reveal?: number;
   children?: ReactNode;
 }) {
   return (
     <div
+      data-reveal={reveal}
       className={cn("absolute", className)}
       style={{
         left: u(x),
@@ -103,6 +139,7 @@ export function Txt({
   tracking,
   uppercase,
   className,
+  reveal,
   style,
   children,
 }: {
@@ -116,11 +153,13 @@ export function Txt({
   tracking?: number;
   uppercase?: boolean;
   className?: string;
+  reveal?: number;
   style?: CSSProperties;
   children: ReactNode;
 }) {
   return (
     <Tag
+      data-reveal={reveal}
       className={cn("absolute", uppercase && "uppercase", className)}
       style={{
         left: u(x),
@@ -165,7 +204,9 @@ export function Img({
   h,
   fit = "contain",
   priority,
+  sizes,
   className,
+  reveal,
 }: {
   src: string;
   alt?: string;
@@ -175,15 +216,17 @@ export function Img({
   h: number;
   fit?: "contain" | "cover";
   priority?: boolean;
+  sizes?: string;
   className?: string;
+  reveal?: number;
 }) {
   return (
-    <div className="absolute" style={{ left: u(x), top: u(y), width: u(w), height: u(h) }}>
+    <div data-reveal={reveal} className="absolute" style={{ left: u(x), top: u(y), width: u(w), height: u(h) }}>
       <Image
         src={src}
         alt={alt}
         fill
-        sizes={sizeHint(w)}
+        sizes={sizes ?? sizeHint(w)}
         priority={priority}
         className={cn(fit === "cover" ? "object-cover" : "object-contain", className)}
       />

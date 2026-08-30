@@ -5,7 +5,19 @@ import type { Application, FactStatus, Intro, Item, Media, Origin, Spec } from "
 
 /* ── Frame ───────────────────────────────────────────────────────────────── */
 
-export const SHELL = "mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10";
+/**
+ * The site frame. One cap, one gutter, everywhere — header row, every block on
+ * PRODUCTS and CONTACT, the footer, and the HOME artboards (which use the
+ * uninset `.frame-bleed`/`.artboard` variants because the Canva art carries its
+ * own margins). The numbers live in `globals.css` under THE FRAME; changing the
+ * site's width means changing `--frame-max` there and nowhere else.
+ *
+ * Widened from `max-w-6xl` (1152px) to the 1408px canvas on 2026-08-30: the cap
+ * has to be the canvas width for HOME to render 1:1, and a second cap for the
+ * text pages is the three-frames problem again. Reading measure is unaffected —
+ * prose keeps its own `max-w-2xl`/`max-w-3xl`, which is what sets line length.
+ */
+export const SHELL = "frame";
 
 /** Two hierarchy levels: a marked boundary between groups and a quiet rule
  * between sibling items inside one group. */
@@ -84,7 +96,9 @@ export function Section({
           : screen
             ? "py-6 sm:py-20 lg:py-24"
             : "py-14 sm:py-20 lg:py-24",
-        screen && "min-h-[calc(100svh-var(--header-h))] snap-start",
+        // `--screen-budget` is the site's one vertical unit (globals.css) — the
+        // same number the HOME artboards fit themselves to.
+        screen && "min-h-[var(--screen-budget)] snap-start",
         tone === "dark" && "tone-dark bg-bg text-fg",
         className,
       )}

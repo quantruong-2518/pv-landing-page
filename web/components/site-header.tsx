@@ -10,9 +10,11 @@ import { cn } from "@/lib/cn";
  * (docs/03-structure.md §7). The button is present at every width — hiding the
  * conversion path inside the hamburger is the classic loss.
  *
- * Full-bleed with proportional padding, not the site `SHELL`: the HOME sections
- * below it are full-bleed artboards, and a 1152px-capped header floating over
- * them reads as a different page.
+ * On the site frame (`.frame`, globals.css) like everything else since
+ * 2026-08-30. It used to be full-bleed with its own `lg:px-[3.8%]` because the
+ * artboards below it were full-bleed too and a 1152px-capped header floating
+ * over them read as a different page. Both are now capped at the 1408px canvas
+ * and share one gutter, so the wordmark sits exactly above the hero headline.
  *
  * CONTACT is deliberately absent from the nav list (GM, 2026-08-24): the button
  * beside it already goes there, and a link and a button pointing at the same
@@ -42,7 +44,7 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
   const ctaHref = page === "products" ? path("products", "book") : path("home", "contact");
 
   return (
-    <header className="bg-art-black font-artboard sticky top-0 z-50 text-white shadow-[0_10px_28px_rgb(4_12_19_/_0.28)]">
+    <header className="site-header bg-art-black font-artboard sticky top-0 z-50 text-white shadow-[0_10px_28px_rgb(4_12_19_/_0.28)]">
       <a
         href="#main"
         className="focus:bg-art-blue sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:px-3 focus:py-2 focus:text-sm focus:text-white"
@@ -50,10 +52,10 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
         {c.nav.skipToContent}
       </a>
 
-      <div className="mx-auto flex h-[var(--header-h)] w-full items-center justify-between gap-3 px-5 sm:px-8 lg:px-[3.8%]">
-        <a href={path("home")} className="hover:text-art-blue-solution flex h-full items-center gap-2.5 transition-colors">
+      <div className="frame flex h-[var(--header-h)] items-center justify-between gap-3">
+        <a href={path("home")} className="group hover:text-art-blue-solution flex h-full min-w-11 items-center gap-2.5 transition-colors duration-200">
           <Image src="/brand/pebble-vina-mark.png" alt="" width={28} height={26} className="h-7 w-auto" priority />
-          <span className="text-[0.94rem] font-bold uppercase leading-[1.05] tracking-[0.1em] sm:text-base">
+          <span className="text-[0.94rem] font-bold uppercase leading-[1.05] tracking-[0.1em] transition-transform duration-200 group-hover:translate-x-0.5 sm:text-base">
             Pebble
             <br />
             Vina
@@ -68,7 +70,7 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
                 href={path(l.key)}
                 aria-current={l.key === page ? "page" : undefined}
                 className={cn(
-                  "after:bg-art-blue-solution relative flex h-full items-center text-[0.95rem] font-bold transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:transition-transform",
+                  "after:bg-art-blue-solution relative flex h-full items-center text-[0.95rem] font-bold transition-colors duration-200 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:transition-transform after:duration-200",
                   l.key === page
                     ? "text-white after:scale-x-100"
                     : "hover:text-art-blue-solution text-white/85 after:scale-x-0 hover:after:scale-x-100",
@@ -84,7 +86,7 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
               the header row. Both labels are existing content keys. */}
           <a
             href={ctaHref}
-            className="bg-art-blue whitespace-nowrap rounded-md px-3 py-2 text-[0.8rem] font-bold text-white transition-opacity hover:opacity-90 sm:px-4 sm:text-[0.95rem]"
+            className="header-cta bg-art-blue inline-flex min-h-11 items-center whitespace-nowrap rounded-md px-3 py-2 text-[0.8rem] font-bold text-white transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-px sm:px-4 sm:text-[0.95rem]"
           >
             <span className="sm:hidden">{c.nav.contact}</span>
             <span className="hidden sm:inline">{c.nav.cta}</span>
@@ -103,6 +105,7 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
           />
         </div>
       </div>
+      {page === "home" ? <span className="reading-progress" aria-hidden /> : null}
     </header>
   );
 }

@@ -36,7 +36,7 @@ export function SiteFooter({ c }: { c: SiteContent }) {
       <div className={cn(SHELL, "py-10 sm:py-14")}>
         <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 sm:gap-10 lg:grid-cols-12 lg:gap-x-8">
           <div className="border-t border-line pt-4 lg:col-span-4">
-            <a href={path("home")} className="inline-flex items-center gap-2.5 transition-colors hover:text-accent">
+            <a href={path("home")} className="inline-flex min-h-11 items-center gap-2.5 transition-colors hover:text-accent">
               <Image src="/brand/pebble-vina-mark.png" alt="" width={30} height={28} className="h-7 w-auto" />
               <span className="font-display text-lg font-semibold tracking-[0.04em] uppercase">{SITE.name}</span>
             </a>

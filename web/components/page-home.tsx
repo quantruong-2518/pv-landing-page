@@ -7,6 +7,7 @@ import { Core } from "@/components/home/core";
 import { Solutions } from "@/components/home/solutions";
 import { News } from "@/components/home/news";
 import { Contact } from "@/components/home/contact";
+import { HomeMotion } from "@/components/home/motion";
 
 /**
  * HOME is the eight pages of the Canva master "Home - Pebble Vina" in order —
@@ -16,6 +17,7 @@ import { Contact } from "@/components/home/contact";
 export function HomePage({ c }: { c: SiteContent }) {
   return (
     <PageShell c={c} page="home">
+      <HomeMotion />
       <Hero c={c.home.hero} />
       <Pim c={c.home.pim} />
       <WhyPim c={c.home.whyPim} />
