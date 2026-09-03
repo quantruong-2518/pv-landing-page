@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "content_type": "marketing",
+  "score": 87,
+  "dimensions": {
+    "specificity": 16,
+    "buyer_relevance": 18,
+    "claim_integrity": 20,
+    "human_naturalness": 12,
+    "value_density": 13,
+    "locale_nativeness": 8
+  },
+  "hard_failures": [],
+  "failures": []
+}

@@ -1,0 +1,58 @@
+{
+  "content_type": "marketing",
+  "id": "products.labels-and-alts",
+  "locales": [
+    "vi"
+  ],
+  "semantic_spec": "content-system/specs/products.yaml — decisions/catalogue_band_gpu_relabel_2026_09_03, training_kicker_2026_09_03, espresso_capability_alts_2026_09_03, e_series_catalogue_alt_2026_09_03",
+  "entries": [
+    {
+      "key": "products.hardware.catalogGroups.gpu",
+      "component": "label",
+      "notes": "RELABEL of \"GP-GPU Solution\", which was the Canva master's word kept on 2026-09-03 with a recorded conflict and no claim attached. The conflict is now closed: GP-GPU is not the architecture, GP-DSA is (C041, proof bank §E5), and the E-Series spec panel directly below this band says GP-DSA four times — tagline, technologyLabel, body, AI Compiler item. A signpost that names an architecture is read as an architecture statement by the one reader who checks, and this one contradicted the panel under it. The replacement names the FORM instead, which is the only job the band has: `chip` line above, `card` below, so E10/E20 do not read as a fourth chip. Wording is not new to the page — proof bank §E5 titles the family \"E-Series AI Compute Accelerators\" and three existing alt strings already say `Card tăng tốc AI`. `card` is the loanword Vietnamese IT actually uses (references/locales/vi.md: do not invent an equivalent nobody says), and the block already says `hệ thống đa card` and `cụm đa card`. No claim cited, exactly as before — the band gains and loses nothing in the ledger. 16 characters, the same length as its sibling `Dòng chip NPU AI`, which matters because the band sits in one of six lg columns (~180px) at font-mono 0.7rem with 0.14em tracking and wraps to two lines if it grows. Stored sentence case; catalog-index.tsx uppercases it, and the same string is the `aria-label` of its `<section>`.",
+      "locales": {
+        "vi": "Card tăng tốc AI"
+      }
+    },
+    {
+      "key": "products.training.kicker",
+      "component": "eyebrow",
+      "notes": "REPAIR routed by web-ui-engineer, measured at every viewport 360–1920px: `03 · Đào tạo AI doanh nghiệp` sat one line above `Đào tạo AI doanh nghiệp theo nhu cầu thực tế` in the same visual weight, so the headline restated the kicker's five words verbatim. Worst on mobile, where the headline wraps and line 1 is almost entirely the repeat. Cut to the bare category noun, which is the pattern the two siblings already use — `01 · Phần cứng`, `02 · Phần mềm`, neither of which repeats its block's headline. The headline is left alone; it is the line doing descriptive work now, and `AI` arrives in the very next element. CLAIM AND LABEL DROPPED, deliberately and not silently: the compiled value in products.vi.json was `03 · Đào tạo AI doanh nghiệp · khảo sát 2027`, carrying C040 and a roadmap label, and vi.ts had already shortened it away from the year in an earlier round. The 2027 survey boundary survives four times inside this same band, all below the kicker — training.lead (\"Năm 2027, Pebble Vina dự kiến khảo sát nhu cầu trước khi thiết kế bất kỳ chương trình nào.\"), offer.tagline (\"Thiết kế sau khảo sát 2027\"), offer.calloutNote, and the StatusBadge on offer.statusNote (\"Khảo sát nhu cầu · 2027\") — plus indexStageLabel on the catalogue card two screens up. A signpost that states nothing cites nothing. If a later round strips any of those four carriers, the year comes back into this kicker.",
+      "locales": {
+        "vi": "03 · Đào tạo"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[0].media.alt",
+      "component": "caption",
+      "notes": "NEW — this alt shipped empty while all ten MINT and PAPAYA application cards carried one. Written against the pixels, not the filename: /media/apps/espresso-ai-pc.webp was opened and viewed on 2026-09-03. Depicted: a small black upright desktop chassis, dense perforated mesh over the front face, a thin brass line along the top edge, a small amber indicator low on the front. Three clauses — object, then two physical details — the shape the sibling alts use (compare `Bảng điều khiển nhà thông minh gắn tường, mặt kính đen viền kim loại, đèn trạng thái xanh lá.`). NO CLAIM, NO STATUS LABEL, and that is the point rather than an omission: this is a generic machine-class render, not ESPRESSO hardware, so the alt names no product and says nothing about what runs inside it. Describing the picture is what keeps CLAUDE.md §2 rule 4 intact — an alt reading `máy tính AI chạy chip ESPRESSO` would assert a part that does not exist yet. The roadmap boundary belongs to the card's own three elements, which a screen reader reaches immediately after the image: title `AI PC`, dateNote `Dự kiến Q3/2026`, body `Mục tiêu cho AI chạy trên máy tính cá nhân.` No background stated — the file is a transparent-background render, as all ten on this rail are.",
+      "locales": {
+        "vi": "Thùng máy tính để bàn cỡ nhỏ màu đen, mặt trước lưới đục lỗ, viền vàng đồng ở cạnh trên."
+      }
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[1].media.alt",
+      "component": "caption",
+      "notes": "NEW — written from /media/apps/espresso-robot-arm.webp, opened and viewed 2026-09-03. Depicted: an articulated arm in glossy white shell panels over polished metal joints, mounted on a round base, ending in a five-fingered metallic hand. `Cánh tay robot` matches the card title `Robotics` and the block body, which already names Robotics as a roadmap target. Not called `công nghiệp` — the humanoid five-fingered hand is not an industrial gripper and the alt may not tighten a description the image does not support. Same three-clause shape and same silence on claims as its two siblings on this rail: the machine is generic, the ESPRESSO boundary is carried by the card's dateNote.",
+      "locales": {
+        "vi": "Cánh tay robot vỏ trắng bóng, các khớp kim loại sáng, bàn tay máy năm ngón ở đầu."
+      }
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[2].media.alt",
+      "component": "caption",
+      "notes": "NEW — written from /media/apps/espresso-ai-server.webp, opened and viewed 2026-09-03. Depicted: a flat rack-mount server, dark chassis, a bank of drive caddies with brass trim across the front face, rack ears at both ends. Two clauses rather than three because the third candidate — the vent grille on the left — fails the delete test: it does not help anyone identify the object, and the rail already carries two dense alts. NO rack-unit height stated: the chassis reads as 1U or 2U from this angle and the alt may not assert a specification it cannot see, least of all on a card whose product does not exist yet. No claim, no status label, for the reason recorded on capabilities[0].",
+      "locales": {
+        "vi": "Máy chủ gắn rack thân dẹt màu đen, mặt trước là dãy khay ổ cứng nẹp vàng đồng."
+      }
+    },
+    {
+      "key": "products.hardware.items[3].media.alt",
+      "component": "caption",
+      "notes": "LEDGER CORRECTION, not a rewrite. products.vi.json compiled a family-level string (`Dòng card tăng tốc AI E-Series của Pebble Square.`); the page has been shipping the literal E10 description instead, and the two have been out of step. The literal one wins and the ledger follows it. Reasons, in order: alt describes the image, and the image is one E10 card — /media/chips/e10.webp, opened and viewed 2026-09-03, a full-height PCIe card with a brushed silver aluminium shroud, black vented bracket and gold PCIe edge connector, which is exactly what the string says. A family-level alt would describe a family, which is not depicted, and that is the accessibility failure of telling a non-sighted reader what a sighted one cannot see while withholding what they can. The family framing is not lost: the image sits inside the card's `<a>`, so the accessible name continues into the visible name `E-Series · E10 / E20` and then the stage badge. And the old string described nothing visual at all — by the delete test it should have been empty rather than that. IDENTICAL to variants[0].media.alt on purpose: one image file used twice on one page gets one description, and making the two differ would describe the same picture two ways. No claim cited — the previous entry cited C041, which is a category error: C041 states the GP-DSA architecture and the precision range, and a photograph of a heatsink states neither.",
+      "locales": {
+        "vi": "Card tăng tốc AI E10 PCIe với vỏ nhôm bạc và đầu nối PCIe."
+      }
+    }
+  ]
+}

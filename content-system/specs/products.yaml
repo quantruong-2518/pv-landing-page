@@ -4,6 +4,12 @@
 # docs/02-message-map.md, docs/03-structure.md §1 §4b,
 # content-system/claims/approved.yaml, GM intake 2026-08-25.
 #
+# REPAIR 2026-09-03 (decisions/*_2026_09_03). The page was rebuilt on the Canva master
+# "Product - Pebble Vina" (1536x1024, 7 artboards, read 2026-09-02): every block is now
+# dark band -> white specification island -> application row -> one CTA. That anatomy opened
+# nine content slots and closed eight. Named-key repair only — no block below is recompiled.
+# Artifact: content-system/output/products.canva-master.vi.json.
+#
 # `docs/` and `context/` are written ABOUT the page. They are not the page. Read them for FACTS,
 # never for editorial framing. `context/` carries English sentence shape — MATERIAL, not copy.
 #
@@ -122,7 +128,7 @@ decisions:
     still_open: []
   proof_density:
     question: how many figures each hardware block should foreground
-    answered: show the same ordered three-row metric list for every chip family: Performance, Efficiency, Die or Chip Area
+    answered: "show the same ordered three-row metric list for every chip family: Performance, Efficiency, Die or Chip Area"
     but: source, evidence status and roadmap qualification may not be removed; E-Series uses Compute, Memory and Connectivity because it is an accelerator family rather than a chip die
     consequence: split verified values out of the source note; never parse or infer a missing metric in the component
     still_open: []
@@ -186,6 +192,7 @@ decisions:
     but: transitions may not add a claim or repeat the body
     consequence: add a transition slot to hardware items, the enterprise group and the training offer
     still_open: []
+    superseded_by: narrative_bridges_retired_2026_09_03
   background_reset:
     question: whether the redesign also defines the final section-background system
     answered: no; remove every PRODUCTS section fill, dark tone, crossbar and alternating surface first
@@ -204,6 +211,386 @@ decisions:
     but: do not repeat contact.intro title, lead, form title or office image on PRODUCTS; there is still one form implementation
     consequence: reuse the contact fields, validation, submit and success state beneath products.followUp
     still_open: []
+    superseded_by: block_cta_2026_09_03
+
+  # ── Repair 2026-09-03 — the Canva master "Product - Pebble Vina" ────────────
+  canva_master_repair_2026_09_03:
+    question: which keys move now that the page anatomy follows the Canva master
+    answered: >-
+      nine slots are filled (catalogue heading and lead, two index band labels, six long-form
+      block headlines, one training callout, one roadmap date note, one block CTA), three
+      ESPRESSO application titles are repaired, and eight slots are retired
+    but: >-
+      no block below is recompiled. Every body, tagline, metric, source line and status note
+      keeps the wording approved on 2026-08-25 and on the 2026-08-24 PAPAYA repair
+    consequence: >-
+      write only the keys named in this repair. A block that reads badly next to a new headline
+      is a finding for the next round, not a licence to rewrite it in this one.
+    still_open: []
+
+  canva_fidelity_2026_09_03:
+    question: how closely the Vietnamese follows the strings drawn in the Canva master
+    answered: the master is the wording source; spelling, casing and terminology are corrected to repo law
+    but: >-
+      the master is a design file, not a proof source. Four of its strings are wrong and do not
+      ship: "NVIDIA Jetson Nano" on the PAPAYA base-station row (proof bank §E2 says NVIDIA L4),
+      "INTB" for INT8, "82% Hoàn thành mục tiêu" on the software artboard (no proof-bank entry),
+      and "phần cứng và phần mềm của Pebble Square" in the catalogue lead (the software and the
+      training are Pebble Vina's — proof bank §F1 §F2)
+    consequence: >-
+      store headings in sentence case because the components apply their own uppercase; use the
+      published proper nouns (Analog-PIM, Digital-PIM, Edge AI) where the master typed them loosely;
+      correct a Canva string whenever the proof bank contradicts it and record the correction here.
+    still_open: []
+
+  catalogue_index_head_2026_09_03:
+    question: what the catalogue strip under the hero says before the reader picks a card
+    answered: one heading naming the two halves of the catalogue, one lead naming who builds which half
+    but: >-
+      the lead may not attribute the enterprise software or the AI training to Pebble Square, and it
+      may not describe any branch as available — maturity is carried per card by indexStageLabel
+    consequence: >-
+      the lead names Pebble Square for hardware and Pebble Vina for software and training, and
+      nothing else. It is navigation, not a capability sentence.
+    still_open: []
+
+  catalogue_band_labels_2026_09_03:
+    question: what the two hardware bands of the index are called
+    answered: the master's own labels — an NPU chip band and a GP-GPU band
+    but: >-
+      "GP-GPU" is the master's market-category word for the accelerator band; the architecture on
+      record is GP-DSA (C041, proof bank §E5) and it stays GP-DSA everywhere it is stated as a fact
+    conflict: >-
+      Canva says GP-GPU, the proof bank says GP-DSA. The band label is a signpost, not an
+      architecture statement, so no claim is cited on it; the E-Series tagline, technology label and
+      body continue to say GP-DSA. If the GM wants one word on the page, this label is the one to
+      change — it costs a string, not a claim.
+    consequence: the band label cites no claim and never appears inside a sentence about the architecture
+    still_open: []
+    superseded_by: catalogue_band_gpu_relabel_2026_09_03
+
+  catalogue_band_gpu_relabel_2026_09_03:
+    question: >-
+      does the index band keep the master's "GP-GPU Solution" now that the block beneath it
+      states GP-DSA four times — the still_open left by catalogue_band_labels_2026_09_03
+    answered: >-
+      no. The band is relabelled to name what the products are — AI accelerator cards — with no
+      architecture acronym in it at all
+    but: >-
+      this is a signpost decision, not a claim change. No claim is gained or lost: the band cited
+      none before and cites none now. GP-DSA remains the architecture word in every slot that
+      states it as a fact — tagline, technologyLabel, body, AI Compiler supporting item
+    consequence: >-
+      the two hardware bands separate by FORM, which is the distinction the index exists to draw
+      (spec slot: "so they do not read as a fourth chip"): chip line versus accelerator card.
+      No band label may carry an architecture acronym again — a signpost that names an
+      architecture is read as an architecture statement by the one reader who checks, and this
+      one contradicted the spec panel directly below it. The label is also the `aria-label` of
+      its `<section>` in catalog-index.tsx, so it is navigation text and must stay short.
+    ceiling: >-
+      the gpu band occupies one of six columns at lg (about 180px) at font-mono 0.7rem uppercase
+      with 0.14em tracking. Keep it at or under the NPU band's length or it wraps to two lines.
+    still_open: []
+
+  block_headlines_2026_09_03:
+    question: what the new long-form headline slot carries above each family
+    answered: product name, then one clause naming what it is and the workload it is for
+    but: >-
+      a headline is a noun phrase, never a tense. It may not say a roadmap part does anything today,
+      and it does not replace the status badge that sits four elements below it in the same band
+    consequence: >-
+      the roadmap families (ESPRESSO, the enterprise suite, the training offer) keep the date in the
+      tagline and the badge directly under the headline, so the label is present at the point of
+      mention without printing the date twice in adjacent lines. If a component ever renders one of
+      these headlines away from its badge — an index, a card, a share image — the date must travel
+      with it.
+    still_open: []
+
+  espresso_date_note_2026_09_03:
+    question: where the Q3/2026 label lives on the three ESPRESSO application cards
+    answered: in its own dateNote field under the card title
+    but: the date is not optional decoration — CLAUDE.md §2 rule 4 requires it on every ESPRESSO mention
+    consequence: >-
+      strip "· dự kiến Q3/2026" from the three capability titles so the date prints once, and fill
+      dateNote on all three cards with the same string. A card that loses its dateNote loses the
+      label, so the two edits are one change and never ship apart.
+    still_open: []
+
+  block_cta_2026_09_03:
+    question: how the page converts now that the embedded contact form is gone
+    answered: one button per hardware, software and training block, all pointing at /vi/contact
+    but: >-
+      the button is a products-page string, not the site-wide header CTA. It borrows nav.cta
+      ("Liên hệ ngay") only until its own key exists
+    consequence: >-
+      the label is compiled as products.ctaLabel. It cannot be applied to web/content/vi.ts until
+      ProductsContent declares the field — vi.ts is typed, and an undeclared key fails the build.
+      The string is validated and waiting; wiring is a web-ui-engineer follow-up (types.ts field
+      plus the three BlockCta call sites in hardware-block, software-block, training-block).
+    still_open: []
+    resolved: >-
+      2026-09-03. ProductsContent.ctaLabel exists (types.ts:337) and all three BlockCta call sites
+      read it with `fallbackLabel={c.nav.cta}`. The approved string was applied from
+      content-system/output/products.canva-master.vi.json unchanged — an apply, not a recompile.
+      The three blocks no longer fall back to the header label.
+
+  # ── Repair 2026-09-03b — findings routed back by web-ui-engineer ───────────
+  training_kicker_2026_09_03:
+    question: >-
+      the training kicker restates its own block headline word for word — measured at every
+      viewport from 360 to 1920px, one line apart, in the same visual weight
+    answered: >-
+      the kicker drops to the bare category noun, matching the terser pattern its two siblings
+      already use. It is a section index, not a second headline
+    but: >-
+      the kicker was the artifact's carrier of the 2027 survey stage
+      ("03 · Đào tạo AI doanh nghiệp · khảo sát 2027"). Shortening it may not remove that
+      qualification from the page
+    consequence: >-
+      the 2027 survey boundary is carried four times inside the same band, all below the kicker:
+      training.lead, offer.tagline, offer.calloutNote and the StatusBadge on offer.statusNote —
+      plus indexStageLabel on the catalogue card. The kicker therefore carries no claim and no
+      status label, and the entry drops C040 for the same reason a signpost cites nothing.
+      If a future round strips any of those four carriers, this kicker has to take the year back.
+    ceiling: >-
+      a section kicker on this page is a bare category noun with its index number. It may not
+      repeat any word sequence from the headline that follows it.
+    still_open: []
+
+  espresso_capability_alts_2026_09_03:
+    question: >-
+      the three ESPRESSO application cards ship with empty `alt`; every MINT and PAPAYA
+      application card has a literal one. What may an ESPRESSO application alt say
+    answered: >-
+      literal visual description of what is depicted, and nothing else — the same three-clause
+      shape the ten sibling alts already use: object, then two physical details
+    but: >-
+      the three images are generic machine-class renders, not ESPRESSO hardware. An alt may not
+      name ESPRESSO, may not say a machine runs it, and may not describe any of them as built,
+      shipping or deployed. Describing the picture is what PREVENTS the implication — an alt
+      reading "máy tính AI chạy chip ESPRESSO" would break CLAUDE.md §2 rule 4 in three places
+      at once
+    consequence: >-
+      the alts state no claim, cite no claim id and carry no status label, because they assert
+      nothing about the product. The roadmap boundary belongs to the card's own three elements —
+      title, dateNote (`Dự kiến Q3/2026`) and body ("Mục tiêu cho …") — which a screen reader
+      reads in that order immediately after the image.
+    verified: >-
+      written against the actual pixels, not the filenames: the three .webp files were opened and
+      viewed on 2026-09-03. All ten application images are transparent-background renders, so no
+      alt on this rail states a background colour.
+    still_open: []
+
+  e_series_catalogue_alt_2026_09_03:
+    question: >-
+      the E-Series catalogue card reuses the E10 image file, so its alt describes an E10 while
+      the card is labelled "E-Series · E10 / E20". Family-level alt, or literal
+    answered: literal. The alt describes the image, and the image is one E10 card
+    but: >-
+      the compiled value in content-system/output/products.vi.json was family-level
+      ("Dòng card tăng tốc AI E-Series của Pebble Square.") and the page has been shipping a
+      literal string instead. The ledger and the page disagreed; this decision makes the ledger
+      follow the page rather than the reverse
+    consequence: >-
+      a family-level alt would describe something not depicted — the accessibility failure of
+      telling a non-sighted reader what a sighted one cannot see, while withholding what they
+      can. The family framing already arrives inside the same `<a>`: the card's visible name
+      "E-Series · E10 / E20" follows the image in the accessible name. Two identical alts for the
+      same image file used twice on one page is correct behaviour, not a duplicate defect, and
+      the two must not be made to differ.
+    verified: >-
+      /media/chips/e10.webp opened and viewed 2026-09-03 — full-height PCIe card, brushed silver
+      aluminium shroud, black vented bracket, gold PCIe edge connector. The shipped string is
+      accurate against the pixels.
+    still_open: []
+
+  narrative_bridges_retired_2026_09_03:
+    question: do the bridge sentences between families survive the new anatomy
+    answered: no — the master has no slot between two blocks, and no component reads `transition`
+    but: the reading line is now carried by the band order and the index, not by a sentence
+    consequence: >-
+      all six transition slots leave the page contract: four hardware items, the enterprise group,
+      the training offer. The strings are emptied in vi.ts and their entries are removed from
+      content-system/output/products.vi.json.
+    still_open: [removing the `transition` fields from web/content/types.ts — web-ui-engineer]
+
+  final_conversion_retired_2026_09_03:
+    question: does the page still end on an embedded contact form
+    answered: no — the page closes on the training block's own button; the full form lives on /vi/contact
+    but: nothing about the contact page changes, and the form implementation is still the single one
+    consequence: >-
+      products.followUp.kicker and products.followUp.title leave the page contract, emptied in vi.ts
+      and removed from the artifact. The products.contact block below keeps only its record of why.
+    still_open: [removing the `followUp` object from web/content/types.ts — web-ui-engineer]
+
+  # ── ship-page round 2, GM answering live in the main session, 2026-09-03 ───
+
+  section_heads_retired_2026_09_03:
+    question: >-
+      six compiled strings never reach a screen — products.{hardware,software,training}.{title,lead}.
+      SectionHead (web/components/ui.tsx:150) is imported only by contact-section.tsx, and the three
+      block components consume intro.kicker alone. Render them or retire them (mkt-204)
+    answered: retire them
+    but: >-
+      one of the six is the only sentence that dated the enterprise suite before the reader met it —
+      "Dự kiến 12/2026: CRM, ERP, HRM và DMS cùng đổ về một màn hình vận hành. AI đề xuất; con người
+      phê duyệt."
+    consequence: >-
+      the master has seven artboards and no branch-heading layer; adding one is a redesign outside
+      the frame the GM approved, on a page already 12,700px tall at 390. The 12/2026 date moves into
+      products.software.groups[0].body, which mkt-209 is rewriting anyway — the date is not lost,
+      it changes owner.
+    still_open: [removing the six fields from web/content/types.ts — web-ui-engineer]
+
+  espresso_date_q3_2026_09_03:
+    question: >-
+      the Canva rebuild changed the ESPRESSO milestone to Q3/2026 in ten places; docs/05-backlog.md
+      #9 records the GM choosing 9/2026 twice, on 21/08 and 24/08. The proof bank holds both — §E0
+      "Ready in Q3 2026", §E3 "Available from Sep. 2026" — and the page may hold only one (mkt-212)
+    answered: Q3/2026, reversing both earlier decisions
+    but: >-
+      this buys no time. Q3 ends 30/09, which is the same clock backlog #9 already set at 01/10/2026
+    consequence: >-
+      no string changes — the page is already consistent at 10/10. docs/05-backlog.md #9 is updated
+      with the reversal and its location list corrected from seven slots to ten. The Private AI slot
+      in the old list no longer exists; the HOME milestone was not audited in this round.
+    still_open: [auditing the ESPRESSO milestone on HOME — a HOME round, not this one]
+
+  catalogue_band_npu_kept_2026_09_03:
+    question: >-
+      the index band over MINT, PAPAYA and ESPRESSO says "Dòng chip NPU AI". NPU appears exactly once
+      in the whole proof bank, at §E4 line 153, inside the market-direction phrase "GPU-centric →
+      NPU/AI SoC" in a section about on-premise LLM servers — not as a name for these parts. §D calls
+      the tier "PIM-based AI Chip Technologies", and home.whyPim.body teaches the reader that NPU is
+      the thing PIM exists to replace (mkt-202)
+    answered: keep the master's label unchanged
+    but: >-
+      this is a GM override of two repo rules, made with the evidence above in front of him and
+      restated three times: "không dựa vào context nữa, cứ theo canva làm y hệt đi". It overrides
+      canva_fidelity_2026_09_03 ("correct a Canva string whenever the proof bank contradicts it")
+      and catalogue_band_gpu_relabel_2026_09_03 ("No band label may carry an architecture acronym
+      again"). The note attached to this key in products.canva-master.vi.json defends NPU by citing
+      §E4 as "the category word the IR Deck itself uses for these parts" — that citation is wrong,
+      and it stays wrong in the artifact unless someone corrects the note.
+    consequence: >-
+      products.hardware.catalogGroups.npu is not touched. Fidelity to the master now outranks the
+      band-label rule the 03/09 pass wrote for itself.
+    still_open: >-
+      [the sibling band. "GP-GPU Solution" was relabelled to "Card tăng tốc AI" on 03/09 by exactly
+      the reasoning just overruled, so the two bands now run on opposite principles. Not reverted —
+      nobody asked — but it is one string either way and the GM should be the one to call it]
+
+  application_label_language_2026_09_03:
+    question: >-
+      the E-Series application rail prints five English tiles under a Vietnamese heading while
+      PAPAYA's rail two blocks up is fully Vietnamese. One rule is needed for all four rails
+      (mkt-214)
+    answered: keep English for the technical terms Vietnamese engineers already read in English
+    but: >-
+      the boundary has to be written down or it drifts again next round. English survives only for
+      established technical terms; everything describing a use, a place or a machine is Vietnamese
+    consequence: >-
+      LLM, NLP, Computer Vision and similar terms stay as they are. Labels naming a deployment or a
+      device are written in Vietnamese, matching the MINT, PAPAYA and ESPRESSO rails. Independently
+      of this rule, MINT's rail is corrected to the glossary's preserve_verbatim sector names —
+      "Fault Analysis" not "Failure Analysis", "Home IoT" not "Smart Home" — because
+      terminology/glossary.yaml is authoritative (CLAUDE.md §6) and those two are simply wrong.
+    still_open: []
+
+  cta_label_kept_2026_09_03:
+    question: >-
+      the six block buttons all read "Đăng ký tư vấn ngay" and land on /vi/contact, whose opener says
+      "Điền form để Pebble Vina tiếp nhận bài toán" and whose submit says "Gửi thông tin". Nothing is
+      registered. But the label is the master's own button text (mkt-225)
+    answered: keep the master's label; align /vi/contact to it instead
+    consequence: >-
+      products.ctaLabel is not touched. The mismatch becomes a CONTACT finding: that page's opener
+      and submit label are what move. Also settled here: six in-body CTAs are correct — the
+      one-CTA-per-page rule of 24/08 is retired, as docs/03-structure.md §4 already recorded on 02/09.
+    still_open: [aligning contact.intro and the submit label — a CONTACT round]
+
+  block_kicker_per_product_2026_09_03:
+    question: >-
+      from PAPAYA onward a reader scrolls up to 695px at 1024×768 with no product h2 on screen, and
+      all four hardware blocks print the same kicker "01 · Phần cứng". How is orientation restored
+      without adding UI the master does not have (ux-201)
+    answered: the kicker carries the product name, and nothing else
+    but: >-
+      the sticky desktop anchor nav that would also have fixed it was declined as UI outside the
+      master. That half of ux-201 dies with this choice and is recorded, not carried forward
+    consequence: >-
+      six kickers, one per block, each just the name: MINT · PAPAYA · ESPRESSO · E-Series, plus the
+      software and training blocks. The ordinal "01" goes — it printed four times without counting
+      anything. The component uppercases, so store them as the proper nouns are published.
+      web-ui-engineer adds an optional per-item kicker field and reads `product.kicker ?? intro.kicker`
+      so the build stays green while the strings are written.
+    still_open: []
+
+  origin_tag_relation_restored_2026_09_03:
+    question: >-
+      OriginTag renders a bare "PEBBLE SQUARE" pill beside the status badge on all six blocks. The
+      first thing a Vietnamese industrial buyer asks about an unknown company with a Korean parent is
+      who invoices and who shows up when it breaks, and this pill is the only element answering it
+      (mkt-213)
+    answered: >-
+      restore the wording backlog #25 already recorded as written on 24/08 — "Của Pebble Square" and
+      "Của Pebble Vina". A later pass dropped "Của"; this is a regression, not new copy
+    but: >-
+      the tag may not go further than that. docs/01-proof-bank.md line 241 marks the ownership
+      structure "[CẦN ĐIỀN]" and rules that the site may say "thành viên nhóm" and may NOT say
+      "công ty con"
+    consequence: >-
+      origin.ps and origin.pv state whose capability it is, not what the corporate relationship is.
+      Any wording implying a subsidiary, a distributorship or an agency is out of bounds until the
+      ownership line in the proof bank is filled in.
+    still_open: [the ownership structure itself — proof bank line 241, a GM/HQ question]
+
+  e_series_badge_kept_2026_09_03:
+    question: >-
+      E-Series wears the green shipped badge while the badge text says only "Thông số sản phẩm" and
+      §E5 forbids inferring sale status from the GM-supplied datasheet. The colour claims what the
+      text does not (mkt-206)
+    answered: keep it as the master drew it
+    but: >-
+      web/content/types.ts:16 defines two labels, shipped and roadmap, while CLAUDE.md §2 rule 1
+      mandates three — `internal` was never built. That gap is what leaves a document with no public
+      source wearing the same green as a chip in mass production since 5/2023
+    consequence: >-
+      no change on this page. The missing third label is not closed here and must not be forgotten.
+    still_open: [building the `internal` label — a repo-wide decision, logged for the GM]
+
+retired_slots:
+  # Emptied in web/content/vi.ts and dropped from content-system/output/products.vi.json on
+  # 2026-09-03. The TypeScript fields survive until web-ui-engineer removes them; an empty
+  # string renders nothing, so the page is correct in the meantime.
+  - key: products.hardware.title
+    reason: section_heads_retired_2026_09_03
+  - key: products.hardware.lead
+    reason: section_heads_retired_2026_09_03
+  - key: products.software.title
+    reason: section_heads_retired_2026_09_03
+  - key: products.software.lead
+    reason: section_heads_retired_2026_09_03
+  - key: products.training.title
+    reason: section_heads_retired_2026_09_03
+  - key: products.training.lead
+    reason: section_heads_retired_2026_09_03
+  - key: products.hardware.items[0].transition
+    reason: narrative_bridges_retired_2026_09_03
+  - key: products.hardware.items[1].transition
+    reason: narrative_bridges_retired_2026_09_03
+  - key: products.hardware.items[2].transition
+    reason: narrative_bridges_retired_2026_09_03
+  - key: products.hardware.items[3].transition
+    reason: narrative_bridges_retired_2026_09_03
+  - key: products.software.groups[0].transition
+    reason: narrative_bridges_retired_2026_09_03
+  - key: products.training.offer.transition
+    reason: narrative_bridges_retired_2026_09_03
+  - key: products.followUp.kicker
+    reason: final_conversion_retired_2026_09_03
+  - key: products.followUp.title
+    reason: final_conversion_retired_2026_09_03
 
 presentation:
   opener:
@@ -213,10 +600,12 @@ presentation:
     motion: a restrained arrow shift on hover and focus; disabled by prefers-reduced-motion
     mobile_constraint: two compact tile columns; all six destinations remain reachable without horizontal scrolling
   catalogue:
-    order: [hardware lead, MINT, PAPAYA family, ESPRESSO, E-Series E10 and E20, software lead, enterprise suite, training lead, enterprise AI training, follow-up form]
+    order: [hardware lead, MINT, PAPAYA family, ESPRESSO, E-Series E10 and E20, software lead, enterprise suite, training lead, enterprise AI training]
     product_rule: one hardware product per viewport target; no fixed height, clipping or filler space
     background_rule: one page canvas; no PRODUCTS section fill or alternating band
-    conversion_rule: one contact form at the end, with shared behaviour and PRODUCTS-only follow-up copy
+    conversion_rule: >-
+      REVISED 2026-09-03 (block_cta_2026_09_03) — no form on this page. Every product block closes
+      on the same button to /vi/contact, so the reader converts at the block that convinced them.
 
 blocks:
   - id: products.intro
@@ -237,6 +626,13 @@ blocks:
       lead: one instruction for using the decision map
       scroll_label: accessible action label for moving to the hardware section
       decision_entries: product names, one use cue and their visible stage
+      catalog_title: >-
+        heading of the catalogue strip: the two halves of what is on offer, chips and solutions.
+        Stored sentence case — the component uppercases it
+      catalog_lead: >-
+        one line naming who builds which half, so a card is read with its maker attached.
+        Must_carry: hardware belongs to Pebble Square, software and training belong to Pebble Vina.
+        Never a capability or availability sentence — the stage label on each card carries maturity
 
   - id: products.hardware
     height: content
@@ -248,6 +644,15 @@ blocks:
       kicker: section index
       title: hardware scope in one line
       lead: status rule for reading the four entries
+      catalog_groups:
+        npu: >-
+          index band label for the three PIM chip families. A category signpost, not an
+          architecture statement
+        gpu: >-
+          index band label for the E-Series accelerators, so they do not read as a fourth chip.
+          Separates by FORM — accelerator card, against the NPU band's chip line — and carries no
+          architecture acronym at all. See catalogue_band_gpu_relabel_2026_09_03. Also the
+          `aria-label` of its `<section>`: keep it at or under the NPU band's length or it wraps
 
   - id: products.hardware.mint
     origin: ps
@@ -263,7 +668,9 @@ blocks:
       - mass production started in May 2023; 2022 is the development-completion year
     slots:
       name: product name verbatim
-      transition: move from catalogue selection to low-power processing at the device
+      headline: >-
+        product name, then the architecture and the workload class it is built for. Must_carry:
+        the published architecture name, and that the inference happens on the device
       application_lead: name the product forms where MINT is commonly positioned, without implying deployments
       tagline: architecture, production status and workload class
       body: operational value plus the boundary of the part
@@ -295,7 +702,10 @@ blocks:
       - PAPAYA FLEX comparison multiples in the foreground
     slots:
       name: PAPAYA and PAPAYA FLEX family name
-      transition: move from signals to image and vision workloads
+      headline: >-
+        both names, then one clause: the shared architecture and the vision workload class the
+        family is built for. Two parts under one name, so the noun is a family, not a single chip.
+        No availability tense — the PoC badge sits under it
       application_lead: name vision, image-recognition and security product forms at the customer-PoC boundary
       tagline: customer-PoC status, year and workload class
       body: what the PoC established and what it did not establish
@@ -326,11 +736,24 @@ blocks:
       - describing a render as production silicon
     slots:
       name: product name verbatim
-      transition: move from current edge parts to the dated direction for larger models
+      headline: >-
+        product name, then the PIM branch and the machine class it is aimed at. A target, not a
+        capability: the roadmap badge and the dated tagline sit immediately below it in the same
+        band, and the headline may not be rendered anywhere they do not follow it
       application_lead: name roadmap targets only, with Q3 2026 in the same sentence
       tagline: Digital-PIM branch, workload span and roadmap date
       body: direction of travel plus current unavailability
       capabilities: [AI PC, Robotics, Data Center]
+      capability_titles: the target machine class, bare — the date is no longer inside the title
+      capability_date_note: >-
+        the roadmap date, once per card, in its own field under the title. Identical on all three
+        cards; compiled once as products.shared.dateNotes.espresso
+      capability_media_alt: >-
+        one literal visual description per application card — object, then two physical details,
+        the shape the ten MINT and PAPAYA application alts already use. These three renders are
+        generic machine classes, NOT ESPRESSO hardware: the alt may not name ESPRESSO, may not say
+        a machine runs it, and may not imply it is built. It states no claim and carries no status
+        label; the card's dateNote does that. See espresso_capability_alts_2026_09_03
       specs:
         - value: 160 TOPS at INT8
           must_carry: [16 TOPS/W, 20 by 23 mm package, 640 TOPS four-chip card, investor source, roadmap date]
@@ -353,7 +776,10 @@ blocks:
       - do not imply general availability, inventory, customer or deployment count
     slots:
       name: E-Series AI Compute Accelerators
-      transition: move from a dedicated edge device to server and multi-card compute
+      headline: >-
+        family name, then what the hardware accelerates and the two scales it runs at.
+        Must_carry: the deployment scale, single machine through multi-card system. No availability,
+        inventory or deployment implication
       application_lead: enterprise AI server, LLM training and inference, vision, NLP, speech and multi-card computing
       tagline: GP-DSA for training and inference
       body: one architecture from FP32 to INT4 with PCIe 5.0 and RDMA
@@ -366,7 +792,10 @@ blocks:
             metrics: [64 AI cores with precision figures, 96 GB memory, dual PCIe and denser RDMA connectivity]
       software_stack: [AI Compiler, Graph Optimization, Operator Generation, Performance and Precision Tools, Framework Compatibility]
       capabilities: [Enterprise AI Server, LLM Training and Inference, Computer Vision, NLP and Speech AI, Multi-card Computing]
-      media_alt: one literal product-image brief per accelerator; render a visible pending state until the files exist
+      media_alt: >-
+        one literal product-image brief per accelerator. The catalogue card reuses the E10 file,
+        so items[3].media.alt is the E10 description verbatim — same image, same words, and the
+        two may not be made to differ. See e_series_catalogue_alt_2026_09_03
 
   - id: products.software
     height: content
@@ -401,7 +830,10 @@ blocks:
       - no customer, deployment, platform, full autonomy or result claim
     slots:
       name: product category
-      transition: move from processing data to using its result in enterprise operations
+      headline: >-
+        the software category in one line: what it joins, and for whom. Names the product class,
+        never a base platform, a customer or a result. The December 2026 roadmap date stays on the
+        tagline and the badge directly beneath it
       tagline: roadmap date plus the human-approval boundary
       body: how the four systems and operations view connect
       modules:
@@ -424,7 +856,10 @@ blocks:
       - 2027 is a needs-survey milestone, not a training launch
       - no fixed curriculum, class date, fee, certificate or result exists
     slots:
-      kicker: section index 2.3
+      kicker: >-
+        section index — the bare category noun and its number, nothing else. It may not repeat a
+        word sequence from offer.headline, which sits one line below it in the same band and at
+        the same visual weight. See training_kicker_2026_09_03
       title: enterprise AI training category
       lead: survey-first boundary in one line
 
@@ -446,9 +881,14 @@ blocks:
       - delivery timing remains undecided after the 2027 survey
     slots:
       name: service direction
-      transition: move from systems to the people who must use them on a measurable task
+      headline: >-
+        what the training is organised around — the enterprise's own need, not a syllabus.
+        It may not name a course, a schedule or an outcome
       tagline: visible 2027 survey stage and custom-design boundary
       body: distinguish the planned survey from a course already available
+      callout_note: >-
+        one boxed line stating what the 2027 milestone is spent on. Must_carry: the year, and that
+        the work in it is research and programme design. Never a launch, a class, a fee or a result
       principles:
         - survey the enterprise problem before programme design
         - design for a company-specific use case, not a fixed curriculum
@@ -457,6 +897,10 @@ blocks:
 
   - id: products.contact
     height: content
+    status_note: >-
+      RETIRED 2026-09-03 (decisions/final_conversion_retired_2026_09_03). The embedded form and its
+      follow-up header are gone; the block below is kept as the record of what the page used to do
+      and why it stopped. Nothing here is written or applied.
     intent:
       communicate: submit the selected product need without leaving the catalogue
       reader_question: how do I start the consultation now
@@ -465,9 +909,26 @@ blocks:
       - do not render contact.intro, contact.form.title or contact.media on PRODUCTS
       - preserve validation, mail-client handoff, success state and contact fallback
     slots:
-      follow_up_kicker: one step label connecting selection to consultation
-      follow_up_title: acknowledge that the reader has selected a branch and state the next action
-      form: reuse contact.form and contact.ctaPrimary
+      follow_up_kicker: RETIRED — products.followUp.kicker is emptied and out of the contract
+      follow_up_title: RETIRED — products.followUp.title is emptied and out of the contract
+      form: RETIRED — the form is reached through the block CTA, on /vi/contact
+
+  - id: products.cta
+    height: content
+    intent:
+      communicate: the one action the page asks for, repeated at the end of every product block
+      reader_question: I have found my branch — what now
+    qualifiers:
+      - one label for all three block types; the buyer decides at the block that convinced them
+      - it asks for a consultation, not a purchase, and promises nothing about what follows
+      - no urgency the market did not create
+    forbidden:
+      - a second competing action on the same page
+      - implying a demo, a quote, a trial or a delivery date
+    slots:
+      cta_label: >-
+        the button on every hardware, software and training block. Ceiling 28 characters
+        (brand/voice.yaml ui_limits.button.vi). APPLIED 2026-09-03 — see block_cta_2026_09_03
 
 chrome:
   meta:
@@ -487,3 +948,49 @@ artifact:
   id: products
   path: content-system/output/products.vi.json
   apply_to: web/content/vi.ts
+  repairs:
+    - id: products.hardware.papaya-pair
+      path: content-system/output/products.papaya-pair.vi.json
+      date: 2026-08-24
+    - id: products.canva-master
+      path: content-system/output/products.canva-master.vi.json
+      date: 2026-09-03
+      note: >-
+        Newest wins where the two overlap. The three ESPRESSO capability titles were repaired in
+        both files; every other key in the repair is new to the page. products.ctaLabel lived
+        here compiled-but-unapplied until 2026-09-03b, when the type field landed and it was
+        applied from this file unchanged.
+    - id: products.labels-and-alts
+      path: content-system/output/products.labels-and-alts.vi.json
+      date: 2026-09-03
+      note: >-
+        Five named keys routed back by web-ui-engineer after the Canva rebuild: the gpu band
+        relabel, the training kicker, the three ESPRESSO application alts, and the E-Series
+        catalogue alt brought into line with what ships. No block was recompiled.
+
+  # Reconciliation run at apply time on 2026-09-03b, per references/core/apply.md. It is a
+  # FINDING, not a repair — nothing outside the five keys above was touched.
+  ledger_drift:
+    checked: content-system/output/products*.vi.json against web/content/vi.ts, both directions
+    differs_in_ts: >-
+      16 keys carry a value in vi.ts that is not the compiled one. Eleven are content:
+      hardware.lead, hardware.items[1].body, hardware.items[1].applicationLead,
+      hardware.items[3].media.alt, hardware.items[3].variants[0..1].media.alt, software.kicker,
+      software.groups[0].body, software.groups[0].media.alt, training.kicker,
+      training.offer.body. Four are index stage labels re-punctuated for the 161px card
+      (items[0..3].indexStageLabel). This repair resolves two of them — training.kicker and
+      items[3].media.alt — and leaves the other fourteen for the round that owns those blocks.
+    missing_from_ts: >-
+      17 artifact keys have no field in vi.ts: hardware.items[1].metrics[0..1].value and the
+      whole items[1].specs[0..3] set. The schema moved — PAPAYA's four comparison specs became
+      variants[*].metrics[*] in the Canva rebuild. Per apply.md the entries are dropped, not
+      re-added; products.papaya-pair.vi.json is now addressed to a shape that no longer exists.
+    missing_from_artifact: >-
+      about 37 non-empty products strings in vi.ts have no artifact entry at all. The largest
+      group is the application-card rail: ten capabilities[*].media.alt strings on MINT and
+      PAPAYA, plus items[1].variants[*] names, taglines, applicationLeads and metric notes. The
+      spec had no capability_media_alt slot before this repair, so those ten were never
+      compiled — they entered the file outside the pipeline.
+    owner: >-
+      GM decides whether products.vi.json is regenerated to match the page or the page is pulled
+      back to the ledger. Until then the ledger is not a safe source for this page.

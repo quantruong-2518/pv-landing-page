@@ -118,6 +118,46 @@
   --color-shipped-bg: #113328;
   --color-roadmap: #f5c451;
   --color-roadmap-bg: #3a2c0c;
+
+  /* Catalogue accents, lifted for the dark bands PRODUCTS is built from
+     (2026-09-02). The light values are 3.0:1 or worse on #101a2e; these read
+     7.0:1, 7.0:1 and 8.1:1 — the category still identifies the band without
+     borrowing a status colour. */
+  --color-hardware: #7aa6f2;
+  --color-software: #b39ae0;
+  --color-training: #e0a684;
+  --color-surface-hardware: #17253f;
+  --color-surface-software: #221d38;
+  --color-surface-training: #2b2119;
+}
+
+/* A light island inside a `.tone-dark` band — the white specification panel on
+   every PRODUCTS block. Mirrors the @theme defaults, which is what makes it a
+   reset rather than a second palette: keep the two lists in step. */
+.tone-light {
+  --color-bg: #ffffff;
+  --color-surface: #f3f6fa;
+  --color-bg-deep: #eef1f7;
+  --color-fg: #0b1220;
+  --color-muted: #667085;
+  --color-subtle: #5f6f94;
+  --color-line: #dce3ed;
+  --color-line-strong: #8492a8;
+  --color-primary: #234894;
+  --color-primary-fg: #ffffff;
+  --color-accent: #234894;
+
+  --color-hardware: #315a91;
+  --color-software: #66588a;
+  --color-training: #90634c;
+  --color-surface-hardware: #f3f6fa;
+  --color-surface-software: #f6f4f9;
+  --color-surface-training: #faf6f3;
+
+  --color-shipped: #0f5132;
+  --color-shipped-bg: #e6f4ec;
+  --color-roadmap: #8a5a00;
+  --color-roadmap-bg: #fdf3d8;
 }
 
 /* ==========================================================================
@@ -535,17 +575,8 @@ body {
   opacity: 0.28;
 }
 
-.section-field-hardware {
-  --field-accent-rgb: 49 90 145;
-}
-
-.section-field-software {
-  --field-accent-rgb: 102 88 138;
-}
-
-.section-field-training {
-  --field-accent-rgb: 144 99 76;
-}
+/* The per-category field tints went with the PRODUCTS rebuild (2026-09-02):
+   the catalogue bands are dark now and carry their colour in `.product-band`. */
 
 /* Featured light panels sit one step above their field without introducing a
    new colour family. */
@@ -640,30 +671,64 @@ h3 {
   display: none;
 }
 
-/* PRODUCTS has its own measured vertical budget. These rules follow the
-   utilities so each block has one unambiguous padding value. */
-.products-index {
-  padding-block: 0.875rem;
+/* ==========================================================================
+   PRODUCTS — dark bands, from the Canva master "Product - Pebble Vina"
+   (read 2026-09-02). Every family block is one dark band carrying a white
+   specification island; the band's atmosphere is the only thing the category
+   colour tints, so grouping never competes with a status label.
+
+   The circuit texture is drawn, not photographed: two gradient grids at two
+   pitches plus a radial glow, masked to the corner the render sits in. No
+   file, no request, no LCP cost — the same argument as `.crossbar`.
+   ========================================================================== */
+.product-band {
+  --band-accent-rgb: 122 166 242;
+  isolation: isolate;
+  background-color: #101a2e;
+  background-image:
+    radial-gradient(ellipse 60% 70% at 82% 18%, rgb(var(--band-accent-rgb) / 15%), transparent 70%),
+    linear-gradient(158deg, #080f1d 0%, #101a2e 58%, #13254a 100%);
 }
 
-.product-dossier {
-  padding-block: 0.75rem;
+/* Behind the content, in front of the band. `isolation` above is what makes
+   the negative index safe: the texture cannot fall behind the page canvas, and
+   the block's own children keep their default positioning. */
+.product-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(var(--band-accent-rgb) / 7%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--band-accent-rgb) / 7%) 1px, transparent 1px),
+    linear-gradient(to right, rgb(var(--band-accent-rgb) / 11%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--band-accent-rgb) / 11%) 1px, transparent 1px);
+  background-size: 28px 28px, 28px 28px, 112px 112px, 112px 112px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 78% 24%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse 70% 80% at 78% 24%, #000 0%, transparent 72%);
 }
 
-@media (min-width: 640px) {
-  .products-index {
-    padding-block: 3rem;
-  }
-
-  .product-dossier {
-    padding-block: 1.5rem;
-  }
+.product-band-software {
+  --band-accent-rgb: 179 154 224;
 }
 
-@media (min-width: 1024px) {
-  .product-dossier {
-    padding-block: 1.75rem;
-  }
+.product-band-training {
+  --band-accent-rgb: 224 166 132;
+}
+
+/* The white island. One shadow so it reads as sitting on the band rather than
+   as a hole cut in it. */
+.spec-island {
+  box-shadow: 0 24px 60px rgb(4 12 19 / 38%);
+}
+
+/* Dotted connector behind a numbered step row — the master's timeline. It is
+   ornament, so it only appears once the steps actually stand in a row. */
+.step-track {
+  background-image: linear-gradient(to right, var(--color-line) 0 6px, transparent 6px 12px);
+  background-repeat: repeat-x;
+  background-size: 12px 2px;
 }
 
 /* Soft glow behind the hero — kept faint; this page is for reading. */

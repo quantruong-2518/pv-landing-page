@@ -410,8 +410,9 @@
       ],
       "label": "roadmap",
       "locales": {
-        "vi": "AI PC · dự kiến Q3/2026"
-      }
+        "vi": "AI PC"
+      },
+      "notes": "Repaired 2026-09-03 (products.canva-master): the inline date moved to the card's own `dateNote` field. Was 'AI PC · dự kiến Q3/2026'."
     },
     {
       "key": "products.hardware.items[2].capabilities[0].body",
@@ -432,8 +433,9 @@
       ],
       "label": "roadmap",
       "locales": {
-        "vi": "Robotics · dự kiến Q3/2026"
-      }
+        "vi": "Robotics"
+      },
+      "notes": "Repaired 2026-09-03 (products.canva-master): the inline date moved to the card's own `dateNote` field. Was 'Robotics · dự kiến Q3/2026'."
     },
     {
       "key": "products.hardware.items[2].capabilities[1].body",
@@ -454,8 +456,9 @@
       ],
       "label": "roadmap",
       "locales": {
-        "vi": "Data Center · dự kiến Q3/2026"
-      }
+        "vi": "Data Center"
+      },
+      "notes": "Repaired 2026-09-03 (products.canva-master): the inline date moved to the card's own `dateNote` field. Was 'Data Center · dự kiến Q3/2026'."
     },
     {
       "key": "products.hardware.items[2].capabilities[2].body",
@@ -1287,13 +1290,6 @@
       }
     },
     {
-      "key": "products.hardware.items[0].transition",
-      "component": "body",
-      "locales": {
-        "vi": "Bắt đầu tại thiết bị, nơi điện năng là giới hạn đầu tiên."
-      }
-    },
-    {
       "key": "products.hardware.items[0].statusNote",
       "component": "label",
       "claims": [
@@ -1315,13 +1311,6 @@
       }
     },
     {
-      "key": "products.hardware.items[1].transition",
-      "component": "body",
-      "locales": {
-        "vi": "Khi thiết bị cần nhìn, bài toán chuyển từ tín hiệu sang hình ảnh."
-      }
-    },
-    {
       "key": "products.hardware.items[2].decisionLabel",
       "component": "body",
       "claims": [
@@ -1334,17 +1323,6 @@
       }
     },
     {
-      "key": "products.hardware.items[2].transition",
-      "component": "body",
-      "claims": [
-        "C017"
-      ],
-      "label": "roadmap",
-      "locales": {
-        "vi": "Sau Edge AI hiện tại là lộ trình Digital-PIM dự kiến Q3/2026."
-      }
-    },
-    {
       "key": "products.hardware.items[3].decisionLabel",
       "component": "body",
       "claims": [
@@ -1352,16 +1330,6 @@
       ],
       "locales": {
         "vi": "Tăng tốc huấn luyện và suy luận từ một máy chủ đến cụm đa card."
-      }
-    },
-    {
-      "key": "products.hardware.items[3].transition",
-      "component": "body",
-      "claims": [
-        "C041"
-      ],
-      "locales": {
-        "vi": "Khi mô hình vượt khỏi thiết bị Edge AI, E-Series đưa tải lên máy chủ và cụm đa card."
       }
     },
     {
@@ -1384,17 +1352,6 @@
       "label": "roadmap",
       "locales": {
         "vi": "Nối CRM, ERP, HRM và DMS vào một góc nhìn vận hành."
-      }
-    },
-    {
-      "key": "products.software.groups[0].transition",
-      "component": "body",
-      "claims": [
-        "C037"
-      ],
-      "label": "roadmap",
-      "locales": {
-        "vi": "Sau lớp tính toán là lớp đưa dữ liệu vào quyết định vận hành."
       }
     },
     {
@@ -1461,13 +1418,6 @@
       "label": "roadmap",
       "locales": {
         "vi": "Khảo sát nhu cầu trước khi thiết kế chương trình riêng."
-      }
-    },
-    {
-      "key": "products.training.offer.transition",
-      "component": "body",
-      "locales": {
-        "vi": "Sau hệ thống là đội ngũ phải đưa AI vào một đầu việc có thể đo."
       }
     },
     {
@@ -1578,20 +1528,6 @@
       "label": "roadmap",
       "locales": {
         "vi": "Thống nhất chỉ số đầu ra trước khi đào tạo; không cam kết một mức hoàn vốn."
-      }
-    },
-    {
-      "key": "products.followUp.kicker",
-      "component": "eyebrow",
-      "locales": {
-        "vi": "Bước tiếp theo"
-      }
-    },
-    {
-      "key": "products.followUp.title",
-      "component": "headline",
-      "locales": {
-        "vi": "Bài toán doanh nghiệp nào của khách hàng đang được ưu tiên?"
       }
     },
     {

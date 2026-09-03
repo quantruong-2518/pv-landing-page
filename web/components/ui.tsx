@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
-import type { Application, FactStatus, Intro, Item, Media, Origin, Spec } from "@/content/types";
+import type { FactStatus, Intro, Item, Media, Origin, Spec } from "@/content/types";
 
 /* ── Frame ───────────────────────────────────────────────────────────────── */
 
@@ -144,13 +144,6 @@ export function Lead({ children, className }: { children?: string; className?: s
       {children}
     </p>
   );
-}
-
-export function Body({ children, className }: { children?: string; className?: string }) {
-  if (!children) return null;
-  // 16px on phones, same step as <Lead>, so two adjacent blocks never change
-  // body size on the same screen; the 14px step returns once there is room.
-  return <p className={cn("text-base leading-relaxed text-muted sm:text-sm", className)}>{children}</p>;
 }
 
 /** Same opening rhythm on every section. */
@@ -418,73 +411,6 @@ export function ChipPlinth({
         <MediaPending alt={media.alt} label={pendingLabel} />
       )}
     </figure>
-  );
-}
-
-/**
- * The use-case row under a product. A CSS scroll-snap rail — no JS, no arrows,
- * no dots: the next card peeking past the right edge is the whole affordance.
- * Once the viewport fits every card the rail simply stops scrolling.
- *
- * `tabIndex` because a scroll container is not keyboard-reachable outside
- * Firefox without it; `role="group"` + a label so that stop announces itself.
- */
-export function AppRail({
-  label,
-  items,
-  pendingLabel,
-  className,
-}: {
-  label: string;
-  items: Application[];
-  pendingLabel: string;
-  className?: string;
-}) {
-  if (items.length === 0) return null;
-
-  return (
-    <div className={className}>
-      <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-subtle">{label}</p>
-
-      <ul
-        role="group"
-        aria-label={label}
-        tabIndex={0}
-        className={cn(
-          "rail mt-3 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-1",
-          // Product rails live inside the dossier boundary. The next card still
-          // peeks on narrow screens, but nothing escapes or redefines its gutter.
-          "scroll-pl-0",
-        )}
-      >
-        {items.map((item) => (
-          <li key={item.title} className="w-32 shrink-0 snap-start text-center sm:w-40 lg:w-44">
-            {/* Thumbnail plus label, no prose (GM, 2026-08-24): the rail names
-                where the part is used, it does not argue the case — that is what
-                the claim and the numbers above it are for. A fixed card width,
-                not a fraction, so all five rails on the page cut their pictures
-                to one size and read as one set. */}
-            <Figure
-              media={item.media ?? { alt: item.title }}
-              // 16/9 is the ratio all ten app files are authored at (1200x675).
-              // In a 16/10 frame `object-cover` filled by height and took ~5%
-              // off each side of every one of them — on product photography
-              // that edge is the device. The frame also lands 8–11px shorter,
-              // which each rail block keeps for its own budget.
-              ratio="aspect-[16/9]"
-              sizes="(min-width: 1024px) 176px, (min-width: 640px) 160px, 128px"
-              pendingLabel={pendingLabel}
-              compact
-              // The app photos are cut-outs on transparency: framed, each one
-              // reads as a card of tinted background with a small object in it.
-              // Slots still waiting for a shot keep the frame.
-              bare={Boolean(item.media?.src)}
-            />
-            <p className="mt-2 text-[0.82rem] font-medium leading-snug sm:text-sm">{item.title}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }
 

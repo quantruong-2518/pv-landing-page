@@ -1,0 +1,185 @@
+{
+  "content_type": "marketing",
+  "id": "products.canva-master",
+  "locales": [
+    "vi"
+  ],
+  "semantic_spec": "content-system/specs/products.yaml — decisions/canva_master_repair_2026_09_03 and the slots it opened",
+  "entries": [
+    {
+      "key": "products.intro.catalogTitle",
+      "component": "headline",
+      "notes": "Canva artboard 1, heading of the catalogue strip: \"DANH MỤC CHIP AI VÀ GIẢI PHÁP AI\". Stored sentence case — catalog-index.tsx sets `uppercase`, and a string that is already shouting cannot be re-used anywhere quieter. Two halves named in the order the grid shows them: three chip bands, then the software and training bands. `products.intro.kicker` two screens above says `Danh mục sản phẩm`; this one says which products, so the repeat of `danh mục` is a deliberate echo between the hero and the strip, not a duplicate string.",
+      "locales": {
+        "vi": "Danh mục chip AI và giải pháp AI"
+      }
+    },
+    {
+      "key": "products.intro.catalogLead",
+      "component": "body",
+      "claims": [
+        "C037",
+        "C040"
+      ],
+      "label": "roadmap",
+      "notes": "CORRECTION, not a transcription. Canva writes \"Khám phá các sản phẩm phần cứng và phần mềm của Pebble Square\" — the software is not Pebble Square's. The enterprise suite (§F1, C037) and the AI training (§F2, C040) are Pebble Vina's own roadmap; attributing them to the parent breaks CLAUDE.md §2 rule 2 in the other direction and would be the first line on the page to do it. The lead keeps Canva's verb and shape and fixes the attribution, which is also the one thing the four index bands cannot say by themselves: the cards carry a stage label, not a maker. Roadmap label because two of the three things named are roadmap; the maturity itself is carried per card by `indexStageLabel` (`Roadmap · 12/2026`, `Khảo sát · 2027`), so this line states no date and no capability. 15 words.",
+      "locales": {
+        "vi": "Khám phá phần cứng của Pebble Square, cùng phần mềm và đào tạo AI của Pebble Vina."
+      }
+    },
+    {
+      "key": "products.hardware.catalogGroups.npu",
+      "component": "label",
+      "notes": "Canva: \"DÒNG CHIP NPU AI\". Sentence case — the band label is uppercased in CSS with mono tracking, exactly like its two siblings `c.nav.software` (\"Phần mềm\") and `c.nav.training` (\"Đào tạo AI\"), which are stored sentence case. Groups MINT, PAPAYA·PAPAYA FLEX and ESPRESSO. `NPU` is the category word the IR Deck itself uses for these parts (§E4, `GPU-centric → NPU/AI SoC`); the architecture names Analog-PIM and Digital-PIM stay on the products, where they are facts rather than signposts.",
+      "locales": {
+        "vi": "Dòng chip NPU AI"
+      }
+    },
+    {
+      "key": "products.hardware.catalogGroups.gpu",
+      "component": "label",
+      "notes": "Canva: \"GP-GPU SOLUTION\", kept as the master wrote it, with only the casing normalised for the component's own `uppercase`. NO CLAIM IS CITED, deliberately: the architecture on record is GP-DSA (C041, §E5) and this label says GP-GPU. It is the master's market-category signpost so the E-Series band does not read as a fourth NPU chip — the same reason `types.ts` names the group `gpu` — and every string that states the architecture as a fact (tagline, technologyLabel, body, software-stack item) still says GP-DSA. Flagged for the GM in decisions/catalogue_band_labels_2026_09_03: if one word has to go, it is this one, and changing it costs a string rather than a claim.",
+      "locales": {
+        "vi": "GP-GPU Solution"
+      }
+    },
+    {
+      "key": "products.hardware.items[0].headline",
+      "component": "headline",
+      "claims": [
+        "C014"
+      ],
+      "notes": "Canva: \"MINT - CHIP ANALOG PIM CHO EDGE AI TẠI THIẾT BỊ\". `Analog-PIM` and `Edge AI` are restored to their published forms (glossary preserve_verbatim; `AI biên` is a forbidden variant of Edge AI), and the separator is the em dash this repo already uses to split a name from its descriptor in `meta.*.title`. C014 licenses the second half: inference happens on the device. Mass production and the 17,6 TOPS/W backbone number stay where they are — tagline, badge and metric row — so the headline names the part without repeating its status one line early. 10 words.",
+      "locales": {
+        "vi": "MINT — Chip Analog-PIM cho Edge AI tại thiết bị"
+      }
+    },
+    {
+      "key": "products.hardware.items[1].headline",
+      "component": "headline",
+      "claims": [
+        "C036"
+      ],
+      "notes": "Canva: \"PAPAYA & PAPAYA FLEX - NỀN TẢNG CHIP ANALOG CHO THỊ GIÁC CHO CÁC THIẾT BỊ\" — the master repeats `cho` twice and the second half reads as a stack rather than a clause. Smoothed to one clause with the same meaning: what the family is, and the workload it serves, at the device. `Analog` → `Analog-PIM`, matching MINT's headline directly above and the tagline directly below; PAPAYA and PAPAYA FLEX are both Analog-PIM parts (§E0). `thị giác máy` is the term the block's own capability card and C033 use — bare `thị giác` in Vietnamese reads as human eyesight. No availability tense: `nền tảng` names a family of two measured parts, and the customer-PoC stage is stated on the very next line and again on the badge. 16 words — over the 12-word hero soft limit, which is what a long-form block headline carrying two product names costs.",
+      "locales": {
+        "vi": "PAPAYA & PAPAYA FLEX — Nền tảng chip Analog-PIM cho thị giác máy trên thiết bị"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].headline",
+      "component": "headline",
+      "claims": [
+        "C039"
+      ],
+      "label": "roadmap",
+      "notes": "Canva: \"ESPRESSO - CHIP DIGITAL-PIM CHO AI COMPUTER\". Kept as a noun phrase on purpose — a noun phrase carries no tense, so it cannot say a roadmap part does anything today (CLAUDE.md §2 rule 4, voice.yaml vision_rule). The date is not repeated inside the H2 because the three elements under it already carry it: tagline `Digital-PIM · roadmap Q3/2026`, body opening `Dự kiến Q3/2026`, amber badge `Dự kiến · Q3/2026`. C017 is not cited here for the same reason — it would demand the year inside this string and print `2026` four times in one band. Constraint recorded in the spec: this headline may never be rendered away from that badge.",
+      "locales": {
+        "vi": "ESPRESSO — Chip Digital-PIM cho AI Computer"
+      }
+    },
+    {
+      "key": "products.hardware.items[3].headline",
+      "component": "headline",
+      "claims": [
+        "C041"
+      ],
+      "notes": "Canva: \"E-SERIES - NỀN TẢNG TĂNG TỐC AI CHO SERVER VÀ HỆ THỐNG ĐA CARD\". One deviation: `server` → `máy chủ`, the word the rest of this block already uses four times (body, applicationLead, both variant leads) — a headline that switches language mid-catalogue for a word Vietnamese has is the translation smell references/locales/vi.md warns about. `hệ thống đa card` is the master's and matches `Multi-card Computing` in the capability row. Says what the hardware accelerates and at which two scales, and nothing about availability, inventory or deployment — §E5 confirms the vendor and the specifications only. 15 words, over the hero soft limit; the two scales are the point of the line and neither can go.",
+      "locales": {
+        "vi": "E-Series — Nền tảng tăng tốc AI cho máy chủ và hệ thống đa card"
+      }
+    },
+    {
+      "key": "products.software.groups[0].headline",
+      "component": "headline",
+      "claims": [
+        "C037"
+      ],
+      "label": "roadmap",
+      "notes": "Canva: \"NỀN TẢNG PHẦN MỀM TÍCH HỢP DỮ LIỆU VÀ AI CHO DOANH NGHIỆP\", verbatim in sentence case. `Nền tảng` here names the product class, not what it is built on: §F1 forbids inferring the technical base platform, and this line names none. `tích hợp dữ liệu và AI` is the mechanism the block's four modules and its operations centre describe. The December 2026 date and the human-approval boundary stay on the tagline and badge below, so the roadmap label sits at the point of mention without the H2 repeating it. 12 words. Canva's \"82% Hoàn thành mục tiêu\" dashboard figure on this artboard is not written anywhere on the page: no proof-bank entry exists for it (CLAUDE.md §2).",
+      "locales": {
+        "vi": "Nền tảng phần mềm tích hợp dữ liệu và AI cho doanh nghiệp"
+      }
+    },
+    {
+      "key": "products.training.offer.headline",
+      "component": "headline",
+      "claims": [
+        "C040"
+      ],
+      "label": "roadmap",
+      "notes": "Canva: \"ĐÀO TẠO AI DOANH NGHIỆP THEO NHU CẦU THỰC TẾ\", verbatim in sentence case. It says what the training is organised around — the company's own need — which is precisely C040's principle, and it names no course, schedule, fee, certificate or result. `theo nhu cầu thực tế` is the boundary doing the work: a programme shaped after a survey, not a syllabus on sale. The 2027 survey stage sits on the tagline, the callout and the badge. 9 words.",
+      "locales": {
+        "vi": "Đào tạo AI doanh nghiệp theo nhu cầu thực tế"
+      }
+    },
+    {
+      "key": "products.training.offer.calloutNote",
+      "component": "caption",
+      "claims": [
+        "C040"
+      ],
+      "label": "roadmap",
+      "notes": "Canva verbatim, and accurate against §F2: 2027 is the needs-survey milestone and the year the programme model is worked out — not a launch, a class, a fee or a certificate. Kept as its own boxed line because the block's body reads as prose and this is the one sentence a scanner must not miss. Sits three elements under the section lead, which also carries 2027; the repetition is the qualification surviving every mention, which is the rule that outranks brevity here.",
+      "locales": {
+        "vi": "Lộ trình 2027 tập trung vào khảo sát nhu cầu và hoàn thiện mô hình đào tạo."
+      }
+    },
+    {
+      "key": "products.shared.dateNotes.espresso",
+      "component": "label",
+      "claims": [
+        "C017",
+        "C039"
+      ],
+      "label": "roadmap",
+      "notes": "ONE string, THREE paths: products.hardware.items[2].capabilities[0..2].dateNote — AI PC, Robotics, Data Center. Compiled as a shared key for the same reason as products.shared.metricValues.die5x5: three identical strings under three keys is a duplicate defect, and the label must be identical on all three cards or the roadmap boundary starts looking like a per-card judgement. `Dự kiến` is the glossary's Vietnamese roadmap label (`sắp ra mắt` and `sẽ có` are forbidden variants). Applying this without also stripping the date from the three titles prints Q3/2026 twice per card — the two edits are one change.",
+      "locales": {
+        "vi": "Dự kiến Q3/2026"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[0].title",
+      "component": "list_item",
+      "claims": [
+        "C039"
+      ],
+      "label": "roadmap",
+      "notes": "REPAIR of the string approved 2026-08-25 (`AI PC · dự kiến Q3/2026`). The date moves out of the title into `dateNote`, which the rebuilt card renders as its own line under the label — the roadmap boundary is now layout, not punctuation, and it is no longer possible to shorten the title and lose it. Target machine class only.",
+      "locales": {
+        "vi": "AI PC"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[1].title",
+      "component": "list_item",
+      "claims": [
+        "C039"
+      ],
+      "label": "roadmap",
+      "notes": "REPAIR — `Robotics · dự kiến Q3/2026` loses the inline date to `dateNote`. English kept: it is the term on the IR Deck roadmap row (§E0) and the sibling labels on this rail are the same register.",
+      "locales": {
+        "vi": "Robotics"
+      }
+    },
+    {
+      "key": "products.hardware.items[2].capabilities[2].title",
+      "component": "list_item",
+      "claims": [
+        "C039"
+      ],
+      "label": "roadmap",
+      "notes": "REPAIR — `Data Center · dự kiến Q3/2026` loses the inline date to `dateNote`.",
+      "locales": {
+        "vi": "Data Center"
+      }
+    },
+    {
+      "key": "products.ctaLabel",
+      "component": "cta",
+      "notes": "NOT APPLIED — web/content/types.ts has no `ctaLabel` on ProductsContent, and vi.ts is typed `SiteContent`, so writing this key today fails the build. Compiled, validated and parked; wiring is a web-ui-engineer follow-up (one field plus the three BlockCta call sites now passing `c.nav.cta`). Canva's button text, without the arrow — the glyph belongs to the component, the same split `products.intro.scrollLabel` already uses. Says what the click starts (a consultation) rather than repeating the site-wide `Liên hệ ngay`, which the sticky header shows on the same screen. 19 characters against the 28-character Vietnamese button ceiling.",
+      "locales": {
+        "vi": "Đăng ký tư vấn ngay"
+      }
+    }
+  ]
+}

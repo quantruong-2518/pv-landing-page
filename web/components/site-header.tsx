@@ -39,9 +39,10 @@ export function SiteHeader({ c, page }: { c: SiteContent; page: PageKey }) {
     { title: c.nav.training, items: [c.products.training.offer] },
   ];
 
-  // Keep the action local wherever a form is already present. PRODUCTS has no
-  // form, so it hands off to the section that does.
-  const ctaHref = page === "products" ? path("products", "book") : path("home", "contact");
+  // Keep the action local wherever a form is already present. PRODUCTS lost its
+  // embedded form when it was rebuilt on the Canva master (2026-09-02), so its
+  // header button now goes the same place the six block buttons go.
+  const ctaHref = page === "products" ? path("contact") : path("home", "contact");
 
   return (
     <header className="site-header bg-art-black font-artboard sticky top-0 z-50 text-white shadow-[0_10px_28px_rgb(4_12_19_/_0.28)]">

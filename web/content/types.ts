@@ -50,12 +50,18 @@ export interface IllustratedItem extends Item {
 }
 
 /**
- * One use case of a hardware family, shown as a card in the application rail.
- * `media` is optional: until the photography exists the rail draws the designed
- * placeholder and uses `title` as its brief, so the row still reads as a row.
+ * One use case of a hardware family, shown as a card in the application row.
+ * `media` is optional: until the photography exists the row draws the designed
+ * placeholder and uses `title` as its brief, so it still reads as a row.
  */
 export interface Application extends Item {
   media?: Media;
+  /**
+   * Sublabel under the title for a use case that is not shipping yet — the
+   * Canva master prints "Dự kiến Q3/2026" under ESPRESSO's two roadmap cards.
+   * Rule #1 by layout: a roadmap application says so on the card itself.
+   */
+  dateNote?: string;
 }
 
 /** Opening of a section: index label, heading, optional lead. */
@@ -94,18 +100,29 @@ export interface HardwareVariant {
   media: Media;
 }
 
+/**
+ * Which band of the catalogue index a hardware family belongs to. Both bands
+ * are `hardware.items` in content — the split is only how the index groups
+ * them, so the GP-GPU accelerator does not read as a fourth NPU chip.
+ */
+export type CatalogGroup = "npu" | "gpu";
+
 /** One hardware family — MINT, PAPAYA, ESPRESSO, GPU. */
 export interface Product {
   /** Anchor id, also the deep link from the nav. */
   id: string;
   name: string;
   indexName?: string;
+  /** Long-form block title: product name plus what it is, one line in the
+      Canva master ("MINT - CHIP ANALOG PIM CHO EDGE AI TẠI THIẾT BỊ"). Falls
+      back to `name` while empty. */
+  headline: string;
   tagline: string;
   decisionLabel: string;
   indexStageLabel: string;
+  catalogGroup: CatalogGroup;
   /** Short architecture label shown beside origin and maturity in the dossier. */
   technologyLabel: string;
-  transition: string;
   body: string;
   applicationLead: string;
   /** Chip families use three rows; a variant family keeps them on each variant. */
@@ -127,10 +144,11 @@ export interface SoftwareGroup {
   id: string;
   name: string;
   indexName?: string;
+  /** Long-form block title — see `Product.headline`. Falls back to `name`. */
+  headline: string;
   tagline: string;
   decisionLabel: string;
   indexStageLabel: string;
-  transition: string;
   body: string;
   modules: Item[];
   /** Private AI only: where a model can be deployed. */
@@ -147,11 +165,14 @@ export interface TrainingOffer {
   id: string;
   name: string;
   indexName?: string;
+  /** Long-form block title — see `Product.headline`. Falls back to `name`. */
+  headline: string;
   tagline: string;
   decisionLabel: string;
   indexStageLabel: string;
-  transition: string;
   body: string;
+  /** One highlighted line beside the body — the master boxes it out. */
+  calloutNote?: string;
   principles: Item[];
   media: Media;
   status: FactStatus;
@@ -284,15 +305,36 @@ export interface HomeContent {
   };
 }
 
+/* ==========================================================================
+   PRODUCTS — reshaped from the Canva master "Product - Pebble Vina"
+   (1536×1024, 7 content artboards, read 2026-09-02). Artboard 1 is the dark
+   hero plus the catalogue index; artboards 2–7 are one family each, all of
+   them the same anatomy: dark band → white specification island → application
+   row → one CTA.
+   ========================================================================== */
 export interface ProductsContent {
-  intro: Intro & { scrollLabel: string };
-  hardware: Intro & { items: Product[] };
+  intro: Intro & {
+    /** Caption under the catalogue grid, with a down arrow: what a card does. */
+    scrollLabel: string;
+    /** Heading of the catalogue strip under the hero. */
+    catalogTitle: string;
+    catalogLead: string;
+    /** Chip macro behind the hero headline — decorative, `alt` stays empty. */
+    media: Media;
+  };
+  hardware: Intro & {
+    items: Product[];
+    /** Band labels in the catalogue index, one per `CatalogGroup`. */
+    catalogGroups: Record<CatalogGroup, string>;
+  };
   software: Intro & { groups: SoftwareGroup[] };
   training: Intro & { offer: TrainingOffer };
-  followUp: {
-    kicker: string;
-    title: string;
-  };
+  /**
+   * The one button every block closes on. Page-level, not per family: the master
+   * prints the same words under all six, so the same key travels with them and a
+   * later change lands once instead of six times.
+   */
+  ctaLabel: string;
 }
 
 export interface ContactContent {

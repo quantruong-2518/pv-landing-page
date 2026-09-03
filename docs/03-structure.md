@@ -26,6 +26,19 @@
 └── 3. LIÊN HỆ                  /vi/contact
 ```
 
+> **`/vi/products` dựng lại từ bản Canva "Product - Pebble Vina" (1536×1024, 7 artboard nội dung),
+> đọc và áp dụng 02/09/2026.** Giống lần HOME dựng lại từ Canva master, bản thiết kế này **thay** phần
+> luật khối của trang sản phẩm ở §4 và §4b bên dưới; cây ba nhánh, thứ tự khối và bộ anchor **không
+> đổi** (`#mint`, `#papaya-flex`, `#espresso`, `#gpu`, `#enterprise`, `#enterprise-ai-training`, cộng
+> `#hardware`/`#software`/`#training` bọc nhóm). Ngôn ngữ thị giác cũ — hồ sơ viền mảnh, dải số đo
+> mono, bệ chip vuông — bị bỏ hoàn toàn. Chi tiết giải phẫu mới: §4b.
+>
+> Hai điều trong bản Canva **không** được bê nguyên, có chủ ý: (1) Canva tô một màu xanh cho cả trang,
+> ở đây giữ hệ ba màu danh mục đã có (phần cứng xanh · phần mềm tím · đào tạo nâu); (2) hero khối phần
+> mềm của Canva là ảnh dashboard mang con số "82%" — không tra được về `docs/01-proof-bank.md` nên
+> không lên trang (CLAUDE.md §2), chỗ đó dùng lại minh hoạ trừu tượng `software-enterprise-suite.webp`
+> vốn không nêu con số nào.
+
 > **Nhánh Private AI gỡ khỏi trang — GM chốt 24/08/2026.** `2.2 SOFTWARE` còn một nhánh. Khối, mục
 > trong mục lục `/products`, mục trong menu di động và anchor `#private-ai` đều sinh từ
 > `products.software.groups` nên biến mất theo — không có chỗ nào phải sửa tay. Đo lại sau khi gỡ:
@@ -103,12 +116,16 @@ Mọi `<Section>` vẫn mang `scroll-snap-align: start`, nên cuộn luôn dừn
 
 | Khối | Chiều cao |
 |---|---|
-| Hero, index của `/products`, **khối LIÊN HỆ** | `min-h-[calc(100svh - var(--header-h))]` (`screen`) |
-| **Why Now**, Lịch sử, từng khối sản phẩm | theo nội dung |
+| Hero HOME, **hero `/products`**, **khối LIÊN HỆ** | `min-h-[calc(100svh - var(--header-h))]` (`screen`) |
+| **Why Now**, Lịch sử, khối danh mục và từng khối sản phẩm | theo nội dung |
 
-Chín khối `/products` dùng bước đệm hẹp `<Section dense>` (`py-10 sm:py-12 lg:py-14` thay cho
-`py-14 sm:py-20 lg:py-24`) từ 2026-08-24: mỗi khối đã tự mở bằng một dải có hairline và tự đóng
-bằng một hàng ngang, nên ranh giới đã rõ mà không cần thêm 80px trống, chín lần.
+> **Khối index của `/products` bỏ `screen` ngày 02/09/2026** cùng lần dựng lại từ Canva: hero mới
+> nhận vai khối mở màn, còn danh mục sáu thẻ cao 1.332px ở 390px — không viewport điện thoại nào
+> chứa nổi. Chi tiết: §4b.
+
+Tám khối `/products` dùng bước đệm hẹp `<Section dense>` (`py-7 sm:py-12 lg:py-14` thay cho
+`py-14 sm:py-20 lg:py-24`): mỗi khối đã tự mở bằng một dải tối và tự đóng bằng một nút, nên ranh
+giới đã rõ mà không cần thêm 80px trống, tám lần.
 
 > **`/vi/contact` bỏ khối `<dl>` điện thoại/email và khối văn phòng + pháp lý ngày 2026-08-24.**
 > GM chốt trực tiếp: mobile-ui-reviewer đo được footer lặp y nguyên bốn dữ kiện đó ngay sau nút
@@ -156,42 +173,113 @@ thì cắt ý khác hoặc tách khối mới.
 ## 4. Nhịp thị giác
 
 ```
-HOME                          /products                      /contact
-tối ▓▓▓  Hero                 tối ▓▓▓  Index                 sáng ░   Lời mời + form
-sáng ░   01 Why now           ▓▓ dải   2.1 Hardware          tối ▓▓▓  Footer
-tối ▓▓▓  02 Lịch sử           sáng ░   MINT
-tối ▓▓▓  Footer               xám ▒    PAPAYA FLEX
-                              sáng ░   ESPRESSO
-                              xám ▒    GPU / HPC
-                              ▓▓ dải   2.2 Software     ← vạch ngăn phần cứng / phần mềm
-                              sáng ░   Enterprise       ← nhánh phần mềm duy nhất từ 24/08/2026
-                              tối ▓▓▓  Lời mời          ← một nút duy nhất của cả trang
+HOME                          /products (Canva, 02/09/2026)   /contact
+tối ▓▓▓  Hero                 tối ▓▓▓  Hero (screen)          sáng ░   Lời mời + form
+sáng ░   01 Why now           sáng ░   Danh mục 6 thẻ         tối ▓▓▓  Footer
+tối ▓▓▓  02 Lịch sử           tối ▓▓▓  MINT
+tối ▓▓▓  Footer               tối ▓▓▓  PAPAYA · PAPAYA FLEX
+                              tối ▓▓▓  ESPRESSO
+                              tối ▓▓▓  E-Series
+                              tối ▓▓▓  Enterprise
+                              tối ▓▓▓  Đào tạo AI      ← khối cuối, nút của nó đóng trang
                               tối ▓▓▓  Footer
-
-`▓▓ dải` = dải tối mỏng ~100px mang đầu mục nhóm (§4b), không phải một khối. Từ 2026-08-24 khối
-Enterprise **không** còn bị tô tối để đánh dấu ranh giới 2.1/2.2 — dải làm việc đó, và khối sản phẩm
-được giữ lại nhịp sáng/xám như mọi khối khác.
 ```
 
-Dải tối = chỗ mắt **phải** dừng: mở màn, lịch sử công ty mẹ, ranh giới 2.1/2.2, lời mời. Xen kẽ sáng/xám
-giữ ranh giới khối rõ ngay cả khi hai khối cùng tông đứng cạnh nhau.
+**`/products` không còn xen kẽ sáng/xám.** Sáu khối danh mục đều là **dải tối**, mỗi khối mang một
+**đảo trắng** ở giữa (bảng thông số / hàng module / hàng bước). Ranh giới giữa hai khối không do màu
+nền vẽ nữa mà do đảo trắng và hàng ứng dụng vẽ — đó là bố cục Canva. Trang chỉ còn đúng **một** mặt
+sáng liên tục: khối danh mục dưới hero.
+
+Vì mọi khối đều tối, hệ ba màu danh mục được **đổi lại trong `.tone-dark`** (globals.css) chứ không
+đổi utility: `--color-hardware` `#7aa6f2` · `--color-software` `#b39ae0` · `--color-training`
+`#e0a684`, lần lượt 7,0:1 · 7,0:1 · 8,1:1 trên nền `#101a2e`. Bản gốc sáng chỉ đạt ~3:1 ở đó.
+Đảo trắng bên trong dải tối dùng lớp `.tone-light` — bản đối xứng của `.tone-dark`, khai lại đúng bộ
+token sáng để chữ phụ, hairline và nhãn trạng thái đọc lại trên nền trắng.
+
+Trên HOME, dải tối vẫn là chỗ mắt **phải** dừng: mở màn, lịch sử công ty mẹ.
 
 `/contact` là ngoại lệ có chủ ý kể từ 2026-08-24: trang chỉ có một việc, nên nó chỉ có một nền —
 trắng. Không có dải tối nào để "mở màn" vì không có gì phải cuộn qua trước khi tới form.
 
-Khối sản phẩm **đổi bên so le**: MINT ảnh trái, PAPAYA ảnh phải, PAPAYA FLEX ảnh trái… Dưới `md` tất
-cả xếp dọc, theo đúng thứ tự đọc ở §4b.
+> ~~**Một CTA cho cả trang (GM, 24/08/2026).**~~ **Bị thay bởi bản Canva 02/09/2026: mỗi khối một
+> nút.** Bản Canva đặt nút "đăng ký tư vấn" ở cuối **từng** khối phần cứng / phần mềm / đào tạo, và
+> đó là bố cục được chốt. Sáu nút, cùng một nhãn, cùng trỏ `/vi/contact`: người mua quyết ở khối vừa
+> thuyết phục họ, không phải bốn màn sau đó. Khối "lời mời" cuối trang cùng form nhúng của nó
+> **đã bị gỡ** — bản Canva không có artboard đóng trang, và `/vi/contact` là toàn bộ cuộc trao đổi
+> chứ không phải một bản sao thứ hai của nó. Nút CTA trên header của `/products` vì thế trỏ thẳng
+> `/vi/contact` thay cho anchor `#book` đã biến mất.
+>
+> Hai khoá `products.followUp.kicker` và `products.followUp.title` không còn được render. Chúng vẫn
+> nằm trong `types.ts` và `vi.ts` cho tới khi `content-system/specs/products.yaml` cho chúng nghỉ —
+> xoá copy đi qua pipeline `content-i18n`, không xoá tay (CLAUDE.md §6).
 
-> **Một CTA cho cả trang (GM, 24/08/2026).** Khối đóng trang là dải tối cuối cùng trước footer: một câu
-> dẫn, một `<Lead>`, **đúng một nút** tới `/vi/contact`. Bản trước gắn nút vào cả sáu khối sản phẩm —
-> sáu nút giống hệt nhau làm loãng đúng chỗ cần nhấn, và cộng ~90px mỗi khối. Reviewer nào nêu "trang
-> thiếu CTA" thì đọc lại dòng này trước khi rải nút.
+## 4b. Giải phẫu một khối sản phẩm — bản Canva 02/09/2026
 
-## 4b. Giải phẫu một khối sản phẩm
+> **Luật "một chip = một màn" (GM, 24/08/2026) không còn áp cho `/products`.** Bản Canva "Product -
+> Pebble Vina" định nghĩa một khối sản phẩm là bốn tầng đọc liên tiếp, không phải một khung hình.
+> Ép bốn tầng đó vào một viewport là bỏ bớt một tầng. Khối `screen` duy nhất còn lại trên trang là
+> **hero**; mọi khối khác cao theo nội dung, `snap-start` theo đúng luật §3 (chỉ khối `screen` mang
+> snap stop).
 
-> **Luật GM, 2026-08-24: một chip = một màn, ở mọi khổ màn hình.** Không phải "gọn hơn" — vừa một
-> màn. Khi một khối không vừa, thứ phải co lại là **bố cục trước, rồi tới lượng chữ** (lượng chữ là
-> việc của writer, không phải của engineer — CLAUDE.md §7 ranh giới 2).
+**Bốn tầng, theo thứ tự, giống hệt nhau ở cả sáu khối:**
+
+```
+1. dải tối     kicker "01 · Phần cứng" → tiêu đề dài → tagline → body → hàng pill
+               (nguồn gốc · trạng thái · kiến trúc)   ·   ảnh render bên phải
+2. đảo trắng   "THÔNG SỐ CHÍNH" + ô số đo đánh số 01/02/03/04
+               (họ có variant → mỗi variant một đảo; E-Series thêm đảo SOFTWARE STACK)
+3. hàng ứng dụng  thẻ ảnh (rail dưới md, lưới từ md) hoặc thẻ chữ khi họ chip không có ảnh
+4. một nút     "Liên hệ ngay →" tới /vi/contact
+```
+
+- **Đảo trắng dùng `.tone-light`**, nên nhãn `shipped`/`roadmap` bên trong nó vẫn là cặp màu sáng.
+  Trên dải tối, cặp màu của `.tone-dark` vẫn dùng — nhãn không bao giờ mất nghĩa vì đổi nền.
+- **Mọi `note` của số đo in đầy đủ, không rút, không tooltip.** Nó là biên mà con số chỉ đúng bên
+  trong (proof-bank §E2). PAPAYA FLEX ba benchmark vs Jetson Nano, PAPAYA ~10.000× vs NVIDIA L4 ở
+  trạm gốc 5G, E-Series dòng RDMA — cả sáu chú thích đứng ngay dưới con số của chúng.
+- **Họ có hai variant thì có hai đảo, không gộp bảng.** Gộp là cách một benchmark mất phần "đo trên
+  cái gì".
+- **Ảnh render nằm thẳng trên dải tối**, không có bệ trắng: cả sáu file chip đều là ảnh cắt nền có
+  kênh alpha (kiểm 02/09/2026), nên một bệ phía sau chỉ vẽ thêm cái hộp mà bức ảnh không có. Hai
+  variant thì hai render đứng cạnh nhau, mỗi cái một thẻ tên xanh (`variant.name`).
+- **Ảnh ứng dụng thì ngược lại**: cũng là ảnh cắt nền, nhưng vật thể tối, nên mỗi thẻ ứng dụng là
+  một thẻ **sáng trọn vẹn** — ảnh trắng bên trên và chân thẻ tối là một đường nối ngang giữa thẻ.
+- **Hàng module (phần mềm) và hàng bước (đào tạo) là cùng một vật**: vòng tròn icon + số thứ tự +
+  tiêu đề + mô tả, nối bằng một đường nét đứt. Đường đó chỉ vẽ từ `lg`, nơi các bước thật sự đứng
+  thành một hàng; mỗi thẻ tự vẽ đoạn của nó tới thẻ sau, nên đoạn cuối không thừa ra.
+- **Kết cấu mạch trên dải tối là CSS**, không phải ảnh: hai lưới gradient hai bước (28px và 112px)
+  cộng một quầng radial, mask về góc có ảnh render (`.product-band` trong globals.css). Không file,
+  không request, không LCP.
+- **Ô ảnh chờ vẫn tự biết mình rộng bao nhiêu** — `MediaPending` giữ nguyên container query. Thẻ
+  E-Series trong danh mục hiện là ô chờ (`gpu.media.src` còn trống).
+
+**Khối danh mục là một `<Section>` riêng, cao theo nội dung.** Bản Canva vẽ nó nằm ngay dưới hero
+trong cùng một trang, nhưng sáu thẻ cộng bốn nhãn nhóm không lọt một viewport điện thoại — nhét vào
+khối `screen` là tái phạm đúng thứ §3 cảnh báo. Lưới: 2 cột ở điện thoại (nhóm NPU chiếm cả hai cột
+với ba thẻ, rồi GP-GPU | Phần mềm cạnh nhau, Đào tạo xuống dòng), 6 cột từ `lg` (NPU 3 · GP-GPU 1 ·
+Phần mềm 1 · Đào tạo 1).
+
+**Đo trên build production, 02/09/2026** (`scrollWidth == clientWidth` ở cả tám bề ngang, không có
+tràn ngang ở đâu):
+
+| | 360×740 | 390×844 | 430×932 | 768×1024 | 1024×768 | 1440×900 | 1920×1080 |
+|---|---|---|---|---|---|---|---|
+| Hero (`screen`, budget) | **684/684** ✔ | **788/788** ✔ | **876/876** ✔ | **960/960** ✔ | **704/704** ✔ | **836/836** ✔ | **1016/1016** ✔ |
+| Danh mục | 1332 | 1333 | 1332 | 1657 | 568 | 563 | 563 |
+| MINT | 1239 | 1220 | 1218 | 1321 | 1050 | 1237 | 1237 |
+| PAPAYA · PAPAYA FLEX | 1865 | 1794 | 1790 | 1565 | 1233 | 1245 | 1245 |
+| ESPRESSO | 1311 | 1334 | 1287 | 1366 | 1050 | 1237 | 1237 |
+| E-Series | 2204 | 2095 | 2036 | 1912 | 1233 | 1097 | 1097 |
+| Phần mềm doanh nghiệp | 1553 | 1487 | 1496 | 1451 | 786 | 865 | 865 |
+| Đào tạo AI | 1405 | 1374 | 1384 | 1335 | 744 | 844 | 844 |
+| cả trang | 12.435 | 12.242 | 12.236 | 12.257 | 7.856 | 8.387 | 8.567 |
+
+Trang dài gần gấp đôi bản dossier cũ (6.6k → 12.2k ở 390px). Đó là cái giá của bốn tầng và nó là
+bố cục đã chốt, không phải một hồi quy: mỗi khối giờ mang đủ ảnh render, bảng số đo có chú thích,
+hàng ứng dụng có ảnh và một nút.
+
+<details>
+<summary>Số đo của bản dossier cũ, giữ làm mốc lịch sử</summary>
 
 Đo trên build production sau khi viết lại:
 
@@ -269,6 +357,8 @@ màn nào chứa nổi, còn trên desktop ba module cuối đứng cạnh kho�
 dưới `sm` — vai "hàng đóng khối" mà rail ứng dụng giữ ở khối phần cứng — hiện không khối phần mềm nào
 dùng tới, vì nhánh duy nhất còn lại không khai `targets`.
 
+</details>
+
 ## 5. Bảy ô ảnh
 
 Ô ảnh là `Media { src?, alt }` trong i18n. `src` trống thì `<Figure>` vẽ placeholder có thiết kế — lưới
@@ -280,6 +370,24 @@ và art direction: `context/media-plan.md`.
 Tiêu đề khối, tên sản phẩm, tên năng lực, mốc lịch sử và số đo: **đã điền**. Toàn bộ `lead` và `body`:
 **để trống có chủ ý**, bản nháp nằm ở `context/`. Component bỏ qua chuỗi rỗng thay vì vẽ khoảng trắng,
 nên trang vẫn đọc được ở trạng thái này.
+
+**Ô mới mở ngày 02/09/2026 khi dựng lại `/products` theo Canva** — tất cả đang `""`, chờ một lượt
+`content-i18n`:
+
+| Khoá | Canva viết gì ở đó |
+|---|---|
+| `products.intro.catalogTitle` | "DANH MỤC CHIP AI VÀ GIẢI PHÁP AI" |
+| `products.intro.catalogLead` | một dòng dẫn dưới tiêu đề đó |
+| `products.hardware.catalogGroups.npu` | "DÒNG CHIP NPU AI" |
+| `products.hardware.catalogGroups.gpu` | "GP-GPU SOLUTION" |
+| `products.hardware.items[*].headline` | tiêu đề dài của khối, ví dụ "MINT - CHIP ANALOG PIM CHO EDGE AI TẠI THIẾT BỊ" |
+| `products.software.groups[0].headline` | "NỀN TẢNG PHẦN MỀM TÍCH HỢP DỮ LIỆU VÀ AI CHO DOANH NGHIỆP" |
+| `products.training.offer.headline` | "ĐÀO TẠO AI DOANH NGHIỆP THEO NHU CẦU THỰC TẾ" |
+| `products.training.offer.calloutNote` | dòng nhấn "Lộ trình 2027 tập trung vào khảo sát nhu cầu…" |
+| `…espresso.capabilities[*].dateNote` | "Dự kiến Q3/2026" dưới nhãn ứng dụng roadmap |
+
+`headline` trống thì component in `name` — một `<h2>` không bao giờ được rỗng. Hai nhãn nhóm danh mục
+trống thì hàng thẻ vẫn giữ đường kẻ màu và vị trí của nó, chỉ thiếu chữ.
 
 ```bash
 grep -o ': ""' web/content/vi.ts | wc -l    # còn bao nhiêu ô trống

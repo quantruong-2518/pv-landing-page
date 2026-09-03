@@ -285,27 +285,57 @@ export const vi: SiteContent = {
       },
     },
   },
+  /* ------------------------------------------------------------------------
+     PRODUCTS — restructured on the Canva master "Product - Pebble Vina"
+     (1536×1024, read 2026-09-02). The layout changed, the facts did not: every
+     metric, note and qualifier below is the copy that already passed
+     docs/01-proof-bank.md. The slots the rebuild opened were filled by the
+     `content-i18n` pass of 2026-09-03 — `intro.catalogTitle`,
+     `intro.catalogLead`, `hardware.catalogGroups.*`, `headline` on every
+     family, `training.offer.calloutNote` and ESPRESSO's three `dateNote`s:
+     content-system/output/products.canva-master.vi.json.
+
+     Dropped from the type on 2026-09-03: `transition` on every family and
+     `followUp`, both retired with the embedded form (spec `retired_slots`).
+
+     Closed out by the pass of 2026-09-03b — the gpu band label, `training.kicker`,
+     the three ESPRESSO application `alt`s and `ctaLabel`, which was waiting on its
+     type field: content-system/output/products.labels-and-alts.vi.json. Nothing in
+     `products` is empty on purpose any more.
+     ------------------------------------------------------------------------ */
   products: {
     intro: {
       kicker: "Danh mục sản phẩm",
       title: "Chọn đúng tầng sản phẩm cho bài toán AI của bạn.",
       lead: "Chọn theo nơi AI chạy, việc AI tham gia và mức độ sẵn sàng của từng nhánh.",
       scrollLabel: "Đi xuống phần cứng",
+      catalogTitle: "Danh mục chip AI và giải pháp AI",
+      catalogLead: "Khám phá phần cứng của Pebble Square, cùng phần mềm và đào tạo AI của Pebble Vina.",
+      media: {
+        src: "/media/home/hero-chip.png",
+        // Chip macro bleeding in behind the headline — decorative.
+        alt: "",
+      },
     },
 
     hardware: {
       kicker: "01 · Phần cứng",
       title: "Ba dòng chip. Hai cấp AI accelerator.",
       lead: "Chọn theo nơi workload chạy, loại tác vụ và quy mô triển khai: từ thiết bị Edge AI tiết kiệm điện đến máy chủ và cụm đa card.",
+      // The band names the FORM, not the architecture: `GP-GPU` was the Canva
+      // word and contradicted the GP-DSA spec panel below it (spec decision
+      // catalogue_band_gpu_relabel_2026_09_03). Also the section's aria-label.
+      catalogGroups: { npu: "Dòng chip NPU AI", gpu: "Card tăng tốc AI" },
       items: [
         {
           id: "mint",
           name: "MINT",
+          headline: "MINT — Chip Analog-PIM cho Edge AI tại thiết bị",
+          catalogGroup: "npu",
           tagline: "Analog-PIM · Edge AI đã sản xuất hàng loạt",
           decisionLabel: "AI chạy ngay trên thiết bị, trong giới hạn điện thấp.",
           indexStageLabel: "Sản xuất-5/2023",
           technologyLabel: "Analog",
-          transition: "Bắt đầu tại thiết bị, nơi điện năng là giới hạn đầu tiên.",
           body: "Dành cho suy luận Edge AI trong giới hạn điện của thiết bị hiện trường. MINT đã sản xuất hàng loạt từ 5/2023.",
           applicationLead: "MINT thường được định hướng cho Smart Home, IoT và thiết bị phân tích lỗi tại hiện trường.",
           metrics: [
@@ -352,11 +382,12 @@ export const vi: SiteContent = {
         {
           id: "papaya-flex",
           name: "PAPAYA · PAPAYA FLEX",
+          headline: "PAPAYA & PAPAYA FLEX — Nền tảng chip Analog-PIM cho thị giác máy trên thiết bị",
+          catalogGroup: "npu",
           tagline: "Analog-PIM · PoC khách hàng · 2024",
           decisionLabel: "Thị giác máy và hệ thống an ninh ở mốc PoC.",
           indexStageLabel: "PoC-2024",
           technologyLabel: "Analog",
-          transition: "Khi thiết bị cần nhìn, bài toán chuyển từ tín hiệu sang hình ảnh.",
           body: "Số đo của PAPAYA FLEX lấy trên tải thị giác máy, còn PAPAYA ở trạm gốc 5G. Lợi thế nằm ở điện năng và kích thước; huấn luyện mô hình lớn vẫn cần GPU.",
           applicationLead: "Hai mức hiệu năng trong cùng họ PAPAYA phục vụ thị giác máy và hệ thống tại hiện trường.",
           metrics: [],
@@ -454,11 +485,12 @@ export const vi: SiteContent = {
         {
           id: "espresso",
           name: "ESPRESSO",
+          headline: "ESPRESSO — Chip Digital-PIM cho AI Computer",
+          catalogGroup: "npu",
           tagline: "Digital-PIM · roadmap Q3/2026",
           decisionLabel: "Digital-PIM cho tải lớn hơn · dự kiến Q3/2026.",
           indexStageLabel: "Roadmap-Q3/2026",
           technologyLabel: "Digital",
-          transition: "Sau Edge AI hiện tại là lộ trình Digital-PIM dự kiến Q3/2026.",
           body: "Dự kiến Q3/2026, ESPRESSO sẽ đưa Digital-PIM lên AI PC, Robotics, ChatBot, Auto Pilot và Data Center. Đây là roadmap trong tài liệu nhà đầu tư, chưa có trong danh mục công khai.",
           applicationLead: "ESPRESSO hướng tới AI PC, Robotics và Data Center trong roadmap Q3/2026.",
           metrics: [
@@ -468,19 +500,35 @@ export const vi: SiteContent = {
           ],
           capabilities: [
             {
-              title: "AI PC · dự kiến Q3/2026",
+              title: "AI PC",
               body: "Mục tiêu cho AI chạy trên máy tính cá nhân.",
-              media: { src: "/media/apps/espresso-ai-pc.webp", alt: "" },
+              // The roadmap date is a field of its own now: a card that loses it
+              // loses the label CLAUDE.md §2 rule 4 requires on every mention.
+              dateNote: "Dự kiến Q3/2026",
+              media: {
+                src: "/media/apps/espresso-ai-pc.webp",
+                // Literal description of a generic machine render — it names no
+                // product. The roadmap boundary is the card's own `dateNote`.
+                alt: "Thùng máy tính để bàn cỡ nhỏ màu đen, mặt trước lưới đục lỗ, viền vàng đồng ở cạnh trên.",
+              },
             },
             {
-              title: "Robotics · dự kiến Q3/2026",
+              title: "Robotics",
               body: "Mục tiêu cho tải suy luận trên robot.",
-              media: { src: "/media/apps/espresso-robot-arm.webp", alt: "" },
+              dateNote: "Dự kiến Q3/2026",
+              media: {
+                src: "/media/apps/espresso-robot-arm.webp",
+                alt: "Cánh tay robot vỏ trắng bóng, các khớp kim loại sáng, bàn tay máy năm ngón ở đầu.",
+              },
             },
             {
-              title: "Data Center · dự kiến Q3/2026",
+              title: "Data Center",
               body: "Mục tiêu cho tải suy luận tại trung tâm dữ liệu.",
-              media: { src: "/media/apps/espresso-ai-server.webp", alt: "" },
+              dateNote: "Dự kiến Q3/2026",
+              media: {
+                src: "/media/apps/espresso-ai-server.webp",
+                alt: "Máy chủ gắn rack thân dẹt màu đen, mặt trước là dãy khay ổ cứng nẹp vàng đồng.",
+              },
             },
           ],
           source: "Pebble Square · IR Deck · roadmap Q3/2026 · chưa có trong danh mục công khai",
@@ -497,11 +545,12 @@ export const vi: SiteContent = {
           id: "gpu",
           name: "E-Series AI Compute Accelerators",
           indexName: "E-Series · E10 / E20",
+          headline: "E-Series — Nền tảng tăng tốc AI cho máy chủ và hệ thống đa card",
+          catalogGroup: "gpu",
           tagline: "GP-DSA · Training + Inference",
           decisionLabel: "Tăng tốc huấn luyện và suy luận từ một máy chủ đến cụm đa card.",
           indexStageLabel: "Product Data",
           technologyLabel: "GP-DSA",
-          transition: "Khi mô hình vượt khỏi thiết bị Edge AI, E-Series đưa tải lên máy chủ và cụm đa card.",
           body: "E-Series dùng GP-DSA cho huấn luyện và suy luận. Dải độ chính xác trải từ FP32 đến INT4, với PCIe 5.0 và RDMA.",
           applicationLead: "E-Series thường được ứng dụng cho máy chủ AI doanh nghiệp, LLM, thị giác máy, NLP, Speech AI và tính toán đa card.",
           metrics: [],
@@ -551,7 +600,13 @@ export const vi: SiteContent = {
             { title: "Multi-card Computing", body: "Cụm tính toán đa card qua RDMA." },
           ],
           source: "Pebble Square · tài liệu sản phẩm E-Series do GM cung cấp",
-          media: { alt: "Dòng card tăng tốc AI E-Series của Pebble Square." },
+          // The catalogue card needs one representative shot of the family; E10
+          // is it. `alt` is the E10 string already approved on `variants[0]`,
+          // reused verbatim because it is the same file — not new copy.
+          media: {
+            src: "/media/chips/e10.webp",
+            alt: "Card tăng tốc AI E10 PCIe với vỏ nhôm bạc và đầu nối PCIe.",
+          },
           status: "shipped",
           stage: "product-data",
           statusNote: "Thông số sản phẩm",
@@ -569,10 +624,10 @@ export const vi: SiteContent = {
           id: "enterprise",
           name: "Bộ phần mềm vận hành doanh nghiệp",
           indexName: "Phần mềm doanh nghiệp",
+          headline: "Nền tảng phần mềm tích hợp dữ liệu và AI cho doanh nghiệp",
           tagline: "Dự kiến 12/2026 · AI đề xuất, con người phê duyệt",
           decisionLabel: "Nối CRM, ERP, HRM và DMS vào một góc nhìn vận hành.",
           indexStageLabel: "Roadmap · 12/2026",
-          transition: "Sau lớp tính toán là lớp đưa dữ liệu vào quyết định vận hành.",
           body: "Dữ liệu vận hành được nối thành một luồng thống nhất để AI phát hiện điểm cần chú ý và đề xuất bước tiếp theo. Người phụ trách vẫn xem xét và phê duyệt quyết định.",
           modules: [
             { title: "CRM", body: "Theo dõi hồ sơ khách hàng và hoạt động bán hàng.", icon: "crm" },
@@ -594,18 +649,21 @@ export const vi: SiteContent = {
     },
 
     training: {
-      kicker: "03 · Đào tạo AI doanh nghiệp",
+      // Bare category noun, like `01 · Phần cứng` and `02 · Phần mềm`: the
+      // headline one line below opens on the same five words otherwise.
+      kicker: "03 · Đào tạo",
       title: "Đào tạo AI đi từ bài toán riêng của doanh nghiệp.",
       lead: "Năm 2027, Pebble Vina dự kiến khảo sát nhu cầu trước khi thiết kế bất kỳ chương trình nào.",
       offer: {
         id: "enterprise-ai-training",
         name: "Đào tạo AI theo nhu cầu doanh nghiệp",
         indexName: "Đào tạo AI doanh nghiệp",
+        headline: "Đào tạo AI doanh nghiệp theo nhu cầu thực tế",
         tagline: "Thiết kế sau khảo sát 2027",
         decisionLabel: "Khảo sát nhu cầu trước khi thiết kế chương trình riêng.",
         indexStageLabel: "Khảo sát · 2027",
-        transition: "Sau hệ thống là đội ngũ phải đưa AI vào một đầu việc có thể đo.",
         body: "Mốc 2027 là giai đoạn xác định nhu cầu, chưa phải cam kết triển khai. Chương trình chỉ được xây dựng khi hai bên thống nhất rõ phạm vi, người tham gia và đầu ra cần đạt.",
+        calloutNote: "Lộ trình 2027 tập trung vào khảo sát nhu cầu và hoàn thiện mô hình đào tạo.",
         principles: [
           { title: "Khảo sát trước", body: "Xác định bài toán, nhóm tham gia và khoảng trống năng lực trước khi thiết kế.", icon: "survey" },
           { title: "Thiết kế riêng", body: "Không dùng một lộ trình cố định cho mọi doanh nghiệp.", icon: "tailored" },
@@ -623,10 +681,10 @@ export const vi: SiteContent = {
       },
     },
 
-    followUp: {
-      kicker: "Bước tiếp theo",
-      title: "Bài toán doanh nghiệp nào của khách hàng đang được ưu tiên?",
-    },
+    // One label for all three block buttons — the buyer converts at the block
+    // that convinced them. Approved in products.canva-master.vi.json and applied
+    // unchanged once ProductsContent declared the field.
+    ctaLabel: "Đăng ký tư vấn ngay",
   },
 
   contact: {
