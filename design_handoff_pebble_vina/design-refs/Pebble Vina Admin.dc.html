@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+  body { margin: 0; background: #05070F; color: #E8EDF7; font-family: "Be Vietnam Pro", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #4E92FF; text-decoration: none; }
+  a:hover { color: #8FBAFF; }
+  h1, h2 { font-family: "Chakra Petch", "Be Vietnam Pro", system-ui, sans-serif; font-weight: 700; }
+  *, *::before, *::after { box-sizing: border-box; }
+  input, textarea, button, select { font-family: inherit; }
+  input::placeholder, textarea::placeholder { color: #5C6980; }
+  ::selection { background: rgba(78,146,255,0.35); }
+  :focus-visible { outline: 2px solid #4E92FF; outline-offset: 2px; }
+</style>
+</helmet>
+<div style="min-height:100vh; background:#05070F; color:#E8EDF7; display:flex; flex-direction:column">
+
+  <header style="position:sticky; top:0; z-index:20; display:flex; flex-wrap:wrap; align-items:center; gap:20px; padding:0 24px; min-height:72px; background:rgba(5,7,15,0.9); backdrop-filter:blur(14px); border-bottom:1px solid rgba(232,237,247,0.14)">
+    <div style="display:flex; align-items:center; gap:12px">
+      <img src="assets/logo.png" alt="" style="width:28px; height:28px; display:block" />
+      <span style="font-family:'Chakra Petch'; font-weight:700; font-size:14px; letter-spacing:0.1em">PEBBLE VINA</span>
+      <span style="white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.14em; color:#7C8AA3">CMS</span>
+    </div>
+
+    <div style="display:flex; margin-left:8px; border:1px solid rgba(232,237,247,0.2)">
+      <sc-for list="{{ pages }}" as="pg" hint-placeholder-count="2">
+        <button type="button" onClick="{{ pg.onPick }}" style="white-space:nowrap; font-size:13px; font-weight:500; padding:10px 18px; border:0; cursor:pointer; background:{{ pg.bg }}; color:{{ pg.fg }}">{{ pg.label }}</button>
+      </sc-for>
+    </div>
+
+    <div style="margin-left:auto; display:flex; flex-wrap:wrap; align-items:center; gap:14px">
+      <span style="white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; color:#7C8AA3">{{ statusText }}</span>
+      <a href="Pebble Vina Home.dc.html" style="white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em">XEM TRANG →</a>
+      <button type="button" onClick="{{ onReset }}" style="white-space:nowrap; font-size:13px; font-weight:500; color:#E8EDF7; background:transparent; border:1px solid rgba(232,237,247,0.28); padding:10px 18px; cursor:pointer" style-hover="border-color:#4E92FF; color:#4E92FF">Hoàn tác</button>
+      <button type="button" onClick="{{ onSave }}" style="white-space:nowrap; font-size:13px; font-weight:600; color:#05070F; background:#4E92FF; border:0; padding:11px 22px; cursor:pointer" style-hover="background:#8FBAFF">Lưu thay đổi</button>
+    </div>
+  </header>
+
+  <div style="flex:1; display:grid; grid-template-columns:264px minmax(0,1fr); align-items:stretch">
+
+    <aside style="border-right:1px solid rgba(232,237,247,0.14); background:#080D1B; padding:20px 0">
+      <div style="padding:0 20px 14px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.13em; color:#7C8AA3">CÁC SECTION</div>
+      <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="7">
+        <button type="button" onClick="{{ sec.onPick }}" style="width:100%; display:flex; align-items:center; gap:12px; text-align:left; font-size:14px; font-weight:500; padding:13px 20px; border:0; border-left:2px solid {{ sec.mark }}; cursor:pointer; background:{{ sec.bg }}; color:{{ sec.fg }}" style-hover="background:rgba(78,146,255,0.09)">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">{{ sec.num }}</span>
+          <span style="flex:1; min-width:0">{{ sec.label }}</span>
+          <span style="width:7px; height:7px; background:{{ sec.dot }}"></span>
+        </button>
+      </sc-for>
+      <div style="margin-top:20px; padding:16px 20px 0; border-top:1px solid rgba(232,237,247,0.14); font-size:12.5px; line-height:1.7; color:#7C8AA3">Ô vuông sáng = section đang bật. Nội dung lưu trên máy bạn, chưa nối API.</div>
+    </aside>
+
+    <main style="padding:28px 28px 64px; min-width:0">
+      <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; padding-bottom:18px; border-bottom:1px solid rgba(232,237,247,0.22)">
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.13em; color:#4E92FF">{{ activeKicker }}</span>
+          <h2 style="margin:0; font-size:26px; line-height:1.25; letter-spacing:0">{{ activeLabel }}</h2>
+        </div>
+        <label style="display:flex; align-items:center; gap:12px; cursor:pointer">
+          <span style="font-size:13.5px; color:#A8B6CF">Hiển thị section này</span>
+          <input type="checkbox" checked="{{ activeVisible }}" onChange="{{ onToggleVisible }}" style="width:18px; height:18px; accent-color:#4E92FF; cursor:pointer" />
+        </label>
+      </div>
+
+      <sc-for list="{{ fields }}" as="fld" hint-placeholder-count="5">
+        <div style="padding:22px 0; border-bottom:1px solid rgba(232,237,247,0.1); display:grid; grid-template-columns:minmax(0,200px) minmax(0,1fr); gap:24px; align-items:start">
+          <div style="display:flex; flex-direction:column; gap:6px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; color:#A8B6CF">{{ fld.label }}</span>
+            <span style="font-size:12px; line-height:1.6; color:#7C8AA3">{{ fld.hint }}</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:12px; min-width:0">
+            <sc-if value="{{ fld.isText }}" hint-placeholder-val="{{ true }}">
+              <input type="text" value="{{ fld.value }}" onChange="{{ fld.onInput }}" placeholder="{{ fld.placeholder }}" style="width:100%; font-size:15px; color:#E8EDF7; background:#0C1730; border:1px solid rgba(232,237,247,0.2); padding:12px 14px; outline:none" style-focus="border-color:#4E92FF" />
+            </sc-if>
+
+            <sc-if value="{{ fld.isArea }}" hint-placeholder-val="{{ false }}">
+              <textarea rows="4" value="{{ fld.value }}" onChange="{{ fld.onInput }}" placeholder="{{ fld.placeholder }}" style="width:100%; font-size:15px; line-height:1.7; color:#E8EDF7; background:#0C1730; border:1px solid rgba(232,237,247,0.2); padding:12px 14px; outline:none; resize:vertical" style-focus="border-color:#4E92FF"></textarea>
+            </sc-if>
+
+            <sc-if value="{{ fld.isNumber }}" hint-placeholder-val="{{ false }}">
+              <input type="number" min="1" max="8" value="{{ fld.value }}" onChange="{{ fld.onInput }}" style="width:110px; font-size:15px; color:#E8EDF7; background:#0C1730; border:1px solid rgba(232,237,247,0.2); padding:12px 14px; outline:none" style-focus="border-color:#4E92FF" />
+            </sc-if>
+
+            <sc-if value="{{ fld.isImage }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start">
+                <div style="width:210px; aspect-ratio:16/9; background:#0C1730; border:1px solid rgba(232,237,247,0.2); overflow:hidden; flex:0 0 auto">
+                  <img src="{{ fld.value }}" alt="" style="width:100%; height:100%; object-fit:cover; display:block" />
+                </div>
+                <div style="flex:1 1 260px; min-width:0; display:flex; flex-direction:column; gap:10px">
+                  <input type="text" value="{{ fld.value }}" onChange="{{ fld.onInput }}" placeholder="assets/ten-anh.png" style="width:100%; font-family:'JetBrains Mono',monospace; font-size:13px; color:#E8EDF7; background:#0C1730; border:1px solid rgba(232,237,247,0.2); padding:11px 13px; outline:none" style-focus="border-color:#4E92FF" />
+                  <div style="display:flex; flex-wrap:wrap; gap:8px">
+                    <sc-for list="{{ fld.assets }}" as="as" hint-placeholder-count="6">
+                      <button type="button" onClick="{{ as.onPick }}" style="white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:11px; color:{{ as.fg }}; background:{{ as.bg }}; border:1px solid {{ as.border }}; padding:7px 10px; cursor:pointer" style-hover="border-color:#4E92FF; color:#4E92FF">{{ as.label }}</button>
+                    </sc-for>
+                  </div>
+                  <span style="font-size:12px; line-height:1.6; color:#7C8AA3">{{ fld.fitNote }}</span>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+
+      <div style="margin-top:26px; display:flex; flex-wrap:wrap; align-items:center; gap:16px">
+        <button type="button" onClick="{{ onSave }}" style="font-size:14px; font-weight:600; color:#05070F; background:#4E92FF; border:0; padding:15px 28px; cursor:pointer" style-hover="background:#8FBAFF">Lưu thay đổi</button>
+        <span style="font-size:13px; line-height:1.7; color:#7C8AA3; max-width:56ch">{{ footNote }}</span>
+      </div>
+    </main>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+const ASSETS = [
+  'assets/chip-hero.png','assets/npu-dram.png','assets/pim-chip.png','assets/chip-analog.png','assets/chip-digital.png',
+  'assets/hq-building.png','assets/bg-web.png','assets/news-1.png','assets/news-2.png','assets/news-3.png','assets/news-4.png',
+  'assets/pd-mint.png','assets/pd-papaya.png','assets/pd-espresso.png','assets/pd-eseries.png','assets/pd-software.png','assets/pd-training.png'
+];
+
+const F = (key, label, type, hint, extra) => Object.assign({ key, label, type, hint }, extra || {});
+
+const SCHEMA = {
+  home: {
+    label: 'Trang chủ',
+    sections: [
+      { id: 'hero', label: 'Hero', fields: [
+        F('eyebrow','EYEBROW','text','Dòng mono nhỏ phía trên tiêu đề'),
+        F('title','TIÊU ĐỀ','area','Chữ hoa, 2–3 dòng là vừa'),
+        F('lead','MÔ TẢ CHÍNH','area','Cột trái, chữ sáng'),
+        F('sub','MÔ TẢ PHỤ','area','Cột giữa, chữ nhạt hơn'),
+        F('cta','NHÃN CTA','text',''),
+        F('image','ẢNH NỀN','image','Tràn toàn khung, cắt theo cover', { fit: 'cover — tràn viền, cắt phần thừa' })
+      ]},
+      { id: 'marquee', label: 'Thanh chạy chữ', fields: [
+        F('items','NỘI DUNG','area','Mỗi mục cách nhau bằng dấu ·')
+      ]},
+      { id: 'pim', label: '01 · Công nghệ PIM', fields: [
+        F('eyebrow','EYEBROW','text',''),
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('imageA','ẢNH ANALOG','image','Tràn ra lề trái', { fit: 'cover 16:9 — tràn lề trái' }),
+        F('imageB','ẢNH DIGITAL','image','Tràn ra lề phải', { fit: 'cover 16:9 — tràn lề phải' }),
+        F('statement','CÂU CHỐT','text',''),
+        F('imageC','ẢNH CHIP PIM','image','PNG nền trong suốt', { fit: 'PNG trong suốt, không khung' })
+      ]},
+      { id: 'why', label: '02 · Tại sao PIM', fields: [
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('image','ẢNH DẢI NGANG','image','Băng full-bleed 32:9', { fit: 'cover 32:9 — tràn hai lề' })
+      ]},
+      { id: 'core', label: '03 · Năng lực cốt lõi', fields: [
+        F('eyebrow','EYEBROW','text',''),
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('stat','SỐ LIỆU NHẤN','text','Ví dụ: 400K')
+      ]},
+      { id: 'solutions', label: '04 · Giải pháp', fields: [
+        F('eyebrow','EYEBROW','text',''),
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('count','SỐ HÀNG HIỂN THỊ','number','Tối đa 4')
+      ]},
+      { id: 'news', label: '05 · Tin tức', fields: [
+        F('eyebrow','EYEBROW','text',''),
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('count','SỐ TIN HIỂN THỊ','number','Tối đa 4'),
+        F('image1','ẢNH TIN 1','image','', { fit: 'cover 16:9' }),
+        F('image2','ẢNH TIN 2','image','', { fit: 'cover 16:9' }),
+        F('image3','ẢNH TIN 3','image','', { fit: 'cover 16:9' }),
+        F('image4','ẢNH TIN 4','image','', { fit: 'cover 16:9' })
+      ]},
+      { id: 'contact', label: '06 · Liên hệ', fields: [
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('cta','NHÃN NÚT GỬI','text',''),
+        F('note','GHI CHÚ BẢO MẬT','area',''),
+        F('image','ẢNH NỀN CỘT TRÁI','image','Nằm dưới lớp scrim navy', { fit: 'cover — ảnh nền, có scrim' })
+      ]}
+    ]
+  },
+  product: {
+    label: 'Sản phẩm',
+    sections: [
+      { id: 'catalog', label: 'Danh mục', fields: [
+        F('eyebrow','EYEBROW','text',''),
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('hint','GỢI Ý THAO TÁC','text','')
+      ]},
+      { id: 'mint', label: '01 · MINT', fields: [
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('apps','ỨNG DỤNG','text','Cách nhau bằng /'),
+        F('specs','THÔNG SỐ','area','Mỗi dòng: nhãn | số | đơn vị'),
+        F('image','ẢNH SẢN PHẨM','image','', { fit: 'contain 16:9 — thấy trọn chip' })
+      ]},
+      { id: 'papaya', label: '02 · PAPAYA / FLEX', fields: [
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('apps','ỨNG DỤNG','text',''),
+        F('specs','THÔNG SỐ','area',''),
+        F('image','ẢNH SẢN PHẨM','image','', { fit: 'contain 16:9' })
+      ]},
+      { id: 'espresso', label: '03 · ESPRESSO', fields: [
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('specs','THÔNG SỐ','area',''),
+        F('image','ẢNH SẢN PHẨM','image','', { fit: 'contain 16:9' })
+      ]},
+      { id: 'eseries', label: '04 · E-Series', fields: [
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('stack','SOFTWARE STACK','area','Cách nhau bằng /'),
+        F('image','ẢNH CARD','image','', { fit: 'contain 16:9' })
+      ]},
+      { id: 'software', label: '05 · Phần mềm', fields: [
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('progress','TIẾN ĐỘ (%)','number','1–100'),
+        F('image','ẢNH DASHBOARD','image','', { fit: 'contain 16:9' })
+      ]},
+      { id: 'training', label: '06 · Đào tạo AI', fields: [
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('image','ẢNH LỚP HỌC','image','', { fit: 'cover 16:9 — ảnh chụp thật' })
+      ]},
+      { id: 'contact', label: '07 · Liên hệ', fields: [
+        F('title','TIÊU ĐỀ','area',''),
+        F('lead','MÔ TẢ','area',''),
+        F('cta','NHÃN CTA','text','')
+      ]}
+    ]
+  }
+};
+
+const DEFAULTS = {
+  home: {
+    hero: { visible: true, eyebrow: 'CHIP BÁN DẪN TÍCH HỢP AI NGOẠI BIÊN THẾ HỆ MỚI', title: 'KIẾN TẠO CÔNG NGHỆ BÁN DẪN CHO KỶ NGUYÊN AI', lead: 'Pebble Vina tập trung nghiên cứu và phát triển các công nghệ bán dẫn AI, từ thiết kế kiến trúc chip, công nghệ xử lý trong bộ nhớ (PIM) đến phát triển phần mềm và các giải pháp AI ứng dụng.', sub: 'Với định hướng kết hợp giữa phần cứng và phần mềm, Pebble Vina phát triển các nền tảng tính toán phục vụ AI, Edge AI, On-device AI và các mô hình AI thế hệ mới.', cta: 'TÌM HIỂU THÊM →', image: 'assets/chip-hero.png' },
+    marquee: { visible: true, items: 'NGHIÊN CỨU · THỰC NGHIỆM · PHÁT TRIỂN · ĐÀO TẠO · PROCESSING-IN-MEMORY · EDGE AI · ON-DEVICE AI · AI INFERENCE' },
+    pim: { visible: true, eyebrow: '01 — PROCESSING IN MEMORY', title: 'CÔNG NGHỆ PIM NỀN TẢNG TÍNH TOÁN CHO AI', lead: 'PIM (Processing-in-Memory) là công nghệ tính toán đưa hoạt động xử lý đến gần nơi dữ liệu được lưu trữ, qua đó giảm lượng dữ liệu phải di chuyển giữa bộ nhớ và bộ xử lý.', imageA: 'assets/chip-analog.png', imageB: 'assets/chip-digital.png', statement: 'NÂNG CAO HIỆU SUẤT TÍNH TOÁN CHO AI.', imageC: 'assets/pim-chip.png' },
+    why: { visible: true, title: 'Tại sao công nghệ PIM quan trọng đối với AI?', lead: 'Khi các mô hình AI ngày càng lớn, nhu cầu xử lý và truyền dữ liệu cũng tăng theo. PIM đưa hoạt động tính toán đến gần nơi dữ liệu được lưu trữ.', image: 'assets/npu-dram.png' },
+    core: { visible: true, eyebrow: '02 — CORE CAPABILITY', title: 'NĂNG LỰC CỐT LÕI CỦA CÔNG NGHỆ CHIP', lead: 'Trọng tâm tối ưu luồng dữ liệu, năng lực xử lý song song và hiệu quả tính toán.', stat: '400K' },
+    solutions: { visible: true, eyebrow: '03 — PRODUCTS & SOLUTIONS', title: 'GIẢI PHÁP CHIP BÁN DẪN & PHẦN MỀM AI NGOẠI BIÊN', lead: 'Pebble Vina kết hợp công nghệ phần cứng bán dẫn với phần mềm AI để phát triển các giải pháp tính toán phù hợp với nhu cầu doanh nghiệp.', count: 4 },
+    news: { visible: true, eyebrow: '04 — COLLABORATION FOR THE FUTURE', title: 'TIN TỨC & HỢP TÁC', lead: 'Pebble Vina luôn chủ động mở rộng hợp tác chiến lược với các đối tác, khách hàng và tổ chức hàng đầu.', count: 4, image1: 'assets/news-1.png', image2: 'assets/news-2.png', image3: 'assets/news-3.png', image4: 'assets/news-4.png' },
+    contact: { visible: true, title: 'Cùng nhau kiến tạo giải pháp chip bán dẫn tích hợp AI ngoại biên đột phá', lead: 'Chúng tôi luôn sẵn sàng lắng nghe và đồng hành cùng bạn để biến ý tưởng thành giá trị thực tiễn.', cta: 'GỬI THÔNG TIN', note: 'Thông tin của bạn được bảo mật và chỉ sử dụng để hỗ trợ theo yêu cầu.', image: 'assets/hq-building.png' }
+  },
+  product: {
+    catalog: { visible: true, eyebrow: 'DANH MỤC CHIP AI VÀ GIẢI PHÁP AI', title: 'Danh mục sản phẩm công nghệ AI của Pebble Vina', lead: 'Chúng tôi cung cấp các giải pháp toàn diện chip bán dẫn tích hợp AI và các giải pháp phần mềm.', hint: 'Bấm vào sản phẩm để xem chi tiết bên dưới' },
+    mint: { visible: true, title: 'MINT — CHIP ANALOG PIM CHO EDGE AI TẠI THIẾT BỊ', lead: 'MINT là chip AI do Pebble Vina phát triển cho các thiết bị cần xử lý dữ liệu trực tiếp tại biên.', apps: 'Smart Home / IoT / Failure Analysis', specs: 'Performance | 30 | GOPS\nEfficiency | 17,6 | TOPS/W\nDie / Chip Area | 5 × 5 | MM²', image: 'assets/pd-mint.png' },
+    papaya: { visible: true, title: 'PAPAYA & PAPAYA FLEX — NỀN TẢNG CHIP ANALOG CHO THỊ GIÁC TẠI THIẾT BỊ', lead: 'Các dòng chip chuyên biệt cho xử lý hình ảnh và thị giác máy trực tiếp tại thiết bị.', apps: 'Nhận dạng hình ảnh / Hệ thống an ninh / Robot / Thị giác máy', specs: 'Performance | 0,5 | TOPS\nEfficiency | 30 | TOPS/W\nDie / Chip Area | 5 × 5 | MM²', image: 'assets/pd-papaya.png' },
+    espresso: { visible: true, title: 'ESPRESSO — CHIP DIGITAL-PIM CHO AI COMPUTER', lead: 'Thế hệ chip Digital-PIM tiếp theo, cho các workload AI có yêu cầu tính toán cao hơn Edge AI.', specs: 'Performance | 160 | TOPS\nEfficiency | 16 | TOPS/W\nDie / Chip Area | 20 × 23 | MM²', image: 'assets/pd-espresso.png' },
+    eseries: { visible: true, title: 'E-SERIES — NỀN TẢNG TĂNG TỐC AI CHO SERVER VÀ HỆ THỐNG ĐA CARD', lead: 'Dòng card tăng tốc AI cho các hệ thống máy chủ cần mở rộng năng lực tính toán.', stack: 'AI Compiler / Graph Optimization / Operator Generation / Framework Compatibility / Performance & Precision Tools', image: 'assets/pd-eseries.png' },
+    software: { visible: true, title: 'NỀN TẢNG PHẦN MỀM TÍCH HỢP DỮ LIỆU VÀ AI CHO DOANH NGHIỆP', lead: 'Kết nối dữ liệu từ CRM, ERP, HRM và DMS trên một môi trường thống nhất.', progress: 82, image: 'assets/pd-software.png' },
+    training: { visible: true, title: 'ĐÀO TẠO AI DOANH NGHIỆP THEO NHU CẦU THỰC TẾ', lead: 'Chương trình đào tạo AI dựa trên bài toán, dữ liệu và năng lực thực tế của từng tổ chức.', image: 'assets/pd-training.png' },
+    contact: { visible: true, title: 'CHO CHÚNG TÔI BIẾT WORKLOAD — CHÚNG TÔI ĐỀ XUẤT CẤU HÌNH', lead: 'Gửi yêu cầu của bạn, đội ngũ kỹ thuật sẽ phản hồi với cấu hình chip hoặc card phù hợp.', cta: 'ĐĂNG KÝ TƯ VẤN NGAY →' }
+  }
+};
+
+const STORE = 'pebblevina.cms.v1';
+const clone = (o) => JSON.parse(JSON.stringify(o));
+
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    let data = clone(DEFAULTS);
+    try {
+      const raw = window.localStorage.getItem(STORE);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        for (const pg of Object.keys(data)) for (const s of Object.keys(data[pg]))
+          if (saved[pg] && saved[pg][s]) Object.assign(data[pg][s], saved[pg][s]);
+      }
+    } catch (e) { /* first run or storage blocked */ }
+    this.state = { page: 'home', section: 'hero', data, dirty: false, savedAt: 0 };
+  }
+
+  set(pg, sec, key, val) {
+    this.setState(s => {
+      const d = clone(s.data);
+      d[pg][sec][key] = val;
+      return { data: d, dirty: true };
+    });
+  }
+
+  save() {
+    try { window.localStorage.setItem(STORE, JSON.stringify(this.state.data)); } catch (e) {}
+    this.setState({ dirty: false, savedAt: Date.now() });
+  }
+
+  reset() {
+    this.setState({ data: clone(DEFAULTS), dirty: true });
+  }
+
+  renderVals() {
+    const { page, section, data, dirty, savedAt } = this.state;
+    const schema = SCHEMA[page];
+    const list = schema.sections;
+    const active = list.find(s => s.id === section) || list[0];
+    const rec = data[page][active.id];
+
+    const pages = Object.keys(SCHEMA).map(id => ({
+      id, label: SCHEMA[id].label,
+      bg: id === page ? '#4E92FF' : 'transparent',
+      fg: id === page ? '#05070F' : '#A8B6CF',
+      onPick: () => this.setState({ page: id, section: SCHEMA[id].sections[0].id })
+    }));
+
+    const sections = list.map((s, i) => {
+      const on = data[page][s.id].visible !== false;
+      const cur = s.id === active.id;
+      return {
+        id: s.id, label: s.label,
+        num: String(i + 1).padStart(2, '0'),
+        bg: cur ? 'rgba(78,146,255,0.14)' : 'transparent',
+        fg: cur ? '#E8EDF7' : '#A8B6CF',
+        mark: cur ? '#4E92FF' : 'transparent',
+        dot: on ? '#4E92FF' : 'rgba(232,237,247,0.22)',
+        onPick: () => this.setState({ section: s.id })
+      };
+    });
+
+    const fields = active.fields.map(f => {
+      const value = rec[f.key] === undefined ? '' : rec[f.key];
+      return {
+        key: f.key, label: f.label, hint: f.hint || '',
+        placeholder: f.type === 'area' ? 'Nhập nội dung…' : 'Nhập nội dung',
+        value,
+        isText: f.type === 'text',
+        isArea: f.type === 'area',
+        isNumber: f.type === 'number',
+        isImage: f.type === 'image',
+        fitNote: f.fit || '',
+        onInput: (e) => this.set(page, active.id, f.key, f.type === 'number' ? Number(e.target.value) : e.target.value),
+        assets: f.type === 'image' ? ASSETS.map(a => ({
+          path: a,
+          label: a.replace('assets/', ''),
+          bg: a === value ? 'rgba(78,146,255,0.16)' : 'transparent',
+          fg: a === value ? '#4E92FF' : '#A8B6CF',
+          border: a === value ? '#4E92FF' : 'rgba(232,237,247,0.2)',
+          onPick: () => this.set(page, active.id, f.key, a)
+        })) : []
+      };
+    });
+
+    return {
+      pages, sections, fields,
+      activeLabel: active.label,
+      activeKicker: schema.label.toUpperCase() + ' / SECTION',
+      activeVisible: rec.visible !== false,
+      onToggleVisible: (e) => this.set(page, active.id, 'visible', e.target.checked),
+      onSave: () => this.save(),
+      onReset: () => this.reset(),
+      statusText: dirty ? 'CÓ THAY ĐỔI CHƯA LƯU' : (savedAt ? 'ĐÃ LƯU' : 'CHƯA CÓ THAY ĐỔI'),
+      footNote: 'Bản này lưu vào bộ nhớ trình duyệt để bạn duyệt luồng nội dung. Khi nối API thật, thay hai hàm lưu/đọc là chạy được.'
+    };
+  }
+}
+</script>
+</body>
+</html>

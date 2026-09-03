@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-# Run every content-i18n gate that applies to an artifact.
-#   scripts/content-check output/content.json [--json]
-set -euo pipefail
-root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-exec python3 "$root/.claude/skills/content-i18n/scripts/run_checks.py" "$@"

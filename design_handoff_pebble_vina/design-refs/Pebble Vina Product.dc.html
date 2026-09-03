@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" />
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; background: #05070F; color: #E8EDF7; font-family: "Be Vietnam Pro", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #4E92FF; text-decoration: none; }
+  a:hover { color: #8FBAFF; }
+  ::selection { background: rgba(78,146,255,0.35); }
+  h1, h2 { font-family: "Chakra Petch", "Be Vietnam Pro", system-ui, sans-serif; font-weight: 700; }
+  *, *::before, *::after { box-sizing: border-box; }
+  input, textarea, button { font-family: inherit; }
+  :focus-visible { outline: 2px solid #4E92FF; outline-offset: 3px; }
+  html { scroll-behavior: smooth; }
+</style>
+</helmet>
+<div style="background:#05070F; color:#E8EDF7; overflow-x:hidden">
+
+  <header style="position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:32px; padding:0 clamp(20px,3.4vw,56px); height:84px; background:rgba(5,7,15,0.86); backdrop-filter:blur(14px);">
+    <a href="Pebble Vina Home.dc.html" style="display:flex; align-items:center; gap:14px; color:#E8EDF7">
+      <img src="assets/logo.png" alt="Pebble Vina" style="width:36px; height:36px; display:block; image-rendering:auto" />
+      <span style="display:flex; flex-direction:column; line-height:1; font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:15px; letter-spacing:0.12em"><span>PEBBLE</span><span style="color:#4E92FF">VINA</span></span>
+    </a>
+    <nav style="display:flex; align-items:center; gap:clamp(16px,2.4vw,36px)">
+      <a href="Pebble Vina Home.dc.html" data-en="Home" style="white-space:nowrap; font-size:14px; font-weight:500; color:#93A2BE">Trang chủ</a>
+      <a href="#top" data-en="Products &amp; solutions" style="white-space:nowrap; font-size:14px; font-weight:500; color:#E8EDF7">Sản phẩm &amp; giải pháp</a>
+      <div style="width:1px; height:28px; background:rgba(232,237,247,0.18)"></div>
+      <button type="button" onClick="{{ toggleLang }}" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:12px; letter-spacing:0.1em; color:#93A2BE; background:none; border:0; padding:6px 0; cursor:pointer" style-hover="color:#4E92FF">{{ langLabel }}</button>
+      <a href="#lien-he" data-en="Contact us" style="font-weight:600; font-size:13px; letter-spacing:0.1em; color:#05070F; background:#4E92FF; padding:13px 22px; white-space:nowrap" style-hover="background:#8FBAFF">LIÊN HỆ NGAY</a>
+    </nav>
+  </header>
+
+  <section id="top" data-screen-label="Catalogue" style="scroll-margin-top:84px;  padding:clamp(38px,4.2vw,72px) clamp(20px,3.4vw,56px) 0; background:radial-gradient(100% 70% at 92% 0%, rgba(29,78,216,0.20), rgba(4,6,14,0) 60%), #04060E">
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:clamp(22px,2.8vw,44px); align-items:end; padding-bottom:clamp(22px,2.6vw,38px)">
+      <div style="display:flex; flex-direction:column; gap:18px">
+        <span data-en="AI CHIP &amp; AI SOLUTION CATALOGUE" style="font-family:'JetBrains Mono',monospace; font-size:clamp(11px,0.9vw,13px); letter-spacing:0.15em; color:#5F9DFF">DANH MỤC CHIP AI VÀ GIẢI PHÁP AI</span>
+        <h1 data-en="Pebble Vina's AI technology product catalogue" style="margin:0; font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(29px,3.7vw,56px); line-height:1.2; letter-spacing:-0.014em; max-width:22ch">Danh mục sản phẩm công nghệ AI của Pebble Vina</h1>
+      </div>
+      <p data-en="At Pebble Vina we believe AI is not just a trend but a tool for optimising business. We deliver end-to-end solutions — AI-integrated semiconductors and software — bringing AI processing close to where data is created and used." style="margin:0; font-size:clamp(15px,1.05vw,17px); line-height:1.8; color:#A8B6CF; max-width:56ch">Tại Pebble Vina, chúng tôi tin rằng AI không chỉ là xu hướng mà là công cụ để tối ưu hóa kinh doanh. Chúng tôi cung cấp các giải pháp toàn diện chip bán dẫn tích hợp AI và các giải pháp phần mềm nhằm đưa năng lực xử lý AI đến gần nơi dữ liệu được tạo ra và sử dụng.</p>
+    </div>
+
+    <div style="display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:16px; padding:18px 0">
+      <span data-en="Explore Pebble Vina's hardware and software products" style="flex:1 1 auto; min-width:0; font-size:15px; color:#D6E0F0">Khám phá các sản phẩm phần cứng và phần mềm của Pebble Vina</span>
+      <span data-en="Tap a product to see its detail below" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.1em; color:#7C8AA3">Bấm vào sản phẩm để xem chi tiết bên dưới</span>
+    </div>
+
+    <div style="display:flex; align-items:baseline; gap:16px; padding:16px 0 0">
+      <span data-en="PRODUCTS" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#4E92FF">SẢN PHẨM</span>
+      <span data-en="AI NPU CHIP LINE" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#7C8AA3">DÒNG CHIP NPU AI</span>
+    </div>
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); margin:0 -20px">
+      <a href="#mint" style="display:flex; flex-direction:column; gap:16px; padding:24px 20px 28px; transition:background 160ms ease; color:#E8EDF7" style-hover="background:rgba(78,146,255,0.09)">
+        <span style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.09em; color:#4E92FF">ANALOG PIM · 05/2023</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(22px,1.9vw,28px); letter-spacing:0">MINT</span>
+        <div style="aspect-ratio:16/9; position:relative"><image-slot mask="inset(0)" id="pp-mint" shape="rect" fit="contain" style="position:absolute; inset:0; aspect-ratio:auto; -webkit-mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%); mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%)" src="assets/pd-mint.png" placeholder="Render chip MINT (1200×900)"></image-slot></div>
+        <span data-en="An Analog chip using Processing-in-Memory to cut data movement between memory and processor." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Chip Analog sử dụng công nghệ Processing-in-Memory nhằm giảm sự di chuyển dữ liệu giữa bộ nhớ và bộ xử lý.</span>
+        <span style="margin-top:auto; font-family:'JetBrains Mono',monospace; font-size:12px; color:#4E92FF">→</span>
+      </a>
+      <a href="#papaya" style="display:flex; flex-direction:column; gap:16px; padding:24px 20px 28px; transition:background 160ms ease; color:#E8EDF7" style-hover="background:rgba(78,146,255,0.09)">
+        <span style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.09em; color:#4E92FF">ANALOG PIM · PoC 2024</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(22px,1.9vw,28px); letter-spacing:0">PAPAYA / PAPAYA FLEX</span>
+        <div style="aspect-ratio:16/9; position:relative"><image-slot mask="inset(0)" id="pp-papaya" shape="rect" fit="contain" style="position:absolute; inset:0; aspect-ratio:auto; -webkit-mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%); mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%)" src="assets/pd-papaya.png" placeholder="Render chip PAPAYA (1200×900)"></image-slot></div>
+        <span data-en="Analog PIM chips for machine-vision workloads that must process data at the edge." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Chip Analog PIM hướng đến các workload thị giác máy cần xử lý dữ liệu tại biên.</span>
+        <span style="margin-top:auto; font-family:'JetBrains Mono',monospace; font-size:12px; color:#4E92FF">→</span>
+      </a>
+      <a href="#espresso" style="display:flex; flex-direction:column; gap:16px; padding:24px 20px 28px; transition:background 160ms ease; color:#E8EDF7" style-hover="background:rgba(78,146,255,0.09)">
+        <span style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.09em; color:#4E92FF">DIGITAL PIM · Q3/2026</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(22px,1.9vw,28px); letter-spacing:0">ESPRESSO</span>
+        <div style="aspect-ratio:16/9; position:relative"><image-slot mask="inset(0)" id="pp-espresso" shape="rect" fit="contain" style="position:absolute; inset:0; aspect-ratio:auto; -webkit-mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%); mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%)" src="assets/pd-espresso.png" placeholder="Render chip ESPRESSO (1200×900)"></image-slot></div>
+        <span data-en="The next Digital-PIM generation, built for AI workloads with compute demands beyond Edge AI." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Thế hệ chip Digital-PIM tiếp theo được phát triển cho các workload AI có yêu cầu tính toán cao hơn Edge AI.</span>
+        <span style="margin-top:auto; font-family:'JetBrains Mono',monospace; font-size:12px; color:#4E92FF">→</span>
+      </a>
+      <a href="#e-series" style="display:flex; flex-direction:column; gap:16px; padding:24px 20px 28px; transition:background 160ms ease; color:#E8EDF7" style-hover="background:rgba(78,146,255,0.09)">
+        <span style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.09em; color:#4E92FF">GP-GPU / GP-DSA</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(22px,1.9vw,28px); letter-spacing:0">E-SERIES · E10 / E20</span>
+        <div style="aspect-ratio:16/9; position:relative"><image-slot mask="inset(0)" id="pp-eseries" shape="rect" fit="contain" style="position:absolute; inset:0; aspect-ratio:auto; -webkit-mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%); mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%)" src="assets/pd-eseries.png" placeholder="Render card E-Series (1200×900)"></image-slot></div>
+        <span data-en="AI accelerator cards for AI servers, LLM training &amp; inference, and multi-card computing systems." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Dòng card tăng tốc AI dành cho AI server, LLM training &amp; inference và hệ thống tính toán nhiều card.</span>
+        <span style="margin-top:auto; font-family:'JetBrains Mono',monospace; font-size:12px; color:#4E92FF">→</span>
+      </a>
+    </div>
+
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); margin:0 -20px">
+      <a href="#phan-mem" style="display:flex; flex-direction:column; gap:14px; padding:24px 20px 28px; transition:background 160ms ease; color:#E8EDF7" style-hover="background:rgba(78,146,255,0.09)">
+        <span data-en="SOFTWARE · EXPECTED 12/2026" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.09em; color:#4E92FF">PHẦN MỀM · DỰ KIẾN 12/2026</span>
+        <span data-en="Enterprise software" style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(20px,1.7vw,26px); letter-spacing:0">Phần mềm doanh nghiệp</span>
+        <span data-en="Connecting data and processes across CRM, ERP, HRM and DMS, bringing AI into operations and decision-making." style="font-size:15.5px; line-height:1.78; color:#A8B6CF; max-width:46ch">Kết nối dữ liệu và quy trình từ CRM, ERP, HRM và DMS, hỗ trợ đưa AI vào các hoạt động vận hành và ra quyết định.</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#4E92FF">→</span>
+      </a>
+      <a href="#dao-tao" style="display:flex; flex-direction:column; gap:14px; padding:24px 20px 28px; transition:background 160ms ease; color:#E8EDF7" style-hover="background:rgba(78,146,255,0.09)">
+        <span data-en="TRAINING · SURVEY 2027" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.09em; color:#4E92FF">ĐÀO TẠO · KHẢO SÁT 2027</span>
+        <span data-en="Enterprise AI training" style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(20px,1.7vw,26px); letter-spacing:0">Đào tạo AI doanh nghiệp</span>
+        <span data-en="AI training programmes shaped around each organisation's problems, processes and intended AI use." style="font-size:15.5px; line-height:1.78; color:#A8B6CF; max-width:46ch">Chương trình đào tạo AI được định hướng dựa trên bài toán, quy trình và nhu cầu sử dụng AI của từng doanh nghiệp.</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#4E92FF">→</span>
+      </a>
+    </div>
+
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(124px,1fr)); margin-top:clamp(22px,2.4vw,36px)">
+      <div style="padding:20px 0; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#4E92FF">05/2023</span>
+        <span data-en="In production — MINT" style="font-size:14px; color:#93A2BE">Sản xuất — MINT</span>
+      </div>
+      <div style="padding:20px 0; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#4E92FF">2024</span>
+        <span data-en="PoC — PAPAYA" style="font-size:14px; color:#93A2BE">PoC — PAPAYA</span>
+      </div>
+      <div style="padding:20px 0; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#4E92FF">Q3/2026</span>
+        <span data-en="Roadmap — ESPRESSO" style="font-size:14px; color:#93A2BE">Roadmap — ESPRESSO</span>
+      </div>
+      <div style="padding:20px 0; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#4E92FF">12/2026</span>
+        <span data-en="Roadmap — enterprise software" style="font-size:14px; color:#93A2BE">Roadmap — phần mềm doanh nghiệp</span>
+      </div>
+      <div style="padding:20px 0; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#4E92FF">2027</span>
+        <span data-en="Needs survey — AI training" style="font-size:14px; color:#93A2BE">Khảo sát — đào tạo AI</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="mint" data-screen-label="MINT" style="scroll-margin-top:84px;  padding:clamp(40px,4.4vw,76px) clamp(20px,3.4vw,56px); background:radial-gradient(110% 80% at 88% 6%, rgba(29,78,216,0.18), rgba(10,19,38,0) 62%), #0A1326">
+    <div style="display:flex; align-items:baseline; gap:20px; padding-bottom:24px">
+      <span data-en="01 • HARDWARE" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#4E92FF">01 • PHẦN CỨNG</span>
+      <span style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#7C8AA3">ANALOG · SẢN XUẤT 05/2023</span>
+    </div>
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:clamp(26px,3vw,52px); align-items:start; padding-top:clamp(22px,2.4vw,36px)">
+      <div style="display:flex; flex-direction:column; gap:24px">
+        <h2 data-en="MINT — ANALOG PIM CHIP FOR ON-DEVICE EDGE AI" style="margin:0; font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.6vw,40px); line-height:1.2; letter-spacing:-0.012em">MINT — CHIP ANALOG PIM CHO EDGE AI TẠI THIẾT BỊ</h2>
+        <p data-en="MINT is an AI chip developed by Pebble Vina for devices that must process data directly at the edge. Using Analog PIM, MINT removes the latency of moving data between memory and processor, improving the accuracy of analysed data and the predictive capability of AI models — with instant response at extremely low power draw." style="margin:0; font-size:clamp(15px,1.05vw,17px); line-height:1.8; color:#A8B6CF; max-width:58ch">MINT là chip AI do Pebble Vina phát triển cho các thiết bị cần xử lý dữ liệu trực tiếp tại biên. Sử dụng công nghệ Analog PIM, MINT triệt tiêu độ trễ di chuyển dữ liệu giữa bộ nhớ và bộ xử lý, giúp gia tăng độ chính xác của dữ liệu phân tích và tối ưu khả năng dự báo cho các mô hình AI. Giải pháp mang lại tốc độ phản hồi tức thì với mức tiêu thụ điện năng cực kỳ thấp.</p>
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:20px; padding-top:20px">
+          <span data-en="APPLICATIONS" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.11em; color:#7C8AA3">ỨNG DỤNG</span>
+          <span style="font-size:15px; color:#C6D1E5">Smart Home</span>
+          <span style="color:#2A3550">/</span>
+          <span style="font-size:15px; color:#C6D1E5">IoT</span>
+          <span style="color:#2A3550">/</span>
+          <span style="font-size:15px; color:#C6D1E5">Failure Analysis</span>
+        </div>
+        <a href="#lien-he" data-en="BOOK A CONSULTATION →" style="align-self:flex-start; display:inline-flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:12px; letter-spacing:0.11em; color:#E8EDF7; background:rgba(232,237,247,0.08); padding:14px 22px; transition:background 160ms ease, color 160ms ease" style-hover="background:#4E92FF; color:#05070F">ĐĂNG KÝ TƯ VẤN NGAY →</a>
+      </div>
+      <div style="aspect-ratio:16/9; width:100%; max-width:clamp(260px,30vw,380px); margin-left:auto; position:relative">
+        <image-slot mask="inset(0)" id="pp-mint-hero" shape="rect" fit="contain" style="position:absolute; inset:0; aspect-ratio:auto; -webkit-mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%); mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%)" src="assets/pd-mint.png" placeholder="Ảnh MINT — chip trên PCB, quầng xanh (2000×1500)"></image-slot>
+      </div>
+    </div>
+    <div style=" margin-top:clamp(22px,2.4vw,36px); padding-top:14px">
+      <span data-en="KEY SPECIFICATIONS" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.11em; color:#7C8AA3">THÔNG SỐ CHÍNH</span>
+    </div>
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(112px,1fr))">
+      <div style="padding:14px 0 24px; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">01 PERFORMANCE</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(30px,2.8vw,42px); line-height:1; letter-spacing:-0.008em">30</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#93A2BE">GOPS</span>
+      </div>
+      <div style="padding:14px 0 24px; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">02 EFFICIENCY</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(30px,2.8vw,42px); line-height:1; letter-spacing:-0.008em">17,6</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#93A2BE">TOPS/W</span>
+      </div>
+      <div style="padding:14px 0 24px; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">03 DIE / CHIP AREA</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(30px,2.8vw,42px); line-height:1; letter-spacing:-0.008em">5 × 5</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#93A2BE">MM²</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="papaya" data-screen-label="PAPAYA" style="scroll-margin-top:84px;  padding:clamp(40px,4.4vw,76px) clamp(20px,3.4vw,56px); background:radial-gradient(80% 70% at 8% 100%, rgba(29,78,216,0.20), rgba(4,6,14,0) 62%), #04060E">
+    <div style="display:flex; align-items:baseline; gap:20px; padding-bottom:24px">
+      <span data-en="01 • HARDWARE" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#4E92FF">01 • PHẦN CỨNG</span>
+      <span style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#7C8AA3">ANALOG · PoC 2024 · PC-VISION &amp; 5G</span>
+    </div>
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:clamp(26px,3vw,52px); align-items:start; padding-top:clamp(22px,2.4vw,36px)">
+      <div style="display:flex; flex-direction:column; gap:24px">
+        <h2 data-en="PAPAYA &amp; PAPAYA FLEX — THE ANALOG VISION CHIP PLATFORM FOR DEVICES" style="margin:0; font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.6vw,40px); line-height:1.2; letter-spacing:-0.012em">PAPAYA &amp; PAPAYA FLEX — NỀN TẢNG CHIP ANALOG CHO THỊ GIÁC TẠI THIẾT BỊ</h2>
+        <p data-en="PAPAYA and PAPAYA FLEX are chip lines dedicated to image processing and machine vision directly on the device. Thanks to the advantages of Analog technology, the platform delivers high-accuracy data processing and markedly improves the real-time predictive capability of AI models." style="margin:0; font-size:clamp(15px,1.05vw,17px); line-height:1.8; color:#A8B6CF; max-width:58ch">PAPAYA và PAPAYA FLEX là các dòng chip chuyên biệt cho xử lý hình ảnh và thị giác máy trực tiếp tại thiết bị. Nhờ lợi thế của công nghệ Analog, nền tảng này mang lại kết quả xử lý dữ liệu với độ chính xác cao, nâng cao đáng kể khả năng dự báo của các mô hình AI theo thời gian thực.</p>
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:20px; padding-top:20px">
+          <span data-en="APPLICATIONS" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.11em; color:#7C8AA3">ỨNG DỤNG</span>
+          <span data-en="Image recognition" style="font-size:15px; color:#C6D1E5">Nhận dạng hình ảnh</span>
+          <span style="color:#2A3550">/</span>
+          <span data-en="Security systems" style="font-size:15px; color:#C6D1E5">Hệ thống an ninh</span>
+          <span style="color:#2A3550">/</span>
+          <span style="font-size:15px; color:#C6D1E5">Robot</span>
+          <span style="color:#2A3550">/</span>
+          <span data-en="Machine vision" style="font-size:15px; color:#C6D1E5">Thị giác máy</span>
+        </div>
+        <a href="#lien-he" data-en="BOOK A CONSULTATION →" style="align-self:flex-start; display:inline-flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:12px; letter-spacing:0.11em; color:#E8EDF7; background:rgba(232,237,247,0.08); padding:14px 22px; transition:background 160ms ease, color 160ms ease" style-hover="background:#4E92FF; color:#05070F">ĐĂNG KÝ TƯ VẤN NGAY →</a>
+      </div>
+      <div style="aspect-ratio:16/9; width:100%; max-width:clamp(260px,30vw,380px); margin-left:auto; position:relative">
+        <image-slot mask="inset(0)" id="pp-papaya-hero" shape="rect" fit="contain" style="position:absolute; inset:0; aspect-ratio:auto; -webkit-mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%); mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%)" src="assets/pd-papaya.png" placeholder="Ảnh PAPAYA — module thị giác máy (2000×1500)"></image-slot>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(26px,3vw,44px); display:flex; align-items:baseline; gap:16px; padding-top:16px">
+      <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(20px,1.8vw,26px); letter-spacing:0.04em">PAPAYA</span>
+      <span data-en="KEY SPECIFICATIONS" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.11em; color:#7C8AA3">THÔNG SỐ CHÍNH</span>
+    </div>
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+      <div style="padding:16px 0 24px; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">01 PERFORMANCE</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(28px,2.6vw,40px); line-height:1; letter-spacing:-0.008em">0,5</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#93A2BE">TOPS</span>
+      </div>
+      <div style="padding:16px 0 24px; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">02 EFFICIENCY</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(28px,2.6vw,40px); line-height:1; letter-spacing:-0.008em">30</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#93A2BE">TOPS/W</span>
+      </div>
+      <div style="padding:16px 0 24px; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">03 DIE / CHIP AREA</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(28px,2.6vw,40px); line-height:1; letter-spacing:-0.008em">5 × 5</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#93A2BE">MM²</span>
+      </div>
+      <div style="padding:16px 0 24px; display:flex; flex-direction:column; gap:6px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">04 POWER</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(28px,2.6vw,40px); line-height:1; letter-spacing:-0.008em">~10.000</span>
+        <span data-en="Versus NVIDIA Jetson Nano under published benchmark conditions." style="font-size:13px; line-height:1.55; color:#7C8AA3">So với NVIDIA Jetson Nano trong điều kiện benchmark được công bố.</span>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(22px,2.4vw,36px); display:flex; align-items:baseline; gap:16px; padding-top:16px">
+      <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(20px,1.8vw,26px); letter-spacing:0.04em">PAPAYA FLEX</span>
+      <span style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.11em; color:#7C8AA3">MACHINE VISION BENCHMARK</span>
+    </div>
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(190px,1fr));">
+      <div style="padding:16px 0 24px; display:flex; flex-direction:column; gap:8px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">01 POWER</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(30px,2.8vw,44px); line-height:1; letter-spacing:-0.008em; color:#4E92FF">~50×</span>
+        <span data-en="0.1–0.15 W against 5–10 W on the NVIDIA Jetson Nano." style="font-size:14px; line-height:1.75; color:#A8B6CF">0,1–0,15 W so với 5–10 W của NVIDIA Jetson Nano.</span>
+      </div>
+      <div style="padding:16px 0 24px; display:flex; flex-direction:column; gap:8px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">02 EFFICIENCY</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(30px,2.8vw,44px); line-height:1; letter-spacing:-0.008em; color:#4E92FF">~100×</span>
+        <span data-en="333–500 GOPS/W against 3.6–7.2 FPS/W on the NVIDIA Nano." style="font-size:14px; line-height:1.75; color:#A8B6CF">333–500 GOPS/W so với 3,6–7,2 FPS/W trên NVIDIA Nano.</span>
+      </div>
+      <div style="padding:16px 0 24px; display:flex; flex-direction:column; gap:8px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">03 DIE / CHIP AREA</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(30px,2.8vw,44px); line-height:1; letter-spacing:-0.008em; color:#4E92FF">~25×</span>
+        <span data-en="10 × 10 mm against 70 × 45 mm on the NVIDIA Nano." style="font-size:14px; line-height:1.75; color:#A8B6CF">10 × 10 mm so với 70 × 45 mm của NVIDIA Nano.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="espresso" data-screen-label="ESPRESSO" style="scroll-margin-top:84px;  padding:clamp(40px,4.4vw,76px) clamp(20px,3.4vw,56px); background:radial-gradient(90% 70% at 88% 90%, rgba(29,78,216,0.18), rgba(10,19,38,0) 60%), #0A1326">
+    <div style="display:flex; align-items:baseline; gap:20px; padding-bottom:24px">
+      <span data-en="01 • HARDWARE" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#4E92FF">01 • PHẦN CỨNG</span>
+      <span style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#7C8AA3">DIGITAL · ROADMAP Q3/2026</span>
+    </div>
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:clamp(26px,3vw,52px); align-items:start; padding-top:clamp(22px,2.4vw,36px)">
+      <div style="display:flex; flex-direction:column; gap:24px">
+        <h2 data-en="ESPRESSO — DIGITAL-PIM CHIP FOR THE AI COMPUTER" style="margin:0; font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.6vw,40px); line-height:1.2; letter-spacing:-0.012em">ESPRESSO — CHIP DIGITAL-PIM CHO AI COMPUTER</h2>
+        <p data-en="ESPRESSO is Pebble Vina's next Digital-PIM generation, developed for AI workloads whose compute demands exceed Edge AI — including AI PC, Robotics and Data Center systems." style="margin:0; font-size:clamp(15px,1.05vw,17px); line-height:1.8; color:#A8B6CF; max-width:58ch">ESPRESSO là thế hệ chip Digital-PIM tiếp theo của Pebble Vina, được phát triển cho các workload AI có yêu cầu tính toán cao hơn Edge AI, bao gồm AI PC, Robotics và hệ thống Data Center.</p>
+        <div style="display:grid; column-gap:14px; grid-template-columns:repeat(3,minmax(0,1fr));">
+          <div style="padding:16px 0">
+            <div style="font-weight:600; font-size:16px">AI PC</div>
+            <div data-en="Expected Q3/2026" style="margin-top:4px; font-size:13px; color:#7C8AA3">Dự kiến Q3/2026</div>
+          </div>
+          <div style="padding:16px 0">
+            <div style="font-weight:600; font-size:16px">Robotics</div>
+            <div data-en="Expected Q3/2026" style="margin-top:4px; font-size:13px; color:#7C8AA3">Dự kiến Q3/2026</div>
+          </div>
+          <div style="padding:16px 0">
+            <div style="font-weight:600; font-size:16px">Data Center</div>
+            <div data-en="On the roadmap" style="margin-top:4px; font-size:13px; color:#7C8AA3">Trong lộ trình</div>
+          </div>
+        </div>
+        <a href="#lien-he" data-en="BOOK A CONSULTATION →" style="align-self:flex-start; display:inline-flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:12px; letter-spacing:0.11em; color:#E8EDF7; background:rgba(232,237,247,0.08); padding:14px 22px; transition:background 160ms ease, color 160ms ease" style-hover="background:#4E92FF; color:#05070F">ĐĂNG KÝ TƯ VẤN NGAY →</a>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:24px">
+        <div style="aspect-ratio:16/9; width:100%; max-width:clamp(260px,30vw,380px); position:relative">
+          <image-slot mask="inset(0)" id="pp-espresso-hero" shape="rect" fit="contain" style="position:absolute; inset:0; aspect-ratio:auto; -webkit-mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%); mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%)" src="assets/pd-espresso.png" placeholder="Ảnh ESPRESSO — chip Digital-PIM (2000×1400)"></image-slot>
+        </div>
+        <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(112px,1fr));">
+          <div style="padding:16px 0 20px; display:flex; flex-direction:column; gap:6px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">01 PERFORMANCE</span>
+            <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(28px,2.6vw,40px); line-height:1; letter-spacing:-0.008em">160</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#93A2BE">TOPS</span>
+          </div>
+          <div style="padding:16px 0 20px; display:flex; flex-direction:column; gap:6px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">02 EFFICIENCY</span>
+            <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(28px,2.6vw,40px); line-height:1; letter-spacing:-0.008em">16</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#93A2BE">TOPS/W</span>
+          </div>
+          <div style="padding:16px 0 20px; display:flex; flex-direction:column; gap:6px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">03 DIE / CHIP AREA</span>
+            <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(28px,2.6vw,40px); line-height:1; letter-spacing:-0.008em">20 × 23</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#93A2BE">MM²</span>
+          </div>
+        </div>
+        <div style="display:flex; align-items:baseline; gap:16px; padding-top:16px">
+          <span data-en="4-CHIP CARD" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.11em; color:#7C8AA3">CARD 4 CHIP</span>
+          <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.2vw,34px); line-height:1; letter-spacing:-0.008em; color:#4E92FF">640 TOPS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="e-series" data-screen-label="E-Series" style="scroll-margin-top:84px;  padding:clamp(40px,4.4vw,76px) clamp(20px,3.4vw,56px); background:linear-gradient(180deg, rgba(29,78,216,0.16), rgba(4,6,14,0) 46%), #04060E">
+    <div style="display:flex; align-items:baseline; gap:20px; padding-bottom:24px">
+      <span style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#4E92FF">01 • E-SERIES</span>
+      <span style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#7C8AA3">GP-GPU / GP-DSA · PRODUCT DATA</span>
+    </div>
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:clamp(26px,3vw,52px); align-items:start; padding-top:clamp(22px,2.4vw,36px)">
+      <div style="display:flex; flex-direction:column; gap:24px">
+        <h2 data-en="E-SERIES — THE AI ACCELERATION PLATFORM FOR SERVERS AND MULTI-CARD SYSTEMS" style="margin:0; font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.6vw,40px); line-height:1.2; letter-spacing:-0.012em">E-SERIES — NỀN TẢNG TĂNG TỐC AI CHO SERVER VÀ HỆ THỐNG ĐA CARD</h2>
+        <p data-en="E-Series is Pebble Vina's line of AI accelerator cards, developed for server systems that need to scale compute capacity for AI training and inference. E-Series supports FP32, INT8 and INT4 compute formats, so a configuration can be matched to each workload, AI model and deployment requirement." style="margin:0; font-size:clamp(15px,1.05vw,17px); line-height:1.8; color:#A8B6CF; max-width:58ch">E-Series là dòng card tăng tốc AI của Pebble Vina, được phát triển cho các hệ thống máy chủ cần mở rộng năng lực tính toán cho AI training và inference. E-Series hỗ trợ các định dạng tính toán FP32, INT4 và INT8, cho phép lựa chọn cấu hình phù hợp với từng workload, mô hình AI và yêu cầu triển khai.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:12px 20px; padding-top:20px">
+          <span data-en="APPLICATIONS" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.11em; color:#7C8AA3">ỨNG DỤNG</span>
+          <span style="font-size:15px; color:#C6D1E5">Data Center</span>
+          <span style="color:#2A3550">/</span>
+          <span style="font-size:15px; color:#C6D1E5">LLM Training &amp; Inference</span>
+          <span style="color:#2A3550">/</span>
+          <span style="font-size:15px; color:#C6D1E5">Computer Vision</span>
+          <span style="color:#2A3550">/</span>
+          <span style="font-size:15px; color:#C6D1E5">NLP &amp; Speech AI</span>
+          <span style="color:#2A3550">/</span>
+          <span style="font-size:15px; color:#C6D1E5">Multi-card Computing</span>
+        </div>
+      </div>
+      <div style="aspect-ratio:16/9; width:100%; max-width:clamp(260px,30vw,380px); margin-left:auto; position:relative">
+        <image-slot mask="inset(0)" id="pp-eseries-hero" shape="rect" fit="contain" style="position:absolute; inset:0; aspect-ratio:auto; -webkit-mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%); mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%)" src="assets/pd-eseries.png" placeholder="Ảnh card E-Series PCIe (2000×1400)"></image-slot>
+      </div>
+    </div>
+
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); margin-top:clamp(24px,2.6vw,40px)">
+      <div style="padding:32px 0; display:flex; flex-direction:column; gap:18px">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px">
+          <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.2vw,34px); letter-spacing:0.02em">E10 PCIe</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">01</span>
+        </div>
+        <div style="aspect-ratio:16/9; width:100%; max-width:clamp(260px,30vw,380px); position:relative"><image-slot mask="inset(0)" id="pp-e10" shape="rect" fit="contain" style="position:absolute; inset:0; aspect-ratio:auto; -webkit-mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%); mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%)" src="assets/pd-e10.png" placeholder="Ảnh card E10 PCIe (1600×900)"></image-slot></div>
+        <span data-en="Balanced for scaled deployment" style="font-weight:600; font-size:17px; color:#E8EDF7">Cân bằng để triển khai mở rộng</span>
+        <p data-en="An AI accelerator card that adds AI compute to existing servers — suited to enterprise AI servers running training and inference on standard infrastructure." style="margin:0; font-size:15px; line-height:1.8; color:#A8B6CF; max-width:46ch">Card tăng tốc AI bổ sung năng lực tính toán cho máy chủ, phù hợp với AI server doanh nghiệp cần huấn luyện và suy luận trên hạ tầng tiêu chuẩn.</p>
+        <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(104px,1fr)); margin-top:6px">
+          <div style="padding:16px 0; display:flex; flex-direction:column; gap:6px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">01 COMPUTE</span>
+            <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.2vw,32px); line-height:1; letter-spacing:-0.008em">512T</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.5; color:#93A2BE">FP8/INT8 · 32 AI CORES · FP32 → INT4</span>
+          </div>
+          <div style="padding:16px 0; display:flex; flex-direction:column; gap:6px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">02 MEMORY</span>
+            <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.2vw,32px); line-height:1; letter-spacing:-0.008em">48 GB</span>
+          </div>
+          <div style="padding:16px 0; display:flex; flex-direction:column; gap:6px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">03 CONNECTIVITY</span>
+            <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(16px,1.4vw,20px); line-height:1.2; letter-spacing:0">PCIe 5.0 ×16</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.5; color:#93A2BE">6 × 400G hoặc 12 × 200G · RDMA · RoCEv2</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding:32px 0; display:flex; flex-direction:column; gap:18px">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px">
+          <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.2vw,34px); letter-spacing:0.02em">E20</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">02</span>
+        </div>
+        <div style="aspect-ratio:16/9; width:100%; max-width:clamp(260px,30vw,380px); position:relative"><image-slot mask="inset(0)" id="pp-e20" shape="rect" fit="contain" style="position:absolute; inset:0; aspect-ratio:auto; -webkit-mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%); mask-image:radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%)" src="assets/pd-e20.png" placeholder="Ảnh card E20 (1600×900)"></image-slot></div>
+        <span data-en="Twice the scale for large AI models" style="font-weight:600; font-size:17px; color:#E8EDF7">Gấp đôi quy mô cho tải AI lớn</span>
+        <p data-en="E20 scales to 64 AI cores and 96 GB for large models and distributed AI infrastructure, with multi-card connectivity for AI server configurations." style="margin:0; font-size:15px; line-height:1.8; color:#A8B6CF; max-width:46ch">E20 mở rộng lên 64 AI Cores và 96 GB cho mô hình lớn cùng hạ tầng AI phân tán, kết nối nhiều card để xây dựng cấu hình AI server và multi-card computing.</p>
+        <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(104px,1fr)); margin-top:6px">
+          <div style="padding:16px 0; display:flex; flex-direction:column; gap:6px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">01 COMPUTE</span>
+            <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.2vw,32px); line-height:1; letter-spacing:-0.008em; color:#4E92FF">1024T</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.5; color:#93A2BE">FP8/INT8 · 64 AI CORES · FP32 → INT4</span>
+          </div>
+          <div style="padding:16px 0; display:flex; flex-direction:column; gap:6px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">02 MEMORY</span>
+            <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.2vw,32px); line-height:1; letter-spacing:-0.008em; color:#4E92FF">96 GB</span>
+          </div>
+          <div style="padding:16px 0; display:flex; flex-direction:column; gap:6px">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">03 CONNECTIVITY</span>
+            <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(16px,1.4vw,20px); line-height:1.2; letter-spacing:0">2 × PCIe 5.0 ×16</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.5; color:#93A2BE">16 × 400G hoặc 32 × 200G · RDMA · RoCEv2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style=" margin-top:clamp(24px,2.6vw,40px); padding-top:24px; display:flex; flex-direction:column; gap:20px">
+      <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:16px">
+        <span style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#4E92FF">SOFTWARE STACK</span>
+        <span data-en="Software in lockstep with the AI hardware" style="font-size:16px; color:#C6D1E5">Phần mềm đồng bộ với phần cứng AI</span>
+      </div>
+      <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+        <div style="padding:18px 0; font-size:15px; color:#C6D1E5">AI Compiler</div>
+        <div style="padding:18px 0; font-size:15px; color:#C6D1E5">Graph Optimization</div>
+        <div style="padding:18px 0; font-size:15px; color:#C6D1E5">Operator Generation</div>
+        <div style="padding:18px 0; font-size:15px; color:#C6D1E5">Framework Compatibility</div>
+        <div style="padding:18px 0; font-size:15px; color:#C6D1E5">Performance &amp; Precision Tools</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="phan-mem" data-screen-label="Software" style="position:relative; overflow:hidden; scroll-margin-top:84px; min-height:100vh; display:flex; flex-direction:column; padding:clamp(40px,4.4vw,76px) clamp(20px,3.4vw,56px); background:#111E3A">
+    <image-slot mask="inset(0)" id="pp-software-hero" shape="rect" fit="cover" style="position:absolute; inset:0; aspect-ratio:auto; z-index:0" src="assets/pd-software.png" placeholder="Ảnh nền marketing — dashboard nền tảng phần mềm (2400×1600)"></image-slot>
+    <div style="position:absolute; inset:0; z-index:1; background:radial-gradient(72% 58% at 74% 26%, rgba(78,146,255,0.30), rgba(17,30,58,0) 64%); pointer-events:none"></div>
+    <div style="position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(17,30,58,0.58) 0%, rgba(17,30,58,0.74) 34%, rgba(17,30,58,0.95) 62%, rgba(17,30,58,0.99) 100%); pointer-events:none"></div>
+    <div style="position:relative; z-index:2; display:flex; align-items:baseline; gap:20px; padding-bottom:24px">
+      <span data-en="02 • SOFTWARE" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#4E92FF">02 • PHẦN MỀM</span>
+      <span data-en="EXPECTED 12/2026" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#7C8AA3">DỰ KIẾN 12/2026</span>
+    </div>
+    <div style="position:relative; z-index:2; display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:clamp(26px,3vw,52px); align-items:start; padding-top:clamp(22px,2.4vw,36px)">
+      <div style="display:flex; flex-direction:column; gap:24px">
+        <h2 data-en="A SOFTWARE PLATFORM INTEGRATING ENTERPRISE DATA AND AI" style="margin:0; font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.6vw,40px); line-height:1.2; letter-spacing:-0.012em">NỀN TẢNG PHẦN MỀM TÍCH HỢP DỮ LIỆU VÀ AI CHO DOANH NGHIỆP</h2>
+        <p data-en="Pebble Vina is building a software platform that connects data from CRM, ERP, HRM and DMS in one unified environment — the foundation for data analysis and applied AI across enterprise operations." style="margin:0; font-size:clamp(15px,1.05vw,17px); line-height:1.8; color:#A8B6CF; max-width:58ch">Pebble Vina phát triển nền tảng phần mềm giúp kết nối dữ liệu từ CRM, ERP, HRM và DMS trên một môi trường thống nhất, tạo nền tảng cho việc phân tích dữ liệu và ứng dụng AI trong hoạt động doanh nghiệp.</p>
+        <a href="#lien-he" data-en="BOOK A CONSULTATION →" style="align-self:flex-start; display:inline-flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:12px; letter-spacing:0.11em; color:#E8EDF7; background:rgba(232,237,247,0.08); padding:14px 22px; transition:background 160ms ease, color 160ms ease" style-hover="background:#4E92FF; color:#05070F">ĐĂNG KÝ TƯ VẤN NGAY →</a>
+              </div>
+      <div style="display:flex; flex-direction:column; gap:12px; padding-top:4px">
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(52px,6vw,92px); line-height:0.92; letter-spacing:-0.014em; color:#4E92FF">82%</span>
+        <span data-en="Target completion" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:12px; letter-spacing:0.1em; color:#93A2BE">HOÀN THÀNH MỤC TIÊU</span>
+        <div style="height:2px; background:rgba(232,237,247,0.14); margin-top:8px; position:relative">
+          <div style="position:absolute; left:0; top:0; bottom:0; width:82%; background:#4E92FF"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="position:relative; z-index:2; flex:0 0 50%; margin-top:auto; display:grid; column-gap:clamp(16px,1.8vw,32px); grid-template-columns:repeat(5,minmax(0,1fr)); align-items:end">
+      <div style="padding:28px 0 32px; display:flex; flex-direction:column; gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">01</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:20px">CRM</span>
+        <span data-en="Centralises customer information, interaction history and sales activity." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Tập trung thông tin khách hàng, lịch sử tương tác và hoạt động bán hàng.</span>
+      </div>
+      <div style="padding:28px 0 32px; display:flex; flex-direction:column; gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">02</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:20px">ERP</span>
+        <span data-en="Orders, inventory, procurement and operations on one shared data system." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Quản lý đơn hàng, tồn kho, mua sắm và các hoạt động vận hành trên cùng một hệ thống dữ liệu.</span>
+      </div>
+      <div style="padding:28px 0 32px; display:flex; flex-direction:column; gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">03</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:20px">HRM</span>
+        <span data-en="Personnel records, employee information and human-resource activities." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Quản lý hồ sơ nhân sự, thông tin nhân viên và các hoạt động liên quan đến nguồn nhân lực.</span>
+      </div>
+      <div style="padding:28px 0 32px; display:flex; flex-direction:column; gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">04</span>
+        <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:20px">DMS</span>
+        <span data-en="Document storage, control and retrieval — easier information management and data use." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Lưu trữ, kiểm soát, truy xuất tài liệu, hỗ trợ quản lý thông tin và khai thác dữ liệu dễ dàng hơn.</span>
+      </div>
+      <div style="padding:28px 0 32px; display:flex; flex-direction:column; gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">05</span>
+        <span data-en="AI operations centre" style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:20px; line-height:1.15">Trung tâm vận hành AI</span>
+        <span data-en="Aggregates data from enterprise systems to support operational analysis, surface issues and inform decisions." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Tổng hợp dữ liệu từ các hệ thống doanh nghiệp để hỗ trợ phân tích hoạt động, phát hiện vấn đề và cung cấp thông tin phục vụ quá trình ra quyết định.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="dao-tao" data-screen-label="Training" style="position:relative; overflow:hidden; scroll-margin-top:84px;  padding:clamp(40px,4.4vw,76px) clamp(20px,3.4vw,56px); background:linear-gradient(180deg, rgba(29,78,216,0.16), rgba(10,19,38,0) 46%), #0A1326">
+    <image-slot mask="inset(0)" id="pp-training-hero" shape="rect" fit="cover" style="position:absolute; inset:0; aspect-ratio:auto; z-index:0" src="assets/pd-training.png" placeholder="Ảnh nền — lớp đào tạo AI doanh nghiệp (2000×1400)"></image-slot>
+    <div style="position:absolute; inset:0; z-index:1; background:linear-gradient(90deg, rgba(10,19,38,0.975) 0%, rgba(10,19,38,0.94) 45%, rgba(10,19,38,0.86) 100%); pointer-events:none"></div>
+    <div style="position:relative; z-index:2; display:flex; align-items:baseline; gap:20px; padding-bottom:24px">
+      <span data-en="03 • ENTERPRISE AI TRAINING" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#4E92FF">03 • ĐÀO TẠO AI DOANH NGHIỆP</span>
+      <span data-en="NEEDS SURVEY · 2027" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#7C8AA3">KHẢO SÁT NHU CẦU · 2027</span>
+    </div>
+    <div style="position:relative; z-index:2; display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:clamp(26px,3vw,52px); align-items:start; padding-top:clamp(22px,2.4vw,36px)">
+      <h2 data-en="ENTERPRISE AI TRAINING BUILT ON REAL NEEDS" style="margin:0; font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(24px,2.6vw,40px); line-height:1.2; letter-spacing:-0.012em; max-width:20ch">ĐÀO TẠO AI DOANH NGHIỆP THEO NHU CẦU THỰC TẾ</h2>
+      <div style="display:flex; flex-direction:column; gap:16px">
+        <p data-en="Pebble Vina is designing enterprise AI training programmes around each organisation's problems, data and actual capability." style="margin:0; font-size:clamp(15px,1.05vw,17px); line-height:1.8; color:#A8B6CF; max-width:54ch">Pebble Vina định hướng xây dựng chương trình đào tạo AI dành cho doanh nghiệp dựa trên bài toán, dữ liệu và năng lực thực tế của từng tổ chức.</p>
+        <p data-en="The 2027 roadmap focuses on surveying needs and finalising the training model." style="margin:0; font-size:15px; line-height:1.7; color:#7C8AA3; max-width:54ch">Lộ trình 2027 tập trung vào khảo sát nhu cầu và hoàn thiện mô hình đào tạo.</p>
+              </div>
+    </div>
+    <div style="position:relative; z-index:2; display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); margin-top:clamp(24px,2.6vw,40px)">
+      <div style="padding:28px 0 32px; display:flex; flex-direction:column; gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">01</span>
+        <span data-en="Survey first" style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:20px">Khảo sát trước</span>
+        <span data-en="Understanding needs, the problems the business faces and its readiness before any programme is designed." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Tìm hiểu nhu cầu, các bài toán doanh nghiệp đang gặp phải và mức độ sẵn sàng trước khi xây dựng chương trình.</span>
+      </div>
+      <div style="padding:28px 0 32px; display:flex; flex-direction:column; gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">02</span>
+        <span data-en="Designed to fit" style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:20px">Thiết kế riêng</span>
+        <span data-en="Content built around the organisation's field of work and the AI problems it wants to solve." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Xây dựng nội dung dựa trên lĩnh vực hoạt động và những bài toán AI mà doanh nghiệp muốn giải quyết.</span>
+      </div>
+      <div style="padding:28px 0 32px; display:flex; flex-direction:column; gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">03</span>
+        <span data-en="Straight into practice" style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:20px">Đi vào thực hành</span>
+        <span data-en="Focused on situations close to daily work, so teams learn to choose tools, build processes and apply AI on the job." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Tập trung vào các tình huống gần với công việc hằng ngày, giúp đội ngũ hiểu cách lựa chọn công cụ, xây dựng quy trình và ứng dụng AI vào công việc.</span>
+      </div>
+      <div style="padding:28px 0 32px; display:flex; flex-direction:column; gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#4E92FF">04</span>
+        <span data-en="Measured by ROI" style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:20px">Đo bằng ROI</span>
+        <span data-en="Defining the right indicators to assess AI adoption, deployment into work and the results achieved after the programme." style="font-size:15.5px; line-height:1.78; color:#A8B6CF">Xác định các chỉ số phù hợp để đánh giá mức độ ứng dụng AI, khả năng triển khai vào công việc và hiệu quả đạt được sau chương trình.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="lien-he" data-screen-label="Contact" style="scroll-margin-top:84px;  padding:clamp(40px,4.4vw,76px) clamp(20px,3.4vw,56px); background:linear-gradient(rgba(17,30,58,0.84), rgba(17,30,58,0.93)), url('assets/bg-web.png') center/cover no-repeat, #111E3A">
+    <div style="display:grid; column-gap:clamp(20px,2.6vw,44px); grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:clamp(26px,3vw,52px); align-items:end">
+      <div style="display:flex; flex-direction:column; gap:20px">
+        <span data-en="04 — CONTACT" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.12em; color:#4E92FF">04 — LIÊN HỆ</span>
+        <h2 data-en="TELL US THE WORKLOAD — WE'LL PROPOSE THE CONFIGURATION" style="margin:0; font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:clamp(26px,2.9vw,44px); line-height:1.2; letter-spacing:-0.012em; max-width:22ch">CHO CHÚNG TÔI BIẾT WORKLOAD — CHÚNG TÔI ĐỀ XUẤT CẤU HÌNH</h2>
+        <p data-en="Send us your requirement and our engineering team will get back with the suitable chip or card configuration." style="margin:0; font-size:clamp(15px,1.05vw,17px); line-height:1.8; color:#A8B6CF; max-width:48ch">Gửi yêu cầu của bạn, đội ngũ kỹ thuật sẽ phản hồi với cấu hình chip hoặc card phù hợp.</p>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:16px; justify-self:start">
+        <a href="Pebble Vina Home.dc.html#lien-he" data-en="BOOK A CONSULTATION →" style="font-weight:600; font-size:14px; letter-spacing:0.1em; color:#05070F; background:#4E92FF; padding:17px 30px" style-hover="background:#8FBAFF">ĐĂNG KÝ TƯ VẤN NGAY →</a>
+        <a href="#top" data-en="DOWNLOAD CATALOGUE ↓" style="display:inline-flex; align-items:center; gap:12px; white-space:nowrap; font-weight:600; font-size:14px; letter-spacing:0.1em; color:#E8EDF7; background:rgba(232,237,247,0.09); padding:17px 30px; transition:background 160ms ease, color 160ms ease" style-hover="background:#4E92FF; color:#05070F">TẢI CATALOGUE ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#03050B; padding:clamp(34px,3.6vw,56px) clamp(20px,3.4vw,56px) clamp(26px,2.8vw,40px)">
+    <div style="display:grid; column-gap:clamp(24px,3vw,56px); row-gap:clamp(26px,3vw,44px); grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); align-items:start">
+
+      <div style="display:flex; flex-direction:column; gap:16px">
+        <a href="Pebble Vina Home.dc.html" style="display:flex; align-items:center; gap:12px; color:#E8EDF7">
+          <img src="assets/logo.png" alt="Pebble Vina" style="width:32px; height:32px; display:block" />
+          <span style="font-weight:700; font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size:14px; letter-spacing:0.1em">PEBBLE VINA</span>
+        </a>
+        <p data-en="Pebble Vina researches, designs chips, develops AI software and delivers training for enterprises in Vietnam." style="margin:0; font-size:14px; line-height:1.75; color:#A8B6CF; max-width:34ch">Pebble Vina nghiên cứu, thiết kế chip, phát triển phần mềm AI và đào tạo cho doanh nghiệp tại Việt Nam.</p>
+        <a href="https://www.pebble-square.com" target="_blank" rel="noreferrer" data-en="Technology partner · pebble-square.com ↗" style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.06em">Đối tác công nghệ · pebble-square.com ↗</a>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px">
+        <span data-en="Pages" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.13em; color:#7C8AA3">CÁC TRANG</span>
+        <a href="Pebble Vina Home.dc.html" data-en="Home" style="font-size:14px; color:#A8B6CF">Trang chủ</a>
+        <a href="Pebble Vina Product.dc.html" data-en="Products &amp; solutions" style="font-size:14px; color:#A8B6CF">Sản phẩm &amp; giải pháp</a>
+        <a href="Pebble Vina Home.dc.html#lien-he" data-en="Contact" style="font-size:14px; color:#A8B6CF">Liên hệ</a>
+        <a href="Pebble Vina Admin.dc.html" data-en="Content admin" style="font-size:14px; color:#5C6980">Quản trị nội dung</a>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px">
+        <span data-en="Contact details" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.13em; color:#7C8AA3">THÔNG TIN LIÊN HỆ</span>
+        <a href="tel:+84345913369" style="font-family:'JetBrains Mono',monospace; font-size:14px; color:#E8EDF7">0345 913 369</a>
+        <a href="mailto:contact@pebblevina.com" style="font-size:14px; color:#A8B6CF">contact@pebblevina.com</a>
+        <span data-en="Office O1912, 19th floor, Landmark 72 Tower, Zone E6, Cau Giay New Urban Area, Yen Hoa Ward, Hanoi" style="font-size:14px; line-height:1.75; color:#A8B6CF; max-width:32ch">Văn phòng O1912, Tầng 19, Landmark 72 Tower, Khu E6, Khu đô thị mới Cầu Giấy, P. Yên Hoà, Hà Nội</span>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px">
+        <span data-en="Company profile" style="font-family:'JetBrains Mono',monospace; white-space:nowrap; font-size:11px; letter-spacing:0.13em; color:#7C8AA3">HỒ SƠ DOANH NGHIỆP</span>
+        <div style="display:flex; flex-direction:column; gap:4px">
+          <span data-en="Legal entity" style="font-size:12.5px; color:#7C8AA3">Pháp nhân</span>
+          <span style="font-size:14px; font-weight:500; color:#E8EDF7">CÔNG TY TNHH PEBBLE VINA</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px">
+          <span data-en="Tax code" style="font-size:12.5px; color:#7C8AA3">Mã số thuế</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:14px; color:#E8EDF7">0111545175</span>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin-top:clamp(24px,2.6vw,40px)">
+      <span data-en="© 2026 Pebble Vina Company Limited" style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.05em; color:#4A5872">© 2026 Công ty TNHH Pebble Vina</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;vi&quot;,&quot;en&quot;],&quot;default&quot;:&quot;vi&quot;,&quot;tsType&quot;:&quot;'vi'|'en'&quot;,&quot;section&quot;:&quot;Nội dung&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { lang: (p && p.defaultLang) || 'vi' };
+  }
+  componentDidMount() { this.applyLang(); }
+  componentDidUpdate() { this.applyLang(); }
+  applyLang() {
+    const en = this.state.lang === 'en';
+    document.querySelectorAll('[data-en]').forEach(el => {
+      if (el.dataset.vi === undefined) el.dataset.vi = el.textContent;
+      const next = en ? el.dataset.en : el.dataset.vi;
+      if (el.textContent !== next) el.textContent = next;
+    });
+    document.documentElement.lang = en ? 'en' : 'vi';
+  }
+  renderVals() {
+    return {
+      langLabel: this.state.lang === 'en' ? 'EN' : 'VI',
+      toggleLang: () => this.setState(s => ({ lang: s.lang === 'vi' ? 'en' : 'vi' }))
+    };
+  }
+}
+</script>
+</body>
+</html>
