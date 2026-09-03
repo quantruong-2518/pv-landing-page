@@ -1,0 +1,10 @@
+# pnpm 11 keeps its settings here, not in a "pnpm" field in package.json.
+#
+# Post-install scripts are blocked by default and each one has to be approved
+# explicitly (`pnpm approve-builds <pkg>`), which is the right default: a
+# postinstall script runs arbitrary code from a transitive dependency.
+#
+# unrs-resolver compiles the native module resolver behind eslint-config-next.
+# Without this entry every `pnpm install` exits 1 and takes `pnpm build` with it.
+allowBuilds:
+  unrs-resolver: true

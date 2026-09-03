@@ -1,0 +1,320 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — one-to-one with design_handoff_pebble_vina/README.md section 4.
+ * Nothing in a component may hard-code a hex value; change the brand here.
+ *
+ * The palette is a single blue accent scale over navy/black surfaces, with
+ * blue-tinted whites for text. Hairline borders are not their own colour: they
+ * are `--color-ink` at 8-28% opacity (e.g. `border-ink/14`), which is why the
+ * handoff lists them as one token with a range.
+ */
+@theme {
+  /* Surfaces, darkest to lightest */
+  --color-night-footer: #03050b; /* footer */
+  --color-night-deep: #04060e; /* PIM / core-capability sections */
+  --color-night: #05070f; /* body, default page background */
+  --color-marquee: #070b18; /* scrolling strip */
+  --color-panel: #080d1b; /* admin sidebar */
+  --color-navy: #0a1326; /* "Why PIM", MINT / ESPRESSO detail */
+  --color-field: #0c1730; /* admin input / textarea */
+  --color-navy-lit: #111e3a; /* solutions, software, contact */
+
+  /* Text, brightest to faintest */
+  --color-ink: #e8edf7; /* headings and primary text */
+  --color-contact: #c6d1e5; /* contact column over the scrim */
+  --color-body: #a8b6cf; /* body copy */
+  --color-muted: #93a2be; /* nav labels, secondary notes */
+  --color-faint: #7c8aa3; /* very light mono labels */
+  --color-dim: #5c6980; /* placeholders, disabled links */
+  --color-copy: #4a5872; /* marquee text, copyright */
+
+  /* Accent */
+  --color-accent: #4e92ff;
+  --color-accent-hover: #8fbaff;
+  /* Eyebrow labels over imagery — a touch brighter than `accent` so they hold
+   * up against a photograph. Not named `--color-eyebrow`: `--text-eyebrow`
+   * already exists below and `text-eyebrow` may only mean one of the two. */
+  --color-accent-soft: #5f9dff;
+  /* Deep blue used only inside section glows — never for text or a border. */
+  --color-glow: #1d4ed8;
+  --color-rule: #2a3550; /* the "/" separators between application tags */
+
+  /* Rhythm. Section padding and gutters are fluid, so they are spacing tokens
+   * rather than breakpoint steps: px-gutter, py-section, gap-col, h-header. */
+  --spacing-gutter: clamp(20px, 3.4vw, 56px);
+  --spacing-section: clamp(28px, 3vw, 52px);
+  --spacing-section-lg: clamp(40px, 4.4vw, 76px);
+  --spacing-col: clamp(20px, 2.6vw, 44px);
+  --spacing-row: clamp(22px, 2.8vw, 44px);
+  --spacing-header: 84px; /* public header height */
+  --spacing-header-admin: 72px; /* admin header height */
+
+  /* Type scale. Every entry carries its own line-height, tracking and weight so
+   * a component never re-states them. Sizes are the handoff's clamp() values. */
+  --font-heading: var(--font-chakra-petch), var(--font-be-vietnam), system-ui, sans-serif;
+  --font-sans: var(--font-be-vietnam), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --text-h1-hero: clamp(2rem, 4.6vw, 4.5rem);
+  --text-h1-hero--line-height: 1.2;
+  --text-h1-hero--letter-spacing: -0.008em;
+  --text-h1-hero--font-weight: 700;
+
+  --text-h1-catalogue: clamp(1.8125rem, 3.7vw, 3.5rem);
+  --text-h1-catalogue--line-height: 1.2;
+  --text-h1-catalogue--letter-spacing: -0.014em;
+  --text-h1-catalogue--font-weight: 700;
+
+  --text-h2: clamp(1.625rem, 2.9vw, 2.75rem);
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.012em;
+  --text-h2--font-weight: 700;
+
+  --text-h2-detail: clamp(1.5rem, 2.6vw, 2.5rem);
+  --text-h2-detail--line-height: 1.2;
+  --text-h2-detail--letter-spacing: -0.012em;
+  --text-h2-detail--font-weight: 700;
+
+  --text-h3: clamp(1.125rem, 1.5vw, 1.4375rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.005em;
+  --text-h3--font-weight: 700;
+
+  --text-wordmark: clamp(1.375rem, 1.9vw, 1.75rem);
+  --text-wordmark--line-height: 1.15;
+  --text-wordmark--font-weight: 700;
+
+  --text-stat: clamp(1.75rem, 2.6vw, 2.5rem);
+  --text-stat--line-height: 1;
+  --text-stat--letter-spacing: -0.008em;
+  --text-stat--font-weight: 700;
+
+  --text-stat-lg: clamp(1.875rem, 3vw, 2.75rem);
+  --text-stat-lg--line-height: 1;
+  --text-stat-lg--letter-spacing: -0.008em;
+  --text-stat-lg--font-weight: 700;
+
+  /* The 82% figure in the software section — the one deliberate outlier. */
+  --text-stat-xl: clamp(3.25rem, 6vw, 5.75rem);
+  --text-stat-xl--line-height: 0.92;
+  --text-stat-xl--letter-spacing: -0.014em;
+  --text-stat-xl--font-weight: 700;
+
+  --text-lead: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  --text-lead--line-height: 1.8;
+
+  --text-lead-hero: clamp(1rem, 1.1vw, 1.1875rem);
+  --text-lead-hero--line-height: 1.72;
+
+  --text-card: 0.96875rem; /* 15.5px — body copy inside cards */
+  --text-card--line-height: 1.78;
+
+  --text-eyebrow: clamp(0.6875rem, 0.9vw, 0.8125rem);
+  --text-eyebrow--letter-spacing: 0.15em;
+  --text-eyebrow--font-weight: 500;
+
+  --text-label: 0.6875rem; /* 11px mono field/section labels */
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.11em;
+  --text-label--font-weight: 500;
+
+  --text-kicker: 0.75rem; /* 12px mono kickers and numbering */
+  --text-kicker--line-height: 1.4;
+  --text-kicker--letter-spacing: 0.13em;
+  --text-kicker--font-weight: 500;
+}
+
+@layer base {
+  /*
+   * Anchor jumps must clear the 84px sticky header. Applied globally rather
+   * than per-section so a new `id` can never forget it.
+   *
+   * `scroll-behavior` is deliberately NOT set here. With `smooth` in CSS, the
+   * browser animates the initial jump to a `#fragment` on page load, hydration
+   * interrupts that animation, and the reader lands near the top of the page
+   * instead of at the section they followed a link to — measured at scrollY 41
+   * for /vi/products#phan-mem. `<ScrollBehaviour>` turns smooth on after the
+   * deep link has landed, so in-page jumps still animate.
+   */
+  html {
+    scroll-padding-top: var(--spacing-header);
+  }
+
+  body {
+    background-color: var(--color-night);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Square corners everywhere: the design has no border-radius and no shadow.
+   * Depth comes from darker/lighter surfaces and hairline borders only. */
+  *,
+  *::before,
+  *::after {
+    border-radius: 0;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-dim);
+  }
+}
+
+@layer utilities {
+  /*
+   * Section glows and image scrims.
+   *
+   * These are gradients, not colours, so they cannot be expressed as a Tailwind
+   * colour token — but they must not be pasted as raw rgba() into JSX either.
+   * Each one is named after the section it belongs to and built from
+   * `--color-glow` / the surface tokens, so re-theming still means editing
+   * @theme and nothing else. Geometry (`at 88% 4%`) is copied from the design.
+   */
+  :root {
+    --glow-strong: color-mix(in srgb, var(--color-glow) 20%, transparent);
+    --glow-medium: color-mix(in srgb, var(--color-glow) 18%, transparent);
+    --glow-soft: color-mix(in srgb, var(--color-glow) 16%, transparent);
+    --glow-faint: color-mix(in srgb, var(--color-glow) 14%, transparent);
+  }
+
+  .glow-pim {
+    background-image: radial-gradient(110% 80% at 88% 4%, var(--glow-strong), transparent 62%);
+  }
+  .glow-core {
+    background-image: radial-gradient(90% 70% at 12% 92%, var(--glow-medium), transparent 60%);
+  }
+  .glow-solutions {
+    background-image: linear-gradient(180deg, var(--glow-faint), transparent 46%);
+  }
+  .glow-news {
+    background-image: radial-gradient(70% 60% at 50% 0%, var(--glow-faint), transparent 60%);
+  }
+  .glow-catalogue {
+    background-image: radial-gradient(100% 70% at 92% 0%, var(--glow-strong), transparent 60%);
+  }
+  .glow-mint {
+    background-image: radial-gradient(110% 80% at 88% 6%, var(--glow-medium), transparent 62%);
+  }
+  .glow-papaya {
+    background-image: radial-gradient(80% 70% at 8% 100%, var(--glow-strong), transparent 62%);
+  }
+  .glow-espresso {
+    background-image: radial-gradient(90% 70% at 88% 90%, var(--glow-medium), transparent 60%);
+  }
+  .glow-eseries,
+  .glow-training {
+    background-image: linear-gradient(180deg, var(--glow-soft), transparent 46%);
+  }
+
+  /* Hero: darkens the left third for the headline, then the bottom for the
+   * three-column row, while leaving the chip render visible on the right. */
+  .scrim-hero {
+    background-image:
+      linear-gradient(
+        105deg,
+        color-mix(in srgb, var(--color-night) 95%, transparent) 0%,
+        color-mix(in srgb, var(--color-night) 88%, transparent) 38%,
+        color-mix(in srgb, var(--color-night) 62%, transparent) 72%,
+        color-mix(in srgb, var(--color-night) 82%, transparent) 100%
+      ),
+      linear-gradient(
+        to top,
+        color-mix(in srgb, var(--color-night) 88%, transparent) 0%,
+        color-mix(in srgb, var(--color-night) 35%, transparent) 34%,
+        transparent 62%
+      );
+  }
+
+  /* "Why PIM" and the training block: text sits left, image reads through right. */
+  .scrim-left-navy {
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-navy) 97%, transparent) 0%,
+      color-mix(in srgb, var(--color-navy) 90%, transparent) 44%,
+      color-mix(in srgb, var(--color-navy) 58%, transparent) 100%
+    );
+  }
+  .scrim-left-navy-strong {
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-navy) 97%, transparent) 0%,
+      color-mix(in srgb, var(--color-navy) 94%, transparent) 45%,
+      color-mix(in srgb, var(--color-navy) 86%, transparent) 100%
+    );
+  }
+
+  /* Contact column over the HQ photograph — horizontal fade plus a vertical
+   * one so the card meets the section background cleanly at both ends. */
+  .scrim-contact {
+    background-image:
+      linear-gradient(
+        100deg,
+        color-mix(in srgb, var(--color-navy-lit) 70%, transparent) 0%,
+        color-mix(in srgb, var(--color-navy-lit) 86%, transparent) 46%,
+        var(--color-navy-lit) 84%
+      ),
+      linear-gradient(
+        180deg,
+        var(--color-navy-lit) 0%,
+        transparent 15%,
+        transparent 85%,
+        var(--color-navy-lit) 100%
+      );
+  }
+
+  /* Software section: accent bloom top-right, then a heavy vertical fade so
+   * the five module columns sit on near-solid navy at the bottom. */
+  .scrim-software {
+    background-image:
+      radial-gradient(
+        72% 58% at 74% 26%,
+        color-mix(in srgb, var(--color-accent) 30%, transparent),
+        transparent 64%
+      ),
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-navy-lit) 58%, transparent) 0%,
+        color-mix(in srgb, var(--color-navy-lit) 74%, transparent) 34%,
+        color-mix(in srgb, var(--color-navy-lit) 95%, transparent) 62%,
+        var(--color-navy-lit) 100%
+      );
+  }
+
+  /* Shared contact band on both pages: bg-web.png behind a near-opaque navy. */
+  .band-contact {
+    background-image:
+      linear-gradient(
+        color-mix(in srgb, var(--color-navy-lit) 84%, transparent),
+        color-mix(in srgb, var(--color-navy-lit) 93%, transparent)
+      ),
+      url("/images/bg-web.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  /*
+   * Vignette used on every product/chip render: the image fades to nothing at
+   * the edges instead of sitting in a visible box. Handoff sections 5.4 / 5.11.
+   */
+  .mask-vignette-cover {
+    -webkit-mask-image: radial-gradient(104% 104% at 50% 50%, #000 34%, transparent 86%);
+    mask-image: radial-gradient(104% 104% at 50% 50%, #000 34%, transparent 86%);
+  }
+
+  .mask-vignette-contain {
+    -webkit-mask-image: radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%);
+    mask-image: radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%);
+  }
+}
