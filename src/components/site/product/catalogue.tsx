@@ -75,6 +75,7 @@ export function Catalogue({
                 alt={card.name}
                 fit="contain"
                 sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 22vw"
+                priority={index === 0}
               />
               <span className="text-card text-body">{card.body[locale]}</span>
               <span aria-hidden className="mt-auto pt-2 font-mono text-[0.75rem] text-accent">

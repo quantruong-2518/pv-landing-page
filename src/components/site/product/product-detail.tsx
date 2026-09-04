@@ -97,8 +97,8 @@ export function ProductDetail({
               src={image.src}
               alt={image.alt}
               fit="contain"
-              sizes="(max-width: 1023px) 90vw, 380px"
-              className="max-w-[clamp(260px,30vw,380px)] lg:ml-auto"
+              sizes="(max-width: 1023px) 94vw, 46vw"
+              className="max-w-[clamp(320px,42vw,560px)] drop-shadow-[0_0_34px_rgba(0,174,255,0.22)] lg:ml-auto"
             />
           ) : null}
           {aside}

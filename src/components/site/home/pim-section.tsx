@@ -62,7 +62,7 @@ export function PimSection({ content, locale }: { content: HomeContent["pim"]; l
               alt={column.name}
               fit="cover"
               sizes="(max-width: 1023px) 100vw, 520px"
-              className="max-w-[520px]"
+              className="max-w-[560px] drop-shadow-[0_0_34px_rgba(0,174,255,0.22)]"
             />
 
             <div className="text-[clamp(1.0625rem,1.35vw,1.3125rem)] font-semibold">
