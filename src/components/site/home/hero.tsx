@@ -36,7 +36,10 @@ export function Hero({ content, locale }: { content: HomeContent["hero"]; locale
       <div className="relative flex w-full flex-col gap-[clamp(18px,2.2vw,30px)] px-gutter pb-[clamp(32px,3.8vw,58px)]">
         <div className="flex max-w-[1180px] flex-col gap-5">
           <Eyebrow>{content.eyebrow[locale]}</Eyebrow>
-          <h1 id="hero-title" className="max-w-[23ch] font-heading text-h1-hero text-balance">
+          <h1
+            id="hero-title"
+            className="max-w-[23ch] font-heading text-h1-hero break-words sm:text-balance"
+          >
             {content.title[locale]}
           </h1>
         </div>

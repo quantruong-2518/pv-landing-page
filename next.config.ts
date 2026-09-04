@@ -11,8 +11,8 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // The design handoff ships PNG renders only; AVIF/WebP negotiation keeps the
-  // 3840x2160 hero from dominating LCP.
+  // Generated source art stays lossless where alpha matters; AVIF/WebP
+  // negotiation sends a compact, correctly-sized format to each browser.
   images: {
     formats: ["image/avif", "image/webp"],
   },

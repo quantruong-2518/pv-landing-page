@@ -17,7 +17,10 @@ import { cn } from "@/lib/utils";
 export function Eyebrow({ className, ...props }: ComponentProps<"span">) {
   return (
     <span
-      className={cn("font-mono text-eyebrow whitespace-nowrap text-accent-soft", className)}
+      className={cn(
+        "font-mono text-eyebrow whitespace-normal text-accent-soft sm:whitespace-nowrap",
+        className,
+      )}
       {...props}
     />
   );
@@ -157,12 +160,21 @@ export function SpecGrid({
   );
 }
 
-/** The `01 • HARDWARE   ANALOG · IN PRODUCTION 05/2023` line above a product. */
+/**
+ * The `01 • HARDWARE   ANALOG · IN PRODUCTION 05/2023` line above a product.
+ *
+ * `meta` can run long (PAPAYA's carries a third segment: "ANALOG · PoC 2024 ·
+ * PC-VISION & 5G") and it's a CMS field, so length isn't fixed. `Kicker`
+ * defaults to `whitespace-nowrap` for short one-word labels elsewhere; here
+ * that forced a 369px-wide phone viewport into 492px of horizontal scroll.
+ * `whitespace-normal` lets it wrap instead — a no-op at desktop widths where
+ * it already fits on one line.
+ */
 export function ProductKicker({ label, meta }: { label: string; meta: string }) {
   return (
     <div className="flex flex-wrap items-baseline gap-5 pb-6">
       <Kicker className="text-accent">{label}</Kicker>
-      <Kicker className="text-faint">{meta}</Kicker>
+      <Kicker className="whitespace-normal text-faint">{meta}</Kicker>
     </div>
   );
 }

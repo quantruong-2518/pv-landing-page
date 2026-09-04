@@ -20,19 +20,17 @@ import { routes } from "@/lib/routes";
  *
  * `<time dateTime>` is machine-readable on purpose: it is what lets a crawler
  * date these announcements. The display format stays the Vietnamese DD.MM.YYYY.
+ *
+ * Sized to its content rather than `screen`: 4 cards is shorter than a full
+ * viewport at desktop widths, and forcing the min-height just centred the grid
+ * in a mostly empty section (~31% empty measured at 1360px wide).
  */
 export function NewsGrid({ content, locale }: { content: HomeContent["news"]; locale: Locale }) {
   const images = [content.image1, content.image2, content.image3, content.image4];
   const items = dictionary.home.news.items.slice(0, content.count);
 
   return (
-    <Section
-      id={routes.anchors.news}
-      labelledBy="news-title"
-      screen
-      center
-      className="glow-news bg-navy"
-    >
+    <Section id={routes.anchors.news} labelledBy="news-title" className="glow-news bg-navy">
       <SectionHead
         eyebrow={content.eyebrow[locale]}
         title={content.title[locale]}

@@ -50,7 +50,7 @@ export function buildMetadata(page: PageKey, locale: Locale): Metadata {
         {
           // The hero render is the only 3840x2160 asset in the bundle and is
           // the picture the company leads with everywhere else.
-          url: "/images/chip-hero.png",
+          url: "/images/ai-semiconductor-hero-v2.png",
           width: 1200,
           height: 630,
           alt: "Pebble Vina",
@@ -61,7 +61,7 @@ export function buildMetadata(page: PageKey, locale: Locale): Metadata {
       card: "summary_large_image",
       title: copy.title[locale],
       description: copy.description[locale],
-      images: ["/images/chip-hero.png"],
+      images: ["/images/ai-semiconductor-hero-v2.png"],
     },
     robots: {
       index: true,

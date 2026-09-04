@@ -121,18 +121,22 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
                 </div>
               </>
             }
-          >
-            {/* Target platforms with their dates — ESPRESSO is a Q3/2026 part,
-                so every application below carries when it is expected. */}
-            <div className="grid grid-cols-3 gap-x-3.5 pt-2 lg:max-w-[50%]">
-              {copy.espresso.targets.map((target) => (
-                <div key={target.name} className="py-4">
-                  <div className="text-[1rem] font-semibold">{target.name}</div>
-                  <div className="mt-1 text-[0.8125rem] text-faint">{target.when[locale]}</div>
-                </div>
-              ))}
-            </div>
-          </ProductDetail>
+            beforeCta={
+              // Target platforms with their dates — ESPRESSO is a Q3/2026 part,
+              // so every application below carries when it is expected. Sits in
+              // the left column (not full-width `children`) so it fills the
+              // space the shorter copy block leaves next to the taller spec
+              // column, instead of dropping below both as an orphaned row.
+              <div className="grid grid-cols-3 gap-x-3.5 pt-2">
+                {copy.espresso.targets.map((target) => (
+                  <div key={target.name} className="py-4">
+                    <div className="text-[1rem] font-semibold">{target.name}</div>
+                    <div className="mt-1 text-[0.8125rem] text-faint">{target.when[locale]}</div>
+                  </div>
+                ))}
+              </div>
+            }
+          />
         ) : null}
 
         {content.eseries.visible ? (

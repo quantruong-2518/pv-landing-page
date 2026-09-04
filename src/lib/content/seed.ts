@@ -32,7 +32,7 @@ export const SEED_CONTENT: SiteContent = {
         en: "Hardware and software developed together: computing platforms for AI, Edge AI, on-device AI and the next generation of AI models.",
       },
       cta: { vi: "TÌM HIỂU THÊM →", en: "EXPLORE THE TECHNOLOGY →" },
-      image: "/images/chip-hero.png",
+      image: "/images/ai-semiconductor-hero-v2.png",
     },
 
     marquee: {
@@ -54,13 +54,13 @@ export const SEED_CONTENT: SiteContent = {
         vi: "PIM (Processing-in-Memory) là công nghệ tính toán đưa hoạt động xử lý đến gần nơi dữ liệu được lưu trữ, qua đó giảm lượng dữ liệu phải di chuyển giữa bộ nhớ và bộ xử lý. Pebble Vina phát triển hai hướng công nghệ PIM gồm Analog và Digital nhằm đáp ứng các nhu cầu tính toán AI khác nhau.",
         en: "PIM (Processing-in-Memory) brings computation close to where data is stored, cutting the volume of data that has to move between memory and processor. Pebble Vina develops two PIM directions — Analog and Digital — to serve different AI computing needs.",
       },
-      imageA: "/images/chip-analog.png",
-      imageB: "/images/chip-digital.png",
+      imageA: "/images/analog-pim-chip-v2.png",
+      imageB: "/images/digital-pim-chip-v2.png",
       statement: {
         vi: "NÂNG CAO HIỆU SUẤT TÍNH TOÁN CHO AI.",
         en: "RAISING COMPUTE EFFICIENCY FOR AI.",
       },
-      imageC: "/images/pim-chip.png",
+      imageC: "/images/pim-memory-compute-v2.png",
     },
 
     why: {
@@ -73,7 +73,7 @@ export const SEED_CONTENT: SiteContent = {
         vi: "Khi các mô hình AI ngày càng lớn, nhu cầu xử lý và truyền dữ liệu cũng tăng theo. Việc liên tục di chuyển dữ liệu giữa bộ nhớ (DRAM) và bộ xử lý (NPU) có thể ảnh hưởng đến hiệu quả của quá trình tính toán. Công nghệ PIM tiếp cận bài toán này bằng cách đưa hoạt động tính toán đến gần nơi dữ liệu được lưu trữ, từ đó giảm nhu cầu di chuyển dữ liệu đối với các workload AI phù hợp.",
         en: "As AI models grow, so does the demand for processing and moving data. Continuously shuttling data between memory (DRAM) and the processor (NPU) can hold back computational efficiency. PIM approaches this by bringing computation close to where data is stored, reducing data movement for suitable AI workloads.",
       },
-      image: "/images/npu-dram.png",
+      image: "/images/pim-ai-data-movement-v2.png",
     },
 
     core: {
@@ -116,10 +116,10 @@ export const SEED_CONTENT: SiteContent = {
         en: "Pebble Vina actively expands strategic collaboration with leading partners, customers and institutions to drive technological innovation and create lasting value.",
       },
       count: 4,
-      image1: "/images/news-1.png",
-      image2: "/images/news-2.png",
-      image3: "/images/news-3.png",
-      image4: "/images/news-4.png",
+      image1: "/images/news-korea-semiconductor-partnership-v2.png",
+      image2: "/images/news-japan-technology-meeting-v2.png",
+      image3: "/images/news-vietnam-edge-ai-deployment-v2.png",
+      image4: "/images/news-global-ai-partnership-v2.png",
     },
 
     contact: {
@@ -137,7 +137,7 @@ export const SEED_CONTENT: SiteContent = {
         vi: "Thông tin của bạn được bảo mật và chỉ sử dụng để hỗ trợ theo yêu cầu.",
         en: "Your information is kept confidential and used only to support your request.",
       },
-      image: "/images/hq-building.png",
+      image: "/images/semiconductor-rd-headquarters-v2.png",
     },
   },
 
@@ -172,7 +172,7 @@ export const SEED_CONTENT: SiteContent = {
         vi: "MINT là chip AI do Pebble Vina phát triển cho các thiết bị cần xử lý dữ liệu trực tiếp tại biên. Sử dụng công nghệ Analog PIM, MINT triệt tiêu độ trễ di chuyển dữ liệu giữa bộ nhớ và bộ xử lý, giúp gia tăng độ chính xác của dữ liệu phân tích và tối ưu khả năng dự báo cho các mô hình AI. Giải pháp mang lại tốc độ phản hồi tức thì với mức tiêu thụ điện năng cực kỳ thấp.",
         en: "MINT is an AI chip developed by Pebble Vina for devices that must process data directly at the edge. Using Analog PIM, MINT removes the latency of moving data between memory and processor, improving the accuracy of analysed data and the predictive capability of AI models — with instant response at extremely low power draw.",
       },
-      image: "/images/pd-mint.png",
+      image: "/images/mint-analog-pim-v2.png",
     },
 
     papaya: {
@@ -185,7 +185,7 @@ export const SEED_CONTENT: SiteContent = {
         vi: "PAPAYA và PAPAYA FLEX là các dòng chip chuyên biệt cho xử lý hình ảnh và thị giác máy trực tiếp tại thiết bị. Nhờ lợi thế của công nghệ Analog, nền tảng này mang lại kết quả xử lý dữ liệu với độ chính xác cao, nâng cao đáng kể khả năng dự báo của các mô hình AI theo thời gian thực.",
         en: "PAPAYA and PAPAYA FLEX are chip lines dedicated to image processing and machine vision directly on the device. Thanks to the advantages of Analog technology, the platform delivers high-accuracy data processing and markedly improves the real-time predictive capability of AI models.",
       },
-      image: "/images/pd-papaya.png",
+      image: "/images/papaya-vision-pim-v2.png",
     },
 
     espresso: {
@@ -198,7 +198,7 @@ export const SEED_CONTENT: SiteContent = {
         vi: "ESPRESSO là thế hệ chip Digital-PIM tiếp theo của Pebble Vina, được phát triển cho các workload AI có yêu cầu tính toán cao hơn Edge AI, bao gồm AI PC, Robotics và hệ thống Data Center.",
         en: "ESPRESSO is Pebble Vina's next Digital-PIM generation, developed for AI workloads whose compute demands exceed Edge AI — including AI PC, Robotics and Data Center systems.",
       },
-      image: "/images/pd-espresso.png",
+      image: "/images/espresso-digital-pim-v2.png",
     },
 
     eseries: {
@@ -211,7 +211,7 @@ export const SEED_CONTENT: SiteContent = {
         vi: "E-Series là dòng card tăng tốc AI của Pebble Vina, được phát triển cho các hệ thống máy chủ cần mở rộng năng lực tính toán cho AI training và inference. E-Series hỗ trợ các định dạng tính toán FP32, INT4 và INT8, cho phép lựa chọn cấu hình phù hợp với từng workload, mô hình AI và yêu cầu triển khai.",
         en: "E-Series is Pebble Vina's line of AI accelerator cards, developed for server systems that need to scale compute capacity for AI training and inference. E-Series supports FP32, INT8 and INT4 compute formats, so a configuration can be matched to each workload, AI model and deployment requirement.",
       },
-      image: "/images/pd-eseries.png",
+      image: "/images/e-series-ai-accelerators-v2.png",
     },
 
     software: {
@@ -225,7 +225,7 @@ export const SEED_CONTENT: SiteContent = {
         en: "Pebble Vina is building a software platform that connects data from CRM, ERP, HRM and DMS in one unified environment — the foundation for data analysis and applied AI across enterprise operations.",
       },
       progress: 82,
-      image: "/images/pd-software.png",
+      image: "/images/enterprise-ai-software-v2.png",
     },
 
     training: {
@@ -238,7 +238,7 @@ export const SEED_CONTENT: SiteContent = {
         vi: "Pebble Vina định hướng xây dựng chương trình đào tạo AI dành cho doanh nghiệp dựa trên bài toán, dữ liệu và năng lực thực tế của từng tổ chức.",
         en: "Pebble Vina is designing enterprise AI training programmes around each organisation's problems, data and actual capability.",
       },
-      image: "/images/pd-training.png",
+      image: "/images/enterprise-ai-training-v2.png",
     },
 
     contact: {

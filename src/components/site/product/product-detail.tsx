@@ -28,6 +28,7 @@ export function ProductDetail({
   apps,
   showCta = true,
   aside,
+  beforeCta,
   className,
   children,
 }: {
@@ -43,6 +44,8 @@ export function ProductDetail({
   showCta?: boolean;
   /** Extra content in the right-hand column, under the render. */
   aside?: ReactNode;
+  /** Extra content in the left-hand column, between the copy and the CTA. */
+  beforeCta?: ReactNode;
   className?: string;
   children?: ReactNode;
 }) {
@@ -76,6 +79,8 @@ export function ProductDetail({
               ))}
             </div>
           ) : null}
+
+          {beforeCta}
 
           {showCta ? (
             <Button asChild variant="ghost" size="md" className="self-start">

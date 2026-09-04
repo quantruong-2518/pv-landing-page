@@ -27,7 +27,7 @@ export function organisationJsonLd(locale: Locale) {
     legalName: dictionary.footer.legalEntity,
     url: absolute(routes.home(locale)),
     logo: absolute("/images/logo.png"),
-    image: absolute("/images/hq-building.png"),
+    image: absolute("/images/semiconductor-rd-headquarters-v2.png"),
     description: dictionary.meta.organisation[locale],
     taxID: dictionary.footer.taxCode,
     email: external.email,

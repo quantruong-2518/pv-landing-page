@@ -15,10 +15,15 @@ import { dictionary } from "@/lib/i18n/dictionary";
  * Layer order is explicit (image 0, scrim 1, content 2) rather than relying on
  * source order: a negative z-index would put the image behind the section's own
  * background colour and make it disappear entirely.
+ *
+ * Sized to its content rather than `screen`: the copy here is only a header and
+ * three short cards, so pinning it to the viewport left a void above and below
+ * that grew as the window narrowed and lines wrapped less. Measured at 1360px
+ * wide — 220px of empty margin on each side, more than half the section.
  */
 export function WhySection({ content, locale }: { content: HomeContent["why"]; locale: Locale }) {
   return (
-    <Section screen center labelledBy="why-title" className="overflow-hidden bg-navy">
+    <Section labelledBy="why-title" className="overflow-hidden bg-navy">
       <Image src={content.image} alt="" fill sizes="100vw" className="z-0 object-cover" />
       <div aria-hidden className="scrim-left-navy pointer-events-none absolute inset-0 z-[1]" />
 

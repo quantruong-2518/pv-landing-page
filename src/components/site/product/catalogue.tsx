@@ -48,7 +48,10 @@ export function Catalogue({
         <span className="min-w-0 flex-1 text-[0.9375rem] text-contact">
           {copy.exploreLine[locale]}
         </span>
-        <Kicker className="text-faint">{content.hint[locale]}</Kicker>
+        {/* whitespace-normal: `hint` is a full sentence, not a short label —
+            `Kicker`'s default nowrap forced this off the edge of a phone
+            viewport (see ProductKicker in primitives.tsx for the same fix). */}
+        <Kicker className="whitespace-normal text-faint">{content.hint[locale]}</Kicker>
       </div>
 
       <div className="flex items-baseline gap-4 pt-4">

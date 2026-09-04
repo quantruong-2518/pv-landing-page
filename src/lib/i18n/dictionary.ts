@@ -349,7 +349,7 @@ export const dictionary = {
           anchor: "mint" as const,
           badge: "ANALOG PIM · 05/2023",
           name: "MINT",
-          image: "/images/pd-mint.png",
+          image: "/images/mint-analog-pim-v2.png",
           body: L(
             "Chip Analog sử dụng công nghệ Processing-in-Memory nhằm giảm sự di chuyển dữ liệu giữa bộ nhớ và bộ xử lý.",
             "An Analog chip using Processing-in-Memory to cut data movement between memory and processor.",
@@ -359,7 +359,7 @@ export const dictionary = {
           anchor: "papaya" as const,
           badge: "ANALOG PIM · PoC 2024",
           name: "PAPAYA / PAPAYA FLEX",
-          image: "/images/pd-papaya.png",
+          image: "/images/papaya-vision-pim-v2.png",
           body: L(
             "Chip Analog PIM hướng đến các workload thị giác máy cần xử lý dữ liệu tại biên.",
             "Analog PIM chips for machine-vision workloads that must process data at the edge.",
@@ -369,7 +369,7 @@ export const dictionary = {
           anchor: "espresso" as const,
           badge: "DIGITAL PIM · Q3/2026",
           name: "ESPRESSO",
-          image: "/images/pd-espresso.png",
+          image: "/images/espresso-digital-pim-v2.png",
           body: L(
             "Thế hệ chip Digital-PIM tiếp theo được phát triển cho các workload AI có yêu cầu tính toán cao hơn Edge AI.",
             "The next Digital-PIM generation, built for AI workloads with compute demands beyond Edge AI.",
@@ -379,7 +379,7 @@ export const dictionary = {
           anchor: "e-series" as const,
           badge: "GP-GPU / GP-DSA",
           name: "E-SERIES · E10 / E20",
-          image: "/images/pd-eseries.png",
+          image: "/images/e-series-ai-accelerators-v2.png",
           body: L(
             "Dòng card tăng tốc AI dành cho AI server, LLM training & inference và hệ thống tính toán nhiều card.",
             "AI accelerator cards for AI servers, LLM training & inference, and multi-card computing systems.",
@@ -519,7 +519,7 @@ export const dictionary = {
         {
           index: "01",
           name: "E10 PCIe",
-          image: "/images/pd-e10.png",
+          image: "/images/e10-pcie-ai-accelerator-v2.png",
           heading: L("Cân bằng để triển khai mở rộng", "Balanced for scaled deployment"),
           body: L(
             "Card tăng tốc AI bổ sung năng lực tính toán cho máy chủ, phù hợp với AI server doanh nghiệp cần huấn luyện và suy luận trên hạ tầng tiêu chuẩn.",
@@ -542,7 +542,7 @@ export const dictionary = {
         {
           index: "02",
           name: "E20",
-          image: "/images/pd-e20.png",
+          image: "/images/e20-ai-accelerator-v2.png",
           heading: L("Gấp đôi quy mô cho tải AI lớn", "Twice the scale for large AI models"),
           body: L(
             "E20 mở rộng lên 64 AI Cores và 96 GB cho mô hình lớn cùng hạ tầng AI phân tán, kết nối nhiều card để xây dựng cấu hình AI server và multi-card computing.",

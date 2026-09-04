@@ -291,17 +291,29 @@
       );
   }
 
-  /* Shared contact band on both pages: bg-web.png behind a near-opaque navy. */
+  /* Shared contact band on both pages: the generated semiconductor texture
+   * sits behind a near-opaque navy. Mobile receives its own portrait crop. */
   .band-contact {
     background-image:
       linear-gradient(
         color-mix(in srgb, var(--color-navy-lit) 84%, transparent),
         color-mix(in srgb, var(--color-navy-lit) 93%, transparent)
       ),
-      url("/images/bg-web.png");
+      url("/images/semiconductor-texture-wide-v2.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+  }
+
+  @media (max-width: 639px) {
+    .band-contact {
+      background-image:
+        linear-gradient(
+          color-mix(in srgb, var(--color-navy-lit) 84%, transparent),
+          color-mix(in srgb, var(--color-navy-lit) 93%, transparent)
+        ),
+        url("/images/semiconductor-texture-mobile-v2.png");
+    }
   }
 
   /*

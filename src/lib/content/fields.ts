@@ -245,28 +245,28 @@ export const CONTENT_PAGES: PageDescriptor[] = [
 ];
 
 /**
- * Quick-pick list in the image field — every asset shipped with the handoff.
+ * Quick-pick list in the image field — the current generated production set.
  * Uploading is a separate action to add later; this list stays either way so
  * an image already used elsewhere on the site is one click away.
  */
 export const ASSETS = [
-  "/images/chip-hero.png",
-  "/images/npu-dram.png",
-  "/images/pim-chip.png",
-  "/images/chip-analog.png",
-  "/images/chip-digital.png",
-  "/images/hq-building.png",
-  "/images/bg-web.png",
-  "/images/news-1.png",
-  "/images/news-2.png",
-  "/images/news-3.png",
-  "/images/news-4.png",
-  "/images/pd-mint.png",
-  "/images/pd-papaya.png",
-  "/images/pd-espresso.png",
-  "/images/pd-eseries.png",
-  "/images/pd-software.png",
-  "/images/pd-training.png",
+  "/images/ai-semiconductor-hero-v2.png",
+  "/images/pim-ai-data-movement-v2.png",
+  "/images/pim-memory-compute-v2.png",
+  "/images/analog-pim-chip-v2.png",
+  "/images/digital-pim-chip-v2.png",
+  "/images/semiconductor-rd-headquarters-v2.png",
+  "/images/semiconductor-texture-wide-v2.png",
+  "/images/news-korea-semiconductor-partnership-v2.png",
+  "/images/news-japan-technology-meeting-v2.png",
+  "/images/news-vietnam-edge-ai-deployment-v2.png",
+  "/images/news-global-ai-partnership-v2.png",
+  "/images/mint-analog-pim-v2.png",
+  "/images/papaya-vision-pim-v2.png",
+  "/images/espresso-digital-pim-v2.png",
+  "/images/e-series-ai-accelerators-v2.png",
+  "/images/enterprise-ai-software-v2.png",
+  "/images/enterprise-ai-training-v2.png",
 ] as const;
 
 export function findPage(id: string): PageDescriptor | undefined {
