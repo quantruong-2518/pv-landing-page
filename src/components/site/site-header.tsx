@@ -2,7 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { LOCALE_LABELS, otherLocale, type Locale } from "@/lib/i18n/config";
+import {
+  LOCALES,
+  LOCALE_LABELS,
+  LOCALE_NAMES,
+  LOCALE_TAGS,
+  type Locale,
+} from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
 import { anchor, homeAnchor, routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
@@ -25,13 +31,14 @@ const PAGE_PATH: Record<ActivePage, (locale: Locale) => string> = {
  * link differs.
  *
  * Two things are deliberately not client components. The language switch is a
- * `Link` to the mirrored URL rather than a store toggle, because each language
- * is its own indexable page. The mobile menu is a `<details>` disclosure, so it
- * opens before hydration and keeps working if the JS bundle never lands.
+ * set of `Link`s to the mirrored URLs rather than a store toggle, because each
+ * language is its own indexable page. The mobile menu is a `<details>`
+ * disclosure, so it opens before hydration and keeps working if the JS bundle
+ * never lands — and the language menu is built the same way for the same
+ * reason.
  */
 export function SiteHeader({ locale, active }: { locale: Locale; active: ActivePage }) {
   const nav = dictionary.header.nav;
-  const target = otherLocale(locale);
 
   const links = [
     { href: routes.home(locale), label: nav.home[locale], key: "home" as const },
@@ -97,7 +104,7 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
 
         <span aria-hidden className="h-7 w-px bg-ink/18" />
 
-        <LocaleSwitch locale={locale} target={target} active={active} />
+        <LocaleMenu locale={locale} active={active} />
 
         <Button asChild variant="primary" size="none" mono={false} className="px-[22px] py-[13px]">
           <Link href={active === "home" ? anchor("lien-he") : homeAnchor(locale, "lien-he")}>
@@ -136,8 +143,8 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
             </Link>
           ))}
 
-          <div className="mt-1 flex items-center justify-between gap-3 border-t border-ink/14 px-3 pt-3">
-            <LocaleSwitch locale={locale} target={target} active={active} />
+          <div className="mt-1 flex flex-wrap items-center justify-between gap-3 border-t border-ink/14 px-3 pt-3">
+            <LocaleBar locale={locale} active={active} />
             <Button asChild variant="primary" size="none" mono={false} className="min-h-11 px-4">
               <Link href={active === "home" ? anchor("lien-he") : homeAnchor(locale, "lien-he")}>
                 <span className="text-[0.75rem] font-semibold tracking-[0.1em]">
@@ -153,34 +160,170 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
 }
 
 /**
- * Switches language by navigating to the same page in the other locale, so the
- * reader keeps their place and the URL stays shareable in that language.
+ * Desktop language menu.
+ *
+ * The old control was a `VI / EN` pair, which only reads as a switch while
+ * there are exactly two languages: with Korean added, "VI / EN / KO" is three
+ * links of identical weight and no indication of which one you are on. This is
+ * a disclosure instead — the current language on the button, the full list
+ * underneath.
+ *
+ * `<details>` and not a popover or a client component: it opens before
+ * hydration, it closes when the browser navigates, and a reader who cannot read
+ * the current page is precisely the reader who must not be told to wait for a
+ * JS bundle. Each entry is labelled in its own language and carries `lang` and
+ * `hrefLang`, so a screen reader pronounces "한국어" in Korean and a crawler
+ * reads the list as the page's alternates.
  */
-function LocaleSwitch({
-  locale,
-  target,
+function LocaleMenu({ locale, active }: { locale: Locale; active: ActivePage }) {
+  const copy = dictionary.header;
+
+  return (
+    <details className="group relative">
+      <summary
+        aria-label={`${copy.language[locale]}: ${LOCALE_NAMES[locale]}`}
+        className={cn(
+          "flex min-h-11 cursor-pointer list-none items-center gap-2 border border-ink/14 px-3",
+          "font-mono text-[0.75rem] tracking-[0.1em] whitespace-nowrap text-muted",
+          "transition-colors hover:border-ink/28 hover:text-ink",
+          "[&::-webkit-details-marker]:hidden",
+        )}
+      >
+        {/* A globe would be the conventional mark and is the one round shape
+            this design does not use anywhere. Two stacked bars plus the code
+            say the same thing in the header's own vocabulary. */}
+        <span aria-hidden className="flex flex-col gap-[3px]">
+          <span className="block h-px w-3 bg-current" />
+          <span className="block h-px w-3 bg-current" />
+        </span>
+        <span className="text-ink">{LOCALE_LABELS[locale]}</span>
+        <Caret />
+      </summary>
+
+      <div
+        // Same panel treatment as the mobile disclosure below — square, hairline
+        // border, near-opaque so the hero image behind it cannot compete.
+        className="absolute right-0 top-[calc(100%+18px)] z-50 flex w-[210px] flex-col border border-ink/14 bg-night/98 p-1 backdrop-blur-[14px]"
+      >
+        <span className="px-3 pt-2 pb-1.5 font-mono text-[0.625rem] tracking-[0.14em] text-faint">
+          {copy.languageMenu[locale]}
+        </span>
+        {LOCALES.map((candidate) => (
+          <LocaleOption
+            key={candidate}
+            candidate={candidate}
+            current={locale}
+            active={active}
+            variant="row"
+          />
+        ))}
+      </div>
+    </details>
+  );
+}
+
+/**
+ * Mobile language control: the three codes side by side inside the menu that is
+ * already open. A second disclosure nested in the first would mean two taps to
+ * reach a list of three items, so the list is simply shown.
+ */
+function LocaleBar({ locale, active }: { locale: Locale; active: ActivePage }) {
+  return (
+    <div
+      role="group"
+      aria-label={dictionary.header.languageMenu[locale]}
+      className="flex items-stretch border border-ink/14"
+    >
+      {LOCALES.map((candidate) => (
+        <LocaleOption
+          key={candidate}
+          candidate={candidate}
+          current={locale}
+          active={active}
+          variant="cell"
+        />
+      ))}
+    </div>
+  );
+}
+
+/**
+ * One language in either presentation.
+ *
+ * The current language renders as a `<span>`, not a link to the page you are
+ * already on: `aria-current` on a self-link still invites a pointless
+ * navigation, and the accent bar has to mean "you are here" in both layouts.
+ */
+function LocaleOption({
+  candidate,
+  current,
   active,
+  variant,
 }: {
-  locale: Locale;
-  target: Locale;
+  candidate: Locale;
+  current: Locale;
   active: ActivePage;
+  variant: "row" | "cell";
 }) {
-  const href = PAGE_PATH[active](target);
+  const isCurrent = candidate === current;
+
+  const row = cn(
+    "flex items-center justify-between gap-4 border-l-2 px-3 py-3 text-[0.875rem] transition-colors",
+    isCurrent ? "border-accent text-ink" : "border-transparent text-muted hover:bg-accent/10 hover:text-ink",
+  );
+
+  const cell = cn(
+    // min-h-11 is the tap target; the label inside is 12px.
+    "flex min-h-11 items-center justify-center px-3.5 font-mono text-[0.75rem] tracking-[0.1em] transition-colors",
+    // Hairline between cells rather than around them, so the group reads as one
+    // control instead of three buttons.
+    "border-ink/14 [&:not(:first-child)]:border-l",
+    isCurrent ? "bg-accent/15 text-accent" : "text-muted hover:bg-accent/10 hover:text-ink",
+  );
+
+  const className = variant === "row" ? row : cell;
+
+  const content =
+    variant === "row" ? (
+      <>
+        <span lang={LOCALE_TAGS[candidate]}>{LOCALE_NAMES[candidate]}</span>
+        <span className="font-mono text-[0.6875rem] tracking-[0.12em] text-dim">
+          {LOCALE_LABELS[candidate]}
+        </span>
+      </>
+    ) : (
+      LOCALE_LABELS[candidate]
+    );
+
+  if (isCurrent) {
+    return (
+      <span aria-current="true" className={className}>
+        {content}
+      </span>
+    );
+  }
 
   return (
     <Link
-      href={href}
-      hrefLang={target}
-      aria-label={dictionary.header.languageSwitch[locale]}
-      // min-h-11: the label itself is 18px tall, which is not a tappable target
-      // on a phone. The extra height is invisible inside the 84px header.
-      className="inline-flex min-h-11 items-center px-1 font-mono text-[0.75rem] tracking-[0.1em] whitespace-nowrap text-muted transition-colors hover:text-accent"
+      href={PAGE_PATH[active](candidate)}
+      hrefLang={candidate}
+      lang={LOCALE_TAGS[candidate]}
+      className={className}
     >
-      {LOCALE_LABELS[locale]}
-      <span aria-hidden className="mx-1 text-dim">
-        /
-      </span>
-      <span className="text-dim">{LOCALE_LABELS[target]}</span>
+      {content}
     </Link>
+  );
+}
+
+/** The disclosure's open/closed marker. Rotates with `details[open]`. */
+function Caret() {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 8 5"
+      className="h-[5px] w-2 fill-current transition-transform duration-200 group-open:rotate-180"
+    >
+      <path d="M0 0h8L4 5z" />
+    </svg>
   );
 }

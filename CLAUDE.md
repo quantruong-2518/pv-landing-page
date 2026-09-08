@@ -1,6 +1,6 @@
 # CLAUDE.md — luật của repo pv-landing-lab
 
-Website công khai của Pebble Vina (VI/EN) + CMS nội bộ. Next.js 16 · React 19 · Tailwind 4 ·
+Website công khai của Pebble Vina (VI/EN/KO) + CMS nội bộ. Next.js 16 · React 19 · Tailwind 4 ·
 Turbopack · pnpm · motion · Zustand · TanStack Query · Zod.
 
 ## 1. Nguồn sự thật
@@ -8,8 +8,8 @@ Turbopack · pnpm · motion · Zustand · TanStack Query · Zod.
 | Cần biết | Đọc ở đâu |
 |---|---|
 | Bố cục, màu, chữ, spacing, hành vi | `design_handoff_pebble_vina/README.md` + 3 file `.dc.html` trong `design-refs/` |
-| Copy VI/EN của khối cố định | `src/lib/i18n/dictionary.ts` |
-| Copy VI/EN sửa được qua CMS | `src/lib/content/seed.ts` (giá trị gốc) → `data/content.runtime.json` (đã xuất bản) |
+| Copy VI/EN/KO của khối cố định | `src/lib/i18n/dictionary.ts` |
+| Copy VI/EN/KO sửa được qua CMS | `src/lib/content/seed.ts` (giá trị gốc) → `data/content.runtime.json` (đã xuất bản) |
 | Schema nội dung | `src/lib/content/schema.ts` (Zod) · `src/lib/content/fields.ts` (form CMS) |
 | URL | `src/lib/routes.ts` |
 | Copy của `/bio` | không có — trang đọc lại tài liệu `home` và bảng spec sản phẩm; chỉ nhãn/tiêu đề mục nằm ở `dictionary.bio` |
@@ -33,9 +33,11 @@ Ba file `.dc.html` là **mock tham khảo**, không import vào `src/`.
 
 - **Code, tên biến và comment viết bằng tiếng Anh.** Comment nói *vì sao*, và trỏ về nguồn của con
   số (mục nào trong handoff, tên asset, dòng nào trong bảng token). Không sinh thêm file docs.
-- **SSR mặc định.** `"use client"` chỉ khi thật sự cần tương tác. Cả 6 trang công khai phải prerender
-  được — đó là điều kiện của SEO/GEO.
-- **Hai locale luôn đủ đôi.** Mỗi chuỗi là `{ vi, en }`; thêm khóa là thêm cả hai.
+- **SSR mặc định.** `"use client"` chỉ khi thật sự cần tương tác. Cả 9 trang công khai (3 trang × 3
+  locale) phải prerender được — đó là điều kiện của SEO/GEO.
+- **Tiếng Việt là bản gốc, ba locale luôn đủ bộ.** Mỗi chuỗi là `{ vi, en, ko }`; viết tiếng Việt
+  trước rồi dịch sang hai thứ tiếng kia bằng giọng marketing B2B, không thêm con số hay năng lực nào
+  mà bản tiếng Việt chưa nói. Thêm khóa là thêm cả ba — `Localized` sẽ chặn nếu thiếu.
 - **Không bo góc, không đổ bóng.** Thiết kế vuông góc hoàn toàn; chiều sâu tạo bằng nền tối/sáng và
   viền `border-ink/8…28`.
 - **Khối `screen` chỉ cao trọn màn từ `md` trở lên**, và dùng `svh` chứ không `vh`. Thêm chữ vào một
@@ -48,8 +50,9 @@ Ba file `.dc.html` là **mock tham khảo**, không import vào `src/`.
   Next từ chối dựng lại và `/vi`, `/en`, `/vi/products` cùng 404 tới lần build kế tiếp. Đã đo.
   Locale sai được chặn bằng `isLocale()` + `notFound()`.
 - **`revalidatePath("/[locale]", "layout")` không xoá cache trang đã prerender.** Phải revalidate
-  đường dẫn cụ thể (`/vi`, `/en`, `/vi/products`, `/en/products`, `/vi/bio`, `/en/bio`,
-  `/llms.txt`) — xem `src/app/api/content/[page]/route.ts`. `/bio` nằm trong danh sách vì nó hiển thị
+  đường dẫn cụ thể — vòng lặp qua `LOCALES` cho `/vi`, `/en`, `/ko` × `home / products / bio`, cộng
+  `/llms.txt`; xem `src/app/api/content/[page]/route.ts`. Thêm ngôn ngữ mới chỉ cần thêm vào
+  `LOCALES`, đừng viết tay danh sách đường dẫn ở đây nữa. `/bio` nằm trong danh sách vì nó hiển thị
   nội dung CMS của trang chủ; quên nó là xuất bản xong mà `/vi/bio` vẫn giữ bản cũ tới hết cửa sổ ISR.
 - **`scroll-behavior: smooth` trong CSS làm hỏng deep link.** Trình duyệt cuộn có hoạt ảnh tới
   `#fragment` lúc tải trang, hydration cắt ngang, người đọc rơi về đầu trang. Smooth được bật sau khi

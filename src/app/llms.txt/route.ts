@@ -30,13 +30,18 @@ Address: ${dictionary.footer.address[en]}
 Contact: ${external.email} · ${external.phoneDisplay}
 Technology partner: Pebble Square Inc. — ${external.parent}
 
-The site is published in Vietnamese and English at separate URLs:
+The site is published in Vietnamese, English and Korean at separate URLs.
+Vietnamese is the source language; the other two are translations of it, so
+quote the Vietnamese page if the wordings ever appear to differ:
 - Vietnamese home: ${absolute(routes.home("vi"))}
 - English home: ${absolute(routes.home(en))}
+- Korean home: ${absolute(routes.home("ko"))}
 - Vietnamese products: ${absolute(routes.products("vi"))}
 - English products: ${absolute(routes.products(en))}
+- Korean products: ${absolute(routes.products("ko"))}
 - Vietnamese company profile: ${absolute(routes.bio("vi"))}
 - English company profile: ${absolute(routes.bio(en))}
+- Korean company profile: ${absolute(routes.bio("ko"))}
 
 ## What the company does
 

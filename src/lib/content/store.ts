@@ -28,8 +28,11 @@ const isPlainObject = (value: unknown): value is Json =>
  * Overlay saved values on the seed, key by key.
  *
  * Recursive because a saved section may carry a partially filled localized
- * field (`{ vi }` with no `en` yet) — the seed has to supply the rest rather
- * than the field disappearing from the page.
+ * field — the seed has to supply the rest rather than the field disappearing
+ * from the page. This is also what carries an already-published document across
+ * the addition of a locale: a `data/content.runtime.json` written when fields
+ * were `{ vi, en }` keeps its edits and picks up `ko` from the seed, instead of
+ * failing the schema and dropping the whole document back to seed values.
  */
 function merge<T>(base: T, patch: unknown): T {
   if (!isPlainObject(patch) || !isPlainObject(base)) {

@@ -58,8 +58,14 @@
 
   /* Type scale. Every entry carries its own line-height, tracking and weight so
    * a component never re-states them. Sizes are the handoff's clamp() values. */
-  --font-heading: var(--font-chakra-petch), var(--font-be-vietnam), system-ui, sans-serif;
-  --font-sans: var(--font-be-vietnam), system-ui, sans-serif;
+  /* `--font-korean` is only defined on /ko (see the [locale] layout). The
+     fallback keeps the declaration valid on /vi and /en, where no Hangul is
+     rendered and the name simply never resolves. It sits last before the
+     system stack so it is reached for Hangul and nothing else. */
+  --font-heading:
+    var(--font-chakra-petch), var(--font-be-vietnam), var(--font-korean, "Noto Sans KR"), system-ui,
+    sans-serif;
+  --font-sans: var(--font-be-vietnam), var(--font-korean, "Noto Sans KR"), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
   --text-h1-hero: clamp(2rem, 4.6vw, 4.5rem);

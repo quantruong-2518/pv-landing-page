@@ -7,7 +7,8 @@ import { z } from "zod";
  * `design_handoff_pebble_vina/design-refs/Pebble Vina Admin.dc.html`, with two
  * deliberate changes the handoff asks for in section 7:
  *
- *  1. Every text field is bilingual (`{ vi, en }`) instead of Vietnamese-only.
+ *  1. Every text field carries all three locales (`{ vi, en, ko }`) instead of
+ *     being Vietnamese-only.
  *  2. `visible` is a real field on every section, so hiding a block in the CMS
  *     actually removes it from the public page — the mock used hard-coded
  *     `showStats` / `showNews` props instead.
@@ -17,9 +18,11 @@ import { z } from "zod";
  * file is the editable surface, that file is the fixed one.
  */
 
+/** Every editable string exists in all three locales — see `LOCALES`. */
 const localized = z.object({
   vi: z.string(),
   en: z.string(),
+  ko: z.string(),
 });
 
 /** Asset path under /public. Kept as a plain string to match the CMS quick-pick. */

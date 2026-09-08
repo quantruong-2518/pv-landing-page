@@ -100,7 +100,10 @@ function LocalizedControl({
   const set = (locale: Locale, next: string) => onChange({ ...value, [locale]: next });
 
   return (
-    <div className="grid gap-3 lg:grid-cols-2">
+    // One column per locale. At three of them, two-up left the Korean input
+    // orphaned on its own row; 2xl gets all three side by side, below that they
+    // stack so a paragraph field stays wide enough to read.
+    <div className="grid gap-3 2xl:grid-cols-3">
       {LOCALES.map((locale) => (
         <div key={locale} className="flex min-w-0 flex-col gap-2">
           <span className="font-mono text-[0.6875rem] tracking-[0.12em] text-faint">

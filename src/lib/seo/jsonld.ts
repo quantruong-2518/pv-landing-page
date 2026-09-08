@@ -1,4 +1,4 @@
-import { LOCALE_TAGS, type Locale } from "@/lib/i18n/config";
+import { LOCALES, LOCALE_TAGS, type Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
 import { absolute, external, routes, siteUrl } from "@/lib/routes";
 
@@ -34,11 +34,16 @@ export function organisationJsonLd(locale: Locale) {
     telephone: external.phone,
     address: {
       "@type": "PostalAddress",
-      streetAddress: locale === "vi"
-        ? "Văn phòng O1912, Tầng 19, Landmark 72 Tower, Khu E6, Khu đô thị mới Cầu Giấy"
-        : "Office O1912, 19th floor, Landmark 72 Tower, Zone E6, Cau Giay New Urban Area",
-      addressLocality: locale === "vi" ? "Phường Yên Hoà" : "Yen Hoa Ward",
-      addressRegion: locale === "vi" ? "Hà Nội" : "Hanoi",
+      // One entry per locale rather than a vi/not-vi ternary: a Korean reader
+      // gets a Korean address, and adding a language means adding a row here
+      // instead of nesting a second condition.
+      streetAddress: {
+        vi: "Văn phòng O1912, Tầng 19, Landmark 72 Tower, Khu E6, Khu đô thị mới Cầu Giấy",
+        en: "Office O1912, 19th floor, Landmark 72 Tower, Zone E6, Cau Giay New Urban Area",
+        ko: "꺼우저이 신도시 E6구역, Landmark 72 Tower 19층 O1912호",
+      }[locale],
+      addressLocality: { vi: "Phường Yên Hoà", en: "Yen Hoa Ward", ko: "옌호아동" }[locale],
+      addressRegion: { vi: "Hà Nội", en: "Hanoi", ko: "하노이" }[locale],
       addressCountry: "VN",
     },
     contactPoint: [
@@ -47,7 +52,7 @@ export function organisationJsonLd(locale: Locale) {
         contactType: "sales",
         telephone: external.phone,
         email: external.email,
-        availableLanguage: ["vi", "en"],
+        availableLanguage: [...LOCALES],
         areaServed: "VN",
       },
     ],
@@ -136,9 +141,9 @@ interface ProductEntry {
 }
 
 const STATUS_LABEL: Record<ProductStatus, Record<Locale, string>> = {
-  shipped: { vi: "Đang sản xuất", en: "In production" },
-  poc: { vi: "Proof of concept", en: "Proof of concept" },
-  roadmap: { vi: "Trong lộ trình", en: "On the roadmap" },
+  shipped: { vi: "Đang sản xuất", en: "In production", ko: "양산 중" },
+  poc: { vi: "Proof of concept", en: "Proof of concept", ko: "Proof of concept" },
+  roadmap: { vi: "Trong lộ trình", en: "On the roadmap", ko: "로드맵 단계" },
 };
 
 export function productCatalogueJsonLd(locale: Locale, content: {

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Be_Vietnam_Pro, Chakra_Petch, JetBrains_Mono } from "next/font/google";
+import { Be_Vietnam_Pro, Chakra_Petch, JetBrains_Mono, Noto_Sans_KR } from "next/font/google";
 import { notFound } from "next/navigation";
 import { Toaster } from "sonner";
 import type { ReactNode } from "react";
@@ -47,6 +47,23 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+// Neither Chakra Petch nor Be Vietnam Pro carries a single Hangul glyph, so
+// /ko would render its entire body in whatever the device happens to fall back
+// to — which on Windows is a font that does not match the rest of the page.
+//
+// `preload: false` and no `subsets`: the Latin coverage already comes from the
+// two fonts above, so there is nothing here worth preloading, and Google serves
+// Hangul in ~100 unicode-range slices the browser fetches only as it needs
+// them. The variable axis is one file family instead of four static weights.
+//
+// It is attached to <html> only on /ko — see below. A Korean webfont has no
+// business downloading on a Vietnamese page.
+const notoSansKr = Noto_Sans_KR({
+  variable: "--font-korean",
+  display: "swap",
+  preload: false,
+});
+
 export const viewport: Viewport = {
   themeColor: "#05070F",
   colorScheme: "dark",
@@ -85,10 +102,15 @@ export default async function PublicLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
+  const fonts = [chakraPetch.variable, beVietnamPro.variable, jetbrainsMono.variable];
+  // globals.css reads `var(--font-korean, …)` with a plain-name fallback, so the
+  // other two locales are unaffected by this variable being absent.
+  if (locale === "ko") fonts.push(notoSansKr.variable);
+
   return (
     <html
       lang={LOCALE_TAGS[locale]}
-      className={`${chakraPetch.variable} ${beVietnamPro.variable} ${jetbrainsMono.variable}`}
+      className={fonts.join(" ")}
       suppressHydrationWarning
     >
       <body className="overflow-x-hidden bg-night text-ink antialiased">
