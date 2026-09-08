@@ -30,7 +30,7 @@ export function ESeriesCards({ locale }: { locale: Locale }) {
               alt={card.name}
               fit="contain"
               sizes="(max-width: 1023px) 94vw, 46vw"
-              className="max-w-[clamp(320px,42vw,560px)] drop-shadow-[0_0_34px_rgba(0,174,255,0.22)]"
+              className="product-chrome-art"
             />
 
             <span className="text-[1.0625rem] font-semibold">{card.heading[locale]}</span>

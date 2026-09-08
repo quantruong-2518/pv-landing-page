@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { SpecGrid } from "@/components/site/primitives";
+import { SpecGrid, VignetteImage } from "@/components/site/primitives";
 import { Catalogue } from "@/components/site/product/catalogue";
 import { ESeriesCards } from "@/components/site/product/eseries-cards";
 import { ProductContact } from "@/components/site/product/product-contact";
@@ -94,7 +94,15 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
               label={copy.papaya.flexLabel}
               className="mt-[clamp(22px,2.4vw,36px)]"
             />
-            <SpecGrid specs={copy.papaya.flexSpecs} locale={locale} className="lg:grid-cols-3" />
+            <div className="grid items-center gap-col lg:grid-cols-[1fr_0.65fr]">
+              <SpecGrid specs={copy.papaya.flexSpecs} locale={locale} className="lg:grid-cols-3" />
+              <VignetteImage
+                src="/images/papaya-flex-chrome-v4.png"
+                alt="PAPAYA FLEX — PEBBLE SQUARE"
+                sizes="(max-width: 1023px) 94vw, 38vw"
+                className="product-chrome-art"
+              />
+            </div>
           </ProductDetail>
         ) : null}
 

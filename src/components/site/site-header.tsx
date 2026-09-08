@@ -7,11 +7,22 @@ import { dictionary } from "@/lib/i18n/dictionary";
 import { anchor, homeAnchor, routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
-type ActivePage = "home" | "products";
+type ActivePage = "home" | "products" | "bio";
 
 /**
- * Sticky 84px header, shared by both public pages — only the active nav link
- * differs.
+ * Where the language toggle goes from each page. A map rather than a ternary:
+ * the toggle has to keep the reader on the page they are reading, and a third
+ * page turned that ternary into the kind of expression you have to re-read.
+ */
+const PAGE_PATH: Record<ActivePage, (locale: Locale) => string> = {
+  home: routes.home,
+  products: routes.products,
+  bio: routes.bio,
+};
+
+/**
+ * Sticky 84px header, shared by all three public pages — only the active nav
+ * link differs.
  *
  * Two things are deliberately not client components. The language switch is a
  * `Link` to the mirrored URL rather than a store toggle, because each language
@@ -25,6 +36,7 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
   const links = [
     { href: routes.home(locale), label: nav.home[locale], key: "home" as const },
     { href: routes.products(locale), label: nav.products[locale], key: "products" as const },
+    { href: routes.bio(locale), label: nav.bio[locale], key: "bio" as const },
     // News lives only on the home page, so from /products it needs the full path.
     {
       href: active === "home" ? anchor("tin-tuc") : homeAnchor(locale, "tin-tuc"),
@@ -47,8 +59,26 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
         className="flex items-center gap-3.5 text-ink"
         aria-label="Pebble Vina"
       >
-        <Image src="/images/logo.png" alt="" width={36} height={36} priority className="block" />
-        <span className="flex flex-col font-heading text-[0.9375rem] leading-none font-bold tracking-[0.12em]">
+        {/* From lg the header has the width for the supplied horizontal lockup,
+            so it runs unaltered: mark, wordmark and flag star as one artwork.
+            Below lg it would shrink past reading size, so the handoff's compact
+            pairing stands instead (README header spec: 36x36 mark + two-line
+            wordmark). Only the lockup is `priority`; preloading both would pull
+            down a logo the viewport is never going to render. */}
+        <Image
+          src="/images/logo-wordmark.png"
+          alt=""
+          // Rendered size, not the file's 1789x274 — the ratio is the same, and
+          // stating it here is what keeps Next from serving a 1920px variant of
+          // a logo that is never wider than 235px. 36px tall puts the lockup's
+          // mark at exactly the size the mock gives the mark alone.
+          width={235}
+          height={36}
+          priority
+          className="hidden h-9 w-auto lg:block"
+        />
+        <Image src="/images/logo.png" alt="" width={36} height={36} className="block lg:hidden" />
+        <span className="flex flex-col font-heading text-[0.9375rem] leading-none font-bold tracking-[0.12em] lg:hidden">
           <span>PEBBLE</span>
           <span className="text-accent">VINA</span>
         </span>
@@ -140,7 +170,7 @@ function LocaleSwitch({
   target: Locale;
   active: ActivePage;
 }) {
-  const href = active === "home" ? routes.home(target) : routes.products(target);
+  const href = PAGE_PATH[active](target);
 
   return (
     <Link

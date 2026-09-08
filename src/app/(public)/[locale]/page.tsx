@@ -48,7 +48,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <SiteHeader locale={locale} active="home" />
 
-      <main>
+      <main className="home-space">
         {content.hero.visible ? <Hero content={content.hero} locale={locale} /> : null}
         {content.marquee.visible ? <Marquee items={content.marquee.items[locale]} /> : null}
         {content.pim.visible ? <PimSection content={content.pim} locale={locale} /> : null}

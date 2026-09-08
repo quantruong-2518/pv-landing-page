@@ -31,5 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
       alternates: { languages: languagesFor(routes.products) },
     },
+    {
+      url: absolute(routes.bio(locale)),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      alternates: { languages: languagesFor(routes.bio) },
+    },
   ]);
 }

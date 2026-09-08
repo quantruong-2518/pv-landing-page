@@ -60,6 +60,10 @@ function publish() {
   for (const locale of LOCALES) {
     revalidatePath(routes.home(locale));
     revalidatePath(routes.products(locale));
+    // /bio renders no copy of its own — every paragraph on it comes from the
+    // home document. Leave it out of this loop and a published edit shows on
+    // /vi and silently does not on /vi/bio until the ISR window expires.
+    revalidatePath(routes.bio(locale));
   }
   revalidatePath("/llms.txt");
 }

@@ -54,7 +54,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  icons: { icon: "/images/logo.png" },
+  // logo-light: the mark recoloured to white, flag roundel untouched. The navy
+  // original is unreadable at 16px against a dark tab strip, which is what
+  // themeColor above says this site is.
+  icons: { icon: "/images/logo-light.png" },
 };
 
 export function generateStaticParams() {

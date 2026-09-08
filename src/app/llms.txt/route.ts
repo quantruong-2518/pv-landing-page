@@ -35,6 +35,8 @@ The site is published in Vietnamese and English at separate URLs:
 - English home: ${absolute(routes.home(en))}
 - Vietnamese products: ${absolute(routes.products("vi"))}
 - English products: ${absolute(routes.products(en))}
+- Vietnamese company profile: ${absolute(routes.bio("vi"))}
+- English company profile: ${absolute(routes.bio(en))}
 
 ## What the company does
 

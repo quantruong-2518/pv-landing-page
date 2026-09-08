@@ -31,6 +31,7 @@ export const dictionary = {
     nav: {
       home: L("Trang chủ", "Home"),
       products: L("Sản phẩm & giải pháp", "Products & solutions"),
+      bio: L("Hồ sơ", "Profile"),
       news: L("Tin tức", "News"),
     },
     cta: L("LIÊN HỆ NGAY", "CONTACT US"),
@@ -68,27 +69,29 @@ export const dictionary = {
       /** Two columns: Analog then Digital. */
       analog: {
         index: "01",
-        name: "ANALOG PIM",
-        heading: L("Tính toán tại nơi dữ liệu được lưu trữ", "Computing where the data lives"),
+        name: "Analog PIM",
+        alt: L("Dải sóng ánh sáng liên tục, minh họa tín hiệu Analog", "A continuous light wave illustrating an analog signal"),
+        heading: L("Đưa AI vào thiết bị, với ít điện năng hơn", "Bring AI to devices, with less power"),
         body: L(
-          "Công nghệ Analog tích hợp năng lực tính toán với bộ nhớ, hạn chế di chuyển dữ liệu giữa memory và processor, từ đó nâng cao hiệu quả tính toán cho các workload AI phù hợp.",
-          "Analog technology integrates compute capability into memory, limiting data movement between memory and processor and raising computational efficiency for suitable AI workloads.",
+          "Xử lý AI ngay tại bộ nhớ, giảm năng lượng truyền dữ liệu. Phù hợp định hướng thiết bị nhỏ gọn, tiết kiệm điện.",
+          "Process AI in memory and spend less energy moving data. A path to compact, power-efficient devices.",
         ),
-        cta: L("KHÁM PHÁ CHIP ANALOG →", "EXPLORE THE ANALOG CHIP →"),
+        cta: L("Khám phá MINT", "Explore MINT"),
       },
       digital: {
         index: "02",
-        name: "DIGITAL PIM",
-        heading: L("Nền tảng tính toán số cho AI", "A digital computing platform for AI"),
+        name: "Digital PIM",
+        alt: L("Chuỗi xung ánh sáng hai mức, minh họa tín hiệu Digital", "A two-level light pulse train illustrating a digital signal"),
+        heading: L("Linh hoạt tích hợp AI vào sản phẩm", "Build AI into your products"),
         body: L(
-          "Công nghệ Digital được phát triển nhằm đáp ứng các yêu cầu về khả năng tính toán và tích hợp linh hoạt, tạo nền tảng cho các sản phẩm và hệ thống AI đa dạng.",
-          "Digital technology is built to meet demands for computational capability and flexible integration, forming the foundation for a diverse range of AI products and systems.",
+          "Nền tảng xử lý số linh hoạt cho thiết bị và hệ thống AI, tích hợp theo yêu cầu sản phẩm của bạn.",
+          "Flexible digital computing for devices and AI systems, shaped around your product requirements.",
         ),
-        cta: L("KHÁM PHÁ CHIP DIGITAL →", "EXPLORE THE DIGITAL CHIP →"),
+        cta: L("Khám phá ESPRESSO", "Explore ESPRESSO"),
       },
       statementLead: L(
-        "Hai hướng tiếp cận công nghệ, một mục tiêu chung:",
-        "Two technical approaches, one shared objective:",
+        "Chọn công nghệ theo bài toán của bạn.",
+        "Choose technology around your business needs.",
       ),
     },
 
@@ -96,26 +99,26 @@ export const dictionary = {
       cards: [
         {
           index: "01",
-          title: L("Tiết kiệm điện năng", "Lower power draw"),
+          title: L("Giảm gánh nặng điện năng", "Lower energy demands"),
           body: L(
-            "Giảm nhu cầu truyền dữ liệu qua lại giữa bộ nhớ và bộ xử lý đối với các workload AI phù hợp.",
-            "Reduces the need to shuttle data back and forth between memory and processor for suitable AI workloads.",
+            "Giảm điện năng dành cho truyền dữ liệu trong các tác vụ AI phù hợp.",
+            "Spend less energy moving data, helping optimise power consumption for suitable AI tasks.",
           ),
         },
         {
           index: "02",
-          title: L("Tối ưu tính toán AI", "Optimised AI computation"),
+          title: L("Rút ngắn thời gian chờ", "Less waiting for results"),
           body: L(
-            "Thiết kế kiến trúc tính toán phù hợp với đặc thù của từng workload AI, hướng tới nâng cao hiệu quả xử lý cho các ứng dụng AI phù hợp.",
-            "Compute architectures designed around the characteristics of each AI workload, aimed at better processing efficiency.",
+            "Giảm thời gian truyền dữ liệu, hỗ trợ ứng dụng cần phản hồi nhanh.",
+            "Bring processing closer to data to reduce transfer delays and support applications that need fast responses.",
           ),
         },
         {
           index: "03",
-          title: L("Mở hướng ứng dụng mới", "New application directions"),
+          title: L("Đưa AI đến nơi công việc diễn ra", "AI where work happens"),
           body: L(
-            "Công nghệ PIM mở ra các hướng ứng dụng cho Edge AI, AI trên thiết bị (On-device AI) và suy luận AI (AI Inference).",
-            "PIM opens application paths for Edge AI, on-device AI and AI inference.",
+            "Mở hướng xử lý trực tiếp trên camera, cảm biến và thiết bị.",
+            "Open a path to processing on cameras, sensors and devices, reducing the need to send every AI task back to a server.",
           ),
         },
       ],
@@ -129,7 +132,7 @@ export const dictionary = {
           value: "PIM",
           fromCms: false,
           headline: null as Localized | null,
-          label: L("TỐI ƯU DATA MOVEMENT", "OPTIMISED DATA MOVEMENT") as Localized | null,
+          label: L("Ít truyền dữ liệu hơn", "Less data movement") as Localized | null,
           body: L(
             "Xử lý dữ liệu trực tiếp tại nơi lưu trữ, giảm nhu cầu truyền dữ liệu giữa bộ nhớ và bộ xử lý.",
             "Data is processed directly where it is stored, reducing transfers between memory and processor.",
@@ -143,7 +146,7 @@ export const dictionary = {
           value: "",
           fromCms: true,
           headline: null as Localized | null,
-          label: L("ĐIỂM NORON TÍNH TOÁN", "COMPUTE NEURON POINTS") as Localized | null,
+          label: L("Điểm xử lý song song", "Parallel processing points") as Localized | null,
           body: L(
             "400.000 điểm xử lý tạo nền tảng cho khả năng thực hiện đồng thời khối lượng lớn phép tính AI.",
             "400,000 processing points underpin the ability to run large volumes of AI computation concurrently.",
@@ -157,7 +160,7 @@ export const dictionary = {
           value: "",
           fromCms: false,
           /** This card's "figure" is a phrase, so it is set smaller. */
-          headline: L("PHÂN BỔ DỮ LIỆU ĐỒNG ĐỀU", "EVEN DATA DISTRIBUTION") as Localized | null,
+          headline: L("Xử lý cân bằng", "Balanced processing") as Localized | null,
           label: null as Localized | null,
           body: L(
             "Phân bổ dữ liệu đồng đều trên các điểm xử lý giúp duy trì sự cân bằng trong quá trình tính toán.",
@@ -182,42 +185,42 @@ export const dictionary = {
           index: "01",
           anchor: "mint" as const,
           title: L(
-            "CHIP BÁN DẪN VÀ GIẢI PHÁP TÍCH HỢP AI NGOẠI BIÊN",
-            "EDGE-AI SEMICONDUCTOR CHIPS & INTEGRATED SOLUTIONS",
+            "Đưa AI vào thiết bị của bạn",
+            "Bring AI to your devices",
           ),
           body: L(
-            "Phát triển kiến trúc chip và tích hợp AI ngoại biên nhằm đáp ứng nhu cầu tính toán cho các workload AI chuyên biệt.",
-            "Chip architecture and edge-AI integration developed to meet the computing needs of specialised AI workloads.",
+            "Tích hợp xử lý AI trực tiếp trên thiết bị với phần cứng phù hợp nhu cầu về hiệu năng và điện năng của sản phẩm.",
+            "Integrate on-device AI with hardware matched to your product’s performance and power requirements.",
           ),
         },
         {
           index: "02",
           anchor: "e-series" as const,
-          title: L("HUẤN LUYỆN LLM CÁ NHÂN HÓA", "PERSONALISED LLM TRAINING"),
+          title: L("AI hiểu dữ liệu doanh nghiệp", "AI built around your business data"),
           body: L(
-            "Xây dựng và tinh chỉnh các mô hình ngôn ngữ lớn (LLM) theo yêu cầu riêng của từng doanh nghiệp, hỗ trợ kiểm soát dữ liệu và tối ưu hóa chi phí vận hành.",
-            "Building and fine-tuning large language models to each enterprise's requirements, supporting data control and lower operating cost.",
+            "Tinh chỉnh mô hình theo dữ liệu và yêu cầu riêng, hỗ trợ kiểm soát dữ liệu và chi phí vận hành.",
+            "Fine-tune models for your data and needs, supporting data control and operating cost optimisation.",
           ),
         },
         {
           index: "03",
           anchor: "papaya" as const,
           title: L(
-            "TÁI SỬ DỤNG LINH HOẠT VỚI KHẢ NĂNG GHI ĐÈ DỮ LIỆU",
-            "FLEXIBLE REUSE THROUGH DATA OVERWRITE",
+            "Đổi mô hình, tận dụng phần cứng",
+            "New models, reusable hardware",
           ),
           body: L(
-            "Cho phép doanh nghiệp dễ dàng xóa bỏ dữ liệu cũ sau mỗi chu kỳ huấn luyện để nạp và đào tạo các mô hình AI hoàn toàn mới trên cùng một phần cứng chip PIM — tối ưu hóa chi phí đầu tư dài hạn.",
-            "Enterprises can clear old data after each training cycle and train entirely new AI models on the same PIM hardware — optimising long-term investment.",
+            "Cập nhật mô hình AI trên phần cứng PIM hỗ trợ ghi lại dữ liệu, tận dụng khoản đầu tư dài hạn.",
+            "Update AI models on PIM hardware that supports rewriting data, making more of your long-term investment.",
           ),
         },
         {
           index: "04",
           anchor: "phan-mem" as const,
-          title: L("HỆ THỐNG CRM THÔNG MINH MAY ĐO RIÊNG", "TAILORED INTELLIGENT CRM"),
+          title: L("CRM theo cách bạn vận hành", "CRM that fits how you work"),
           body: L(
-            "Phát triển phần mềm quản trị quan hệ khách hàng (CRM) tích hợp AI, được thiết kế linh hoạt theo quy trình vận hành và đặc thù của từng doanh nghiệp.",
-            "AI-integrated customer relationship management software, designed around each enterprise's operating processes and specifics.",
+            "CRM tích hợp AI, thiết kế theo quy trình bán hàng và chăm sóc khách hàng của doanh nghiệp.",
+            "AI-integrated CRM designed around your sales and customer service workflows.",
           ),
         },
       ],
@@ -361,7 +364,7 @@ export const dictionary = {
           anchor: "mint" as const,
           badge: "ANALOG PIM · 05/2023",
           name: "MINT",
-          image: "/images/mint-analog-pim-v3.png",
+          image: "/images/mint-chrome-v4.png",
           body: L(
             "Chip Analog sử dụng công nghệ Processing-in-Memory nhằm giảm sự di chuyển dữ liệu giữa bộ nhớ và bộ xử lý.",
             "An Analog chip using Processing-in-Memory to cut data movement between memory and processor.",
@@ -371,7 +374,7 @@ export const dictionary = {
           anchor: "papaya" as const,
           badge: "ANALOG PIM · PoC 2024",
           name: "PAPAYA / PAPAYA FLEX",
-          image: "/images/papaya-vision-pim-v3.png",
+          image: "/images/papaya-chrome-v4.png",
           body: L(
             "Chip Analog PIM hướng đến các workload thị giác máy cần xử lý dữ liệu tại biên.",
             "Analog PIM chips for machine-vision workloads that must process data at the edge.",
@@ -381,7 +384,7 @@ export const dictionary = {
           anchor: "espresso" as const,
           badge: "DIGITAL PIM · Q3/2026",
           name: "ESPRESSO",
-          image: "/images/espresso-digital-pim-v3.png",
+          image: "/images/espresso-chrome-v4.png",
           body: L(
             "Thế hệ chip Digital-PIM tiếp theo được phát triển cho các workload AI có yêu cầu tính toán cao hơn Edge AI.",
             "The next Digital-PIM generation, built for AI workloads with compute demands beyond Edge AI.",
@@ -391,7 +394,7 @@ export const dictionary = {
           anchor: "e-series" as const,
           badge: "GP-GPU / GP-DSA",
           name: "E-SERIES · E10 / E20",
-          image: "/images/e-series-ai-accelerators-v3.png",
+          image: "/images/e20-chrome-v4.png",
           body: L(
             "Dòng card tăng tốc AI dành cho AI server, LLM training & inference và hệ thống tính toán nhiều card.",
             "AI accelerator cards for AI servers, LLM training & inference, and multi-card computing systems.",
@@ -418,15 +421,22 @@ export const dictionary = {
           ),
         },
       ],
+      /**
+       * `state` is not decoration: /bio draws a filled mark for what has
+       * happened and a hollow one for what has not, so the split between
+       * shipped silicon and a dated announcement survives being skimmed.
+       * The catalogue strip ignores the field and reads `when` / `what`.
+       */
       timeline: [
-        { when: "05/2023", what: L("Sản xuất — MINT", "In production — MINT") },
-        { when: "2024", what: L("PoC — PAPAYA", "PoC — PAPAYA") },
-        { when: "Q3/2026", what: L("Roadmap — ESPRESSO", "Roadmap — ESPRESSO") },
+        { when: "05/2023", state: "done" as const, what: L("Sản xuất — MINT", "In production — MINT") },
+        { when: "2024", state: "done" as const, what: L("PoC — PAPAYA", "PoC — PAPAYA") },
+        { when: "Q3/2026", state: "roadmap" as const, what: L("Roadmap — ESPRESSO", "Roadmap — ESPRESSO") },
         {
           when: "12/2026",
+          state: "roadmap" as const,
           what: L("Roadmap — phần mềm doanh nghiệp", "Roadmap — enterprise software"),
         },
-        { when: "2027", what: L("Khảo sát — đào tạo AI", "Needs survey — AI training") },
+        { when: "2027", state: "roadmap" as const, what: L("Khảo sát — đào tạo AI", "Needs survey — AI training") },
       ],
     },
 
@@ -531,7 +541,7 @@ export const dictionary = {
         {
           index: "01",
           name: "E10 PCIe",
-          image: "/images/e10-pcie-ai-accelerator-v3.png",
+          image: "/images/e10-chrome-v4.png",
           heading: L("Cân bằng để triển khai mở rộng", "Balanced for scaled deployment"),
           body: L(
             "Card tăng tốc AI bổ sung năng lực tính toán cho máy chủ, phù hợp với AI server doanh nghiệp cần huấn luyện và suy luận trên hạ tầng tiêu chuẩn.",
@@ -554,7 +564,7 @@ export const dictionary = {
         {
           index: "02",
           name: "E20",
-          image: "/images/e20-ai-accelerator-v3.png",
+          image: "/images/e20-chrome-v4.png",
           heading: L("Gấp đôi quy mô cho tải AI lớn", "Twice the scale for large AI models"),
           body: L(
             "E20 mở rộng lên 64 AI Cores và 96 GB cho mô hình lớn cùng hạ tầng AI phân tán, kết nối nhiều card để xây dựng cấu hình AI server và multi-card computing.",
@@ -685,6 +695,122 @@ export const dictionary = {
   },
 
   /**
+   * /bio — the company profile sheet.
+   *
+   * Read what is *not* here first. This block holds no claim about the company:
+   * no figure, no capability, no partner name that the site does not already
+   * publish elsewhere. Every paragraph the page renders comes from the CMS
+   * document (`home.hero.lead`, `home.pim.lead`, `home.news.lead` …) or from
+   * the product blocks above, so /bio cannot drift away from what /vi and
+   * /vi/products say. What lives here is the sheet's furniture — section marks,
+   * column labels, legend text — plus values already fixed in `footer` and
+   * `routes.external`, restated as labels.
+   */
+  bio: {
+    /** Rotated rail down the left edge; desktop only, decorative-but-readable. */
+    spine: L("HỒ SƠ DOANH NGHIỆP · PEBBLE VINA", "COMPANY PROFILE · PEBBLE VINA"),
+
+    /** Dossier header: the sheet names itself, then the language it is in. */
+    sheet: {
+      doc: "DOC",
+      docValue: "PV · COMPANY PROFILE",
+      locale: "LOCALE",
+    },
+
+    /**
+     * Cover art.
+     *
+     * `mark` is the same file the header and footer already carry, set large
+     * enough here to work as a stamp on the sheet. `photo` is the render the
+     * Organization JSON-LD names as the company's image, so opening the profile
+     * on it is consistent rather than decorative-by-accident — but it is still
+     * decorative in the accessibility sense (`alt=""`), exactly as the home
+     * contact block treats the same file: it illustrates, it does not evidence.
+     */
+    cover: {
+      mark: "/images/logo.png",
+      photo: "/images/semiconductor-rd-headquarters-v2.png",
+    },
+
+    directions: {
+      /**
+       * The two PIM chip renders. Both sit in the CMS asset list and no page
+       * renders them any more — the home PIM block moved to the signal
+       * diagrams — which is why /bio can use them without arriving at a second
+       * copy of that section's imagery.
+       */
+      analogImage: "/images/analog-pim-chip-v3.png",
+      digitalImage: "/images/digital-pim-chip-v3.png",
+      /** Heads the list of parts implementing each direction. The list itself
+       *  is filtered out of the catalogue badges, never written out here. */
+      implementedBy: L("TRIỂN KHAI BỞI", "IMPLEMENTED BY"),
+    },
+
+    eyebrow: L("HỒ SƠ DOANH NGHIỆP", "COMPANY PROFILE"),
+    /** Sub-line of the H1 — the same descriptor the home page title carries. */
+    title: L(
+      "Chip bán dẫn tích hợp AI ngoại biên và công nghệ Processing-in-Memory",
+      "Edge-AI semiconductors and processing-in-memory technology",
+    ),
+
+    /** The four identity cells under the wordmark. `hqValue` is the city out of
+     *  `footer.address`; the rest are rendered from `footer` / `external`. */
+    identity: {
+      entityLabel: L("PHÁP NHÂN", "LEGAL ENTITY"),
+      taxLabel: L("MÃ SỐ THUẾ", "TAX CODE"),
+      hqLabel: L("TRỤ SỞ", "HEADQUARTERS"),
+      hqValue: L("Hà Nội, Việt Nam", "Hanoi, Vietnam"),
+      partnerLabel: L("ĐỐI TÁC CÔNG NGHỆ", "TECHNOLOGY PARTNER"),
+      partnerValue: "Pebble Square Inc.",
+    },
+
+    /** Section marks. The numeral doubles as the oversized ghost figure behind
+     *  each heading, which is why it is stored without the "§". */
+    sections: {
+      work: { mark: "01", title: L("Lĩnh vực hoạt động", "What the company works on") },
+      tech: { mark: "02", title: L("Hai hướng công nghệ PIM", "Two PIM directions") },
+      figures: { mark: "03", title: L("Con số và trạng thái", "Figures and their status") },
+      timeline: { mark: "04", title: L("Lộ trình sản phẩm", "Product timeline") },
+      partners: { mark: "05", title: L("Hợp tác", "Collaboration") },
+      legal: { mark: "06", title: L("Thông tin pháp nhân", "Legal information") },
+    },
+
+    figures: {
+      /** States the rule the section follows, so the grid cannot be read as a
+       *  list of things that all exist today. */
+      lead: L(
+        "Mỗi con số dưới đây đi kèm sản phẩm sinh ra nó và mốc thời gian của sản phẩm đó.",
+        "Every figure below carries the product it comes from and that product's date.",
+      ),
+      sourceLabel: L("NGUỒN", "SOURCE"),
+      /** The 400K figure describes the chip technology rather than one dated
+       *  part, so its status cell names the home section it is published in
+       *  instead of a month. Every other cell carries a real date. */
+      coreSource: "PIM",
+      coreStatus: L("NĂNG LỰC CỐT LÕI", "CORE CAPABILITY"),
+    },
+
+    timeline: {
+      legend: {
+        done: L("Đã thực hiện", "Already done"),
+        roadmap: L("Trong lộ trình", "On the roadmap"),
+      },
+    },
+
+    legal: {
+      addressLabel: L("ĐỊA CHỈ", "ADDRESS"),
+      phoneLabel: L("ĐIỆN THOẠI", "PHONE"),
+      emailLabel: L("EMAIL", "EMAIL"),
+    },
+
+    cta: {
+      catalogue: L("XEM DANH MỤC SẢN PHẨM →", "SEE THE PRODUCT CATALOGUE →"),
+      contact: L("LIÊN HỆ VỚI CHÚNG TÔI →", "GET IN TOUCH →"),
+    },
+  },
+
+
+  /**
    * Cookie consent. Every line here is a legal statement as much as a piece of
    * copy: the categories named must be the categories that actually run, and
    * the cookie names and lifetimes must match `src/lib/consent/cookie.ts` and
@@ -761,6 +887,16 @@ export const dictionary = {
       description: L(
         "Danh mục chip AI và giải pháp của Pebble Vina: MINT (30 GOPS, 17,6 TOPS/W), PAPAYA & PAPAYA FLEX cho thị giác máy, ESPRESSO Digital-PIM 160 TOPS và card tăng tốc E-Series E10/E20.",
         "Pebble Vina's AI chip and solution catalogue: MINT (30 GOPS, 17.6 TOPS/W), PAPAYA & PAPAYA FLEX for machine vision, the 160 TOPS ESPRESSO Digital-PIM chip and E10/E20 accelerator cards.",
+      ),
+    },
+    bio: {
+      title: L(
+        "Hồ sơ doanh nghiệp — Công ty TNHH Pebble Vina",
+        "Company profile — Pebble Vina Company Limited",
+      ),
+      description: L(
+        "Hồ sơ Công ty TNHH Pebble Vina: pháp nhân và trụ sở tại Hà Nội, hai hướng công nghệ PIM Analog và Digital, lộ trình sản phẩm từ MINT (sản xuất 05/2023) đến ESPRESSO (lộ trình Q3/2026), cùng đối tác công nghệ Pebble Square Inc.",
+        "Profile of Pebble Vina Company Limited: legal entity and Hanoi headquarters, the Analog and Digital PIM technology directions, the product timeline from MINT (in production 05/2023) to ESPRESSO (roadmap Q3/2026), and technology partner Pebble Square Inc.",
       ),
     },
     /** Short organisation blurb reused by JSON-LD and llms.txt. */

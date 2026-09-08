@@ -8,6 +8,7 @@ import type { Locale } from "@/lib/i18n/config";
 export const routes = {
   home: (locale: Locale) => `/${locale}`,
   products: (locale: Locale) => `/${locale}/products`,
+  bio: (locale: Locale) => `/${locale}/bio`,
 
   /** In-page anchors. Slugs stay Vietnamese in both locales so a link shared
    *  from the VI page still lands correctly on the EN page. */
@@ -23,6 +24,14 @@ export const routes = {
     eSeries: "e-series",
     software: "phan-mem",
     training: "dao-tao",
+
+    /** /bio only. Same rule as above: Vietnamese slugs in both locales. */
+    bioWork: "linh-vuc",
+    bioTech: "huong-cong-nghe",
+    bioFigures: "con-so",
+    bioTimeline: "lo-trinh",
+    bioPartners: "hop-tac",
+    bioLegal: "phap-nhan",
   },
 } as const;
 
@@ -34,6 +43,7 @@ export const anchor = (id: AnchorId) => `#${id}`;
 /** `/vi/products#mint` — an anchor on another page. */
 export const homeAnchor = (locale: Locale, id: AnchorId) => `${routes.home(locale)}#${id}`;
 export const productAnchor = (locale: Locale, id: AnchorId) => `${routes.products(locale)}#${id}`;
+export const bioAnchor = (locale: Locale, id: AnchorId) => `${routes.bio(locale)}#${id}`;
 
 export const admin = {
   root: "/admin",

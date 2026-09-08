@@ -82,6 +82,30 @@ export function websiteJsonLd(locale: Locale) {
   };
 }
 
+/**
+ * /bio. `AboutPage` is the type for a page *about* the publisher, and it says
+ * so by pointing `about` and `mainEntity` at the organisation node the same
+ * page already carries — no facts are restated in the markup, only linked.
+ * There is no `offers` anywhere on this page and there must not be: /bio names
+ * roadmap parts alongside shipped ones.
+ */
+export function aboutPageJsonLd(locale: Locale) {
+  const url = absolute(routes.bio(locale));
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": `${url}#aboutpage`,
+    url,
+    name: dictionary.meta.bio.title[locale],
+    description: dictionary.meta.bio.description[locale],
+    inLanguage: LOCALE_TAGS[locale],
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": ORGANISATION_ID },
+    mainEntity: { "@id": ORGANISATION_ID },
+  };
+}
+
 export function breadcrumbJsonLd(
   locale: Locale,
   trail: ReadonlyArray<{ name: string; path: string }>,

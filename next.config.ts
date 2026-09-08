@@ -15,7 +15,7 @@ import type { NextConfig } from "next";
  *
  * `'unsafe-inline'` on scripts is not optional here: Next streams the RSC
  * payload through inline `self.__next_f.push(...)` tags, and the alternative —
- * a per-request nonce — needs middleware, which would make all four public
+ * a per-request nonce — needs middleware, which would make all six public
  * pages dynamic and cost the prerendering SEO depends on (CLAUDE.md §3).
  * Styles need it for the inline `style` attributes motion writes each frame.
  *
@@ -84,6 +84,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/", destination: "/vi", permanent: true },
       { source: "/products", destination: "/vi/products", permanent: true },
+      { source: "/bio", destination: "/vi/bio", permanent: true },
     ];
   },
 

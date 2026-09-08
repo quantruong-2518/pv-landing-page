@@ -35,7 +35,8 @@ Node ≥ 20.9. Trên máy dev hiện tại xem `CLAUDE.md` §5 (build trong WSL,
 |---|---|
 | `/vi`, `/en` | Trang chủ — hero, PIM, tại sao PIM, năng lực cốt lõi, giải pháp, tin tức, form liên hệ |
 | `/vi/products`, `/en/products` | Danh mục + chi tiết MINT · PAPAYA/FLEX · ESPRESSO · E-Series · phần mềm · đào tạo |
-| `/` , `/products` | Redirect 308 về bản tiếng Việt |
+| `/vi/bio`, `/en/bio` | Hồ sơ doanh nghiệp — sáu mục đánh số: lĩnh vực, hai hướng PIM, con số kèm trạng thái, lộ trình, hợp tác, pháp nhân. Không sở hữu nội dung CMS nào: mọi đoạn văn đọc từ tài liệu `home`, mọi con số đọc từ bảng spec sản phẩm |
+| `/` , `/products`, `/bio` | Redirect 308 về bản tiếng Việt |
 | `/admin` | CMS, sau mật khẩu, `noindex` |
 | `/api/content/[page]` | `GET` đọc · `PATCH` lưu một section · `DELETE` trả section về gốc |
 | `/sitemap.xml`, `/robots.txt`, `/llms.txt` | SEO và GEO |
@@ -76,8 +77,8 @@ Ba điều không được phá khi sửa:
 - **Rút lại phải làm được.** Link "Cài đặt cookie" ở chân trang mở lại đúng bảng đó; tắt nhóm phân
   tích là `_ga*` bị xoá ngay trong cùng thao tác.
 
-Banner không render phía server: các trang công khai phải prerender được, mà đọc `cookies()` trong
-layout thì tất cả thành dynamic. Store khởi tạo ở `unknown`, khớp HTML tĩnh khi hydrate, rồi effect
+Banner không render phía server: sáu trang công khai phải prerender được, mà đọc `cookies()` trong
+layout thì cả sáu thành dynamic. Store khởi tạo ở `unknown`, khớp HTML tĩnh khi hydrate, rồi effect
 mới đọc cookie và quyết định có hỏi hay không.
 
 ## Tên miền và chứng chỉ
@@ -115,7 +116,8 @@ rằng bản chính là bản hỏng.
 
 Cả hai ngôn ngữ có URL riêng, đủ canonical + hreflang (`vi-VN`, `en-US`, `x-default`), OpenGraph,
 sitemap khai báo song ngữ. JSON-LD: `Organization` + `WebSite` ở trang chủ, `BreadcrumbList` +
-`ItemList`/`Product` ở trang sản phẩm — sản phẩm chưa ra mắt không có `offers`, chỉ có trạng thái.
+`ItemList`/`Product` ở trang sản phẩm — sản phẩm chưa ra mắt không có `offers`, chỉ có trạng thái —
+`AboutPage` + `BreadcrumbList` ở `/bio`, trỏ `about`/`mainEntity` về đúng node `Organization`.
 `/llms.txt` nêu thẳng đâu là hàng đang sản xuất, đâu là lộ trình, để một trợ lý AI không trích nhầm.
 
 Thiết kế gốc và ảnh nằm ở `design_handoff_pebble_vina/`.

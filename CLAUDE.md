@@ -12,6 +12,7 @@ Turbopack · pnpm · motion · Zustand · TanStack Query · Zod.
 | Copy VI/EN sửa được qua CMS | `src/lib/content/seed.ts` (giá trị gốc) → `data/content.runtime.json` (đã xuất bản) |
 | Schema nội dung | `src/lib/content/schema.ts` (Zod) · `src/lib/content/fields.ts` (form CMS) |
 | URL | `src/lib/routes.ts` |
+| Copy của `/bio` | không có — trang đọc lại tài liệu `home` và bảng spec sản phẩm; chỉ nhãn/tiêu đề mục nằm ở `dictionary.bio` |
 | Token thiết kế | `src/app/globals.css` (`@theme`) |
 
 Ba file `.dc.html` là **mock tham khảo**, không import vào `src/`.
@@ -32,7 +33,7 @@ Ba file `.dc.html` là **mock tham khảo**, không import vào `src/`.
 
 - **Code, tên biến và comment viết bằng tiếng Anh.** Comment nói *vì sao*, và trỏ về nguồn của con
   số (mục nào trong handoff, tên asset, dòng nào trong bảng token). Không sinh thêm file docs.
-- **SSR mặc định.** `"use client"` chỉ khi thật sự cần tương tác. Cả 4 trang công khai phải prerender
+- **SSR mặc định.** `"use client"` chỉ khi thật sự cần tương tác. Cả 6 trang công khai phải prerender
   được — đó là điều kiện của SEO/GEO.
 - **Hai locale luôn đủ đôi.** Mỗi chuỗi là `{ vi, en }`; thêm khóa là thêm cả hai.
 - **Không bo góc, không đổ bóng.** Thiết kế vuông góc hoàn toàn; chiều sâu tạo bằng nền tối/sáng và
@@ -47,8 +48,9 @@ Ba file `.dc.html` là **mock tham khảo**, không import vào `src/`.
   Next từ chối dựng lại và `/vi`, `/en`, `/vi/products` cùng 404 tới lần build kế tiếp. Đã đo.
   Locale sai được chặn bằng `isLocale()` + `notFound()`.
 - **`revalidatePath("/[locale]", "layout")` không xoá cache trang đã prerender.** Phải revalidate
-  đường dẫn cụ thể (`/vi`, `/en`, `/vi/products`, `/en/products`, `/llms.txt`) — xem
-  `src/app/api/content/[page]/route.ts`.
+  đường dẫn cụ thể (`/vi`, `/en`, `/vi/products`, `/en/products`, `/vi/bio`, `/en/bio`,
+  `/llms.txt`) — xem `src/app/api/content/[page]/route.ts`. `/bio` nằm trong danh sách vì nó hiển thị
+  nội dung CMS của trang chủ; quên nó là xuất bản xong mà `/vi/bio` vẫn giữ bản cũ tới hết cửa sổ ISR.
 - **`scroll-behavior: smooth` trong CSS làm hỏng deep link.** Trình duyệt cuộn có hoạt ảnh tới
   `#fragment` lúc tải trang, hydration cắt ngang, người đọc rơi về đầu trang. Smooth được bật sau khi
   deep link đã đáp, trong `src/components/site/scroll-behaviour.tsx`.
@@ -64,3 +66,13 @@ wsl.exe -d Ubuntu-20.04 -e bash -lc 'export PATH=$HOME/.nvm/versions/node/v22.20
 
 **Luôn dừng server trước khi build.** `next build` và `next start` dùng chung `.next`; build khi
 server đang chạy làm server hỏng với `Cannot find module` và CSS 404 — dễ đọc nhầm thành lỗi layout.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

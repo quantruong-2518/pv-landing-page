@@ -11,11 +11,12 @@ import { absolute, siteUrl } from "@/lib/routes";
  * plus the full hreflang set. `x-default` points at Vietnamese: the company is
  * Vietnamese and that is the page a locale-less visitor should land on.
  */
-type PageKey = "home" | "products";
+type PageKey = "home" | "products" | "bio";
 
 const PATHS: Record<PageKey, (locale: Locale) => string> = {
   home: (locale) => `/${locale}`,
   products: (locale) => `/${locale}/products`,
+  bio: (locale) => `/${locale}/bio`,
 };
 
 function languageAlternates(page: PageKey): Record<string, string> {

@@ -7,7 +7,7 @@ import { dictionary } from "@/lib/i18n/dictionary";
 import { external, homeAnchor, routes } from "@/lib/routes";
 
 /**
- * Four-column footer, identical on both pages.
+ * Four-column footer, identical on every public page.
  *
  * The design mock links the CMS from here. That link is gone on purpose: the
  * handoff (section 5.10) asks for it to be removed from the public footer, and
@@ -27,8 +27,23 @@ export function SiteFooter({ locale }: { locale: Locale }) {
       <div className="grid items-start gap-x-[clamp(24px,3vw,56px)] gap-y-[clamp(26px,3vw,44px)] sm:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-4">
           <Link href={routes.home(locale)} className="flex items-center gap-3 text-ink">
-            <Image src="/images/logo.png" alt="" width={32} height={32} />
-            <span className="font-heading text-sm font-bold tracking-[0.1em]">PEBBLE VINA</span>
+            {/* Same rule as the header: the supplied horizontal lockup once the
+                grid goes to four columns and the column is wide enough for it,
+                the mark + wordmark pairing below that. */}
+            <Image
+              src="/images/logo-wordmark.png"
+              alt=""
+              // Rendered size, not the file's 1789x274 — same ratio, and it is
+              // what stops Next serving a 1920px variant. 32px tall matches the
+              // mark size the mock gives this column.
+              width={209}
+              height={32}
+              className="hidden h-8 w-auto lg:block"
+            />
+            <Image src="/images/logo.png" alt="" width={32} height={32} className="block lg:hidden" />
+            <span className="font-heading text-sm font-bold tracking-[0.1em] lg:hidden">
+              PEBBLE VINA
+            </span>
           </Link>
           <p className="max-w-[34ch] text-sm leading-[1.75] text-body">{copy.tagline[locale]}</p>
           <a
@@ -50,6 +65,9 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </Link>
           <Link href={routes.products(locale)} className="flex items-center text-sm text-body transition-colors hover:text-ink max-lg:min-h-11">
             {dictionary.header.nav.products[locale]}
+          </Link>
+          <Link href={routes.bio(locale)} className="flex items-center text-sm text-body transition-colors hover:text-ink max-lg:min-h-11">
+            {dictionary.header.nav.bio[locale]}
           </Link>
           <Link href={homeAnchor(locale, "lien-he")} className="flex items-center text-sm text-body transition-colors hover:text-ink max-lg:min-h-11">
             {copy.contactLink[locale]}
