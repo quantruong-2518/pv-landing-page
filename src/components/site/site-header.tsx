@@ -61,10 +61,9 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
       >
         {/* From lg the header has the width for the supplied horizontal lockup,
             so it runs unaltered: mark, wordmark and flag star as one artwork.
-            Below lg it would shrink past reading size, so the handoff's compact
-            pairing stands instead (README header spec: 36x36 mark + two-line
-            wordmark). Only the lockup is `priority`; preloading both would pull
-            down a logo the viewport is never going to render. */}
+            Below lg it would shrink past reading size, so the mark alone
+            stands in for it instead. Only the lockup is `priority`; preloading
+            both would pull down a logo the viewport is never going to render. */}
         <Image
           src="/images/logo-wordmark.png"
           alt=""
@@ -78,10 +77,6 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
           className="hidden h-9 w-auto lg:block"
         />
         <Image src="/images/logo.png" alt="" width={36} height={36} className="block lg:hidden" />
-        <span className="flex flex-col font-heading text-[0.9375rem] leading-none font-bold tracking-[0.12em] lg:hidden">
-          <span>PEBBLE</span>
-          <span className="text-accent">VINA</span>
-        </span>
       </Link>
 
       {/* Desktop navigation. Below lg the same links live inside the disclosure. */}

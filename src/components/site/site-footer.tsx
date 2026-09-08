@@ -26,10 +26,14 @@ export function SiteFooter({ locale }: { locale: Locale }) {
     <footer className="bg-night-footer px-gutter pt-[clamp(34px,3.6vw,56px)] pb-[clamp(26px,2.8vw,40px)]">
       <div className="grid items-start gap-x-[clamp(24px,3vw,56px)] gap-y-[clamp(26px,3vw,44px)] sm:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-4">
-          <Link href={routes.home(locale)} className="flex items-center gap-3 text-ink">
+          <Link
+            href={routes.home(locale)}
+            className="flex items-center gap-3 text-ink"
+            aria-label="Pebble Vina"
+          >
             {/* Same rule as the header: the supplied horizontal lockup once the
                 grid goes to four columns and the column is wide enough for it,
-                the mark + wordmark pairing below that. */}
+                the mark alone below that. */}
             <Image
               src="/images/logo-wordmark.png"
               alt=""
@@ -41,9 +45,6 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               className="hidden h-8 w-auto lg:block"
             />
             <Image src="/images/logo.png" alt="" width={32} height={32} className="block lg:hidden" />
-            <span className="font-heading text-sm font-bold tracking-[0.1em] lg:hidden">
-              PEBBLE VINA
-            </span>
           </Link>
           <p className="max-w-[34ch] text-sm leading-[1.75] text-body">{copy.tagline[locale]}</p>
           <a
