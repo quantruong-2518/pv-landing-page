@@ -25,7 +25,8 @@ Node ≥ 20.9. Trên máy dev hiện tại xem `CLAUDE.md` §5 (build trong WSL,
 | `NEXT_PUBLIC_SITE_URL` | nên có | Gốc canonical/hreflang/sitemap/JSON-LD. Mặc định `https://www.pebblevina.com` — phải là host thật sự có chứng chỉ, xem *Tên miền và chứng chỉ*. |
 | `ADMIN_PASSWORD` | có, ở production | Mật khẩu vào `/admin`. Không đặt ⇒ CMS đóng ở production, mở ở dev. |
 | `ADMIN_SECRET` | không | Khoá ký cookie phiên CMS. Mặc định dùng `ADMIN_PASSWORD`. |
-| `CONTACT_WEBHOOK_URL` | không | Nơi đẩy lead từ form liên hệ. Chưa đặt ⇒ ghi log phía server. |
+| `NEXT_PUBLIC_PV_ONE_CRM_API_URL` | không | Endpoint CRM nhận lead. Công khai theo thiết kế — không đặt secret vào đây. Mặc định `https://pvone-crm-api.fly.dev`. |
+| `NEXT_PUBLIC_PV_ONE_CRM_LANDING_PAGE` | không | Slug trang landing gửi kèm lead, phải khớp `PV_INTAKE_LANDING_PAGES` phía CRM. Mặc định `pv-one-main`. |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | không | ID GA4 (`G-…`). Bỏ trống ⇒ không bao giờ nạp GA. Có giá trị vẫn chỉ nạp cho khách đã đồng ý nhóm *phân tích*. |
 
 ## Route
@@ -37,8 +38,10 @@ Node ≥ 20.9. Trên máy dev hiện tại xem `CLAUDE.md` §5 (build trong WSL,
 | `/` , `/products` | Redirect 308 về bản tiếng Việt |
 | `/admin` | CMS, sau mật khẩu, `noindex` |
 | `/api/content/[page]` | `GET` đọc · `PATCH` lưu một section · `DELETE` trả section về gốc |
-| `/api/contact` | Nhận lead từ form |
 | `/sitemap.xml`, `/robots.txt`, `/llms.txt` | SEO và GEO |
+
+Form liên hệ không có route riêng — trình duyệt POST thẳng lên PV One CRM
+(`src/lib/contact/crm.ts`), endpoint công khai không cần key.
 
 ## Nội dung
 

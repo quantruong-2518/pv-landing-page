@@ -326,6 +326,18 @@ export const dictionary = {
           "GỬI KHÔNG THÀNH CÔNG — VUI LÒNG THỬ LẠI HOẶC GỌI TRỰC TIẾP.",
           "COULD NOT SEND — PLEASE TRY AGAIN OR CALL US DIRECTLY.",
         ),
+        invalidBody: L(
+          "THÔNG TIN CHƯA HỢP LỆ — KIỂM TRA LẠI CÁC Ô VỪA NHẬP.",
+          "THAT INFORMATION ISN'T VALID — PLEASE CHECK THE FIELDS ABOVE.",
+        ),
+        rateLimitBody: L(
+          "BẠN GỬI HƠI NHANH — VUI LÒNG THỬ LẠI SAU {minutes} PHÚT.",
+          "YOU'RE SUBMITTING TOO FAST — PLEASE TRY AGAIN IN {minutes} MIN.",
+        ),
+        networkErrorBody: L(
+          "KHÔNG NỐI ĐƯỢC MÁY CHỦ — KIỂM TRA MẠNG RỒI THỬ LẠI.",
+          "COULDN'T REACH THE SERVER — CHECK YOUR CONNECTION AND TRY AGAIN.",
+        ),
         errors: {
           fullName: L("Vui lòng nhập họ và tên.", "Please enter your full name."),
           company: L("Vui lòng nhập tên công ty.", "Please enter your company name."),

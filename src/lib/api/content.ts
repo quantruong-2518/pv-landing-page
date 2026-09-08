@@ -51,19 +51,3 @@ export function resetSectionContent<P extends ContentPageId>(args: {
     body: JSON.stringify({ section: args.section }),
   });
 }
-
-export interface ContactPayload {
-  fullName: string;
-  company: string;
-  email: string;
-  phone?: string;
-  message: string;
-  locale: string;
-}
-
-export function submitContact(payload: ContactPayload): Promise<{ ok: true }> {
-  return request<{ ok: true }>("/api/contact", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-}
