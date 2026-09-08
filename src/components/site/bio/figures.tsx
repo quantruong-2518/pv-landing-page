@@ -105,10 +105,11 @@ export function BioFigures({ content, locale }: { content: HomeContent["core"]; 
                 casing. */}
             <span className="font-mono text-label text-accent uppercase">{figure.label}</span>
             <span className="font-heading text-stat-lg text-ink">{figure.value}</span>
+            {/* `text-label` is the 11px mono step, and it is what `SpecCard`
+                sets the same unit in on /products — the two pages print
+                "TOPS/W" identically because they now reach for one token. */}
             {figure.unit ? (
-              <span className="font-mono text-[0.6875rem] leading-[1.5] text-muted">
-                {figure.unit}
-              </span>
+              <span className="font-mono text-label text-muted">{figure.unit}</span>
             ) : null}
 
             {/* Source and status sit at the foot of every card, on one baseline
@@ -117,10 +118,10 @@ export function BioFigures({ content, locale }: { content: HomeContent["core"]; 
               <span className="font-mono text-label text-faint">
                 {copy.figures.sourceLabel[locale]}
               </span>
-              <span className="text-[0.875rem] font-semibold text-ink">{figure.source}</span>
-              <span className="font-mono text-[0.6875rem] leading-[1.6] text-muted">
-                {figure.status}
-              </span>
+              {/* 14px → `note`, the scale's secondary step: globals.css puts
+                  everything the sections wrote as 12.5–14px on this one. */}
+              <span className="text-note font-semibold text-ink">{figure.source}</span>
+              <span className="font-mono text-label text-muted">{figure.status}</span>
             </div>
           </Reveal>
         ))}

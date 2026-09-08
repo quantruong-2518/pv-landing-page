@@ -22,7 +22,10 @@ export function ConsentSettingsLink({ locale }: { locale: Locale }) {
     <button
       type="button"
       onClick={openPanel}
-      className="flex items-center font-mono text-[0.71875rem] tracking-[0.05em] text-copy transition-colors hover:text-accent max-lg:min-h-11"
+      // `text-faint` rather than `--color-copy`: 2.84:1 on the footer surface
+      // against 5.84:1. Withdrawing consent has to be as easy to *find* as it
+      // is to click, and it now matches the copyright line it sits beside.
+      className="flex items-center font-mono text-label text-faint transition-colors hover:text-accent max-lg:min-h-11"
     >
       {dictionary.consent.manage[locale]}
     </button>

@@ -78,16 +78,32 @@ export function BioDirections({
             className="flex h-full flex-col gap-5 border-t border-ink/20 pt-[clamp(20px,2.2vw,32px)] pb-[clamp(24px,2.6vw,40px)]"
           >
             <div className="flex items-baseline gap-3.5">
-              <span className="font-mono text-[0.75rem] text-accent">{column.index}</span>
+              <span className="font-mono text-kicker text-accent">{column.index}</span>
               <span className="font-heading text-wordmark tracking-[0.06em]">{column.name}</span>
             </div>
 
-            <VignetteImage
-              src={column.image}
-              alt={column.name}
-              fit="contain"
-              sizes="(max-width: 1023px) 92vw, 44vw"
-            />
+            {/* Mounted plate, not a bare render.
+                Both chips were photographed on black with a blue bloom, and § 02
+                is the sheet's one inverted band: dropped straight onto the ice
+                ground, `mask-vignette-contain` fades them into it and they read
+                as dark rectangles with a halo rather than as pictures. Giving
+                them back a `night-deep` ground — the surface the figure wall
+                uses two sections later — is what makes the vignette land on the
+                colour it was cut for. The hairline frame and the ring of band
+                showing through the padding are the masthead's device: "a
+                hairline frame is what makes this one read as a plate in a
+                document". No new colour: both tokens already exist, and
+                `.bio-day` re-resolves `border-ink` to the day scale for us. */}
+            <div className="border border-ink/20 p-[clamp(10px,1.2vw,18px)]">
+              <div className="bg-night-deep">
+                <VignetteImage
+                  src={column.image}
+                  alt={column.name}
+                  fit="contain"
+                  sizes="(max-width: 1023px) 92vw, 44vw"
+                />
+              </div>
+            </div>
 
             <p className="max-w-[46ch] text-card text-body">{column.body[locale]}</p>
 
@@ -102,7 +118,7 @@ export function BioDirections({
                       href={productAnchor(locale, part.anchor as AnchorId)}
                       className="flex flex-col gap-1 border-b border-ink/14 py-3 transition-colors hover:text-accent sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
                     >
-                      <span className="text-[0.9375rem] font-semibold">{part.name}</span>
+                      <span className="text-card font-semibold">{part.name}</span>
                       <span className="font-mono text-label whitespace-nowrap text-faint">
                         {part.badge}
                       </span>

@@ -19,9 +19,7 @@ export function ESeriesCards({ locale }: { locale: Locale }) {
         {copy.cards.map((card, index) => (
           <Reveal key={card.name} delay={index * 0.08} className="flex flex-col gap-[18px] py-8">
             <div className="flex items-baseline justify-between gap-4">
-              <span className="font-heading text-[clamp(1.5rem,2.2vw,2.125rem)] tracking-[0.02em]">
-                {card.name}
-              </span>
+              <span className="font-heading text-card-title">{card.name}</span>
               <span className="font-mono text-label text-accent">{card.index}</span>
             </div>
 
@@ -33,10 +31,8 @@ export function ESeriesCards({ locale }: { locale: Locale }) {
               className="product-chrome-art"
             />
 
-            <span className="text-[1.0625rem] font-semibold">{card.heading[locale]}</span>
-            <p className="max-w-[46ch] text-[0.9375rem] leading-[1.8] text-body">
-              {card.body[locale]}
-            </p>
+            <span className="text-lead font-semibold">{card.heading[locale]}</span>
+            <p className="max-w-[46ch] text-card text-body">{card.body[locale]}</p>
 
             <SpecGrid specs={card.specs} locale={locale} className="mt-1.5" />
           </Reveal>
@@ -45,14 +41,17 @@ export function ESeriesCards({ locale }: { locale: Locale }) {
 
       <div className="mt-[clamp(24px,2.6vw,40px)] flex flex-col gap-5 pt-6">
         <div className="flex flex-wrap items-baseline gap-4">
-          <span className="font-mono text-label tracking-[0.12em] whitespace-nowrap text-accent">
+          <span className="font-mono text-label whitespace-nowrap text-accent">
             {copy.stackLabel}
           </span>
-          <span className="text-[1rem] text-contact">{copy.stackLead[locale]}</span>
+          <span className="text-lead text-contact">{copy.stackLead[locale]}</span>
         </div>
+        {/* A hairline over each entry — the same rule /bio uses for its figures
+            and partner rows. Without it the stack was five unseparated words
+            adrift on one line, with nothing to say they are five items. */}
         <ul className="grid gap-x-col sm:grid-cols-2 lg:grid-cols-5">
           {copy.stack.map((item) => (
-            <li key={item} className="py-[18px] text-[0.9375rem] text-contact">
+            <li key={item} className="border-t border-ink/14 py-[18px] text-card text-contact">
               {item}
             </li>
           ))}

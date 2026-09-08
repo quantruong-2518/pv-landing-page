@@ -92,7 +92,11 @@ export function DataCell({
         {index ? <span className="text-accent">{index}</span> : null}
         <span>{label}</span>
       </dt>
-      <dd className="text-[0.9375rem] leading-[1.6] text-ink">{children}</dd>
+      {/* `text-card` rather than a hand-typed 15px: the scale's 15.5px step is
+       *  where every one-off in that band belongs (see the vocabulary comment
+       *  in globals.css), and it carries its own line-height so this does not
+       *  restate one. */}
+      <dd className="text-card text-ink">{children}</dd>
     </div>
   );
 }

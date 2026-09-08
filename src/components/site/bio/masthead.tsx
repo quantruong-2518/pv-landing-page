@@ -61,14 +61,18 @@ export function BioMasthead({ locale }: { locale: Locale }) {
           <div className="flex min-w-0 flex-wrap items-baseline justify-between gap-x-col gap-y-1.5 border-b border-ink/14 pb-4 font-mono text-label">
             <span className="text-faint">
               {copy.sheet.doc}
-              <span aria-hidden className="mx-2.5 text-dim">
+              {/* `text-faint`, not `text-dim`: 3.65:1 against 5.3:1 on
+                  night-deep at this 11px mono size. */}
+              <span aria-hidden className="mx-2.5 text-faint">
                 /
               </span>
               <span className="text-accent">{copy.sheet.docValue}</span>
             </span>
             <span className="text-faint">
               {copy.sheet.locale}
-              <span aria-hidden className="mx-2.5 text-dim">
+              {/* `text-faint`, not `text-dim`: 3.65:1 against 5.3:1 on
+                  night-deep at this 11px mono size. */}
+              <span aria-hidden className="mx-2.5 text-faint">
                 /
               </span>
               <span className="text-muted">{LOCALE_TAGS[locale]}</span>
@@ -120,11 +124,17 @@ export function BioMasthead({ locale }: { locale: Locale }) {
                   {copy.identity.hqValue[locale]}
                 </DataCell>
                 <DataCell index="04" label={copy.identity.partnerLabel[locale]}>
+                  {/* `flex items-center max-lg:min-h-11` is the footer's fix for
+                      the same problem, applied for the same reason: at the
+                      sheet's density this link is a 19px-tall line, well under
+                      the 44px a thumb needs, and the guidance is a minimum for
+                      touch — not for the pointer, so it stops at `lg` and the
+                      desktop rhythm of the identity list is untouched. */}
                   <a
                     href={external.parent}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-accent transition-colors hover:text-accent-hover"
+                    className="flex items-center text-accent transition-colors hover:text-accent-hover max-lg:min-h-11"
                   >
                     {copy.identity.partnerValue} ↗
                   </a>
@@ -133,8 +143,13 @@ export function BioMasthead({ locale }: { locale: Locale }) {
 
               {/* Full width below `sm` so the two do not sit at two different
                   ragged widths on a phone, which is how they read before.
-                  `outline` rather than `ghost` for the secondary: `bg-ink/8` on
-                  night-deep is a 3% luminance step and the button disappeared. */}
+                  `outline` rather than `ghost` for the secondary. That started
+                  as a workaround — `ghost` was a bare `bg-ink/8` wash, a 3%
+                  luminance step that vanished on night-deep — and `ghost` has
+                  since been given its own accent hairline, so either would read
+                  now. It stays `outline` because this pair is a masthead, not a
+                  section CTA: a neutral hairline lets the primary carry the
+                  accent alone. */}
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Button asChild variant="primary" size="lg" className="w-full sm:w-auto">
                   <Link href={routes.products(locale)}>{copy.cta.catalogue[locale]}</Link>

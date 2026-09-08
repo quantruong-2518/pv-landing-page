@@ -63,16 +63,26 @@ export function BioIdentity({
             <DataCell label={copy.legal.addressLabel[locale]} className="sm:col-span-2">
               <address className="not-italic">{footer.address[locale]}</address>
             </DataCell>
+            {/* `flex items-center max-lg:min-h-11` on all three links: measured
+                at 390px these were 108×20, 188×19 and 149×19 — a phone number
+                and an email address are exactly the rows a reader taps, and
+                they were the smallest targets on the page. Same treatment the
+                footer already applies to its own contact links, and stopped at
+                `lg` for the same reason: it is a touch minimum, and the desktop
+                stamp keeps its line rhythm. */}
             <DataCell label={copy.legal.phoneLabel[locale]}>
               <a
                 href={`tel:${external.phone}`}
-                className="font-mono transition-colors hover:text-accent"
+                className="flex items-center font-mono transition-colors hover:text-accent max-lg:min-h-11"
               >
                 {external.phoneDisplay}
               </a>
             </DataCell>
             <DataCell label={copy.legal.emailLabel[locale]}>
-              <a href={`mailto:${external.email}`} className="transition-colors hover:text-accent">
+              <a
+                href={`mailto:${external.email}`}
+                className="flex items-center transition-colors hover:text-accent max-lg:min-h-11"
+              >
                 {external.email}
               </a>
             </DataCell>
@@ -81,7 +91,7 @@ export function BioIdentity({
                 href={external.parent}
                 target="_blank"
                 rel="noreferrer"
-                className="text-accent transition-colors hover:text-accent-hover"
+                className="flex items-center text-accent transition-colors hover:text-accent-hover max-lg:min-h-11"
               >
                 {copy.identity.partnerValue} ↗
               </a>

@@ -45,9 +45,7 @@ export function TrainingSection({
           </h2>
           <div className="flex flex-col gap-4">
             <p className="max-w-[54ch] text-lead text-body">{content.lead[locale]}</p>
-            <p className="max-w-[54ch] text-[0.9375rem] leading-[1.7] text-faint">
-              {copy.secondary[locale]}
-            </p>
+            <p className="max-w-[54ch] text-card text-faint">{copy.secondary[locale]}</p>
           </div>
         </div>
 

@@ -45,9 +45,7 @@ export function Catalogue({
       </div>
 
       <div className="flex flex-wrap items-baseline justify-between gap-4 py-[18px]">
-        <span className="min-w-0 flex-1 text-[0.9375rem] text-contact">
-          {copy.exploreLine[locale]}
-        </span>
+        <span className="min-w-0 flex-1 text-card text-contact">{copy.exploreLine[locale]}</span>
         {/* whitespace-normal: `hint` is a full sentence, not a short label —
             `Kicker`'s default nowrap forced this off the edge of a phone
             viewport (see ProductKicker in primitives.tsx for the same fix). */}
@@ -59,17 +57,22 @@ export function Catalogue({
         <Kicker className="text-faint">{copy.groupChipLine[locale]}</Kicker>
       </div>
 
-      <div className="-mx-5 grid gap-x-col sm:grid-cols-2 lg:grid-cols-4">
+      {/* Subgrid, not a flex column per card: the five bands (badge, name,
+          render, body, arrow) are shared tracks of the outer grid, so every
+          card's render starts on the same line however many lines its name
+          takes. "PAPAYA / PAPAYA FLEX" wraps to two at 1440 and "E-SERIES ·
+          E10 / E20" joins it at 1024 — measured 41px of drift before this.
+          The row gap lives on the parent because a subgrid takes its gutters
+          from the grid it borrows tracks from. */}
+      <div className="-mx-5 grid gap-x-col gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
         {copy.hardware.map((card, index) => (
-          <Reveal key={card.name} delay={index * 0.06} className="h-full">
+          <Reveal key={card.name} delay={index * 0.06} className="row-span-5 grid grid-rows-subgrid">
             <Link
               href={anchor(card.anchor as AnchorId)}
-              className="flex h-full flex-col gap-4 px-5 pt-6 pb-7 text-ink transition-colors hover:bg-accent/9"
+              className="row-span-5 grid grid-rows-subgrid px-5 pt-6 pb-7 text-ink transition-colors hover:bg-accent/9"
             >
-              <Kicker className="tracking-[0.09em] text-accent">{card.badge}</Kicker>
-              <span className="font-heading text-[clamp(1.375rem,1.9vw,1.75rem)]">
-                {card.name}
-              </span>
+              <Kicker className="text-accent">{card.badge}</Kicker>
+              <span className="font-heading text-card-title">{card.name}</span>
               <VignetteImage
                 src={card.image}
                 alt={card.name}
@@ -78,7 +81,7 @@ export function Catalogue({
                 priority={index === 0}
               />
               <span className="text-card text-body">{card.body[locale]}</span>
-              <span aria-hidden className="mt-auto pt-2 font-mono text-[0.75rem] text-accent">
+              <span aria-hidden className="font-mono text-kicker text-accent">
                 →
               </span>
             </Link>
@@ -86,19 +89,17 @@ export function Catalogue({
         ))}
       </div>
 
-      <div className="-mx-5 grid gap-x-col sm:grid-cols-2">
+      <div className="-mx-5 grid gap-x-col gap-y-3.5 sm:grid-cols-2">
         {copy.other.map((card) => (
           <Link
             key={card.anchor}
             href={anchor(card.anchor as AnchorId)}
-            className="flex flex-col gap-3.5 px-5 pt-6 pb-7 text-ink transition-colors hover:bg-accent/9"
+            className="row-span-4 grid grid-rows-subgrid px-5 pt-6 pb-7 text-ink transition-colors hover:bg-accent/9"
           >
-            <Kicker className="tracking-[0.09em] text-accent">{card.badge[locale]}</Kicker>
-            <span className="font-heading text-[clamp(1.25rem,1.7vw,1.625rem)]">
-              {card.name[locale]}
-            </span>
+            <Kicker className="text-accent">{card.badge[locale]}</Kicker>
+            <span className="font-heading text-card-title">{card.name[locale]}</span>
             <span className="max-w-[46ch] text-card text-body">{card.body[locale]}</span>
-            <span aria-hidden className="font-mono text-[0.75rem] text-accent">
+            <span aria-hidden className="font-mono text-kicker text-accent">
               →
             </span>
           </Link>
@@ -108,8 +109,8 @@ export function Catalogue({
       <ol className="mt-[clamp(22px,2.4vw,36px)] grid grid-cols-2 gap-x-col sm:grid-cols-3 lg:grid-cols-5">
         {copy.timeline.map((entry) => (
           <li key={entry.when} className="flex flex-col gap-1.5 py-5">
-            <span className="font-mono text-[0.75rem] text-accent">{entry.when}</span>
-            <span className="text-sm text-muted">{entry.what[locale]}</span>
+            <span className="font-mono text-kicker text-accent">{entry.when}</span>
+            <span className="text-note text-muted">{entry.what[locale]}</span>
           </li>
         ))}
       </ol>

@@ -76,7 +76,16 @@ export function ContactForm({
   });
 
   return (
-    <form onSubmit={handleSubmit((values) => mutation.mutate(values))} noValidate>
+    // A flex column so the note/submit row can be pushed to the bottom: the
+    // contact section is a full-height block and the photo card opposite
+    // bottom-anchors its mini-stats the same way, so the two columns' last rows
+    // stay on one line instead of drifting apart by the section's spare height.
+    // Inert wherever the form is the tallest thing in its row.
+    <form
+      onSubmit={handleSubmit((values) => mutation.mutate(values))}
+      noValidate
+      className="flex flex-col"
+    >
       {/* Off-screen rather than hidden, so a bot's DOM scraper still finds it.
           Read straight off the ref at submit time — it is not part of the
           zod-validated form state. */}
@@ -149,15 +158,15 @@ export function ContactForm({
         />
       </Field>
 
-      <div className="flex flex-wrap items-center justify-between gap-5 pt-7">
-        <span className="max-w-[38ch] text-[0.8125rem] leading-[1.6] text-faint">{note}</span>
+      <div className="mt-auto flex flex-wrap items-center justify-between gap-5 pt-7">
+        <span className="max-w-[38ch] text-note text-faint">{note}</span>
         <Button type="submit" variant="primary" size="xl" mono={false} disabled={mutation.isPending}>
           <span>{mutation.isPending ? copy.sending[locale] : submitLabel}</span>
           <span aria-hidden>→</span>
         </Button>
       </div>
 
-      <p aria-live="polite" className="mt-5 font-mono text-[0.75rem] tracking-[0.09em]">
+      <p aria-live="polite" className="mt-5 font-mono text-kicker">
         {mutation.isSuccess ? <span className="text-accent">{copy.success[locale]}</span> : null}
         {mutation.isError ? (
           <span className="text-accent-hover">{describeError(mutation.error, locale, copy)}</span>
@@ -202,7 +211,7 @@ function Field({
       <FieldLabel htmlFor={id}>{label}</FieldLabel>
       {children}
       {error ? (
-        <span role="alert" className="text-[0.8125rem] text-accent-hover">
+        <span role="alert" className="text-note text-accent-hover">
           {error}
         </span>
       ) : null}

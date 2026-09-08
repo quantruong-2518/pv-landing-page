@@ -63,7 +63,16 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             className="glow-mint bg-navy"
           >
             <SpecHeading label={copy.shared.keySpecs[locale]} className="mt-[clamp(22px,2.4vw,36px)]" />
-            <SpecGrid specs={copy.mint.specs} locale={locale} />
+            {/* Three fixed 12rem tracks, not `auto-fit`. `auto-fit` collapses
+                its empty tracks and hands the free space back to the survivors,
+                so three short figures were spread over the full 1390px with
+                ~350px of void between them. At 12rem the row is the width of
+                the copy column above it and the figures read as one group. */}
+            <SpecGrid
+              specs={copy.mint.specs}
+              locale={locale}
+              className="lg:grid-cols-[repeat(3,minmax(0,12rem))]"
+            />
           </ProductDetail>
         ) : null}
 
@@ -94,7 +103,11 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
               label={copy.papaya.flexLabel}
               className="mt-[clamp(22px,2.4vw,36px)]"
             />
-            <div className="grid items-center gap-col lg:grid-cols-[1fr_0.65fr]">
+            {/* `items-start`, not `items-center`: the FLEX render is far taller
+                than the three-figure column, and centring the figures against
+                it opened ~120px of nothing directly under the "PAPAYA FLEX"
+                heading. Specs start under their own heading. */}
+            <div className="grid items-start gap-col lg:grid-cols-[1fr_0.65fr]">
               <SpecGrid specs={copy.papaya.flexSpecs} locale={locale} className="lg:grid-cols-3" />
               <VignetteImage
                 src="/images/papaya-flex-chrome-v4.png"
@@ -116,35 +129,50 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             lead={content.espresso.lead[locale]}
             image={{ src: content.espresso.image, alt: "ESPRESSO" }}
             className="glow-espresso bg-navy"
-            aside={
-              <>
-                <SpecGrid specs={copy.espresso.specs} locale={locale} />
-                <div className="flex items-baseline gap-4 pt-4">
-                  <span className="font-mono text-label whitespace-nowrap text-faint">
-                    {copy.espresso.cardLabel[locale]}
-                  </span>
-                  <span className="font-heading text-[clamp(1.5rem,2.2vw,2.125rem)] leading-none text-accent">
-                    {copy.espresso.cardValue}
-                  </span>
-                </div>
-              </>
-            }
             beforeCta={
               // Target platforms with their dates — ESPRESSO is a Q3/2026 part,
-              // so every application below carries when it is expected. Sits in
-              // the left column (not full-width `children`) so it fills the
-              // space the shorter copy block leaves next to the taller spec
-              // column, instead of dropping below both as an orphaned row.
-              <div className="grid grid-cols-3 gap-x-3.5 pt-2">
+              // so every application below carries when it is expected. It sits
+              // in the left column, where it gives the copy block the height to
+              // meet the render beside it.
+              //
+              // `grid-cols-2` first: at three columns on a 390px screen the row
+              // is ~110px per track and "Data Center" ran into the right gutter.
+              <div className="grid grid-cols-2 gap-x-3.5 pt-2 sm:grid-cols-3">
                 {copy.espresso.targets.map((target) => (
                   <div key={target.name} className="py-4">
-                    <div className="text-[1rem] font-semibold">{target.name}</div>
-                    <div className="mt-1 text-[0.8125rem] text-faint">{target.when[locale]}</div>
+                    <div className="text-lead font-semibold">{target.name}</div>
+                    <div className="mt-1 text-note text-faint">{target.when[locale]}</div>
                   </div>
                 ))}
               </div>
             }
-          />
+          >
+            {/* The specs close the section as a full-width band, the way MINT's
+                and PAPAYA's do. Stacked under the render in the right column
+                they left ~700×230px of empty page in the bottom-left quadrant,
+                because the copy column ends at its CTA while the render column
+                kept going. Same 12rem tracks as MINT so the two rows of three
+                figures on this page are set identically.
+
+                `card-title`, not the old clamp(1.5rem,2.2vw,2.125rem): 640 TOPS
+                is what four of these chips add up to, so it must read under the
+                per-chip figures in `stat` beside it, not over them. */}
+            <div className="mt-[clamp(22px,2.4vw,36px)] flex flex-col gap-2">
+              <SpecGrid
+                specs={copy.espresso.specs}
+                locale={locale}
+                className="lg:grid-cols-[repeat(3,minmax(0,12rem))]"
+              />
+              <div className="flex items-baseline gap-4">
+                <span className="font-mono text-label whitespace-nowrap text-faint">
+                  {copy.espresso.cardLabel[locale]}
+                </span>
+                <span className="font-heading text-card-title text-accent">
+                  {copy.espresso.cardValue}
+                </span>
+              </div>
+            </div>
+          </ProductDetail>
         ) : null}
 
         {content.eseries.visible ? (

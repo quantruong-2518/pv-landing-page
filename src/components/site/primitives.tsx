@@ -29,10 +29,7 @@ export function Eyebrow({ className, ...props }: ComponentProps<"span">) {
 /** The smaller, dimmer status line that sits beside a kicker on product pages. */
 export function Kicker({ className, ...props }: ComponentProps<"span">) {
   return (
-    <span
-      className={cn("font-mono text-label tracking-[0.12em] whitespace-nowrap", className)}
-      {...props}
-    />
+    <span className={cn("font-mono text-label whitespace-nowrap", className)} {...props} />
   );
 }
 
@@ -127,12 +124,8 @@ export function SpecCard({ spec, locale }: { spec: Spec; locale: Locale }) {
       >
         {spec.value}
       </span>
-      {spec.unit ? (
-        <span className="font-mono text-[0.6875rem] leading-[1.5] text-muted">{spec.unit}</span>
-      ) : null}
-      {spec.note ? (
-        <span className="text-[0.875rem] leading-[1.75] text-body">{spec.note[locale]}</span>
-      ) : null}
+      {spec.unit ? <span className="font-mono text-label text-muted">{spec.unit}</span> : null}
+      {spec.note ? <span className="text-note text-body">{spec.note[locale]}</span> : null}
     </div>
   );
 }
@@ -193,8 +186,12 @@ export function NumberedItem({
 }) {
   return (
     <div className={cn("flex flex-col gap-3.5 pt-9", className)}>
-      <span className="font-mono text-[0.75rem] text-accent">{index}</span>
-      <div className="text-[1.25rem] font-semibold">{title}</div>
+      <span className="font-mono text-kicker text-accent">{index}</span>
+      {/* `text-h3` rather than a hand-typed 20px: this sits on the 18–23px step
+       * of the scale with the other sub-heads instead of inventing its own. The
+       * weight stays 600 — the token's 700 is meant for the heading face, and
+       * the design refs set these sans titles at 600. */}
+      <div className="text-h3 font-semibold">{title}</div>
       <p className="text-card text-body">{body}</p>
     </div>
   );

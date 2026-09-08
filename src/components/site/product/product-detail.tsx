@@ -27,7 +27,6 @@ export function ProductDetail({
   image,
   apps,
   showCta = true,
-  aside,
   beforeCta,
   className,
   children,
@@ -42,8 +41,6 @@ export function ProductDetail({
   image?: { src: string; alt: string };
   apps?: readonly string[];
   showCta?: boolean;
-  /** Extra content in the right-hand column, under the render. */
-  aside?: ReactNode;
   /** Extra content in the left-hand column, between the copy and the CTA. */
   beforeCta?: ReactNode;
   className?: string;
@@ -67,14 +64,22 @@ export function ProductDetail({
               <span className="font-mono text-label whitespace-nowrap text-faint">
                 {dictionary.product.shared.applications[locale]}
               </span>
+              {/* The separator trails its tag instead of leading the next one.
+                  Bound the other way it wrapped with the word that followed it,
+                  so E-Series' five-tag row opened line 2 with an orphaned "/".
+                  `text-faint`, not the `--color-rule` the token table names for
+                  this: #2A3550 measured 1.66:1 on night-deep and #5C6980 3.34:1
+                  — present in the DOM, invisible on the screen. #7C8AA3 reaches
+                  5.3:1 and still sits well under the `text-contact` it divides.
+                  Sized with the tags so the rule shares their line box. */}
               {apps.map((app, index) => (
                 <span key={app} className="flex items-center gap-x-5">
-                  {index > 0 ? (
-                    <span aria-hidden className="text-rule">
+                  <span className="text-card text-contact">{app}</span>
+                  {index < apps.length - 1 ? (
+                    <span aria-hidden className="text-card text-faint">
                       /
                     </span>
                   ) : null}
-                  <span className="text-[0.9375rem] text-contact">{app}</span>
                 </span>
               ))}
             </div>
@@ -101,7 +106,6 @@ export function ProductDetail({
               className="product-chrome-art lg:ml-auto"
             />
           ) : null}
-          {aside}
         </div>
       </div>
 
@@ -122,10 +126,11 @@ export function SpecHeading({
 }) {
   return (
     <div className={cn("flex flex-wrap items-baseline gap-4 pt-4", className)}>
+      {/* `tracking-[0.04em]` survives the token: the design sets these product
+          names wide (+0.04em) where `card-title` runs tight (−0.005em), which
+          is what makes "PAPAYA FLEX" read as a wordmark and not as a heading. */}
       {name ? (
-        <span className="font-heading text-[clamp(1.25rem,1.8vw,1.625rem)] tracking-[0.04em]">
-          {name}
-        </span>
+        <span className="font-heading text-card-title tracking-[0.04em]">{name}</span>
       ) : null}
       <span className="font-mono text-label whitespace-nowrap text-faint">{label}</span>
     </div>

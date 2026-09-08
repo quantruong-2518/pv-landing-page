@@ -49,17 +49,19 @@ export function BioWork({ content, locale }: { content: HomeContent["hero"]; loc
               delay={index * 0.06}
               className="border-t border-ink/12 last:border-b"
             >
+              {/* `items-baseline`, not `items-start`: the number and the arrow
+                  were held level with the title by a hand-typed `leading-[1.7]`
+                  that happened to match the title's line box. The tokens carry
+                  their own line-heights, so the alignment has to be stated —
+                  and a baseline is what actually keeps the three level when the
+                  title wraps, which it does on a phone in all three locales. */}
               <Link
                 href={productAnchor(locale, row.anchor)}
-                className="flex items-start gap-4 px-3 py-5 text-ink transition-colors hover:bg-accent/9"
+                className="flex items-baseline gap-4 px-3 py-5 text-ink transition-colors hover:bg-accent/9"
               >
-                <span className="font-mono text-[0.75rem] leading-[1.7] text-accent">
-                  {row.index}
-                </span>
-                <span className="flex-1 text-[0.9375rem] leading-[1.6] font-semibold">
-                  {row.title[locale]}
-                </span>
-                <span aria-hidden className="font-mono text-[0.75rem] leading-[1.7] text-accent">
+                <span className="font-mono text-kicker text-accent">{row.index}</span>
+                <span className="flex-1 text-card font-semibold">{row.title[locale]}</span>
+                <span aria-hidden className="font-mono text-kicker text-accent">
                   →
                 </span>
               </Link>

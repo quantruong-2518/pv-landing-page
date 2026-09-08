@@ -13,6 +13,14 @@ import { productAnchor, routes, type AnchorId } from "@/lib/routes";
  * Each row is one link covering number, title, body and arrow, so the whole
  * band is the target — the arrow on its own would be a 28px hit area.
  * `solutions.count` from the CMS decides how many rows appear.
+ *
+ * The hairline is what makes that target visible. Without it the accent hover
+ * band was the only thing that ever revealed where one row ended and the next
+ * began, and it is invisible until the pointer is already inside it — nothing
+ * at all on a touch screen. Same treatment as /bio's row list: the border sits
+ * on the `<li>`, not on the link, because `last:` on the link would match every
+ * row (each link is the only child of its own `<li>`). It runs full bleed
+ * because the rows do.
  */
 export function SolutionsList({
   content,
@@ -42,19 +50,23 @@ export function SolutionsList({
 
       <ul>
         {rows.map((row) => (
-          <li key={row.index}>
+          <li key={row.index} className="border-t border-ink/12 last:border-b">
             <Link
               href={productAnchor(locale, row.anchor as AnchorId)}
               className="grid grid-cols-[28px_1fr] items-start gap-[clamp(14px,1.6vw,28px)] px-gutter py-[clamp(20px,2.2vw,30px)] text-ink transition-colors hover:bg-accent/7 lg:grid-cols-[44px_minmax(210px,0.9fr)_minmax(260px,1.15fr)_28px]"
             >
-              <span className="font-mono text-[0.8125rem] text-accent">{row.index}</span>
+              <span className="font-mono text-kicker text-accent">{row.index}</span>
               <span className="font-heading text-h3">{row.title[locale]}</span>
-              <span className="col-start-2 text-[0.9375rem] leading-[1.8] text-body lg:col-start-3">
+              <span className="col-start-2 text-card text-body lg:col-start-3">
                 {row.body[locale]}
               </span>
+              {/* Same step as the title it belongs to, rather than its own
+               * size. The weight is pinned back to 500 because the token's 700
+               * is a heading weight and JetBrains Mono only ships 400/500 here
+               * — asking for 700 would hand the arrow a synthesised bold. */}
               <span
                 aria-hidden
-                className="hidden justify-self-end font-mono text-[1.125rem] text-accent lg:block"
+                className="hidden justify-self-end font-mono text-h3 font-medium text-accent lg:block"
               >
                 →
               </span>

@@ -42,7 +42,13 @@ export function ProductContact({
           <p className="max-w-[48ch] text-lead text-body">{content.lead[locale]}</p>
         </div>
 
-        <div className="justify-self-start">
+        {/* Anchored to the outer edge of its column, not floating at the middle
+            of the page. The design had two buttons here; with the catalogue
+            download gone (no file to download) a single button left at
+            `justify-self-start` sat in the dead centre of the band and read as
+            something that had lost its neighbour. Against the right gutter it
+            closes the row instead. */}
+        <div className="justify-self-start lg:justify-self-end">
           <Button asChild variant="primary" size="xl" mono={false}>
             <Link href={homeAnchor(locale, routes.anchors.contact)}>{content.cta[locale]}</Link>
           </Button>

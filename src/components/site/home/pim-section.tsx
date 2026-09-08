@@ -53,7 +53,7 @@ export function PimSection({ content, locale }: { content: HomeContent["pim"]; l
             className="flex flex-col gap-6 py-[clamp(24px,2.6vw,40px)]"
           >
             <div className="flex items-baseline gap-3.5">
-              <span className="font-mono text-[0.75rem] text-accent">{column.index}</span>
+              <span className="font-mono text-kicker text-accent">{column.index}</span>
               <span className="font-heading text-wordmark tracking-[0.06em]">{column.name}</span>
             </div>
 
@@ -65,12 +65,11 @@ export function PimSection({ content, locale }: { content: HomeContent["pim"]; l
               className="max-w-[560px] drop-shadow-[0_0_34px_rgba(0,174,255,0.22)]"
             />
 
-            <div className="text-[clamp(1.0625rem,1.35vw,1.3125rem)] font-semibold">
-              {column.heading[locale]}
-            </div>
-            <p className="max-w-[48ch] text-[1rem] leading-[1.8] text-body">
-              {column.body[locale]}
-            </p>
+            {/* `text-h3` with the weight held at 600, as `NumberedItem` does:
+             * the token's 700 is meant for the heading face, and the design
+             * refs set these sans sub-heads at 600. */}
+            <div className="text-h3 font-semibold">{column.heading[locale]}</div>
+            <p className="max-w-[48ch] text-lead text-body">{column.body[locale]}</p>
 
             <Button asChild variant="ghost" size="md" className="self-start">
               <Link href={column.href}>{column.cta[locale]}</Link>
@@ -82,9 +81,7 @@ export function PimSection({ content, locale }: { content: HomeContent["pim"]; l
       {/* Closing statement, with the transparent chip PNG anchored right. */}
       <div className="grid items-end gap-[clamp(24px,3vw,56px)] gap-x-col py-[clamp(18px,2vw,28px)] pb-[clamp(24px,2.6vw,38px)] sm:grid-cols-[1fr_auto]">
         <div className="flex flex-col gap-3">
-          <span className="text-[1.0625rem] leading-[1.6] text-body">
-            {copy.statementLead[locale]}
-          </span>
+          <span className="text-lead text-body">{copy.statementLead[locale]}</span>
           <p className="max-w-[26ch] font-heading text-h2-detail text-accent">
             {content.statement[locale]}
           </p>

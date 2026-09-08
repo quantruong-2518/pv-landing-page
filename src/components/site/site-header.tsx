@@ -63,7 +63,11 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
     >
       <Link
         href={routes.home(locale)}
-        className="flex items-center gap-3.5 text-ink"
+        // Below `lg` the link is exactly the 36x36 mark, eight pixels under the
+        // 44px minimum on a phone. The box grows around the artwork instead of
+        // the artwork growing: the mark keeps its size and its position at the
+        // left gutter, and the extra pixels are dead space the thumb can use.
+        className="flex items-center gap-3.5 text-ink max-lg:min-h-11 max-lg:min-w-11"
         aria-label="Pebble Vina"
       >
         {/* From lg the header has the width for the supplied horizontal lockup,
@@ -86,8 +90,20 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
         <Image src="/images/logo.png" alt="" width={36} height={36} className="block lg:hidden" />
       </Link>
 
-      {/* Desktop navigation. Below lg the same links live inside the disclosure. */}
-      <nav className="hidden items-center gap-[clamp(18px,2.6vw,40px)] lg:flex">
+      {/*
+       * Desktop navigation. Below lg the same links live inside the disclosure.
+       *
+       * A flat gap in the 1024-1279 band, the design's fluid one from `xl`.
+       * Measured off the 1024 capture: logo 237px, nav 688px, gutters 2x34.8,
+       * header gap 24 — the old two-language header filled 1024 exactly, with
+       * about six pixels to spare. The `<details>` language menu is ~24px wider
+       * than the `VI / EN` pair it replaced, which puts the Vietnamese nav (the
+       * longest of the three) over the viewport at 1024, and nothing in this row
+       * can wrap: every link is `whitespace-nowrap`, so the page gets a
+       * horizontal scrollbar rather than a second line. Six gaps at 16px instead
+       * of 26.6px give back ~64px, which covers it with room left.
+       */}
+      <nav className="hidden items-center gap-4 lg:flex xl:gap-[clamp(18px,2.6vw,40px)]">
         {links.map((link) => (
           <Link
             key={link.key}
@@ -106,11 +122,12 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
 
         <LocaleMenu locale={locale} active={active} />
 
-        <Button asChild variant="primary" size="none" mono={false} className="px-[22px] py-[13px]">
+        {/* `size="lg"` rather than hand-set padding around a hand-set type
+            size: the same 13px step, and the button clears 44px, which the old
+            26px of vertical padding did not. */}
+        <Button asChild variant="primary" size="lg" mono={false}>
           <Link href={active === "home" ? anchor("lien-he") : homeAnchor(locale, "lien-he")}>
-            <span className="text-[0.8125rem] font-semibold tracking-[0.1em]">
-              {dictionary.header.cta[locale]}
-            </span>
+            {dictionary.header.cta[locale]}
           </Link>
         </Button>
       </nav>
@@ -121,10 +138,16 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
           className="flex size-11 cursor-pointer list-none items-center justify-center text-ink [&::-webkit-details-marker]:hidden"
           aria-label={dictionary.header.menu[locale]}
         >
+          {/* The bars fold into a cross while the disclosure is open. Without
+              it the control looked identical in both states, so the only way to
+              tell the menu was open was to see the panel — which is exactly
+              what a reader on a small viewport may have scrolled past. Pure
+              CSS on `group-open`, so it holds before hydration like the rest of
+              this header. Bars sit at 0/6/12px; ±6px brings them together. */}
           <span aria-hidden className="flex flex-col gap-[5px]">
-            <span className="block h-px w-6 bg-current" />
-            <span className="block h-px w-6 bg-current" />
-            <span className="block h-px w-6 bg-current" />
+            <span className="block h-px w-6 bg-current transition-transform duration-200 group-open:translate-y-[6px] group-open:rotate-45" />
+            <span className="block h-px w-6 bg-current transition-opacity duration-200 group-open:opacity-0" />
+            <span className="block h-px w-6 bg-current transition-transform duration-200 group-open:-translate-y-[6px] group-open:-rotate-45" />
           </span>
         </summary>
 
@@ -135,7 +158,9 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
               href={link.href}
               aria-current={link.key === active ? "page" : undefined}
               className={cn(
-                "px-3 py-3.5 text-[0.9375rem] font-medium transition-colors hover:bg-accent/10",
+                // Same 14px step as the desktop nav, so the two presentations
+                // of one navigation are one size instead of two.
+                "px-3 py-3.5 text-sm font-medium transition-colors hover:bg-accent/10",
                 link.key === active ? "text-ink" : "text-muted",
               )}
             >
@@ -145,11 +170,15 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
 
           <div className="mt-1 flex flex-wrap items-center justify-between gap-3 border-t border-ink/14 px-3 pt-3">
             <LocaleBar locale={locale} active={active} />
-            <Button asChild variant="primary" size="none" mono={false} className="min-h-11 px-4">
+            <Button
+              asChild
+              variant="primary"
+              size="none"
+              mono={false}
+              className="min-h-11 px-4 text-kicker font-semibold"
+            >
               <Link href={active === "home" ? anchor("lien-he") : homeAnchor(locale, "lien-he")}>
-                <span className="text-[0.75rem] font-semibold tracking-[0.1em]">
-                  {dictionary.header.cta[locale]}
-                </span>
+                {dictionary.header.cta[locale]}
               </Link>
             </Button>
           </div>
@@ -184,7 +213,7 @@ function LocaleMenu({ locale, active }: { locale: Locale; active: ActivePage }) 
         aria-label={`${copy.language[locale]}: ${LOCALE_NAMES[locale]}`}
         className={cn(
           "flex min-h-11 cursor-pointer list-none items-center gap-2 border border-ink/14 px-3",
-          "font-mono text-[0.75rem] tracking-[0.1em] whitespace-nowrap text-muted",
+          "font-mono text-kicker whitespace-nowrap text-muted",
           "transition-colors hover:border-ink/28 hover:text-ink",
           "[&::-webkit-details-marker]:hidden",
         )}
@@ -205,7 +234,11 @@ function LocaleMenu({ locale, active }: { locale: Locale; active: ActivePage }) 
         // border, near-opaque so the hero image behind it cannot compete.
         className="absolute right-0 top-[calc(100%+18px)] z-50 flex w-[210px] flex-col border border-ink/14 bg-night/98 p-1 backdrop-blur-[14px]"
       >
-        <span className="px-3 pt-2 pb-1.5 font-mono text-[0.625rem] tracking-[0.14em] text-faint">
+        {/* `text-label`, the design's 11px mono step: this heading was typed at
+            10px, below anything else on the site, and it is the one line that
+            tells a reader who cannot read this page what the list underneath
+            is. `text-faint` measures 5.77:1 on `night`. */}
+        <span className="px-3 pt-2 pb-1.5 font-mono text-label text-faint">
           {copy.languageMenu[locale]}
         </span>
         {LOCALES.map((candidate) => (
@@ -268,13 +301,15 @@ function LocaleOption({
   const isCurrent = candidate === current;
 
   const row = cn(
-    "flex items-center justify-between gap-4 border-l-2 px-3 py-3 text-[0.875rem] transition-colors",
+    // min-h-11: a language is the one control a reader who landed on the wrong
+    // page has to hit, and 42px of padded text was not a target.
+    "flex min-h-11 items-center justify-between gap-4 border-l-2 px-3 py-3 text-sm transition-colors",
     isCurrent ? "border-accent text-ink" : "border-transparent text-muted hover:bg-accent/10 hover:text-ink",
   );
 
   const cell = cn(
     // min-h-11 is the tap target; the label inside is 12px.
-    "flex min-h-11 items-center justify-center px-3.5 font-mono text-[0.75rem] tracking-[0.1em] transition-colors",
+    "flex min-h-11 items-center justify-center px-3.5 font-mono text-kicker transition-colors",
     // Hairline between cells rather than around them, so the group reads as one
     // control instead of three buttons.
     "border-ink/14 [&:not(:first-child)]:border-l",
@@ -287,9 +322,10 @@ function LocaleOption({
     variant === "row" ? (
       <>
         <span lang={LOCALE_TAGS[candidate]}>{LOCALE_NAMES[candidate]}</span>
-        <span className="font-mono text-[0.6875rem] tracking-[0.12em] text-dim">
-          {LOCALE_LABELS[candidate]}
-        </span>
+        {/* `text-faint`, not `text-dim`: 3.63:1 against 5.77:1 on `night`, and
+            this code is the only part of the row a reader who does not know the
+            script can match against the closed menu's own label. */}
+        <span className="font-mono text-label text-faint">{LOCALE_LABELS[candidate]}</span>
       </>
     ) : (
       LOCALE_LABELS[candidate]

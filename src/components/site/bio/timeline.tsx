@@ -65,12 +65,25 @@ export function BioTimeline({ locale }: { locale: Locale }) {
                 MARKS[entry.state],
               )}
             />
-            <div className="flex flex-col gap-2">
-              <span className="font-mono text-[0.9375rem] tracking-[0.06em] text-accent">
+            {/* `h-full` + `md:mt-auto` on the status: from `md` the five
+                entries are one ruled row, and with a title of any length the
+                legend under it landed at five different heights — 12/2026's
+                title wraps at every desktop width, which pushed its "Trong lộ
+                trình" a line below the other four and broke the row. Same
+                device the figure wall uses to keep its source block on one
+                baseline. Below `md` the entries stack, there is no free space,
+                and it is a no-op. */}
+            <div className="flex h-full flex-col gap-2">
+              {/* Sizes come from the scale: the date is the 15px one-off that
+                  belongs on `card`, the entry is the 14px line that belongs on
+                  `note`, and `note` already carries the 1.7 that was written
+                  out here. The 0.06em is the mono date's own spacing — the
+                  scale has no mono step at this size, so it stays explicit. */}
+              <span className="font-mono text-card tracking-[0.06em] text-accent">
                 {entry.when}
               </span>
-              <span className="text-sm leading-[1.7] text-ink">{entry.what[locale]}</span>
-              <span className="font-mono text-label text-faint">
+              <span className="text-note text-ink">{entry.what[locale]}</span>
+              <span className="font-mono text-label text-faint md:mt-auto">
                 {copy.timeline.legend[entry.state][locale]}
               </span>
             </div>

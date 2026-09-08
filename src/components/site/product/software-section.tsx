@@ -57,14 +57,19 @@ export function SoftwareSection({
 
           <div className="flex flex-col gap-3 pt-1">
             <span className="font-heading text-stat-xl text-accent">{content.progress}%</span>
-            <span className="font-mono text-[0.75rem] tracking-[0.1em] whitespace-nowrap text-muted">
+            <span className="font-mono text-kicker whitespace-nowrap text-muted">
               {copy.progressLabel[locale]}
             </span>
             <ProgressTrack value={content.progress} label={copy.progressLabel[locale]} />
           </div>
         </div>
 
-        <div className="mt-auto grid gap-x-[clamp(16px,1.8vw,32px)] pt-10 sm:grid-cols-2 lg:grid-cols-5 lg:items-end">
+        {/* No `lg:items-end`: bottom-aligning the columns pushed module 05 —
+            the only one with a three-line body — 54px above 01–04, so the
+            `01 02 03 04 05` line stopped being a line. The numbers are the
+            rhythm of this row, so the tops align and the bodies end where
+            their length ends. */}
+        <div className="mt-auto grid gap-x-[clamp(16px,1.8vw,32px)] pt-10 sm:grid-cols-2 lg:grid-cols-5">
           {copy.modules.map((module, index) => (
             <Reveal
               key={module.index}
@@ -72,7 +77,10 @@ export function SoftwareSection({
               className="flex flex-col gap-3 pt-7 pb-8"
             >
               <span className="font-mono text-label text-accent">{module.index}</span>
-              <span className="font-heading text-[1.25rem] leading-[1.15]">
+              {/* `text-h3 font-semibold` is what `NumberedItem` sets for the
+                  training steps below: same kind of numbered column, so the
+                  two rows read as one component rather than two. */}
+              <span className="font-heading text-h3 font-semibold">
                 {typeof module.name === "string" ? module.name : module.name[locale]}
               </span>
               <span className="text-card text-body">{module.body[locale]}</span>

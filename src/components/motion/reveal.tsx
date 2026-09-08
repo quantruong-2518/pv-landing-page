@@ -9,18 +9,29 @@ import { cn } from "@/lib/utils";
  * Fade-and-lift as a block scrolls into view.
  *
  * Two constraints shape it. It runs `once`, because a section that re-animates
- * every time you scroll back up reads as broken rather than alive. And the
- * initial hidden state is only applied when motion is allowed — otherwise a
- * visitor with `prefers-reduced-motion`, or one whose JS never arrives, would
- * be left looking at `opacity: 0`.
+ * every time you scroll back up reads as broken rather than alive. And a reader
+ * who asked for less motion must end up looking at the content, not at
+ * `opacity: 0`.
+ *
+ * That second one is not free, and it used to be broken outright: 12 of 12
+ * blocks on /vi stayed invisible with `prefers-reduced-motion: reduce`. The
+ * component is rendered on the server, where `useReducedMotion()` is always
+ * false, so the hidden state is serialised into the HTML — and React does not
+ * repair a mismatched `style` attribute during hydration, so simply passing no
+ * motion props on the client left that `opacity: 0` standing forever. The fix
+ * is to hand motion the *final* values as `initial`, which gives the visual
+ * element something to write to the DOM on mount, plus the
+ * `prefers-reduced-motion` rule in globals.css, which covers the window before
+ * hydration. Nobody else is affected: the animated branch is untouched, so
+ * there is still no flash of the final state.
  *
  * The prop surface is deliberately four options wide. Forwarding the whole
  * motion prop set would let a caller override `whileInView` and quietly break
- * the rule above, and it does not type cleanly across element tags anyway.
+ * the rules above, and it does not type cleanly across element tags anyway.
  *
- * `data-reveal` is the hook the `<noscript>` rule in the layout targets: the
- * server HTML really does ship `style="opacity:0"` on each of these, so without
- * that rule a reader with JavaScript disabled gets a page of blank sections.
+ * `data-reveal` is the hook both of those CSS rules target — the `<noscript>`
+ * one in the layout, for a reader whose JavaScript never arrives, and the
+ * reduced-motion one.
  */
 export function Reveal({
   children,
@@ -38,7 +49,11 @@ export function Reveal({
 
   const content = children;
   const animation = reduceMotion
-    ? {}
+    ? // Not `{}`: with no motion values at all the visual element renders
+      // nothing on mount and the server's `opacity: 0` survives. Stating the
+      // end state as `initial` makes motion write `opacity: 1; transform: none`
+      // to the element, with no animation to run.
+      { initial: { opacity: 1, y: 0 } }
     : {
         initial: { opacity: 0, y: 18 },
         whileInView: { opacity: 1, y: 0 },

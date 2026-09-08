@@ -99,35 +99,41 @@ export function ConsentBanner({ locale }: { locale: Locale }) {
       // overflows the viewport puts its own buttons out of reach — the visitor
       // would be left with a question they cannot answer. `vh` would misjudge
       // the height by the mobile browser chrome (CLAUDE.md §3).
-      className="fixed inset-x-0 bottom-0 z-[60] max-h-[85svh] overflow-y-auto border-t border-ink/20 bg-navy px-gutter py-[clamp(18px,2.2vw,30px)]"
+      className="fixed inset-x-0 bottom-0 z-[60] max-h-[85svh] overflow-y-auto border-t border-ink/20 bg-navy px-gutter py-[clamp(13px,1.3vw,18px)]"
     >
-      <div className="mx-auto flex max-w-[1440px] flex-col gap-[clamp(14px,1.6vw,22px)]">
-        <div className="flex items-start justify-between gap-x-col gap-y-3">
-          <div className="flex max-w-[74ch] flex-col gap-2.5">
-            <h2 id={`${uid}-title`} className="font-heading text-h3 text-ink">
-              {copy.title[locale]}
-            </h2>
-            <p className="text-card text-body">{copy.body[locale]}</p>
-          </div>
-
-          {/* Only once an answer exists: before that there is nothing to close
-              back to, and an X would read as a fourth, unlabelled answer. */}
-          {phase === "settled" ? (
-            <button
-              type="button"
-              onClick={closePanel}
-              aria-label={copy.close[locale]}
-              className="-mt-1 flex size-11 shrink-0 items-center justify-center text-faint transition-colors hover:text-ink"
-            >
-              <span aria-hidden className="text-lg leading-none">
-                ✕
-              </span>
-            </button>
-          ) : null}
+      {/*
+       * One row at rest, three stacked when the preferences panel is open.
+       *
+       * At rest this was a title/body row over a retention/buttons row, 230px
+       * tall on a 1440 viewport — the whole lead and CTA row of the landing
+       * page was behind a cookie wall on first load. The disclosure and the
+       * three answers share a line now and it is ~140px. Nothing about the
+       * choice architecture moved: still three buttons of one size, still one
+       * click to refuse, still the retention sentence in front of the reader
+       * before they answer.
+       *
+       * `flex-wrap` plus a full-width `<ul>` is what gives one container two
+       * layouts. The answers must come after the checkboxes they save, so when
+       * the panel opens the list takes a line of its own and pushes them down;
+       * it does not need a second layout to do it.
+       */}
+      <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-x-col gap-y-3">
+        {/* `basis` is small enough that the disclosure and the three answers
+            still share one line at 1024; `max-w` only binds past ~1500px, where
+            the row is wide enough to stretch this into 180-character lines. */}
+        <div className="flex min-w-0 max-w-[120ch] flex-1 basis-[22rem] flex-col gap-1.5">
+          <h2 id={`${uid}-title`} className="font-heading text-h3 text-ink">
+            {copy.title[locale]}
+          </h2>
+          <p className="text-note text-body">{copy.body[locale]}</p>
+          {/* The retention sentence sits with the rest of the disclosure rather
+              than on a row of its own — it is part of the same statement, and
+              its own row was a third of the banner's height. */}
+          <p className="text-note text-faint">{copy.retention[locale]}</p>
         </div>
 
         {panelOpen ? (
-          <ul className="flex flex-col border-t border-ink/14">
+          <ul className="flex w-full flex-col border-t border-ink/14">
             <Category
               id={`${uid}-necessary`}
               name={copy.categories.necessary.name[locale]}
@@ -149,29 +155,47 @@ export function ConsentBanner({ locale }: { locale: Locale }) {
           </ul>
         ) : null}
 
-        <div className="flex flex-wrap items-center justify-between gap-x-col gap-y-4">
-          <p className="max-w-[64ch] text-[0.8125rem] leading-[1.65] text-faint">
-            {copy.retention[locale]}
-          </p>
+        {/* Refuse first, accept last, all three `size="md"`: equal weight is
+            the requirement, not a stylistic preference. Every Button variant
+            carries a border (`primary`'s is transparent) precisely so three
+            different variants come out the same size — see button.tsx.
 
-          {/* Refuse first, accept last, both `size="lg"`: equal weight is the
-              requirement, not a stylistic preference. */}
-          <div className="flex flex-wrap items-center gap-3">
-            <Button variant="ghost" size="lg" onClick={rejectAll}>
-              {copy.rejectAll[locale]}
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={panelOpen ? saveChoices : openPanel}
-              aria-expanded={panelOpen}
+            `max-sm:justify-start` matters for the same reason. On a phone the
+            three answers wrap to two lines, and with the row pushed right the
+            third one — "accept all" — landed alone against the right edge while
+            the other two sat left. Same sizes, but the odd one out reads as the
+            emphasised answer, which is the exact impression a consent banner
+            may not give. Left-aligned, the wrap is just a wrap. */}
+        <div className="ml-auto flex flex-wrap items-center justify-end gap-2.5 max-sm:ml-0 max-sm:justify-start">
+          <Button variant="ghost" size="md" onClick={rejectAll}>
+            {copy.rejectAll[locale]}
+          </Button>
+          <Button
+            variant="outline"
+            size="md"
+            onClick={panelOpen ? saveChoices : openPanel}
+            aria-expanded={panelOpen}
+          >
+            {panelOpen ? copy.save[locale] : copy.customise[locale]}
+          </Button>
+          <Button variant="primary" size="md" onClick={acceptAll}>
+            {copy.acceptAll[locale]}
+          </Button>
+
+          {/* Only once an answer exists: before that there is nothing to close
+              back to, and an X would read as a fourth, unlabelled answer. */}
+          {phase === "settled" ? (
+            <button
+              type="button"
+              onClick={closePanel}
+              aria-label={copy.close[locale]}
+              className="flex size-11 shrink-0 items-center justify-center text-faint transition-colors hover:text-ink"
             >
-              {panelOpen ? copy.save[locale] : copy.customise[locale]}
-            </Button>
-            <Button variant="primary" size="lg" onClick={acceptAll}>
-              {copy.acceptAll[locale]}
-            </Button>
-          </div>
+              <span aria-hidden className="text-lg leading-none">
+                ✕
+              </span>
+            </button>
+          ) : null}
         </div>
       </div>
     </section>
@@ -203,8 +227,8 @@ function Category({
   onCheckedChange?: (value: boolean) => void;
 }) {
   return (
-    <li className="flex flex-wrap items-start justify-between gap-x-col gap-y-3 border-b border-ink/14 py-[clamp(14px,1.6vw,20px)]">
-      <div className="flex max-w-[78ch] flex-col gap-2">
+    <li className="flex flex-wrap items-start justify-between gap-x-col gap-y-2 border-b border-ink/14 py-[clamp(12px,1.2vw,16px)]">
+      <div className="flex max-w-[78ch] flex-col gap-1.5">
         <div className="flex items-center gap-3">
           <Checkbox
             id={id}
@@ -217,12 +241,13 @@ function Category({
             {name}
           </FieldLabel>
         </div>
-        <p id={`${id}-body`} className="text-[0.8125rem] leading-[1.7] text-body">
+        <p id={`${id}-body`} className="text-note text-body">
           {body}
         </p>
-        <span className="font-mono text-[0.6875rem] leading-[1.5] tracking-[0.06em] text-dim">
-          {detail}
-        </span>
+        {/* The cookie names: `text-label` is the 11px mono step this was typed
+            by hand as, and `text-faint` clears 4.5:1 on `navy` where the old
+            `text-dim` did not. */}
+        <span className="font-mono text-label text-faint">{detail}</span>
       </div>
 
       {locked ? (

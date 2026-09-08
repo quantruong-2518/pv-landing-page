@@ -42,12 +42,13 @@ export function BioPartners({ content, locale }: { content: HomeContent["news"];
             delay={index * 0.06}
             className="grid gap-2 gap-x-col border-t border-ink/12 py-[clamp(18px,2vw,28px)] last:border-b md:grid-cols-[7rem_1fr_1.1fr] md:items-baseline"
           >
-            <span className="font-mono text-[0.75rem] tracking-[0.1em] text-accent">
-              {item.date}
-            </span>
-            <span className="text-[1.0625rem] leading-[1.5] font-semibold text-ink">
-              {item.title[locale]}
-            </span>
+            {/* `text-kicker` is the scale's 12px mono step and it carries the
+                letter-spacing that was hand-typed here; `text-h3` is the
+                smallest title step, which is what a ledger headline is — the
+                same swap `NumberedItem` made for its own sub-heads, weight
+                dropped to 600 for the sans face the way that one does. */}
+            <span className="font-mono text-kicker text-accent">{item.date}</span>
+            <span className="text-h3 font-semibold text-ink">{item.title[locale]}</span>
             <p className="max-w-[52ch] text-card text-body">{item.body[locale]}</p>
           </Reveal>
         ))}

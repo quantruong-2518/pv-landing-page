@@ -57,10 +57,12 @@ export function NewsGrid({ content, locale }: { content: HomeContent["news"]; lo
                 className="object-cover"
               />
             </div>
-            <time dateTime={toIsoDate(item.date)} className="font-mono text-[0.75rem] text-accent">
+            <time dateTime={toIsoDate(item.date)} className="font-mono text-kicker text-accent">
               {item.date}
             </time>
-            <h3 className="text-[1.125rem] leading-[1.3] font-semibold">{item.title[locale]}</h3>
+            {/* `text-h3` at weight 600, as everywhere else these sans sub-heads
+             * appear — the hand-typed 18px/1.3 was this token's own floor. */}
+            <h3 className="text-h3 font-semibold">{item.title[locale]}</h3>
             <p className="text-card text-body">{item.body[locale]}</p>
           </Reveal>
         ))}

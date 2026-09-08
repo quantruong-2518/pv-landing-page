@@ -53,7 +53,12 @@ export function Marquee({ items }: { items: string }) {
   const strip = (hidden: boolean) => (
     <div
       aria-hidden={hidden || undefined}
-      className="flex gap-14 px-7 py-[18px] font-mono text-[0.75rem] tracking-[0.15em] whitespace-nowrap text-copy"
+      // `text-faint`, not the `--color-copy` the token table names for this
+      // strip: #4A5872 on the #070B18 band measures 2.74:1 at 12px, and moving
+      // text below 4.5:1 is the one thing the strip cannot be. #7C8AA3 is the
+      // next token up and reaches 5.63:1 on the same band. `text-kicker` is the
+      // 12px mono step the design already defines; it was hand-typed here.
+      className="flex gap-14 px-7 py-[18px] font-mono text-kicker whitespace-nowrap text-faint"
     >
       {parts.map((part, index) => (
         <span key={`${part}-${index}`} className="flex gap-14">
