@@ -54,29 +54,25 @@ export function BioMasthead({ locale }: { locale: Locale }) {
         </div>
 
         <div className="flex flex-col gap-[clamp(22px,2.6vw,36px)]">
-          {/* Sheet header: the stamp, then two cells that are facts about this
-              document rather than about the company — the page names itself and
-              the language it is written in. */}
-          <div className="flex items-center gap-4 border-b border-ink/14 pb-4">
-            <span className="flex size-12 shrink-0 items-center justify-center border border-ink/20">
-              <Image src={copy.cover.mark} alt="" width={30} height={30} priority />
+          {/* Sheet header: two cells that are facts about this document rather
+              than about the company — the page names itself and the language
+              it is written in. The header nav already carries the mark, so the
+              sheet does not repeat it as a second stamp. */}
+          <div className="flex min-w-0 flex-wrap items-baseline justify-between gap-x-col gap-y-1.5 border-b border-ink/14 pb-4 font-mono text-label">
+            <span className="text-faint">
+              {copy.sheet.doc}
+              <span aria-hidden className="mx-2.5 text-dim">
+                /
+              </span>
+              <span className="text-accent">{copy.sheet.docValue}</span>
             </span>
-            <div className="flex min-w-0 flex-1 flex-wrap items-baseline justify-between gap-x-col gap-y-1.5 font-mono text-label">
-              <span className="text-faint">
-                {copy.sheet.doc}
-                <span aria-hidden className="mx-2.5 text-dim">
-                  /
-                </span>
-                <span className="text-accent">{copy.sheet.docValue}</span>
+            <span className="text-faint">
+              {copy.sheet.locale}
+              <span aria-hidden className="mx-2.5 text-dim">
+                /
               </span>
-              <span className="text-faint">
-                {copy.sheet.locale}
-                <span aria-hidden className="mx-2.5 text-dim">
-                  /
-                </span>
-                <span className="text-muted">{LOCALE_TAGS[locale]}</span>
-              </span>
-            </div>
+              <span className="text-muted">{LOCALE_TAGS[locale]}</span>
+            </span>
           </div>
 
           <div className="grid items-start gap-row gap-x-col lg:grid-cols-[1.1fr_0.9fr]">

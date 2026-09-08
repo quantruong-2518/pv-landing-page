@@ -69,29 +69,27 @@ export const dictionary = {
       /** Two columns: Analog then Digital. */
       analog: {
         index: "01",
-        name: "Analog PIM",
-        alt: L("Dải sóng ánh sáng liên tục, minh họa tín hiệu Analog", "A continuous light wave illustrating an analog signal"),
-        heading: L("Đưa AI vào thiết bị, với ít điện năng hơn", "Bring AI to devices, with less power"),
+        name: "ANALOG PIM",
+        heading: L("Tính toán tại nơi dữ liệu được lưu trữ", "Computing where the data lives"),
         body: L(
-          "Xử lý AI ngay tại bộ nhớ, giảm năng lượng truyền dữ liệu. Phù hợp định hướng thiết bị nhỏ gọn, tiết kiệm điện.",
-          "Process AI in memory and spend less energy moving data. A path to compact, power-efficient devices.",
+          "Công nghệ Analog tích hợp năng lực tính toán với bộ nhớ, hạn chế di chuyển dữ liệu giữa memory và processor, từ đó nâng cao hiệu quả tính toán cho các workload AI phù hợp.",
+          "Analog technology integrates compute capability into memory, limiting data movement between memory and processor and raising computational efficiency for suitable AI workloads.",
         ),
-        cta: L("Khám phá MINT", "Explore MINT"),
+        cta: L("KHÁM PHÁ CHIP ANALOG →", "EXPLORE THE ANALOG CHIP →"),
       },
       digital: {
         index: "02",
-        name: "Digital PIM",
-        alt: L("Chuỗi xung ánh sáng hai mức, minh họa tín hiệu Digital", "A two-level light pulse train illustrating a digital signal"),
-        heading: L("Linh hoạt tích hợp AI vào sản phẩm", "Build AI into your products"),
+        name: "DIGITAL PIM",
+        heading: L("Nền tảng tính toán số cho AI", "A digital computing platform for AI"),
         body: L(
-          "Nền tảng xử lý số linh hoạt cho thiết bị và hệ thống AI, tích hợp theo yêu cầu sản phẩm của bạn.",
-          "Flexible digital computing for devices and AI systems, shaped around your product requirements.",
+          "Công nghệ Digital được phát triển nhằm đáp ứng các yêu cầu về khả năng tính toán và tích hợp linh hoạt, tạo nền tảng cho các sản phẩm và hệ thống AI đa dạng.",
+          "Digital technology is built to meet demands for computational capability and flexible integration, forming the foundation for a diverse range of AI products and systems.",
         ),
-        cta: L("Khám phá ESPRESSO", "Explore ESPRESSO"),
+        cta: L("KHÁM PHÁ CHIP DIGITAL →", "EXPLORE THE DIGITAL CHIP →"),
       },
       statementLead: L(
-        "Chọn công nghệ theo bài toán của bạn.",
-        "Choose technology around your business needs.",
+        "Hai hướng tiếp cận công nghệ, một mục tiêu chung:",
+        "Two technical approaches, one shared objective:",
       ),
     },
 
@@ -99,26 +97,26 @@ export const dictionary = {
       cards: [
         {
           index: "01",
-          title: L("Giảm gánh nặng điện năng", "Lower energy demands"),
+          title: L("Tiết kiệm điện năng", "Lower power draw"),
           body: L(
-            "Giảm điện năng dành cho truyền dữ liệu trong các tác vụ AI phù hợp.",
-            "Spend less energy moving data, helping optimise power consumption for suitable AI tasks.",
+            "Giảm nhu cầu truyền dữ liệu qua lại giữa bộ nhớ và bộ xử lý đối với các workload AI phù hợp.",
+            "Reduces the need to shuttle data back and forth between memory and processor for suitable AI workloads.",
           ),
         },
         {
           index: "02",
-          title: L("Rút ngắn thời gian chờ", "Less waiting for results"),
+          title: L("Tối ưu tính toán AI", "Optimised AI computation"),
           body: L(
-            "Giảm thời gian truyền dữ liệu, hỗ trợ ứng dụng cần phản hồi nhanh.",
-            "Bring processing closer to data to reduce transfer delays and support applications that need fast responses.",
+            "Thiết kế kiến trúc tính toán phù hợp với đặc thù của từng workload AI, hướng tới nâng cao hiệu quả xử lý cho các ứng dụng AI phù hợp.",
+            "Compute architectures designed around the characteristics of each AI workload, aimed at better processing efficiency.",
           ),
         },
         {
           index: "03",
-          title: L("Đưa AI đến nơi công việc diễn ra", "AI where work happens"),
+          title: L("Mở hướng ứng dụng mới", "New application directions"),
           body: L(
-            "Mở hướng xử lý trực tiếp trên camera, cảm biến và thiết bị.",
-            "Open a path to processing on cameras, sensors and devices, reducing the need to send every AI task back to a server.",
+            "Công nghệ PIM mở ra các hướng ứng dụng cho Edge AI, AI trên thiết bị (On-device AI) và suy luận AI (AI Inference).",
+            "PIM opens application paths for Edge AI, on-device AI and AI inference.",
           ),
         },
       ],
@@ -132,7 +130,7 @@ export const dictionary = {
           value: "PIM",
           fromCms: false,
           headline: null as Localized | null,
-          label: L("Ít truyền dữ liệu hơn", "Less data movement") as Localized | null,
+          label: L("TỐI ƯU DATA MOVEMENT", "OPTIMISED DATA MOVEMENT") as Localized | null,
           body: L(
             "Xử lý dữ liệu trực tiếp tại nơi lưu trữ, giảm nhu cầu truyền dữ liệu giữa bộ nhớ và bộ xử lý.",
             "Data is processed directly where it is stored, reducing transfers between memory and processor.",
@@ -146,7 +144,7 @@ export const dictionary = {
           value: "",
           fromCms: true,
           headline: null as Localized | null,
-          label: L("Điểm xử lý song song", "Parallel processing points") as Localized | null,
+          label: L("ĐIỂM NORON TÍNH TOÁN", "COMPUTE NEURON POINTS") as Localized | null,
           body: L(
             "400.000 điểm xử lý tạo nền tảng cho khả năng thực hiện đồng thời khối lượng lớn phép tính AI.",
             "400,000 processing points underpin the ability to run large volumes of AI computation concurrently.",
@@ -160,7 +158,7 @@ export const dictionary = {
           value: "",
           fromCms: false,
           /** This card's "figure" is a phrase, so it is set smaller. */
-          headline: L("Xử lý cân bằng", "Balanced processing") as Localized | null,
+          headline: L("PHÂN BỔ DỮ LIỆU ĐỒNG ĐỀU", "EVEN DATA DISTRIBUTION") as Localized | null,
           label: null as Localized | null,
           body: L(
             "Phân bổ dữ liệu đồng đều trên các điểm xử lý giúp duy trì sự cân bằng trong quá trình tính toán.",
@@ -185,42 +183,42 @@ export const dictionary = {
           index: "01",
           anchor: "mint" as const,
           title: L(
-            "Đưa AI vào thiết bị của bạn",
-            "Bring AI to your devices",
+            "CHIP BÁN DẪN VÀ GIẢI PHÁP TÍCH HỢP AI NGOẠI BIÊN",
+            "EDGE-AI SEMICONDUCTOR CHIPS & INTEGRATED SOLUTIONS",
           ),
           body: L(
-            "Tích hợp xử lý AI trực tiếp trên thiết bị với phần cứng phù hợp nhu cầu về hiệu năng và điện năng của sản phẩm.",
-            "Integrate on-device AI with hardware matched to your product’s performance and power requirements.",
+            "Phát triển kiến trúc chip và tích hợp AI ngoại biên nhằm đáp ứng nhu cầu tính toán cho các workload AI chuyên biệt.",
+            "Chip architecture and edge-AI integration developed to meet the computing needs of specialised AI workloads.",
           ),
         },
         {
           index: "02",
           anchor: "e-series" as const,
-          title: L("AI hiểu dữ liệu doanh nghiệp", "AI built around your business data"),
+          title: L("HUẤN LUYỆN LLM CÁ NHÂN HÓA", "PERSONALISED LLM TRAINING"),
           body: L(
-            "Tinh chỉnh mô hình theo dữ liệu và yêu cầu riêng, hỗ trợ kiểm soát dữ liệu và chi phí vận hành.",
-            "Fine-tune models for your data and needs, supporting data control and operating cost optimisation.",
+            "Xây dựng và tinh chỉnh các mô hình ngôn ngữ lớn (LLM) theo yêu cầu riêng của từng doanh nghiệp, hỗ trợ kiểm soát dữ liệu và tối ưu hóa chi phí vận hành.",
+            "Building and fine-tuning large language models to each enterprise's requirements, supporting data control and lower operating cost.",
           ),
         },
         {
           index: "03",
           anchor: "papaya" as const,
           title: L(
-            "Đổi mô hình, tận dụng phần cứng",
-            "New models, reusable hardware",
+            "TÁI SỬ DỤNG LINH HOẠT VỚI KHẢ NĂNG GHI ĐÈ DỮ LIỆU",
+            "FLEXIBLE REUSE THROUGH DATA OVERWRITE",
           ),
           body: L(
-            "Cập nhật mô hình AI trên phần cứng PIM hỗ trợ ghi lại dữ liệu, tận dụng khoản đầu tư dài hạn.",
-            "Update AI models on PIM hardware that supports rewriting data, making more of your long-term investment.",
+            "Cho phép doanh nghiệp dễ dàng xóa bỏ dữ liệu cũ sau mỗi chu kỳ huấn luyện để nạp và đào tạo các mô hình AI hoàn toàn mới trên cùng một phần cứng chip PIM — tối ưu hóa chi phí đầu tư dài hạn.",
+            "Enterprises can clear old data after each training cycle and train entirely new AI models on the same PIM hardware — optimising long-term investment.",
           ),
         },
         {
           index: "04",
           anchor: "phan-mem" as const,
-          title: L("CRM theo cách bạn vận hành", "CRM that fits how you work"),
+          title: L("HỆ THỐNG CRM THÔNG MINH MAY ĐO RIÊNG", "TAILORED INTELLIGENT CRM"),
           body: L(
-            "CRM tích hợp AI, thiết kế theo quy trình bán hàng và chăm sóc khách hàng của doanh nghiệp.",
-            "AI-integrated CRM designed around your sales and customer service workflows.",
+            "Phát triển phần mềm quản trị quan hệ khách hàng (CRM) tích hợp AI, được thiết kế linh hoạt theo quy trình vận hành và đặc thù của từng doanh nghiệp.",
+            "AI-integrated customer relationship management software, designed around each enterprise's operating processes and specifics.",
           ),
         },
       ],
@@ -718,17 +716,13 @@ export const dictionary = {
     },
 
     /**
-     * Cover art.
-     *
-     * `mark` is the same file the header and footer already carry, set large
-     * enough here to work as a stamp on the sheet. `photo` is the render the
-     * Organization JSON-LD names as the company's image, so opening the profile
-     * on it is consistent rather than decorative-by-accident — but it is still
-     * decorative in the accessibility sense (`alt=""`), exactly as the home
-     * contact block treats the same file: it illustrates, it does not evidence.
+     * Cover art. `photo` is the render the Organization JSON-LD names as the
+     * company's image, so opening the profile on it is consistent rather than
+     * decorative-by-accident — but it is still decorative in the accessibility
+     * sense (`alt=""`), exactly as the home contact block treats the same file:
+     * it illustrates, it does not evidence.
      */
     cover: {
-      mark: "/images/logo.png",
       photo: "/images/semiconductor-rd-headquarters-v2.png",
     },
 

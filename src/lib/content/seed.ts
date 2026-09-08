@@ -15,12 +15,24 @@ export const SEED_CONTENT: SiteContent = {
   home: {
     hero: {
       visible: true,
-      eyebrow: { vi: "Chip AI & phần mềm cho doanh nghiệp", en: "AI chips & software for business" },
-      title: { vi: "AI hiệu quả hơn, từ thiết bị đến vận hành", en: "More efficient AI, from devices to operations" },
-      lead: { vi: "Đưa AI vào sản phẩm và quy trình của bạn với chip tiết kiệm điện năng, mô hình AI theo nhu cầu và phần mềm được thiết kế riêng.", en: "Bring AI to your products and workflows with energy-efficient chips, tailored AI models and custom software." },
-      sub: { vi: "Pebble Vina kết hợp phần cứng và phần mềm để giải quyết bài toán thực tế: xử lý tại thiết bị, kiểm soát dữ liệu và tối ưu vận hành.", en: "Pebble Vina brings hardware and software together for on-device processing, data control and more efficient operations." },
-      cta: { vi: "Khám phá giải pháp", en: "Explore solutions" },
-      image: "/images/espresso-chrome-v4.png",
+      eyebrow: {
+        vi: "CHIP BÁN DẪN TÍCH HỢP AI NGOẠI BIÊN THẾ HỆ MỚI",
+        en: "NEXT-GENERATION EDGE AI SEMICONDUCTORS",
+      },
+      title: {
+        vi: "KIẾN TẠO CÔNG NGHỆ BÁN DẪN CHO KỶ NGUYÊN AI",
+        en: "ENGINEERING SEMICONDUCTORS FOR THE AI ERA",
+      },
+      lead: {
+        vi: "Pebble Vina tập trung nghiên cứu và phát triển các công nghệ bán dẫn AI, từ thiết kế kiến trúc chip, công nghệ xử lý trong bộ nhớ (PIM) đến phát triển phần mềm và các giải pháp AI ứng dụng.",
+        en: "Pebble Vina researches and develops AI semiconductor technologies — from chip architecture and processing-in-memory (PIM) to software and applied AI solutions.",
+      },
+      sub: {
+        vi: "Với định hướng kết hợp giữa phần cứng và phần mềm, Pebble Vina phát triển các nền tảng tính toán phục vụ AI, Edge AI, On-device AI và các mô hình AI thế hệ mới.",
+        en: "Hardware and software developed together: computing platforms for AI, Edge AI, on-device AI and the next generation of AI models.",
+      },
+      cta: { vi: "TÌM HIỂU THÊM →", en: "EXPLORE THE TECHNOLOGY →" },
+      image: "/images/ai-semiconductor-hero-v2.png",
     },
 
     marquee: {
@@ -33,43 +45,76 @@ export const SEED_CONTENT: SiteContent = {
 
     pim: {
       visible: true,
-      eyebrow: { vi: "Công nghệ phía sau hiệu quả", en: "The technology behind the efficiency" },
-      title: { vi: "Thêm năng lực AI. Bớt gánh nặng năng lượng.", en: "More AI capability. Lower energy demands." },
-      lead: { vi: "Ít di chuyển dữ liệu, ít tiêu tốn năng lượng. Hai hướng PIM cho nhu cầu tích hợp AI khác nhau.", en: "Less data movement, less energy spent. Two PIM approaches for different AI integration needs." },
-      imageA: "/images/analog-signal-space-v1.png",
-      imageB: "/images/digital-signal-space-v1.png",
-      statement: { vi: "Công nghệ phù hợp. Giá trị thiết thực.", en: "The right technology. Practical value." },
+      eyebrow: { vi: "01 — PROCESSING IN MEMORY", en: "01 — PROCESSING IN MEMORY" },
+      title: {
+        vi: "CÔNG NGHỆ PIM NỀN TẢNG TÍNH TOÁN CHO AI",
+        en: "THE COMPUTING FOUNDATION FOR AI",
+      },
+      lead: {
+        vi: "PIM (Processing-in-Memory) là công nghệ tính toán đưa hoạt động xử lý đến gần nơi dữ liệu được lưu trữ, qua đó giảm lượng dữ liệu phải di chuyển giữa bộ nhớ và bộ xử lý. Pebble Vina phát triển hai hướng công nghệ PIM gồm Analog và Digital nhằm đáp ứng các nhu cầu tính toán AI khác nhau.",
+        en: "PIM (Processing-in-Memory) brings computation close to where data is stored, cutting the volume of data that has to move between memory and processor. Pebble Vina develops two PIM directions — Analog and Digital — to serve different AI computing needs.",
+      },
+      imageA: "/images/analog-pim-chip-v3.png",
+      imageB: "/images/digital-pim-chip-v3.png",
+      statement: {
+        vi: "NÂNG CAO HIỆU SUẤT TÍNH TOÁN CHO AI.",
+        en: "RAISING COMPUTE EFFICIENCY FOR AI.",
+      },
       imageC: "/images/pim-memory-compute-v2.png",
     },
 
     why: {
       visible: true,
-      title: { vi: "AI cần tạo giá trị, không thêm gánh nặng vận hành.", en: "AI should add value, not operational strain." },
-      lead: { vi: "Tiết kiệm điện, phản hồi nhanh và xử lý tại thiết bị: ba ưu tiên khi đưa AI vào sản phẩm.", en: "Lower power, faster responses and on-device processing: three priorities for bringing AI into products." },
+      title: {
+        vi: "Tại sao công nghệ PIM quan trọng đối với AI?",
+        en: "WHY DOES PIM MATTER FOR AI?",
+      },
+      lead: {
+        vi: "Khi các mô hình AI ngày càng lớn, nhu cầu xử lý và truyền dữ liệu cũng tăng theo. Việc liên tục di chuyển dữ liệu giữa bộ nhớ (DRAM) và bộ xử lý (NPU) có thể ảnh hưởng đến hiệu quả của quá trình tính toán. Công nghệ PIM tiếp cận bài toán này bằng cách đưa hoạt động tính toán đến gần nơi dữ liệu được lưu trữ, từ đó giảm nhu cầu di chuyển dữ liệu đối với các workload AI phù hợp.",
+        en: "As AI models grow, so does the demand for processing and moving data. Continuously shuttling data between memory (DRAM) and the processor (NPU) can hold back computational efficiency. PIM approaches this by bringing computation close to where data is stored, reducing data movement for suitable AI workloads.",
+      },
       image: "/images/pim-ai-data-movement-v2.png",
     },
 
     core: {
       visible: true,
-      eyebrow: { vi: "Nền tảng cho sản phẩm của bạn", en: "Built for your products" },
-      title: { vi: "Thiết kế để xử lý nhiều hơn, hiệu quả hơn.", en: "Designed to do more, more efficiently." },
-      lead: { vi: "Tận dụng tốt hơn phần cứng, từ cách lưu dữ liệu đến khả năng xử lý nhiều tác vụ cùng lúc.", en: "Make better use of hardware, from how data is stored to processing multiple tasks at once." },
+      eyebrow: { vi: "02 — CORE CAPABILITY", en: "02 — CORE CAPABILITY" },
+      title: {
+        vi: "NĂNG LỰC CỐT LÕI CỦA CÔNG NGHỆ CHIP",
+        en: "CORE CAPABILITIES OF THE CHIP TECHNOLOGY",
+      },
+      lead: {
+        vi: "Pebble Vina phát triển kiến trúc công nghệ chip bán dẫn tích hợp AI ngoại biên với trọng tâm tối ưu luồng dữ liệu, năng lực xử lý song song và hiệu quả tính toán, hướng tới khả năng xử lý ổn định và hiệu quả năng lượng.",
+        en: "Pebble Vina develops edge-AI semiconductor architecture centred on data-flow optimisation, parallel processing capability and computational efficiency — built for the rising demands of AI workloads while targeting stable processing and energy efficiency.",
+      },
       stat: "400K",
     },
 
     solutions: {
       visible: true,
-      eyebrow: { vi: "Giải pháp cho doanh nghiệp", en: "Business solutions" },
-      title: { vi: "Bắt đầu từ bài toán của bạn.", en: "Start with your business needs." },
-      lead: { vi: "Từ sản phẩm thông minh đến vận hành doanh nghiệp, chọn hướng triển khai phù hợp.", en: "From smarter products to business operations, find the right approach." },
+      eyebrow: { vi: "03 — PRODUCTS & SOLUTIONS", en: "03 — PRODUCTS & SOLUTIONS" },
+      title: {
+        vi: "GIẢI PHÁP CHIP BÁN DẪN & PHẦN MỀM AI NGOẠI BIÊN",
+        en: "EDGE-AI SEMICONDUCTORS & AI SOFTWARE",
+      },
+      lead: {
+        vi: "Pebble Vina kết hợp công nghệ phần cứng bán dẫn với phần mềm AI để phát triển các giải pháp tính toán phù hợp với nhu cầu doanh nghiệp, từ chip bán dẫn tích hợp AI ngoại biên, nền tảng PIM đến huấn luyện mô hình ngôn ngữ lớn và phần mềm AI tùy chỉnh.",
+        en: "Pebble Vina pairs semiconductor hardware with AI software to build computing solutions that fit enterprise needs — from edge-AI chips and the PIM platform to large language model training and custom AI software.",
+      },
       count: 4,
     },
 
     news: {
       visible: true,
-      eyebrow: { vi: "Kết nối & hợp tác", en: "Connections & collaboration" },
-      title: { vi: "Cùng đối tác đưa AI vào thực tế.", en: "Bringing AI into practice, together." },
-      lead: { vi: "Những hoạt động hợp tác, nghiên cứu và triển khai của Pebble Vina cùng đối tác trong và ngoài nước.", en: "Research, collaboration and deployment with Pebble Vina’s partners in Vietnam and beyond." },
+      eyebrow: {
+        vi: "04 — COLLABORATION FOR THE FUTURE",
+        en: "04 — COLLABORATION FOR THE FUTURE",
+      },
+      title: { vi: "TIN TỨC & HỢP TÁC", en: "NEWS & PARTNERSHIPS" },
+      lead: {
+        vi: "Pebble Vina luôn chủ động mở rộng hợp tác chiến lược với các đối tác, khách hàng và tổ chức hàng đầu để thúc đẩy đổi mới công nghệ và tạo ra giá trị bền vững.",
+        en: "Pebble Vina actively expands strategic collaboration with leading partners, customers and institutions to drive technological innovation and create lasting value.",
+      },
       count: 4,
       image1: "/images/news-korea-semiconductor-partnership-v2.png",
       image2: "/images/news-japan-technology-meeting-v2.png",
@@ -79,9 +124,15 @@ export const SEED_CONTENT: SiteContent = {
 
     contact: {
       visible: true,
-      title: { vi: "Bạn muốn AI giải quyết điều gì?", en: "What do you want AI to solve?" },
-      lead: { vi: "Chia sẻ bài toán, hệ thống hiện tại và mục tiêu của bạn. Cùng Pebble Vina tìm hướng triển khai phù hợp cho doanh nghiệp.", en: "Tell us about your goals and current systems. Work with Pebble Vina to find the right approach for your business." },
-      cta: { vi: "Trao đổi về nhu cầu của bạn", en: "Discuss your needs" },
+      title: {
+        vi: "Cùng nhau kiến tạo giải pháp chip bán dẫn tích hợp AI ngoại biên đột phá",
+        en: "LET'S BUILD BREAKTHROUGH EDGE-AI SEMICONDUCTOR SOLUTIONS TOGETHER",
+      },
+      lead: {
+        vi: "Chúng tôi luôn sẵn sàng lắng nghe và đồng hành cùng bạn để biến ý tưởng thành giá trị thực tiễn, dẫn dắt tương lai công nghệ.",
+        en: "We are always ready to listen and work alongside you to turn ideas into practical value and shape the future of technology.",
+      },
+      cta: { vi: "GỬI THÔNG TIN", en: "SEND" },
       note: {
         vi: "Thông tin của bạn được bảo mật và chỉ sử dụng để hỗ trợ theo yêu cầu.",
         en: "Your information is kept confidential and used only to support your request.",
