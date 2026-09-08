@@ -672,6 +672,63 @@ export const dictionary = {
     },
   },
 
+  /**
+   * Cookie consent. Every line here is a legal statement as much as a piece of
+   * copy: the categories named must be the categories that actually run, and
+   * the cookie names and lifetimes must match `src/lib/consent/cookie.ts` and
+   * `src/lib/auth/admin.ts`. Change one, change the other.
+   */
+  consent: {
+    /** Labels the banner for a screen reader, which meets it before the text. */
+    region: L("Thông báo về cookie", "Cookie notice"),
+    title: L("Trang này dùng cookie", "This site uses cookies"),
+    body: L(
+      "Cookie cần thiết giúp trang chạy đúng. Cookie phân tích chỉ được bật nếu bạn đồng ý — chúng tôi không nạp bất kỳ mã đo lường nào trước khi bạn chọn.",
+      "Necessary cookies keep the site working. Analytics cookies are set only if you allow them — we load no measurement code before you choose.",
+    ),
+    /** Shown under the buttons: the two things consent law says a visitor must
+     *  be told up front — how long the answer lasts and how to take it back. */
+    retention: L(
+      "Lựa chọn được ghi nhớ 180 ngày. Bạn có thể đổi hoặc rút lại bất cứ lúc nào ở mục “Cài đặt cookie” dưới chân trang.",
+      "Your answer is kept for 180 days. You can change or withdraw it at any time from “Cookie settings” in the footer.",
+    ),
+
+    acceptAll: L("ĐỒNG Ý TẤT CẢ", "ACCEPT ALL"),
+    rejectAll: L("CHỈ COOKIE CẦN THIẾT", "NECESSARY ONLY"),
+    customise: L("TÙY CHỈNH", "CUSTOMISE"),
+    save: L("LƯU LỰA CHỌN", "SAVE CHOICES"),
+    close: L("Đóng", "Close"),
+
+    /** Footer entry point — the withdrawal route the banner text promises. */
+    manage: L("Cài đặt cookie", "Cookie settings"),
+    /** Sits where the necessary category's switch would be. */
+    alwaysOn: L("LUÔN BẬT", "ALWAYS ON"),
+
+    categories: {
+      necessary: {
+        name: L("Cookie cần thiết", "Necessary cookies"),
+        body: L(
+          "Ghi nhớ chính lựa chọn cookie này, và giữ phiên đăng nhập của công cụ quản trị nội bộ. Không cookie nào trong nhóm theo dõi bạn, và trang không hoạt động đúng nếu thiếu chúng.",
+          "They remember this very choice, and keep the internal CMS session signed in. Nothing in this group tracks you, and the site cannot work correctly without them.",
+        ),
+        detail: L(
+          "pv_consent · 180 ngày · pv_admin · 12 giờ, chỉ trong CMS",
+          "pv_consent · 180 days · pv_admin · 12 hours, CMS only",
+        ),
+      },
+      analytics: {
+        name: L("Cookie phân tích", "Analytics cookies"),
+        body: L(
+          "Google Analytics đo lượt xem trang và đường đi của người đọc, để chúng tôi biết phần nội dung nào thực sự hữu ích. Mã chỉ được nạp sau khi bạn bật, và khi tắt lại, các cookie _ga bị xoá ngay.",
+          "Google Analytics measures page views and how readers move through the site, so we learn which content is actually useful. The code loads only once you switch this on, and switching it off deletes the _ga cookies straight away.",
+        ),
+        detail: L(
+          "_ga, _ga_* · tối đa 2 năm · Google LLC",
+          "_ga, _ga_* · up to 2 years · Google LLC",
+        ),
+      },
+    },
+  },
   /** Page-level SEO copy. Written to be read by a person in a result list. */
   meta: {
     home: {

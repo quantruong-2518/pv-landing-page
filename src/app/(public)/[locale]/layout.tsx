@@ -5,6 +5,8 @@ import { Toaster } from "sonner";
 import type { ReactNode } from "react";
 
 import { QueryProvider } from "@/components/providers/query-provider";
+import { Analytics } from "@/components/site/consent/analytics";
+import { ConsentBanner } from "@/components/site/consent/consent-banner";
 import { ScrollBehaviour } from "@/components/site/scroll-behaviour";
 import { SiteFooter } from "@/components/site/site-footer";
 import { LOCALES, LOCALE_TAGS, isLocale } from "@/lib/i18n/config";
@@ -98,8 +100,18 @@ export default async function PublicLayout({
         </noscript>
         <QueryProvider>
           <ScrollBehaviour />
+          {/*
+            First in the DOM so it is the first thing keyboard and screen-reader
+            users reach — it is position-fixed, so this costs nothing visually.
+            It renders null until an effect has read the consent cookie, which
+            is what keeps these pages statically prerenderable.
+          */}
+          <ConsentBanner locale={locale} />
           {children}
           <SiteFooter locale={locale} />
+          {/* Mounts only after the analytics category is granted — see the
+              component; nothing is requested from Google before that. */}
+          <Analytics />
           <Toaster
             position="bottom-right"
             toastOptions={{

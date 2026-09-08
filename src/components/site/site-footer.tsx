@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { ConsentSettingsLink } from "@/components/site/consent/consent-settings-link";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
 import { external, homeAnchor, routes } from "@/lib/routes";
@@ -88,10 +89,14 @@ export function SiteFooter({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      <div className="mt-[clamp(24px,2.6vw,40px)]">
+      {/* Copyright and the consent control share the closing row: withdrawing
+          consent has to be findable, and the footer is where a visitor looks
+          for it. The link is the only client-side JavaScript in this footer. */}
+      <div className="mt-[clamp(24px,2.6vw,40px)] flex flex-wrap items-center justify-between gap-x-col gap-y-2">
         <span className="font-mono text-[0.71875rem] tracking-[0.05em] text-copy">
           {copy.copyright[locale]}
         </span>
+        <ConsentSettingsLink locale={locale} />
       </div>
     </footer>
   );
