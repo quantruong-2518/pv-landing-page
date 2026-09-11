@@ -111,6 +111,25 @@ export function VignetteImage({
 }
 
 /**
+ * `Spec.value` is transcribed verbatim from the design in Vietnamese numeral
+ * notation — comma decimal, dot thousands (dictionary.ts: "17,6", "~10.000")
+ * — because the design mock itself never localizes these spans (no `data-en`
+ * on them). English and Korean readers expect the opposite convention, so a
+ * bare VN-formatted number gets its separators swapped for those locales.
+ * Anything that isn't *only* digits/~/× — a version string ("PCIe 5.0"), a
+ * dimension ("5 × 5") — is left untouched, matching the source figure.
+ */
+const VN_NUMBER = /^(~?)(\d{1,3}(?:\.\d{3})*)(,\d+)?(×?)$/;
+
+function localizeFigure(value: string, locale: Locale): string {
+  if (locale === "vi") return value;
+  const match = VN_NUMBER.exec(value);
+  if (!match) return value;
+  const [, prefix, integer, decimal, suffix] = match;
+  return `${prefix}${integer.replace(/\./g, ",")}${decimal ? `.${decimal.slice(1)}` : ""}${suffix}`;
+}
+
+/**
  * A specification card: mono label, large figure, then either a fixed unit or
  * a translated comparison footnote. Never both — the design uses one or the
  * other and mixing them makes the row heights disagree.
@@ -122,7 +141,7 @@ export function SpecCard({ spec, locale }: { spec: Spec; locale: Locale }) {
       <span
         className={cn("font-heading text-stat", spec.accent ? "text-accent" : "text-ink")}
       >
-        {spec.value}
+        {localizeFigure(spec.value, locale)}
       </span>
       {spec.unit ? <span className="font-mono text-label text-muted">{spec.unit}</span> : null}
       {spec.note ? <span className="text-note text-body">{spec.note[locale]}</span> : null}
