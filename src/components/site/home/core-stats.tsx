@@ -28,7 +28,12 @@ import { cn } from "@/lib/utils";
  */
 export function CoreStats({ content, locale }: { content: HomeContent["core"]; locale: Locale }) {
   return (
-    <Section labelledBy="core-title" className="glow-core bg-night-deep">
+    <Section
+      labelledBy="core-title"
+      screen
+      spend="between"
+      className="glow-core bg-night-deep"
+    >
       <SectionHead
         eyebrow={content.eyebrow[locale]}
         title={content.title[locale]}
@@ -38,8 +43,21 @@ export function CoreStats({ content, locale }: { content: HomeContent["core"]; l
       />
 
       {/* The row gap lives on the parent because the parent owns the tracks the
-       * cards subgrid into; the cards repeat it so their own sizing agrees. */}
-      <div className="grid gap-x-col gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+       * cards subgrid into; the cards repeat it so their own sizing agrees.
+       *
+       * `grow` + a `1fr` body track is how this block spends a full screen.
+       * Left to `justify-between` alone the surplus became one ~330px band of
+       * empty navy between the heading and the cards — this section carries no
+       * photograph to fill it, unlike "Tại sao PIM" next door. Handing it to
+       * the cards instead makes them the full-height columns the handoff
+       * describes (§ 5.6: "thẻ là flex column full height", outcome line held
+       * down by `margin-top:auto`), so each card closes on its own outcome at
+       * the bottom edge and the three share that baseline.
+       *
+       * The row template is `lg:` only: below that the cards wrap to two or
+       * three grid lines and a four-row template would size the first line and
+       * leave the rest implicit. */}
+      <div className="grid grow gap-x-col gap-y-4 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr_auto]">
         {dictionary.home.core.cards.map((card, index) => (
           <Reveal
             key={card.index}

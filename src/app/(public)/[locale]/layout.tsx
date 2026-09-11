@@ -10,7 +10,7 @@ import { ConsentBanner } from "@/components/site/consent/consent-banner";
 import { ScrollBehaviour } from "@/components/site/scroll-behaviour";
 import { SiteFooter } from "@/components/site/site-footer";
 import { LOCALES, LOCALE_TAGS, isLocale } from "@/lib/i18n/config";
-import { siteUrl } from "@/lib/routes";
+import { absolute, siteUrl } from "@/lib/routes";
 
 import "@/app/globals.css";
 
@@ -69,12 +69,76 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
+/**
+ * Search-engine and Naver webmaster-tools ownership tokens, each read from
+ * the deploy environment and omitted entirely when unset — an absent tag
+ * reads as "not verified yet," an empty `<meta content="">` reads as a
+ * broken one, and the two must never be confused. Per-environment: production
+ * and any preview deployment each verify their own property, so none of
+ * these are, or should be, committed values.
+ *
+ *   GOOGLE_SITE_VERIFICATION — Google Search Console → Settings → Ownership
+ *     verification → HTML tag method → the `content` attribute's value only.
+ *   BING_SITE_VERIFICATION — Bing Webmaster Tools → verify ownership → HTML
+ *     meta tag option → the `content` attribute's value only. Bing has no
+ *     first-class key on Next's `Verification` type, hence `other`.
+ *   NAVER_SITE_VERIFICATION — Naver Search Advisor (서치어드바이저) → site
+ *     ownership → HTML tag → the `content` attribute's value only. Relevant
+ *     specifically because this site has a `/ko` locale: Naver, not Google,
+ *     is the primary way into Korean search.
+ */
+function buildVerification(): Metadata["verification"] {
+  const other: Record<string, string> = {};
+  if (process.env.BING_SITE_VERIFICATION) {
+    other["msvalidate.01"] = process.env.BING_SITE_VERIFICATION;
+  }
+  if (process.env.NAVER_SITE_VERIFICATION) {
+    other["naver-site-verification"] = process.env.NAVER_SITE_VERIFICATION;
+  }
+
+  const verification: NonNullable<Metadata["verification"]> = {};
+  if (process.env.GOOGLE_SITE_VERIFICATION) {
+    verification.google = process.env.GOOGLE_SITE_VERIFICATION;
+  }
+  if (Object.keys(other).length > 0) {
+    verification.other = other;
+  }
+
+  return Object.keys(verification).length > 0 ? verification : undefined;
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  // logo-light: the mark recoloured to white, flag roundel untouched. The navy
-  // original is unreadable at 16px against a dark tab strip, which is what
-  // themeColor above says this site is.
-  icons: { icon: "/images/logo-light.png" },
+  // The app-icon file convention (src/app/icon.png, src/app/apple-icon.png)
+  // covers the hand-written `icons: { icon: "/images/logo-light.png" }` this
+  // replaced, and adds an apple-touch-icon that never existed before — see
+  // the comment on those files for why logo-light (the mark recoloured white)
+  // is the source art.
+  //
+  // /llms.txt has no link anywhere pointing at it. `alternates.types` is the
+  // documented slot for "this content also exists as this other media type"
+  // (see the `alternates` section of generate-metadata.md), and text/plain is
+  // what that route actually serves.
+  //
+  // Caution for the next person editing src/lib/seo/metadata.ts: Metadata
+  // objects merge shallowly by key across the layout/page tree, and every one
+  // of the three page.tsx files sets its own `alternates` (canonical +
+  // languages) via `buildMetadata`. Per the documented merge rule ("Duplicate
+  // keys are replaced based on their ordering" — generate-metadata.md,
+  // "Merging"), that page-level `alternates` object *replaces* this one
+  // wholesale on every actual rendered page, dropping `types`. This link is
+  // therefore only live on a route that renders with no page-level
+  // `alternates` of its own (i.e. not currently any of the nine public
+  // pages) until `buildMetadata` either merges this in or stops setting
+  // `alternates.canonical`/`languages` at the page level.
+  alternates: {
+    types: {
+      "text/plain": [
+        { title: "llms.txt — Pebble Vina for AI assistants", url: absolute("/llms.txt") },
+      ],
+    },
+  },
+  verification: buildVerification(),
 };
 
 export function generateStaticParams() {

@@ -41,7 +41,7 @@ export function BioMasthead({ locale }: { locale: Locale }) {
       id={routes.anchors.top}
       labelledBy="bio-title"
       screen
-      center
+      spend="between"
       className="glow-bio-mast overflow-hidden bg-night-deep"
     >
       <div aria-hidden className="bio-grid pointer-events-none absolute inset-0" />

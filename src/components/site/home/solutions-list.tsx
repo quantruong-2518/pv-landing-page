@@ -36,7 +36,7 @@ export function SolutionsList({
       id={routes.anchors.solutions}
       labelledBy="solutions-title"
       screen
-      center
+      spend="between"
       padded={false}
       className="glow-solutions bg-navy-lit py-section"
     >

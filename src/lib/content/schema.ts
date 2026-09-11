@@ -136,20 +136,53 @@ export const productContentSchema = z.object({
   }),
 });
 
+/**
+ * ISO timestamp of the seed copy's last hand edit.
+ *
+ * Sourced from `git log -1 --format=%cs -- src/lib/content/seed.ts`, which
+ * returned `2026-09-09` (commit 508f0c5, "add Korean as a third locale" — the
+ * last commit to touch the seed copy at the time this field was added).
+ * Expressed here as UTC midnight of that date since the git command only
+ * gives a calendar day.
+ *
+ * Lives in `schema.ts` rather than `seed.ts` because `seed.ts` already
+ * imports `SiteContent` from this file; importing the other way round would
+ * make the two files depend on each other. Bump this by hand whenever the
+ * seed copy in `seed.ts` is hand-edited — it is the fallback `publishedAt`
+ * for a document that has never been published through the CMS.
+ */
+export const SEED_PUBLISHED_AT = "2026-09-09T00:00:00.000Z";
+
 export const contentSchema = z.object({
   home: homeContentSchema,
   product: productContentSchema,
+  /**
+   * When the document was last published. Stamped by `saveSection` and
+   * `resetSection` in `store.ts` on every write; read back by `sitemap.ts`
+   * (`lastModified`) and by the JSON-LD `dateModified` another agent is
+   * wiring up, so both stop lying with a build-time `new Date()`.
+   */
+  publishedAt: z.iso.datetime(),
 });
 
 export type HomeContent = z.infer<typeof homeContentSchema>;
 export type ProductContent = z.infer<typeof productContentSchema>;
 export type SiteContent = z.infer<typeof contentSchema>;
 
-export type ContentPageId = keyof SiteContent;
+export const CONTENT_PAGE_IDS = ["home", "product"] as const;
+
+/**
+ * Re-derived from `CONTENT_PAGE_IDS` instead of `keyof SiteContent`.
+ *
+ * `SiteContent` now has a third top-level key, `publishedAt`, that is a
+ * document-level field, not a page. `keyof SiteContent` would silently accept
+ * it as a valid page id, and `/api/content/[page]` — plus the admin panel's
+ * page list — would then treat "publishedAt" as something you can GET/PATCH
+ * like `home` or `product`. Do not flip this back to `keyof SiteContent`.
+ */
+export type ContentPageId = (typeof CONTENT_PAGE_IDS)[number];
 export type HomeSectionId = keyof HomeContent;
 export type ProductSectionId = keyof ProductContent;
-
-export const CONTENT_PAGE_IDS = ["home", "product"] as const;
 
 /** A partial patch for one section — what the admin panel PATCHes. */
 export const sectionPatchSchema = z.record(z.string(), z.unknown());

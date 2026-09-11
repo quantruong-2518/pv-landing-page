@@ -1,4 +1,4 @@
-import type { SiteContent } from "@/lib/content/schema";
+import { SEED_PUBLISHED_AT, type SiteContent } from "@/lib/content/schema";
 
 /**
  * Seed for the CMS document.
@@ -16,6 +16,9 @@ import type { SiteContent } from "@/lib/content/schema";
  * or a date that the Vietnamese does not already state.
  */
 export const SEED_CONTENT: SiteContent = {
+  // Document-level, not a page — see the comment on `SEED_PUBLISHED_AT` in
+  // schema.ts for where this date comes from and when to bump it.
+  publishedAt: SEED_PUBLISHED_AT,
   home: {
     hero: {
       visible: true,
@@ -73,8 +76,8 @@ export const SEED_CONTENT: SiteContent = {
         en: "PIM (Processing-in-Memory) brings computation close to where data is stored, cutting the volume of data that has to move between memory and processor. Pebble Vina develops two PIM directions — Analog and Digital — to serve different AI computing needs.",
         ko: "PIM(Processing-in-Memory)은 연산을 데이터가 저장된 자리 가까이로 옮겨, 메모리와 프로세서 사이를 오가야 하는 데이터의 양을 줄이는 기술입니다. Pebble Vina는 서로 다른 AI 연산 수요에 대응하기 위해 아날로그와 디지털 두 갈래의 PIM 기술을 개발하고 있습니다.",
       },
-      imageA: "/images/analog-pim-chip-v3.png",
-      imageB: "/images/digital-pim-chip-v3.png",
+      imageA: "/images/mint-analog-pim-v2.png",
+      imageB: "/images/espresso-digital-pim-v2.png",
       statement: {
         vi: "NÂNG CAO HIỆU SUẤT TÍNH TOÁN CHO AI.",
         en: "RAISING COMPUTE EFFICIENCY FOR AI.",

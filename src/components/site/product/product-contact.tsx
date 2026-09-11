@@ -28,9 +28,11 @@ export function ProductContact({
     <Section
       id={routes.anchors.contact}
       labelledBy="product-contact-title"
+      screen
+      spend="between"
       className="band-contact bg-navy-lit py-section-lg"
     >
-      <div className="grid items-end gap-[clamp(26px,3vw,52px)] gap-x-col lg:grid-cols-2">
+      <div className="grid grow content-end items-end gap-[clamp(26px,3vw,52px)] gap-x-col lg:grid-cols-2">
         <div className="flex flex-col gap-5">
           <Eyebrow className="text-accent">{dictionary.product.contact.eyebrow[locale]}</Eyebrow>
           <h2

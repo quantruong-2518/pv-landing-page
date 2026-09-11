@@ -9,11 +9,17 @@ import { ProductDetail, SpecHeading } from "@/components/site/product/product-de
 import { SoftwareSection } from "@/components/site/product/software-section";
 import { TrainingSection } from "@/components/site/product/training-section";
 import { SiteHeader } from "@/components/site/site-header";
-import { getPageContent } from "@/lib/content/store";
+import { getPageContent, getPublishedAt } from "@/lib/content/store";
 import { isLocale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
 import { routes } from "@/lib/routes";
-import { breadcrumbJsonLd, jsonLdScript, productCatalogueJsonLd } from "@/lib/seo/jsonld";
+import {
+  breadcrumbJsonLd,
+  collectionPageJsonLd,
+  jsonLdScript,
+  organisationJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo/jsonld";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 /**
@@ -42,13 +48,25 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
 
   const content = await getPageContent("product");
   const copy = dictionary.product;
+  // Same memoised `getContent()` as `getPageContent` above, so this costs no
+  // extra disk read — the only honest source for JSON-LD `dateModified`
+  // (never a build-time `new Date()`, which would claim every page changed
+  // on every build).
+  const publishedAt = await getPublishedAt();
 
   return (
     <>
       <SiteHeader locale={locale} active="products" />
 
       <main>
-        {content.catalog.visible ? <Catalogue content={content.catalog} locale={locale} /> : null}
+        {content.catalog.visible ? (
+          <Catalogue content={content.catalog} locale={locale} />
+        ) : (
+          // Catalogue owns the page's only <h1>. Hiding the catalog section
+          // from the CMS `visible` toggle must not strip the document of its
+          // heading, so a sr-only one carries the page's own title instead.
+          <h1 className="sr-only">{dictionary.meta.products.title[locale]}</h1>
+        )}
 
         {content.mint.visible ? (
           <ProductDetail
@@ -58,11 +76,11 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             meta={copy.mint.meta[locale]}
             title={content.mint.title[locale]}
             lead={content.mint.lead[locale]}
-            image={{ src: content.mint.image, alt: "MINT" }}
+            image={{ src: content.mint.image, alt: copy.mint.imageAlt[locale] }}
             apps={copy.mint.apps}
             className="glow-mint bg-navy"
           >
-            <SpecHeading label={copy.shared.keySpecs[locale]} className="mt-[clamp(22px,2.4vw,36px)]" />
+            <SpecHeading label={copy.shared.keySpecs[locale]} />
             {/* Three fixed 12rem tracks, not `auto-fit`. `auto-fit` collapses
                 its empty tracks and hands the free space back to the survivors,
                 so three short figures were spread over the full 1390px with
@@ -84,25 +102,17 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             meta={copy.papaya.meta[locale]}
             title={content.papaya.title[locale]}
             lead={content.papaya.lead[locale]}
-            image={{ src: content.papaya.image, alt: "PAPAYA" }}
+            image={{ src: content.papaya.image, alt: copy.papaya.imageAlt[locale] }}
             apps={copy.papaya.apps.map((app) => app[locale])}
             className="glow-papaya bg-night-deep"
           >
             {/* Two spec blocks: PAPAYA's own figures, then FLEX stated purely as
                 multiples against a named competitor part — each with the
                 measurement that produced it, because "~100×" alone is a slogan. */}
-            <SpecHeading
-              name="PAPAYA"
-              label={copy.shared.keySpecs[locale]}
-              className="mt-[clamp(26px,3vw,44px)]"
-            />
+            <SpecHeading name="PAPAYA" label={copy.shared.keySpecs[locale]} />
             <SpecGrid specs={copy.papaya.specs} locale={locale} className="lg:grid-cols-4" />
 
-            <SpecHeading
-              name="PAPAYA FLEX"
-              label={copy.papaya.flexLabel}
-              className="mt-[clamp(22px,2.4vw,36px)]"
-            />
+            <SpecHeading name="PAPAYA FLEX" label={copy.papaya.flexLabel} />
             {/* `items-start`, not `items-center`: the FLEX render is far taller
                 than the three-figure column, and centring the figures against
                 it opened ~120px of nothing directly under the "PAPAYA FLEX"
@@ -111,7 +121,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
               <SpecGrid specs={copy.papaya.flexSpecs} locale={locale} className="lg:grid-cols-3" />
               <VignetteImage
                 src="/images/papaya-flex-chrome-v4.png"
-                alt="PAPAYA FLEX — PEBBLE SQUARE"
+                alt={copy.papaya.flexImageAlt[locale]}
                 sizes="(max-width: 1023px) 94vw, 38vw"
                 className="product-chrome-art"
               />
@@ -127,7 +137,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             meta={copy.espresso.meta[locale]}
             title={content.espresso.title[locale]}
             lead={content.espresso.lead[locale]}
-            image={{ src: content.espresso.image, alt: "ESPRESSO" }}
+            image={{ src: content.espresso.image, alt: copy.espresso.imageAlt[locale] }}
             className="glow-espresso bg-navy"
             beforeCta={
               // Target platforms with their dates — ESPRESSO is a Q3/2026 part,
@@ -157,7 +167,12 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
                 `card-title`, not the old clamp(1.5rem,2.2vw,2.125rem): 640 TOPS
                 is what four of these chips add up to, so it must read under the
                 per-chip figures in `stat` beside it, not over them. */}
-            <div className="mt-[clamp(22px,2.4vw,36px)] flex flex-col gap-2">
+            {/* ESPRESSO's figures were the one spec row on this page opening with
+                neither a rule nor a label — four target platforms with their
+                dates ran straight into three per-chip figures, and the reader
+                had whitespace alone to tell the two apart. */}
+            <SpecHeading label={copy.shared.keySpecs[locale]} />
+            <div className="flex flex-col gap-2">
               <SpecGrid
                 specs={copy.espresso.specs}
                 locale={locale}
@@ -183,7 +198,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             meta={copy.eseries.meta[locale]}
             title={content.eseries.title[locale]}
             lead={content.eseries.lead[locale]}
-            image={{ src: content.eseries.image, alt: "E-Series" }}
+            image={{ src: content.eseries.image, alt: copy.eseries.imageAlt[locale] }}
             apps={copy.eseries.apps}
             showCta={false}
             className="glow-eseries bg-night-deep"
@@ -205,33 +220,49 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
         ) : null}
       </main>
 
+      {/* CollectionPage nests the product ItemList as its own `mainEntity`
+          instead of sitting beside it as a second, bare ItemList node — see
+          `collectionPageJsonLd` in jsonld.ts for why the two share one body
+          builder. Emitting both here would print the product list twice in
+          one document. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript([
+          // The organisation and website nodes are repeated on this document
+          // for the same reason /bio repeats the organisation: every `@id`
+          // reference below — each product's `brand` and `manufacturer`, and
+          // `CollectionPage.isPartOf` — has to resolve inside the document a
+          // crawler is currently reading. Emitted nowhere on this page, those
+          // references pointed at nothing.
+          organisationJsonLd(locale),
+          websiteJsonLd(locale),
           breadcrumbJsonLd(locale, [
             { name: dictionary.header.nav.home[locale], path: routes.home(locale) },
             { name: dictionary.header.nav.products[locale], path: routes.products(locale) },
           ]),
-          productCatalogueJsonLd(locale, {
-            mint: {
-              title: content.mint.title[locale],
-              description: content.mint.lead[locale],
-              image: content.mint.image,
-            },
-            papaya: {
-              title: content.papaya.title[locale],
-              description: content.papaya.lead[locale],
-              image: content.papaya.image,
-            },
-            espresso: {
-              title: content.espresso.title[locale],
-              description: content.espresso.lead[locale],
-              image: content.espresso.image,
-            },
-            eseries: {
-              title: content.eseries.title[locale],
-              description: content.eseries.lead[locale],
-              image: content.eseries.image,
+          collectionPageJsonLd(locale, {
+            dateModified: publishedAt.toISOString(),
+            content: {
+              mint: {
+                title: content.mint.title[locale],
+                description: content.mint.lead[locale],
+                image: content.mint.image,
+              },
+              papaya: {
+                title: content.papaya.title[locale],
+                description: content.papaya.lead[locale],
+                image: content.papaya.image,
+              },
+              espresso: {
+                title: content.espresso.title[locale],
+                description: content.espresso.lead[locale],
+                image: content.espresso.image,
+              },
+              eseries: {
+                title: content.eseries.title[locale],
+                description: content.eseries.lead[locale],
+                image: content.eseries.image,
+              },
             },
           }),
         ])}

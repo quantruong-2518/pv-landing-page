@@ -25,14 +25,17 @@ import { dictionary } from "@/lib/i18n/dictionary";
  * source order: a negative z-index would put the image behind the section's own
  * background colour and make it disappear entirely.
  *
- * Sized to its content rather than `screen`: the copy here is only a header and
- * three short cards, so pinning it to the viewport left a void above and below
- * that grew as the window narrowed and lines wrapped less. Measured at 1360px
- * wide — 220px of empty margin on each side, more than half the section.
+ * Full height from `md`, with the surplus spent `between` rather than centred.
+ * The first attempt at `screen` here used `center` and left a void above *and*
+ * below the content — 220px of empty margin on each side at 1360px wide, more
+ * than half the section — so the block was taken off `screen` entirely. That
+ * fixed the void by giving up the full-screen rhythm. `spend="between"` keeps
+ * both: the heading row holds the top edge, the three cards hold the bottom
+ * edge, and the surplus is one gap between two things the reader can see.
  */
 export function WhySection({ content, locale }: { content: HomeContent["why"]; locale: Locale }) {
   return (
-    <Section labelledBy="why-title" className="overflow-hidden bg-navy">
+    <Section labelledBy="why-title" screen spend="between" className="overflow-hidden bg-navy">
       <Image src={content.image} alt="" fill sizes="100vw" className="z-0 object-cover" />
       <div
         aria-hidden

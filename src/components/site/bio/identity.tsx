@@ -39,7 +39,14 @@ export function BioIdentity({
       // The band both other pages close on: navy over the semiconductor
       // texture, with its own portrait crop below 640px. The sheet ends on the
       // same surface the rest of the site ends on.
-      className="band-contact"
+      //
+      // `bg-navy-lit` is half of that band and was missing here. `.band-contact`
+      // is a background-*image* — 84–93% navy-lit over the texture — so with no
+      // colour beneath it the translucent half composited against the body's
+      // `night` instead, and this block measured a transparent background where
+      // the same band on / and /products measures navy-lit at 11.64 L*. The
+      // section read a step darker than the two it is supposed to match.
+      className="band-contact bg-navy-lit"
     >
       <SectionMark
         mark={copy.sections.legal.mark}

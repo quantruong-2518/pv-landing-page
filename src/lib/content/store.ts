@@ -2,7 +2,12 @@ import { cache } from "react";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { contentSchema, type ContentPageId, type SiteContent } from "@/lib/content/schema";
+import {
+  contentSchema,
+  SEED_PUBLISHED_AT,
+  type ContentPageId,
+  type SiteContent,
+} from "@/lib/content/schema";
 import { SEED_CONTENT } from "@/lib/content/seed";
 
 /**
@@ -33,6 +38,12 @@ const isPlainObject = (value: unknown): value is Json =>
  * the addition of a locale: a `data/content.runtime.json` written when fields
  * were `{ vi, en }` keeps its edits and picks up `ko` from the seed, instead of
  * failing the schema and dropping the whole document back to seed values.
+ *
+ * Same mechanism covers the addition of the top-level `publishedAt` field: a
+ * document written before that field existed has no `publishedAt` key in its
+ * patch, so the `{ ...base }` spread below carries the seed's `publishedAt`
+ * through untouched, and the parse that follows in `getContent()` sees a
+ * complete, valid document rather than one missing a required field.
  */
 function merge<T>(base: T, patch: unknown): T {
   if (!isPlainObject(patch) || !isPlainObject(base)) {
@@ -76,6 +87,25 @@ export async function getPageContent<P extends ContentPageId>(page: P): Promise<
 }
 
 /**
+ * When the document was last published — the honest value `sitemap.ts` uses
+ * for `lastModified` and other agents use for JSON-LD `dateModified`, instead
+ * of a build-time `new Date()` that would claim every page changed on every
+ * build.
+ *
+ * Reuses the memoised `getContent()` rather than reading the file again, so
+ * calling this alongside `getPageContent()` in the same request still touches
+ * disk once.
+ */
+export async function getPublishedAt(): Promise<Date> {
+  const { publishedAt } = await getContent();
+  const parsed = new Date(publishedAt);
+  // A stored string that fails to parse must not become an Invalid Date: a
+  // downstream `toISOString()` (sitemap.xml, JSON-LD) would throw and take a
+  // prerendered page down with it. Fall back to the seed's own timestamp.
+  return Number.isNaN(parsed.getTime()) ? new Date(SEED_PUBLISHED_AT) : parsed;
+}
+
+/**
  * Apply a patch to one section and publish it.
  *
  * Section-scoped on purpose: two editors working on different sections of the
@@ -95,6 +125,10 @@ export async function saveSection(
 
   const next = contentSchema.parse({
     ...current,
+    // Stamped on every write, not just this section, because `publishedAt`
+    // is document-level: it is the single `lastModified` the sitemap and the
+    // roadmap JSON-LD share across both pages.
+    publishedAt: new Date().toISOString(),
     [page]: {
       ...pageContent,
       [sectionId]: merge(pageContent[sectionId], patch),
@@ -118,6 +152,9 @@ export async function resetSection(
   const current = await getContent();
   const next = contentSchema.parse({
     ...current,
+    // A reset still publishes: the page's rendered output changes back to
+    // the seed value, so the timestamp must move too.
+    publishedAt: new Date().toISOString(),
     [page]: { ...(current[page] as Record<string, unknown>), [sectionId]: seedSection },
   });
 

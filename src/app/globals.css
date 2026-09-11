@@ -213,6 +213,38 @@
     border-radius: 0;
   }
 
+  /*
+   * The seam between two sections.
+   *
+   * Surfaces alone do not guarantee one. Measured CIE lightness (L*) of the
+   * six surface tokens, computed from the hexes in @theme above:
+   *
+   *   night-footer 1.37 · night-deep 1.70 · night 1.98 · marquee 3.17
+   *   navy 6.05 · navy-lit 11.64
+   *
+   * The three deepest sit inside 0.6 L* of one another — under the ~1 L* step
+   * two large flat fields need before they read as different colours — so
+   * `bg-night` against `bg-night-deep` is a single surface on the screen
+   * whatever the token table implies. Two boundaries were already living on
+   * that: /bio `hop-tac → phap-nhan` (both resolved to night, ΔL* 0) and
+   * `phap-nhan → footer` (ΔL* 0.61). Both measured at 1454×728.
+   *
+   * So the seam is a hairline rather than a surface — 8% ink, the floor of the
+   * handoff's 8–28% divider range (handoff § 4, `border-hairline`). It is a
+   * whisper at the boundaries that already differ by 4+ L* and the only thing
+   * holding the line at the ones that do not, which is what "subtle, but
+   * always there" has to mean when the palette bottoms out this dark.
+   *
+   * Written as `main > * + *`, not as a `Section` prop: a section added later
+   * cannot forget a rule it never had to opt into, and the `+` is what keeps a
+   * rule from landing under the sticky header on the first block of a page.
+   * `--color-ink` is read at the section, so /bio's `.bio-day` band — which
+   * overrides the token — gets a dark hairline on its light surface for free.
+   */
+  main > * + * {
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
+  }
+
   ::selection {
     background: color-mix(in srgb, var(--color-accent) 35%, transparent);
   }
@@ -313,6 +345,98 @@
         color-mix(in srgb, var(--color-night) 35%, transparent) 34%,
         transparent 62%
       );
+  }
+
+  /* PIM cards use independent layers: drafting ground, isolated chip, signal,
+   * then copy. Hovering therefore cannot move the grid or signal drawing. */
+  .pim-technical-card {
+    isolation: isolate;
+    background-image:
+      radial-gradient(
+        ellipse 72% 64% at 60% 76%,
+        color-mix(in srgb, var(--color-signal-blue) 12%, transparent),
+        transparent 72%
+      ),
+      linear-gradient(145deg, var(--color-navy) 0%, var(--color-night-deep) 82%);
+  }
+
+  .pim-technical-grid {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-ink) 7%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color-ink) 7%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-accent) 10%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color-accent) 10%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 28px 28px, 28px 28px, 140px 140px, 140px 140px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 92%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 92%, transparent);
+  }
+
+  .pim-chip-render {
+    backface-visibility: hidden;
+    filter: saturate(0.58) brightness(0.88) contrast(1.04);
+    transform: translate3d(0, 0, 0);
+    transform-origin: 38% 78%;
+    transition:
+      transform 1100ms cubic-bezier(0.16, 1, 0.3, 1),
+      filter 1100ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  .group:hover .pim-chip-render {
+    filter: saturate(0.64) brightness(0.92) contrast(1.04);
+    transform: translate3d(0, 0, 0) scale(1.16);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pim-chip-render {
+      transition: none;
+    }
+
+    .group:hover .pim-chip-render {
+      transform: none;
+    }
+  }
+
+  /* The copy scrim is sized by the copy rather than by the full card, so the
+   * drafting layer remains visible below it at every responsive line count. */
+  .scrim-pim-card {
+    /* The fade is sized by the *copy*, not by the card. As percentages of the
+     * card the scrim released the image at 58% while the copy block reached
+     * 64% of the card height at 1440×900 — further still at narrower widths,
+     * where the body wraps to more lines — so the paragraph's last lines
+     * landed on the signal drawing across the middle. Anchoring the fade to
+     * `100%` of this element and
+     * giving the element the fade's own height as bottom padding keeps the
+     * type over 88%+ at any width and any line count, with the release always
+     * below it. */
+    /* The padding that reserves the fade is applied in the markup
+     * (`pb-[var(--scrim-pim-fade)]`) so Tailwind owns the padding utilities on
+     * this element and there is no utility-vs-component ordering to reason
+     * about. */
+    --scrim-pim-fade: clamp(44px, 4.6vw, 68px);
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-night-deep) 94%, transparent) 0%,
+      color-mix(in srgb, var(--color-night-deep) 88%, transparent)
+        calc(100% - var(--scrim-pim-fade)),
+      transparent 100%
+    );
   }
 
   /* "Why PIM" and the training block: text sits left, image reads through right. */

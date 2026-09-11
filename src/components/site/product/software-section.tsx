@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { ProgressTrack } from "@/components/motion/progress-track";
 import { Reveal } from "@/components/motion/reveal";
-import { ProductKicker } from "@/components/site/primitives";
+import { GroupRule, ProductKicker } from "@/components/site/primitives";
 import { Section } from "@/components/site/section";
 import { Button } from "@/components/ui/button";
 import type { ProductContent } from "@/lib/content/schema";
@@ -34,6 +34,7 @@ export function SoftwareSection({
       id={routes.anchors.software}
       labelledBy="software-title"
       screen
+      spend="between"
       className="overflow-hidden bg-navy-lit py-section-lg"
     >
       <Image src={content.image} alt="" fill sizes="100vw" className="z-0 object-cover" />
@@ -69,7 +70,15 @@ export function SoftwareSection({
             `01 02 03 04 05` line stopped being a line. The numbers are the
             rhythm of this row, so the tops align and the bodies end where
             their length ends. */}
-        <div className="mt-auto grid gap-x-[clamp(16px,1.8vw,32px)] pt-10 sm:grid-cols-2 lg:grid-cols-5">
+        {/* A rule and nothing else: the `01 02 03 04 05` line already names
+            this group, so the head would only repeat it. What the boundary has
+            to say is that the progress figure above and the modules below are
+            two different things — `mt-auto` pushes them apart on a tall
+            viewport and closes the gap on a short one, which left the reader
+            with a distance that changes rather than a boundary. */}
+        <GroupRule className="mt-auto" />
+
+        <div className="grid gap-x-[clamp(16px,1.8vw,32px)] pt-10 sm:grid-cols-2 lg:grid-cols-5">
           {copy.modules.map((module, index) => (
             <Reveal
               key={module.index}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { ProductKicker, VignetteImage } from "@/components/site/primitives";
+import { GroupRule, ProductKicker, VignetteImage } from "@/components/site/primitives";
 import { Section } from "@/components/site/section";
 import { Button } from "@/components/ui/button";
 import type { Locale } from "@/lib/i18n/config";
@@ -49,7 +49,13 @@ export function ProductDetail({
   const headingId = `${id}-title`;
 
   return (
-    <Section id={id} labelledBy={headingId} className={cn("py-section-lg", className)}>
+    <Section
+      id={id}
+      labelledBy={headingId}
+      screen
+      spend="between"
+      className={cn("py-section-lg", className)}
+    >
       <ProductKicker label={kicker} meta={meta} />
 
       <div className="grid items-start gap-[clamp(26px,3vw,52px)] gap-x-col pt-[clamp(22px,2.4vw,36px)] lg:grid-cols-2">
@@ -114,7 +120,16 @@ export function ProductDetail({
   );
 }
 
-/** `THÔNG SỐ CHÍNH` / a product name above a spec row. */
+/**
+ * `THÔNG SỐ CHÍNH` / a product name above a spec row.
+ *
+ * A thin wrapper over `GroupRule` rather than its own layout: a spec row is the
+ * commonest "second kind of content inside a section" on this page, so it opens
+ * with the same hairline every other group does. The two slots swap by whether
+ * there is a wordmark — with a `name` the label is the qualifier under it
+ * ("PAPAYA FLEX" · MACHINE VISION BENCHMARK), without one the label *is* the
+ * group's name and is set in accent like the catalogue's group heads.
+ */
 export function SpecHeading({
   name,
   label,
@@ -125,14 +140,11 @@ export function SpecHeading({
   className?: string;
 }) {
   return (
-    <div className={cn("flex flex-wrap items-baseline gap-4 pt-4", className)}>
-      {/* `tracking-[0.04em]` survives the token: the design sets these product
-          names wide (+0.04em) where `card-title` runs tight (−0.005em), which
-          is what makes "PAPAYA FLEX" read as a wordmark and not as a heading. */}
-      {name ? (
-        <span className="font-heading text-card-title tracking-[0.04em]">{name}</span>
-      ) : null}
-      <span className="font-mono text-label whitespace-nowrap text-faint">{label}</span>
-    </div>
+    <GroupRule
+      name={name}
+      label={name ? undefined : label}
+      meta={name ? label : undefined}
+      className={className}
+    />
   );
 }

@@ -102,4 +102,4 @@ export function DataCell({
 }
 
 /** Total number of numbered sections — the denominator in every mark. */
-export const SHEET_TOTAL = "06";
+export const SHEET_TOTAL = "07";

@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { Reveal } from "@/components/motion/reveal";
-import { NumberedItem, ProductKicker } from "@/components/site/primitives";
+import { GroupRule, NumberedItem, ProductKicker } from "@/components/site/primitives";
 import { Section } from "@/components/site/section";
 import type { ProductContent } from "@/lib/content/schema";
 import type { Locale } from "@/lib/i18n/config";
@@ -28,6 +28,8 @@ export function TrainingSection({
     <Section
       id={routes.anchors.training}
       labelledBy="training-title"
+      screen
+      spend="between"
       className="glow-training overflow-hidden bg-navy py-section-lg"
     >
       <Image src={content.image} alt="" fill sizes="100vw" className="z-0 object-cover" />
@@ -36,7 +38,7 @@ export function TrainingSection({
         className="scrim-left-navy-strong pointer-events-none absolute inset-0 z-[1]"
       />
 
-      <div className="relative z-[2]">
+      <div className="relative z-[2] flex grow flex-col md:justify-between">
         <ProductKicker label={copy.kicker[locale]} meta={copy.meta[locale]} />
 
         <div className="grid items-start gap-[clamp(26px,3vw,52px)] gap-x-col pt-[clamp(22px,2.4vw,36px)] lg:grid-cols-2">
@@ -49,7 +51,12 @@ export function TrainingSection({
           </div>
         </div>
 
-        <div className="mt-[clamp(24px,2.6vw,40px)] grid gap-x-col sm:grid-cols-2 lg:grid-cols-4">
+        {/* Same as the module row above: the steps carry their own numbering,
+            so the rule marks the change from the offer to the four steps that
+            deliver it and adds no label to read. */}
+        <GroupRule />
+
+        <div className="mt-[clamp(8px,1vw,16px)] grid gap-x-col sm:grid-cols-2 lg:grid-cols-4">
           {copy.steps.map((step, index) => (
             <Reveal key={step.index} delay={index * 0.06}>
               <NumberedItem

@@ -98,7 +98,7 @@ export function BioDirections({
               <div className="bg-night-deep">
                 <VignetteImage
                   src={column.image}
-                  alt={column.name}
+                  alt={column.imageAlt[locale]}
                   fit="contain"
                   sizes="(max-width: 1023px) 92vw, 44vw"
                 />

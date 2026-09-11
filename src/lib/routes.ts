@@ -31,6 +31,7 @@ export const routes = {
     bioFigures: "con-so",
     bioTimeline: "lo-trinh",
     bioPartners: "hop-tac",
+    bioFaq: "hoi-dap",
     bioLegal: "phap-nhan",
   },
 } as const;
@@ -54,6 +55,17 @@ export const external = {
   email: "contact@pebblevina.com",
   phone: "+84345913369",
   phoneDisplay: "0345 913 369",
+
+  /**
+   * Feeds `Organization.sameAs` in `src/lib/seo/jsonld.ts`, which is how
+   * Google ties this site to a known entity elsewhere on the web. Only the
+   * company's own profiles belong here — its LinkedIn page, its YouTube
+   * channel, its Crunchbase entry — never a directory or article a third
+   * party runs about the company. Empty for now because nobody has supplied
+   * these URLs yet; do not guess them in. Fill in as `["https://...", ...]`
+   * once they exist.
+   */
+  social: [] as const,
 } as const;
 
 /**

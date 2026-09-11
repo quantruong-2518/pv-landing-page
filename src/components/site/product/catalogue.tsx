@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { Reveal } from "@/components/motion/reveal";
-import { Eyebrow, Kicker, VignetteImage } from "@/components/site/primitives";
+import { Eyebrow, GroupRule, Kicker, VignetteImage } from "@/components/site/primitives";
 import { Section } from "@/components/site/section";
 import type { ProductContent } from "@/lib/content/schema";
 import type { Locale } from "@/lib/i18n/config";
@@ -29,6 +29,8 @@ export function Catalogue({
     <Section
       id={routes.anchors.top}
       labelledBy="catalogue-title"
+      screen
+      spend="between"
       className="glow-catalogue bg-night-deep pt-[clamp(38px,4.2vw,72px)] pb-0"
     >
       <div className="grid items-end gap-row gap-x-col pb-[clamp(22px,2.6vw,38px)] lg:grid-cols-2">
@@ -52,10 +54,9 @@ export function Catalogue({
         <Kicker className="whitespace-normal text-faint">{content.hint[locale]}</Kicker>
       </div>
 
-      <div className="flex items-baseline gap-4 pt-4">
-        <Kicker className="text-accent">{copy.groupProducts[locale]}</Kicker>
-        <Kicker className="text-faint">{copy.groupChipLine[locale]}</Kicker>
-      </div>
+      {/* Three groups, three rules. Only the first of them was named before;
+          see the note on `groupSolutions` in dictionary.ts. */}
+      <GroupRule label={copy.groupProducts[locale]} meta={copy.groupChipLine[locale]} />
 
       {/* Subgrid, not a flex column per card: the five bands (badge, name,
           render, body, arrow) are shared tracks of the outer grid, so every
@@ -75,7 +76,7 @@ export function Catalogue({
               <span className="font-heading text-card-title">{card.name}</span>
               <VignetteImage
                 src={card.image}
-                alt={card.name}
+                alt={card.imageAlt[locale]}
                 fit="contain"
                 sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 22vw"
                 priority={index === 0}
@@ -89,7 +90,9 @@ export function Catalogue({
         ))}
       </div>
 
-      <div className="-mx-5 grid gap-x-col gap-y-3.5 sm:grid-cols-2">
+      <GroupRule label={copy.groupSolutions[locale]} meta={copy.groupSolutionsLine[locale]} />
+
+      <div className="-mx-5 mt-[clamp(16px,1.8vw,26px)] grid gap-x-col gap-y-3.5 sm:grid-cols-2">
         {copy.other.map((card) => (
           <Link
             key={card.anchor}
@@ -106,7 +109,9 @@ export function Catalogue({
         ))}
       </div>
 
-      <ol className="mt-[clamp(22px,2.4vw,36px)] grid grid-cols-2 gap-x-col sm:grid-cols-3 lg:grid-cols-5">
+      <GroupRule label={copy.groupTimeline[locale]} meta={copy.groupTimelineLine[locale]} />
+
+      <ol className="mt-[clamp(16px,1.8vw,26px)] grid grid-cols-2 gap-x-col sm:grid-cols-3 lg:grid-cols-5">
         {copy.timeline.map((entry) => (
           <li key={entry.when} className="flex flex-col gap-1.5 py-5">
             <span className="font-mono text-kicker text-accent">{entry.when}</span>

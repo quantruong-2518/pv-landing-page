@@ -73,6 +73,71 @@ export function SectionHead({
 }
 
 /**
+ * The head of a group *inside* a section: a hairline, then the group's name.
+ *
+ * `main > * + *` in globals.css guarantees a seam between two sections. This is
+ * the same argument one level down. A section that holds two kinds of content
+ * separated them with whitespace alone, and whitespace is not a boundary — it
+ * is the same thing that sits between two cards of one group, so the reader has
+ * nothing to tell "more of this" from "now something else". Measured on
+ * /vi/products: the catalogue runs four chip cards into two solution cards into
+ * a five-date roadmap strip with ~90px of nothing and no label on the last two,
+ * and PAPAYA's own figures run into PAPAYA FLEX's comparison multiples — three
+ * numbers against a named competitor part — with only the wordmark to say so.
+ *
+ * The hairline is 14% ink, not the 8% the section seam uses: inside a section
+ * the rule has to win against the group's own content, and 14% is what /bio's
+ * figure cards and the E-Series stack list already set (handoff § 4 puts every
+ * divider on the dark ground in the 8–28% band).
+ *
+ * Three slots, in reading order: `name` is a wordmark ("PAPAYA FLEX"), `label`
+ * is what the group is ("SẢN PHẨM", "THÔNG SỐ CHÍNH"), `meta` is the qualifier
+ * that narrows it ("DÒNG CHIP NPU AI"). All optional — with none of them the
+ * component is just the rule, which is the right head for a group whose content
+ * already names itself (the numbered module and step rows).
+ */
+export function GroupRule({
+  name,
+  label,
+  meta,
+  children,
+  className,
+}: {
+  name?: string;
+  label?: string;
+  meta?: string;
+  /** A full sentence after the label, where the group needs one. */
+  children?: ReactNode;
+  className?: string;
+}) {
+  const hasHead = Boolean(name || label || meta || children);
+
+  return (
+    <div
+      className={cn(
+        "mt-[clamp(26px,3vw,44px)] border-t border-ink/14",
+        hasHead && "flex flex-wrap items-baseline gap-x-5 gap-y-2.5 pt-[clamp(16px,1.8vw,26px)]",
+        className,
+      )}
+    >
+      {/* `tracking-[0.04em]` survives the token: the design sets these product
+          names wide (+0.04em) where `card-title` runs tight (−0.005em), which
+          is what makes "PAPAYA FLEX" read as a wordmark and not as a heading. */}
+      {name ? (
+        <span className="font-heading text-card-title tracking-[0.04em]">{name}</span>
+      ) : null}
+      {label ? (
+        <span className="font-mono text-label whitespace-nowrap text-accent">{label}</span>
+      ) : null}
+      {meta ? (
+        <span className="font-mono text-label whitespace-normal text-faint">{meta}</span>
+      ) : null}
+      {children}
+    </div>
+  );
+}
+
+/**
  * Product renders sit on a soft radial fade rather than in a visible frame —
  * `mask-vignette-*` in globals.css. `contain` is for chips shot on a plain
  * background, `cover` for photography that should fill the box.

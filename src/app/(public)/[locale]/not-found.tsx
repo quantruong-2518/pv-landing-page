@@ -1,8 +1,21 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import { routes } from "@/lib/routes";
+
+/**
+ * The route already returns a 404 status by being Next's not-found renderer,
+ * which is what keeps a real crawler out. This `robots` tag is the backstop
+ * for the reader that doesn't check status codes — a proxy that rewrites
+ * everything to 200, or a crawler that indexes the body regardless — so the
+ * page cannot end up indexed under whatever URL it was reached at.
+ */
+export const metadata: Metadata = {
+  title: "404 — Không tìm thấy trang này",
+  robots: { index: false, follow: false },
+};
 
 /**
  * 404 inside the public site.

@@ -45,7 +45,7 @@ export function ContactSection({
       id={routes.anchors.contact}
       labelledBy="contact-title"
       screen
-      center
+      spend="center"
       className="band-contact bg-navy-lit"
     >
       <div className="grid grow items-stretch gap-[clamp(30px,3.4vw,60px)] gap-x-col lg:grid-cols-2">

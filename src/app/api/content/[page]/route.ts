@@ -50,11 +50,13 @@ async function requireSession(): Promise<NextResponse | null> {
  * Public pages are prerendered, so a save is only published once their cache
  * entries are dropped.
  *
- * Concrete paths, not the `/[locale]` pattern: the pages are generated from
- * `generateStaticParams` with `dynamicParams = false`, and revalidating the
- * dynamic segment leaves those prerendered entries in place — measured as a
- * save that reached disk but never reached /vi. /llms.txt reads the same
- * document and has to go with them.
+ * Concrete paths, not the `/[locale]` pattern: `revalidatePath("/[locale]",
+ * "layout")` does not clear the cache entry for an already-prerendered page —
+ * measured as a save that reached disk but never reached /vi. (An earlier
+ * version of this comment blamed `dynamicParams = false`; that flag has since
+ * been removed from `[locale]` for the same reason — see CLAUDE.md §4 — but
+ * revalidating by concrete path is still required regardless.) /llms.txt and
+ * /sitemap.xml read the same document and have to go with them.
  */
 function publish() {
   for (const locale of LOCALES) {
@@ -66,6 +68,11 @@ function publish() {
     revalidatePath(routes.bio(locale));
   }
   revalidatePath("/llms.txt");
+  // sitemap.ts now reads getPublishedAt() for `lastModified`, so a publish
+  // changes this generated route's output too — drop its cache along with
+  // the pages, or /sitemap.xml keeps serving the previous lastmod until the
+  // route's own revalidation window passes.
+  revalidatePath("/sitemap.xml");
 }
 
 export async function GET(_request: Request, context: RouteContext) {

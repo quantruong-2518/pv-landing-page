@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/motion/reveal";
-import { SpecGrid, VignetteImage } from "@/components/site/primitives";
+import { GroupRule, SpecGrid, VignetteImage } from "@/components/site/primitives";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
 
@@ -25,7 +25,7 @@ export function ESeriesCards({ locale }: { locale: Locale }) {
 
             <VignetteImage
               src={card.image}
-              alt={card.name}
+              alt={card.imageAlt[locale]}
               fit="contain"
               sizes="(max-width: 1023px) 94vw, 46vw"
               className="product-chrome-art"
@@ -39,24 +39,23 @@ export function ESeriesCards({ locale }: { locale: Locale }) {
         ))}
       </div>
 
-      <div className="mt-[clamp(24px,2.6vw,40px)] flex flex-col gap-5 pt-6">
-        <div className="flex flex-wrap items-baseline gap-4">
-          <span className="font-mono text-label whitespace-nowrap text-accent">
-            {copy.stackLabel}
-          </span>
-          <span className="text-lead text-contact">{copy.stackLead[locale]}</span>
-        </div>
-        {/* A hairline over each entry — the same rule /bio uses for its figures
-            and partner rows. Without it the stack was five unseparated words
-            adrift on one line, with nothing to say they are five items. */}
-        <ul className="grid gap-x-col sm:grid-cols-2 lg:grid-cols-5">
-          {copy.stack.map((item) => (
-            <li key={item} className="border-t border-ink/14 py-[18px] text-card text-contact">
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {/* The stack is the second kind of content in this section — two
+          accelerator cards, then the software that runs on them — so it opens
+          on the rule every other group does instead of on a bare label. */}
+      <GroupRule label={copy.stackLabel}>
+        <span className="text-lead text-contact">{copy.stackLead[locale]}</span>
+      </GroupRule>
+
+      {/* A hairline over each entry — the same rule /bio uses for its figures
+          and partner rows. Without it the stack was five unseparated words
+          adrift on one line, with nothing to say they are five items. */}
+      <ul className="mt-5 grid gap-x-col sm:grid-cols-2 lg:grid-cols-5">
+        {copy.stack.map((item) => (
+          <li key={item} className="border-t border-ink/14 py-[18px] text-card text-contact">
+            {item}
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

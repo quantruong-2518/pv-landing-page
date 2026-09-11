@@ -21,16 +21,24 @@ import { routes } from "@/lib/routes";
  * `<time dateTime>` is machine-readable on purpose: it is what lets a crawler
  * date these announcements. The display format stays the Vietnamese DD.MM.YYYY.
  *
- * Sized to its content rather than `screen`: 4 cards is shorter than a full
- * viewport at desktop widths, and forcing the min-height just centred the grid
- * in a mostly empty section (~31% empty measured at 1360px wide).
+ * Full height from `md`, surplus spent `between`. Forcing the min-height with
+ * `center` centred the grid in a mostly empty section — ~31% empty measured at
+ * 1360px wide — which is why this block lost `screen` the first time round.
+ * Anchoring the header to the top edge and the four cards to the bottom edge
+ * spends the same surplus without the hole.
  */
 export function NewsGrid({ content, locale }: { content: HomeContent["news"]; locale: Locale }) {
   const images = [content.image1, content.image2, content.image3, content.image4];
   const items = dictionary.home.news.items.slice(0, content.count);
 
   return (
-    <Section id={routes.anchors.news} labelledBy="news-title" className="glow-news bg-navy">
+    <Section
+      id={routes.anchors.news}
+      labelledBy="news-title"
+      screen
+      spend="between"
+      className="glow-news bg-navy"
+    >
       <SectionHead
         eyebrow={content.eyebrow[locale]}
         title={content.title[locale]}

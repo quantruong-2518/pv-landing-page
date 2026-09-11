@@ -35,7 +35,12 @@ export function SiteFooter({ locale }: { locale: Locale }) {
     "flex items-center font-mono text-label tracking-[0.13em] text-faint lg:min-h-8";
 
   return (
-    <footer className="bg-night-footer px-gutter pt-[clamp(34px,3.6vw,56px)] pb-[clamp(26px,2.8vw,40px)]">
+    // `border-t`: the same 8% hairline `main > * + *` puts between sections in
+    // globals.css, which does not reach here because the footer is outside
+    // `<main>`. It is not decoration — night-footer is 1.37 L* against /bio's
+    // closing block at 1.98, a 0.61 step, so without the rule the sheet ran
+    // straight into the footer with no boundary at all.
+    <footer className="border-t border-ink/8 bg-night-footer px-gutter pt-[clamp(34px,3.6vw,56px)] pb-[clamp(26px,2.8vw,40px)]">
       <div className="grid items-start gap-x-[clamp(24px,3vw,56px)] gap-y-[clamp(26px,3vw,44px)] sm:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-3">
           <Link

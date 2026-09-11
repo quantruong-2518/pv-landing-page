@@ -86,6 +86,12 @@ export const dictionary = {
       analog: {
         index: "01",
         name: "ANALOG PIM",
+        /** Alt text for the layered Analog PIM technical illustration. */
+        imageAlt: L(
+          "Chip Analog PIM tùy biến với mảng tính toán lộ bên trong, đặt trên bản vẽ kỹ thuật có tín hiệu dạng sóng liên tục chạy xuyên qua chip.",
+          "A custom Analog PIM chip with an exposed compute array, set on a technical drawing with a continuous waveform passing through the chip.",
+          "내부 연산 배열이 드러난 맞춤형 아날로그 PIM 칩과 칩을 가로지르는 연속 파형의 기술 도면입니다.",
+        ),
         heading: L(
           "Tính toán tại nơi dữ liệu được lưu trữ",
           "Computing where the data lives",
@@ -101,6 +107,12 @@ export const dictionary = {
       digital: {
         index: "02",
         name: "DIGITAL PIM",
+        /** Alt text for the layered Digital PIM technical illustration. */
+        imageAlt: L(
+          "Chip Digital PIM tùy biến với bốn cụm xử lý, đặt trên bản vẽ kỹ thuật có chuỗi xung vuông chạy xuyên qua chip.",
+          "A custom Digital PIM chip with four compute tiles, set on a technical drawing with a square-pulse signal passing through the chip.",
+          "네 개의 연산 타일로 구성된 맞춤형 디지털 PIM 칩과 칩을 가로지르는 사각 펄스 신호의 기술 도면입니다.",
+        ),
         heading: L(
           "Nền tảng tính toán số cho AI",
           "A digital computing platform for AI",
@@ -179,8 +191,12 @@ export const dictionary = {
           value: "",
           fromCms: true,
           headline: null as Localized | null,
+          // "NƠ-RON", not the design mock's "NORON": the mock's own `data-en`
+          // on this node reads "COMPUTE NEURON POINTS" and the handoff's prose
+          // spells it "điểm nơ-ron tính toán" (§ 5.6), so the intended word is
+          // not in doubt — "noron" is simply not a Vietnamese word.
           label: L(
-            "ĐIỂM NORON TÍNH TOÁN",
+            "ĐIỂM NƠ-RON TÍNH TOÁN",
             "COMPUTE NEURON POINTS",
             "연산 뉴런 포인트",
           ) as Localized | null,
@@ -449,14 +465,39 @@ export const dictionary = {
         "Explore Pebble Vina's hardware and software products",
         "Pebble Vina의 하드웨어와 소프트웨어 제품을 살펴보십시오",
       ),
+      /*
+       * The catalogue holds three groups of a different kind — chips, then the
+       * two service lines, then the dated strip — and only the first one was
+       * named. The other two opened with nothing but whitespace, so the
+       * roadmap dates read as loose debris under the cards rather than as a
+       * group of their own. One label plus one qualifier each, same shape as
+       * groupProducts / groupChipLine.
+       */
       groupProducts: L("SẢN PHẨM", "PRODUCTS", "제품"),
       groupChipLine: L("DÒNG CHIP NPU AI", "AI NPU CHIP LINE", "AI NPU 칩 라인업"),
+      groupSolutions: L("GIẢI PHÁP", "SOLUTIONS", "솔루션"),
+      groupSolutionsLine: L("PHẦN MỀM & ĐÀO TẠO", "SOFTWARE & TRAINING", "소프트웨어 & 교육"),
+      groupTimeline: L("LỘ TRÌNH", "ROADMAP", "로드맵"),
+      /* The three states the strip below actually prints, in its own order —
+       * 05/2023 sản xuất, 2024 PoC, rồi các mốc dự kiến. Naming them here is
+       * what keeps the group label from implying the whole strip has shipped
+       * (CLAUDE.md § 2). */
+      groupTimelineLine: L(
+        "ĐÃ SẢN XUẤT · PoC · DỰ KIẾN",
+        "IN PRODUCTION · PoC · EXPECTED",
+        "양산 · PoC · 예정",
+      ),
       hardware: [
         {
           anchor: "mint" as const,
           badge: "ANALOG PIM · 05/2023",
           name: "MINT",
           image: "/images/mint-chrome-v4.png",
+          imageAlt: L(
+            "Ảnh render chip MINT dạng khối vuông kim loại xước, trên nền mạch điện tử phát sáng xanh.",
+            "Rendered image of the MINT chip as a brushed-metal square package on a glowing blue circuit-pattern background.",
+            "브러시드 메탈 사각형 패키지로 렌더링된 MINT 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
+          ),
           body: L(
             "Chip Analog sử dụng công nghệ Processing-in-Memory nhằm giảm sự di chuyển dữ liệu giữa bộ nhớ và bộ xử lý.",
             "An Analog chip using Processing-in-Memory to cut data movement between memory and processor.",
@@ -468,6 +509,11 @@ export const dictionary = {
           badge: "ANALOG PIM · PoC 2024",
           name: "PAPAYA / PAPAYA FLEX",
           image: "/images/papaya-chrome-v4.png",
+          imageAlt: L(
+            "Ảnh render chip PAPAYA dạng khối vuông kim loại xước với viền chân đồng, trên nền mạch điện tử phát sáng xanh.",
+            "Rendered image of the PAPAYA chip as a brushed-metal square package with copper-toned pins, on a glowing blue circuit-pattern background.",
+            "구릿빛 핀이 둘러진 브러시드 메탈 사각형 패키지로 렌더링된 PAPAYA 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
+          ),
           body: L(
             "Chip Analog PIM hướng đến các workload thị giác máy cần xử lý dữ liệu tại biên.",
             "Analog PIM chips for machine-vision workloads that must process data at the edge.",
@@ -479,6 +525,11 @@ export const dictionary = {
           badge: "DIGITAL PIM · Q3/2026",
           name: "ESPRESSO",
           image: "/images/espresso-chrome-v4.png",
+          imageAlt: L(
+            "Ảnh render chip ESPRESSO dạng khối vuông với mặt trên bóng gương, trên nền mạch điện tử phát sáng xanh.",
+            "Rendered image of the ESPRESSO chip as a square package with a glossy mirrored top surface, on a glowing blue circuit-pattern background.",
+            "광택 있는 거울 같은 상판을 가진 사각형 패키지로 렌더링된 ESPRESSO 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
+          ),
           body: L(
             "Thế hệ chip Digital-PIM tiếp theo được phát triển cho các workload AI có yêu cầu tính toán cao hơn Edge AI.",
             "The next Digital-PIM generation, built for AI workloads with compute demands beyond Edge AI.",
@@ -490,6 +541,11 @@ export const dictionary = {
           badge: "GP-GPU / GP-DSA",
           name: "E-SERIES · E10 / E20",
           image: "/images/e20-chrome-v4.png",
+          imageAlt: L(
+            "Ảnh render card tăng tốc AI E20 dạng card PCIe với khối tản nhiệt kim loại, trên nền mạch điện tử phát sáng xanh.",
+            "Rendered image of the E20 AI accelerator as a PCIe card with a metal heatsink shroud, set against a glowing blue circuit-pattern background.",
+            "금속 방열판이 덮인 PCIe 카드 형태로 렌더링된 E20 AI 가속 카드 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
+          ),
           body: L(
             "Dòng card tăng tốc AI dành cho AI server, LLM training & inference và hệ thống tính toán nhiều card.",
             "AI accelerator cards for AI servers, LLM training & inference, and multi-card computing systems.",
@@ -576,6 +632,12 @@ export const dictionary = {
         "ANALOG · IN PRODUCTION 05/2023",
         "ANALOG · 2023년 5월 양산",
       ),
+      /** Alt text for the main MINT render (`content.mint.image`, CMS-owned path). */
+      imageAlt: L(
+        "Ảnh render chip MINT dạng khối vuông kim loại xước, trên nền mạch điện tử phát sáng xanh.",
+        "Rendered image of the MINT chip as a brushed-metal square package on a glowing blue circuit-pattern background.",
+        "브러시드 메탈 사각형 패키지로 렌더링된 MINT 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
+      ),
       apps: ["Smart Home", "IoT", "Failure Analysis"],
       specs: [
         { label: "01 PERFORMANCE", value: "30", unit: "GOPS" },
@@ -589,6 +651,19 @@ export const dictionary = {
         "ANALOG · PoC 2024 · PC-VISION & 5G",
         "ANALOG · PoC 2024 · PC-VISION & 5G",
         "ANALOG · 2024 PoC · PC-VISION & 5G",
+      ),
+      /** Alt text for the main PAPAYA render (`content.papaya.image`, CMS-owned path). */
+      imageAlt: L(
+        "Ảnh render chip PAPAYA dạng khối vuông kim loại xước với viền chân đồng, trên nền mạch điện tử phát sáng xanh.",
+        "Rendered image of the PAPAYA chip as a brushed-metal square package with copper-toned pins, on a glowing blue circuit-pattern background.",
+        "구릿빛 핀이 둘러진 브러시드 메탈 사각형 패키지로 렌더링된 PAPAYA 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
+      ),
+      /** Alt text for the separate PAPAYA FLEX render, hardcoded at the page
+       *  call site (`/images/papaya-flex-chrome-v4.png`) rather than CMS-owned. */
+      flexImageAlt: L(
+        "Ảnh render chip PAPAYA FLEX cùng kiểu dáng khối vuông kim loại xước như PAPAYA, trên nền mạch điện tử phát sáng xanh.",
+        "Rendered image of the PAPAYA FLEX chip, the same brushed-metal square package style as PAPAYA, on a glowing blue circuit-pattern background.",
+        "PAPAYA와 동일한 브러시드 메탈 사각형 패키지 형태로 렌더링된 PAPAYA FLEX 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
       ),
       apps: [
         L("Nhận dạng hình ảnh", "Image recognition", "영상 인식"),
@@ -651,6 +726,12 @@ export const dictionary = {
         "DIGITAL · ROADMAP Q3/2026",
         "DIGITAL · 로드맵 2026년 3분기",
       ),
+      /** Alt text for the main ESPRESSO render (`content.espresso.image`, CMS-owned path). */
+      imageAlt: L(
+        "Ảnh render chip ESPRESSO dạng khối vuông với mặt trên bóng gương, trên nền mạch điện tử phát sáng xanh.",
+        "Rendered image of the ESPRESSO chip as a square package with a glossy mirrored top surface, on a glowing blue circuit-pattern background.",
+        "광택 있는 거울 같은 상판을 가진 사각형 패키지로 렌더링된 ESPRESSO 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
+      ),
       targets: [
         { name: "AI PC", when: L("Dự kiến Q3/2026", "Expected Q3/2026", "2026년 3분기 예정") },
         { name: "Robotics", when: L("Dự kiến Q3/2026", "Expected Q3/2026", "2026년 3분기 예정") },
@@ -672,6 +753,13 @@ export const dictionary = {
         "GP-GPU / GP-DSA · PRODUCT DATA",
         "GP-GPU / GP-DSA · 제품 정보",
       ),
+      /** Alt text for the main E-Series render (`content.eseries.image`, CMS-owned
+       *  path) — the E20 card, the same render the catalogue's E-Series tile uses. */
+      imageAlt: L(
+        "Ảnh render card tăng tốc AI E20 dạng card PCIe với khối tản nhiệt kim loại, trên nền mạch điện tử phát sáng xanh.",
+        "Rendered image of the E20 AI accelerator as a PCIe card with a metal heatsink shroud, set against a glowing blue circuit-pattern background.",
+        "금속 방열판이 덮인 PCIe 카드 형태로 렌더링된 E20 AI 가속 카드 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
+      ),
       apps: [
         "Data Center",
         "LLM Training & Inference",
@@ -684,6 +772,11 @@ export const dictionary = {
           index: "01",
           name: "E10 PCIe",
           image: "/images/e10-chrome-v4.png",
+          imageAlt: L(
+            "Ảnh render card tăng tốc AI E10 PCIe với khối tản nhiệt kim loại và quạt tản nhiệt, trên nền mạch điện tử phát sáng xanh.",
+            "Rendered image of the E10 PCIe AI accelerator card with a metal heatsink shroud and cooling fan, set against a glowing blue circuit-pattern background.",
+            "금속 방열판과 냉각 팬을 갖춘 E10 PCIe AI 가속 카드 렌더링 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
+          ),
           heading: L(
             "Cân bằng để triển khai mở rộng",
             "Balanced for scaled deployment",
@@ -712,6 +805,11 @@ export const dictionary = {
           index: "02",
           name: "E20",
           image: "/images/e20-chrome-v4.png",
+          imageAlt: L(
+            "Ảnh render card tăng tốc AI E20 với hai khối tản nhiệt kim loại song song, trên nền mạch điện tử phát sáng xanh.",
+            "Rendered image of the E20 AI accelerator card with two parallel metal heatsink blocks, set against a glowing blue circuit-pattern background.",
+            "두 개의 금속 방열판이 나란히 배치된 E20 AI 가속 카드 렌더링 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
+          ),
           heading: L(
             "Gấp đôi quy mô cho tải AI lớn",
             "Twice the scale for large AI models",
@@ -955,7 +1053,11 @@ export const dictionary = {
         title: L("Lộ trình sản phẩm", "Product timeline", "제품 로드맵"),
       },
       partners: { mark: "05", title: L("Hợp tác", "Collaboration", "협력") },
-      legal: { mark: "06", title: L("Thông tin pháp nhân", "Legal information", "법인 정보") },
+      faq: {
+        mark: "06",
+        title: L("Câu hỏi thường gặp", "Frequently asked questions", "자주 묻는 질문"),
+      },
+      legal: { mark: "07", title: L("Thông tin pháp nhân", "Legal information", "법인 정보") },
     },
 
     figures: {
@@ -994,6 +1096,128 @@ export const dictionary = {
         "제품 카탈로그 보기 →",
       ),
       contact: L("LIÊN HỆ VỚI CHÚNG TÔI →", "GET IN TOUCH →", "문의하기 →"),
+    },
+
+    /**
+     * FAQ — pending GM review before this goes live.
+     *
+     * Every answer below restates a fact already published elsewhere on the
+     * site; nothing here is a new claim. Figures are quoted from
+     * `product.mint.specs` (30 GOPS, 17,6 TOPS/W, 5 × 5 mm),
+     * `product.papaya.flexSpecs[].note` (the PAPAYA FLEX ~50× / ~100× / ~25×
+     * multiples against NVIDIA Jetson Nano), `product.catalog.hardware[]`
+     * badges and `product.catalog.timeline` (MINT 05/2023, PAPAYA PoC 2024,
+     * ESPRESSO Q3/2026), `product.software.meta` / `product.training.meta`
+     * (12/2026, needs survey 2027) plus `src/lib/content/seed.ts`
+     * (`product.software.progress` = 82), and the contact details in
+     * `routes.external` / `footer.address`. E-Series carries no shipping
+     * date or status anywhere on the site, so none is claimed for it here.
+     */
+    faq: {
+      eyebrow: L("HỎI ĐÁP", "FAQ", "FAQ"),
+      title: L(
+        "Câu hỏi thường gặp về PIM và sản phẩm Pebble Vina",
+        "Frequently asked questions about PIM and Pebble Vina's products",
+        "PIM과 Pebble Vina 제품에 대해 자주 묻는 질문",
+      ),
+      lead: L(
+        "Đây là những câu hỏi khách hàng doanh nghiệp thường đặt ra trước khi liên hệ, được trả lời đúng theo những gì trang này đã công bố.",
+        "These are the questions enterprise buyers most often ask before reaching out, answered strictly from what this site already publishes.",
+        "이곳은 기업 고객이 문의 전에 자주 묻는 질문에, 이 사이트가 이미 공개한 내용만으로 답변합니다.",
+      ),
+      items: [
+        {
+          id: "pim-la-gi",
+          question: L(
+            "PIM (Processing-in-Memory) là gì và vì sao quan trọng với AI?",
+            "What is PIM (Processing-in-Memory), and why does it matter for AI?",
+            "PIM(Processing-in-Memory)은 무엇이며 AI에 왜 중요한가요?",
+          ),
+          answer: L(
+            "PIM (Processing-in-Memory) là công nghệ tính toán đưa hoạt động xử lý đến gần nơi dữ liệu được lưu trữ, giúp giảm lượng dữ liệu phải di chuyển giữa bộ nhớ và bộ xử lý. Khi mô hình AI ngày càng lớn, việc dữ liệu liên tục di chuyển giữa DRAM và NPU có thể ảnh hưởng đến hiệu quả tính toán — PIM giải quyết đúng điểm nghẽn này cho các workload AI phù hợp. Pebble Vina phát triển hai hướng PIM là Analog và Digital để đáp ứng các nhu cầu tính toán AI khác nhau.",
+            "PIM (Processing-in-Memory) is a computing approach that brings processing close to where data is stored, cutting the volume of data that has to move between memory and processor. As AI models grow, the constant shuttling of data between DRAM and the NPU can hold back computational efficiency — PIM addresses exactly that bottleneck for suitable AI workloads. Pebble Vina develops two PIM directions, Analog and Digital, to serve different AI computing needs.",
+            "PIM(Processing-in-Memory)은 연산을 데이터가 저장된 자리 가까이로 옮겨, 메모리와 프로세서 사이를 오가야 하는 데이터의 양을 줄이는 연산 방식입니다. AI 모델이 커질수록 DRAM과 NPU 사이의 끊임없는 데이터 이동이 연산 효율을 떨어뜨릴 수 있는데, PIM은 적합한 AI 워크로드에서 바로 이 문제를 해결합니다. Pebble Vina는 서로 다른 AI 연산 수요에 대응하기 위해 아날로그와 디지털, 두 갈래의 PIM 기술을 개발합니다.",
+          ),
+        },
+        {
+          id: "phan-biet-pim-analog-digital",
+          question: L(
+            "Analog PIM và Digital PIM khác nhau như thế nào?",
+            "What is the difference between Analog PIM and Digital PIM?",
+            "아날로그 PIM과 디지털 PIM은 어떻게 다른가요?",
+          ),
+          answer: L(
+            "Analog PIM tích hợp năng lực tính toán trực tiếp với bộ nhớ để hạn chế di chuyển dữ liệu giữa memory và processor, và hiện được triển khai trong MINT (sản xuất 05/2023) cùng PAPAYA / PAPAYA FLEX (PoC 2024). Digital PIM được phát triển để đáp ứng yêu cầu tính toán cao hơn và khả năng tích hợp linh hoạt, làm nền tảng cho ESPRESSO (lộ trình Q3/2026). Hai hướng phục vụ các nhu cầu tính toán AI khác nhau, từ thiết bị biên nhỏ gọn đến các workload đòi hỏi hiệu năng cao hơn Edge AI.",
+            "Analog PIM integrates compute capability directly into memory to limit data movement between memory and processor, and it is currently implemented in MINT (in production since 05/2023) and PAPAYA / PAPAYA FLEX (2024 PoC). Digital PIM is built to meet higher computational demands and flexible integration, forming the foundation for ESPRESSO (roadmap Q3/2026). The two directions serve different AI computing needs, from compact edge devices to workloads beyond Edge AI.",
+            "아날로그 PIM은 연산 능력을 메모리에 직접 통합해 메모리와 프로세서 사이의 데이터 이동을 줄이며, 현재 MINT(2023년 5월 양산)와 PAPAYA / PAPAYA FLEX(2024년 PoC)에 적용되어 있습니다. 디지털 PIM은 더 높은 연산 요구와 유연한 통합을 충족하도록 개발되어 ESPRESSO(2026년 3분기 로드맵)의 기반이 됩니다. 두 방향은 소형 엣지 기기부터 Edge AI를 넘어서는 워크로드까지, 서로 다른 AI 연산 수요를 위한 것입니다.",
+          ),
+        },
+        {
+          id: "san-pham-da-co-va-lo-trinh",
+          question: L(
+            "Sản phẩm nào của Pebble Vina đã có thể tìm hiểu ngay, sản phẩm nào còn trong lộ trình?",
+            "Which Pebble Vina products are available now, and which are on the roadmap?",
+            "Pebble Vina의 어떤 제품이 지금 도입 가능하고, 어떤 제품이 로드맵 단계인가요?",
+          ),
+          answer: L(
+            "MINT là chip Analog PIM đã sản xuất từ 05/2023, còn PAPAYA / PAPAYA FLEX là PoC năm 2024 cùng hướng Analog PIM cho thị giác máy. ESPRESSO là chip Digital-PIM đang trong lộ trình, dự kiến Q3/2026. E-Series (E10/E20) là dòng card tăng tốc AI đã có thông số sản phẩm công bố, dùng cho AI server và hệ thống nhiều card. Phần mềm doanh nghiệp (dự kiến 12/2026) và đào tạo AI doanh nghiệp (khảo sát nhu cầu 2027) vẫn đang ở giai đoạn lộ trình.",
+            "MINT is an Analog PIM chip in production since 05/2023, while PAPAYA / PAPAYA FLEX is a 2024 proof of concept in the same Analog PIM direction, built for machine vision. ESPRESSO is a Digital-PIM chip on the roadmap, expected Q3/2026. E-Series (E10/E20) is an AI accelerator card line with published product data, for AI servers and multi-card systems. Enterprise software (expected 12/2026) and enterprise AI training (needs survey, 2027) remain on the roadmap.",
+            "MINT는 2023년 5월부터 양산 중인 아날로그 PIM 칩이며, PAPAYA / PAPAYA FLEX는 같은 아날로그 PIM 방향의 머신 비전용 2024년 PoC입니다. ESPRESSO는 로드맵 단계의 Digital-PIM 칩으로 2026년 3분기 출시가 예정되어 있습니다. E-Series(E10/E20)는 제품 정보가 공개된 AI 가속 카드 라인으로 AI 서버와 멀티카드 시스템에 사용됩니다. 기업용 소프트웨어(2026년 12월 예정)와 기업 AI 교육(2027년 수요 조사)은 아직 로드맵 단계입니다.",
+          ),
+        },
+        {
+          id: "chi-so-papaya-flex",
+          question: L(
+            "Các con số ~50×, ~100×, ~25× của PAPAYA FLEX có nghĩa là gì?",
+            "What do PAPAYA FLEX's ~50×, ~100× and ~25× figures mean?",
+            "PAPAYA FLEX의 ~50×, ~100×, ~25× 수치는 무엇을 의미하나요?",
+          ),
+          answer: L(
+            "Ba con số này đến từ benchmark thị giác máy (Machine Vision Benchmark) so PAPAYA FLEX với NVIDIA Jetson Nano. Về điện năng, PAPAYA FLEX dùng 0,1–0,15 W so với 5–10 W của Jetson Nano (~50×); về hiệu suất, đạt 333–500 GOPS/W so với 3,6–7,2 FPS/W trên Jetson Nano (~100×); về diện tích chip, kích thước 10 × 10 mm so với 70 × 45 mm của Jetson Nano (~25×).",
+            "All three figures come from a machine-vision benchmark comparing PAPAYA FLEX against the NVIDIA Jetson Nano. On power, PAPAYA FLEX draws 0.1–0.15 W against 5–10 W on the Jetson Nano (~50×); on efficiency, it reaches 333–500 GOPS/W against 3.6–7.2 FPS/W on the Jetson Nano (~100×); on die area, it measures 10 × 10 mm against 70 × 45 mm on the Jetson Nano (~25×).",
+            "이 세 수치는 PAPAYA FLEX를 NVIDIA Jetson Nano와 비교한 머신 비전 벤치마크(Machine Vision Benchmark)에서 나온 것입니다. 전력에서는 Jetson Nano의 5–10 W 대비 0.1–0.15 W(~50배), 효율에서는 Jetson Nano의 3.6–7.2 FPS/W 대비 333–500 GOPS/W(~100배), 다이 면적에서는 Jetson Nano의 70 × 45 mm 대비 10 × 10 mm(~25배)입니다.",
+          ),
+        },
+        {
+          id: "mint-dung-de-lam-gi",
+          question: L(
+            "MINT dùng để làm gì?",
+            "What is MINT used for?",
+            "MINT는 어디에 사용되나요?",
+          ),
+          answer: L(
+            "MINT là chip Analog PIM đã sản xuất từ 05/2023, dùng cho các thiết bị cần xử lý dữ liệu trực tiếp tại biên như Smart Home, IoT và Failure Analysis. Nhờ loại bỏ độ trễ di chuyển dữ liệu giữa bộ nhớ và bộ xử lý, MINT phản hồi tức thì với mức tiêu thụ điện năng rất thấp — đạt 30 GOPS ở hiệu suất 17,6 TOPS/W trên diện tích chip 5 × 5 mm.",
+            "MINT is an Analog PIM chip in production since 05/2023, built for devices that need to process data directly at the edge — Smart Home, IoT and Failure Analysis. By removing the latency of moving data between memory and processor, MINT delivers instant response at very low power draw — 30 GOPS at 17.6 TOPS/W efficiency on a 5 × 5 mm chip area.",
+            "MINT는 2023년 5월부터 양산 중인 아날로그 PIM 칩으로, 스마트홈, IoT, 고장 분석(Failure Analysis)처럼 엣지에서 데이터를 직접 처리해야 하는 기기에 사용됩니다. 메모리와 프로세서 사이의 데이터 이동 지연을 없애 매우 낮은 소비 전력으로 즉각적인 응답을 제공하며, 5 × 5 mm 칩 면적에서 17.6 TOPS/W 효율로 30 GOPS를 냅니다.",
+          ),
+        },
+        {
+          id: "phan-mem-va-dao-tao-ai",
+          question: L(
+            "Nền tảng phần mềm doanh nghiệp và đào tạo AI của Pebble Vina là gì, khi nào có?",
+            "What are Pebble Vina's enterprise software platform and AI training offering, and when will they arrive?",
+            "Pebble Vina의 기업용 소프트웨어 플랫폼과 AI 교육은 무엇이며 언제 제공되나요?",
+          ),
+          answer: L(
+            "Nền tảng phần mềm doanh nghiệp kết nối dữ liệu và quy trình từ CRM, ERP, HRM và DMS để đưa AI vào vận hành và ra quyết định; nền tảng này dự kiến hoàn thành vào 12/2026 và hiện đã đạt 82% mục tiêu. Đào tạo AI doanh nghiệp là chương trình được thiết kế theo bài toán và nhu cầu thực tế của từng doanh nghiệp, hiện đang ở giai đoạn khảo sát nhu cầu năm 2027. Cả hai đều là lộ trình, chưa triển khai.",
+            "The enterprise software platform connects data and processes across CRM, ERP, HRM and DMS to bring AI into operations and decision-making; it is expected to be complete by 12/2026 and currently stands at 82% of its target. Enterprise AI training is a programme designed around each organisation's problems and real needs, currently at the 2027 needs-survey stage. Both remain on the roadmap and are not yet deployed.",
+            "기업용 소프트웨어 플랫폼은 CRM, ERP, HRM, DMS의 데이터와 업무 흐름을 연결해 운영과 의사결정에 AI를 도입하며, 2026년 12월 완료가 목표이고 현재 목표 달성률은 82%입니다. 기업 AI 교육은 조직별 과제와 실제 요구에 맞춰 설계하는 프로그램으로, 현재 2027년 수요 조사 단계에 있습니다. 두 가지 모두 아직 도입되지 않은 로드맵 단계입니다.",
+          ),
+        },
+        {
+          id: "lien-he-dat-mau",
+          question: L(
+            "Làm sao để liên hệ hoặc yêu cầu tư vấn, đặt mẫu sản phẩm?",
+            "How can I get in touch or request a consultation or sample?",
+            "상담이나 샘플을 요청하려면 어떻게 문의해야 하나요?",
+          ),
+          answer: L(
+            "Gửi yêu cầu qua form trên trang chủ hoặc trang Sản phẩm & giải pháp — chỉ cần mô tả workload, đội ngũ kỹ thuật sẽ phản hồi với cấu hình chip hoặc card phù hợp. Có thể liên hệ trực tiếp qua email contact@pebblevina.com, số 0345 913 369, hoặc tới văn phòng tại Landmark 72 Tower, Hà Nội. Thông tin gửi đi được bảo mật và chỉ dùng để hỗ trợ theo đúng yêu cầu.",
+            "Send a request through the form on the homepage or the Products & solutions page — just describe the workload, and our engineering team will reply with a suitable chip or card configuration. You can also reach us directly by email at contact@pebblevina.com, by phone at 0345 913 369, or at our office in Landmark 72 Tower, Hanoi. Information you send is kept confidential and used only to support your request.",
+            "홈페이지나 제품 & 솔루션 페이지의 문의 양식에 워크로드를 알려 주시면 기술팀이 적합한 칩 또는 카드 구성을 제안해 드립니다. contact@pebblevina.com 이메일이나 0345 913 369 전화, 또는 하노이 Landmark 72 Tower 사무실로 직접 연락하실 수도 있습니다. 보내신 정보는 안전하게 보관되며 문의 응대 목적으로만 사용됩니다.",
+          ),
+        },
+      ],
     },
   },
 
@@ -1048,7 +1272,7 @@ export const dictionary = {
       analytics: {
         name: L("Cookie phân tích", "Analytics cookies", "분석 쿠키"),
         body: L(
-          "Google Analytics đo lượt xem trang và đường đi của người đọc, để chúng tôi biết phần nội dung nào thực sự hữu ích. Mã chỉ được nạp sau khi bạn bật, và khi tắt lại, các cookie _ga bị xoá ngay.",
+          "Google Analytics đo lượt xem trang và đường đi của người đọc, để chúng tôi biết phần nội dung nào thực sự hữu ích. Mã chỉ được nạp sau khi bạn bật, và khi tắt lại, các cookie _ga bị xóa ngay.",
           "Google Analytics measures page views and how readers move through the site, so we learn which content is actually useful. The code loads only once you switch this on, and switching it off deletes the _ga cookies straight away.",
           "Google Analytics는 페이지 조회수와 방문 경로를 측정해, 어떤 콘텐츠가 실제로 도움이 되는지 파악하는 데 쓰입니다. 이 항목을 켜신 뒤에만 코드가 로드되며, 끄시면 _ga 쿠키는 즉시 삭제됩니다.",
         ),
@@ -1061,30 +1285,38 @@ export const dictionary = {
     },
   },
 
-  /** Page-level SEO copy. Written to be read by a person in a result list. */
+  /**
+   * Page-level SEO copy. Written to be read by a person in a result list.
+   *
+   * Length budget, measured in characters, because a SERP truncates by pixel
+   * width and CJK glyphs render roughly twice as wide as Latin ones: titles
+   * ≤ 60 for vi/en, ≤ 40 for ko; descriptions 130–155 for vi/en, ≤ 90 for ko.
+   * Stay inside it — grow these back past budget and the SERP clips them
+   * mid-word instead of a build failing loudly.
+   */
   meta: {
     home: {
       title: L(
-        "Pebble Vina — Chip bán dẫn tích hợp AI ngoại biên & công nghệ PIM",
-        "Pebble Vina — Edge-AI semiconductors and processing-in-memory technology",
-        "Pebble Vina — 엣지 AI 반도체와 PIM 기술",
+        "Chip AI ngoại biên & công nghệ PIM — Pebble Vina",
+        "Edge-AI chips & PIM technology — Pebble Vina",
+        "엣지 AI 칩 & PIM 기술 — Pebble Vina",
       ),
       description: L(
-        "Pebble Vina nghiên cứu và phát triển chip bán dẫn AI ngoại biên trên công nghệ Processing-in-Memory (Analog và Digital PIM), cùng phần mềm AI và đào tạo AI cho doanh nghiệp tại Việt Nam.",
-        "Pebble Vina researches and develops edge-AI semiconductors built on Processing-in-Memory (Analog and Digital PIM), alongside AI software and enterprise AI training in Vietnam.",
-        "Pebble Vina는 Processing-in-Memory(아날로그·디지털 PIM) 기술을 기반으로 엣지 AI 반도체를 연구·개발하며, 베트남에서 AI 소프트웨어와 기업 AI 교육을 함께 제공합니다.",
+        "Pebble Vina nghiên cứu, phát triển chip bán dẫn AI ngoại biên trên công nghệ PIM (Analog, Digital), cùng phần mềm và đào tạo AI cho doanh nghiệp Việt Nam.",
+        "Pebble Vina researches and develops edge-AI semiconductors on PIM (Analog, Digital) technology, plus AI software and enterprise training in Vietnam.",
+        "Pebble Vina는 PIM(아날로그·디지털) 기술 기반 엣지 AI 반도체를 연구·개발하며, 베트남에서 AI 소프트웨어와 기업 AI 교육을 제공합니다.",
       ),
     },
     products: {
       title: L(
-        "Sản phẩm & giải pháp — chip MINT, PAPAYA, ESPRESSO, card E-Series | Pebble Vina",
-        "Products & solutions — MINT, PAPAYA, ESPRESSO chips and E-Series cards | Pebble Vina",
-        "제품 & 솔루션 — MINT, PAPAYA, ESPRESSO 칩과 E-Series 카드 | Pebble Vina",
+        "Chip MINT, PAPAYA, ESPRESSO & card E-Series | Pebble Vina",
+        "MINT, PAPAYA, ESPRESSO chips & E-Series cards | Pebble Vina",
+        "MINT·PAPAYA·ESPRESSO 칩 | Pebble Vina",
       ),
       description: L(
-        "Danh mục chip AI và giải pháp của Pebble Vina: MINT (30 GOPS, 17,6 TOPS/W), PAPAYA & PAPAYA FLEX cho thị giác máy, ESPRESSO Digital-PIM 160 TOPS và card tăng tốc E-Series E10/E20.",
-        "Pebble Vina's AI chip and solution catalogue: MINT (30 GOPS, 17.6 TOPS/W), PAPAYA & PAPAYA FLEX for machine vision, the 160 TOPS ESPRESSO Digital-PIM chip and E10/E20 accelerator cards.",
-        "Pebble Vina의 AI 칩·솔루션 카탈로그: MINT(30 GOPS, 17.6 TOPS/W), 머신 비전용 PAPAYA & PAPAYA FLEX, 160 TOPS ESPRESSO Digital-PIM 칩, E10/E20 가속 카드.",
+        "Danh mục chip AI Pebble Vina: MINT (30 GOPS, 17,6 TOPS/W), PAPAYA & PAPAYA FLEX cho thị giác máy, ESPRESSO Digital-PIM 160 TOPS, card E-Series E10/E20.",
+        "Pebble Vina's AI chip catalogue: MINT (30 GOPS, 17.6 TOPS/W), PAPAYA & PAPAYA FLEX for machine vision, ESPRESSO Digital-PIM 160 TOPS, E10/E20 cards.",
+        "Pebble Vina 칩: MINT(30 GOPS·17.6 TOPS/W), PAPAYA·FLEX, ESPRESSO 160 TOPS, E10/E20 가속 카드.",
       ),
     },
     bio: {
@@ -1094,9 +1326,9 @@ export const dictionary = {
         "회사 소개 — Pebble Vina Company Limited",
       ),
       description: L(
-        "Hồ sơ Công ty TNHH Pebble Vina: pháp nhân và trụ sở tại Hà Nội, hai hướng công nghệ PIM Analog và Digital, lộ trình sản phẩm từ MINT (sản xuất 05/2023) đến ESPRESSO (lộ trình Q3/2026), cùng đối tác công nghệ Pebble Square Inc.",
-        "Profile of Pebble Vina Company Limited: legal entity and Hanoi headquarters, the Analog and Digital PIM technology directions, the product timeline from MINT (in production 05/2023) to ESPRESSO (roadmap Q3/2026), and technology partner Pebble Square Inc.",
-        "Pebble Vina Company Limited 회사 소개: 하노이 본사와 법인 정보, 아날로그·디지털 두 갈래의 PIM 기술, MINT(2023년 5월 양산)에서 ESPRESSO(2026년 3분기 로드맵)로 이어지는 제품 로드맵, 그리고 기술 파트너 Pebble Square Inc.",
+        "Hồ sơ Pebble Vina: pháp nhân và trụ sở Hà Nội, công nghệ PIM Analog & Digital, lộ trình từ MINT (sản xuất 05/2023) đến ESPRESSO (lộ trình Q3/2026).",
+        "Pebble Vina profile: legal entity in Hanoi, Analog & Digital PIM technology, product timeline from MINT (production 05/2023) to ESPRESSO (roadmap Q3/2026).",
+        "Pebble Vina 소개: 하노이 법인, 아날로그·디지털 PIM 기술, MINT(2023년 5월 양산)~ESPRESSO(2026년 3분기 로드맵).",
       ),
     },
     /** Short organisation blurb reused by JSON-LD and llms.txt. */

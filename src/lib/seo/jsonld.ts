@@ -18,6 +18,19 @@ import { absolute, external, routes, siteUrl } from "@/lib/routes";
 const ORGANISATION_ID = `${siteUrl}/#organization`;
 const WEBSITE_ID = `${siteUrl}/#website`;
 
+/**
+ * Shared by every page-level node below. `dateModified` has to come from the
+ * caller's own record of when the content last changed (e.g. a CMS
+ * document's `updatedAt`) — this file has no store access and must not
+ * default to `new Date()`, which would print "just edited" on every build
+ * whether or not anything changed. That is a false freshness signal in a
+ * field search engines read as fact.
+ */
+export interface DatedPageOptions {
+  /** ISO 8601 timestamp, e.g. `content.updatedAt.toISOString()`. */
+  dateModified: string;
+}
+
 export function organisationJsonLd(locale: Locale) {
   return {
     "@context": "https://schema.org",
@@ -32,6 +45,10 @@ export function organisationJsonLd(locale: Locale) {
     taxID: dictionary.footer.taxCode,
     email: external.email,
     telephone: external.phone,
+    // `external.social` is empty until someone supplies the company's own
+    // profile URLs (see routes.ts) — an empty `sameAs: []` would be noise a
+    // crawler has to discard, so the key is omitted entirely until then.
+    ...(external.social.length > 0 ? { sameAs: external.social } : {}),
     address: {
       "@type": "PostalAddress",
       // One entry per locale rather than a vi/not-vi ternary: a Korean reader
@@ -62,6 +79,9 @@ export function organisationJsonLd(locale: Locale) {
       "@type": "Organization",
       name: "Pebble Square Inc.",
       url: external.parent,
+      // Same URL as `url` above — it is already in routes.ts and verifiable,
+      // unlike the profile links `external.social` is still waiting on.
+      sameAs: external.parent,
     },
     knowsAbout: [
       "Processing-in-Memory",
@@ -87,6 +107,39 @@ export function websiteJsonLd(locale: Locale) {
   };
 }
 
+export interface WebPageOptions extends DatedPageOptions {
+  /** Path under /public to the image the home page actually leads with
+   *  (e.g. the CMS `hero.image` field) — passed in rather than hardcoded so
+   *  this file never has to guess what is currently rendered. */
+  image: string;
+}
+
+/**
+ * Home page. Describes the page itself — separate from `Organization` (who)
+ * and `WebSite` (what site) — so an answer engine has a node to point at when
+ * it quotes this specific URL instead of the site in general.
+ */
+export function webPageJsonLd(locale: Locale, options: WebPageOptions) {
+  const url = absolute(routes.home(locale));
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: dictionary.meta.home.title[locale],
+    description: dictionary.meta.home.description[locale],
+    inLanguage: LOCALE_TAGS[locale],
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": ORGANISATION_ID },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: absolute(options.image),
+    },
+    dateModified: options.dateModified,
+  };
+}
+
 /**
  * /bio. `AboutPage` is the type for a page *about* the publisher, and it says
  * so by pointing `about` and `mainEntity` at the organisation node the same
@@ -94,7 +147,7 @@ export function websiteJsonLd(locale: Locale) {
  * There is no `offers` anywhere on this page and there must not be: /bio names
  * roadmap parts alongside shipped ones.
  */
-export function aboutPageJsonLd(locale: Locale) {
+export function aboutPageJsonLd(locale: Locale, options: DatedPageOptions) {
   const url = absolute(routes.bio(locale));
 
   return {
@@ -108,6 +161,46 @@ export function aboutPageJsonLd(locale: Locale) {
     isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": ORGANISATION_ID },
     mainEntity: { "@id": ORGANISATION_ID },
+    dateModified: options.dateModified,
+  };
+}
+
+/**
+ * FAQPage. `items` is already resolved to one locale — this file has no
+ * business picking a language, only shaping data it was handed.
+ *
+ * Anchored to /bio because the FAQ copy is being added there as
+ * `dictionary.bio.faq` (deliberately not imported here — see CLAUDE.md
+ * instructions for this task). Move the anchor if the FAQ block lands on a
+ * different page instead.
+ *
+ * Google only credits FAQPage markup when the questions and answers it
+ * describes are visible on the rendered page — this must only ever be
+ * called from a page that actually renders `items` as page content, never
+ * as markup-only supplementary data invisible to a human reader.
+ */
+export function faqJsonLd(
+  locale: Locale,
+  items: ReadonlyArray<{ id: string; question: string; answer: string }>,
+) {
+  const url = absolute(routes.bio(locale));
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    url,
+    inLanguage: LOCALE_TAGS[locale],
+    isPartOf: { "@id": WEBSITE_ID },
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      "@id": `${url}#${item.id}`,
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
 }
 
@@ -146,12 +239,26 @@ const STATUS_LABEL: Record<ProductStatus, Record<Locale, string>> = {
   roadmap: { vi: "Trong lộ trình", en: "On the roadmap", ko: "로드맵 단계" },
 };
 
-export function productCatalogueJsonLd(locale: Locale, content: {
+/** Named so `collectionPageJsonLd` can share it without repeating the shape. */
+export type ProductCatalogueContent = {
   mint: { title: string; description: string; image: string };
   papaya: { title: string; description: string; image: string };
   espresso: { title: string; description: string; image: string };
   eseries: { title: string; description: string; image: string };
-}) {
+};
+
+/**
+ * Builds the `ItemList` body that `collectionPageJsonLd` nests inside its
+ * `mainEntity`. No `@context` here: that key belongs only on a document's
+ * outermost node, never on a nested value.
+ *
+ * This used to be shared with a `productCatalogueJsonLd` that emitted the same
+ * list as its own top-level node. That function is gone — the products page now
+ * emits the list once, inside the page node — so if a second caller ever needs
+ * a standalone `ItemList`, wrap this and add `@context` at the call site rather
+ * than emitting both and asking a crawler which one counts.
+ */
+function buildProductItemList(locale: Locale, content: ProductCatalogueContent) {
   const entries: ProductEntry[] = [
     {
       name: "MINT",
@@ -206,8 +313,6 @@ export function productCatalogueJsonLd(locale: Locale, content: {
   ];
 
   return {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
     name: dictionary.meta.products.title[locale],
     itemListElement: entries.map((entry, index) => ({
       "@type": "ListItem",
@@ -235,6 +340,38 @@ export function productCatalogueJsonLd(locale: Locale, content: {
         ],
       },
     })),
+  };
+}
+
+export interface CollectionPageOptions extends DatedPageOptions {
+  content: ProductCatalogueContent;
+}
+
+/**
+ * Products page. `mainEntity` nests the `ItemList` body directly rather than
+ * pointing at a sibling node by `@id`: the ItemList has never been a node
+ * other pages link into, so keeping it separate and cross-referencing it
+ * would only add a lookup for a reader with nothing on the other end.
+ * Nesting is the plainer signal here — "this page's main content is this
+ * list" — with no address to keep in sync.
+ */
+export function collectionPageJsonLd(locale: Locale, options: CollectionPageOptions) {
+  const url = absolute(routes.products(locale));
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${url}#collectionpage`,
+    url,
+    name: dictionary.meta.products.title[locale],
+    description: dictionary.meta.products.description[locale],
+    inLanguage: LOCALE_TAGS[locale],
+    isPartOf: { "@id": WEBSITE_ID },
+    dateModified: options.dateModified,
+    mainEntity: {
+      "@type": "ItemList",
+      ...buildProductItemList(locale, options.content),
+    },
   };
 }
 

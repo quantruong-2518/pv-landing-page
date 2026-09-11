@@ -1,4 +1,4 @@
-import { getContent } from "@/lib/content/store";
+import { getContent, getPublishedAt } from "@/lib/content/store";
 import { dictionary } from "@/lib/i18n/dictionary";
 import { absolute, external, routes } from "@/lib/routes";
 
@@ -18,12 +18,28 @@ export const revalidate = 300;
 
 export async function GET() {
   const content = await getContent();
+  const publishedAt = await getPublishedAt();
   const copy = dictionary.product;
   const en = "en" as const;
+
+  // "## Questions" (frequently-asked question and answer) section, appended
+  // after "## Technology" and before "## Contact" via the `qaSection` slot in
+  // the template below. Sourced from `dictionary.bio.faq.items` — the same
+  // seven questions rendered as visible text on /bio — so this file cannot
+  // state an answer /bio does not.
+  const qaSection = `
+## Questions
+
+${dictionary.bio.faq.items
+  .map((item) => `Q: ${item.question[en]}\nA: ${item.answer[en]}`)
+  .join("\n\n")}
+`;
 
   const body = `# Pebble Vina
 
 > ${dictionary.meta.organisation[en]}
+
+Content last published: ${publishedAt.toISOString()}
 
 Legal entity: ${dictionary.footer.legalEntity} (tax code ${dictionary.footer.taxCode})
 Address: ${dictionary.footer.address[en]}
@@ -101,7 +117,7 @@ ${content.home.why.lead[en]}
 
 Analog PIM: ${dictionary.home.pim.analog.body[en]}
 Digital PIM: ${dictionary.home.pim.digital.body[en]}
-
+${qaSection}
 ## Contact
 
 ${content.home.contact.lead[en]}
