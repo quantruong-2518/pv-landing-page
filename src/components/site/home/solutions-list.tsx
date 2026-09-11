@@ -5,7 +5,27 @@ import { Section } from "@/components/site/section";
 import type { HomeContent } from "@/lib/content/schema";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
-import { productAnchor, routes, type AnchorId } from "@/lib/routes";
+import {
+  PRODUCT_SLUG_TO_ANCHOR,
+  PRODUCT_SLUGS,
+  productAnchor,
+  routes,
+  type AnchorId,
+  type ProductSlug,
+} from "@/lib/routes";
+
+/**
+ * `solutions.rows[].anchor` (dictionary.ts, owned by the copy agent) mixes
+ * three product anchors ("mint", "papaya", "e-series") with one hub section
+ * anchor ("phan-mem"). The former now have their own page; the latter is
+ * still a section on `/products` (CLAUDE.md: leave `#phan-mem` alone). This
+ * map — inverted from `PRODUCT_SLUG_TO_ANCHOR` (routes.ts) rather than
+ * assumed — is how a row tells the two apart without the dictionary itself
+ * having to change.
+ */
+const ANCHOR_TO_PRODUCT_SLUG = new Map<AnchorId, ProductSlug>(
+  PRODUCT_SLUGS.map((slug) => [PRODUCT_SLUG_TO_ANCHOR[slug], slug]),
+);
 
 /**
  * 03 — Solutions. Four full-bleed rows rather than cards.
@@ -49,30 +69,37 @@ export function SolutionsList({
       />
 
       <ul>
-        {rows.map((row) => (
-          <li key={row.index} className="border-t border-ink/12 last:border-b">
-            <Link
-              href={productAnchor(locale, row.anchor as AnchorId)}
-              className="grid grid-cols-[28px_1fr] items-start gap-[clamp(14px,1.6vw,28px)] px-gutter py-[clamp(20px,2.2vw,30px)] text-ink transition-colors hover:bg-accent/7 lg:grid-cols-[44px_minmax(210px,0.9fr)_minmax(260px,1.15fr)_28px]"
-            >
-              <span className="font-mono text-kicker text-accent">{row.index}</span>
-              <span className="font-heading text-h3">{row.title[locale]}</span>
-              <span className="col-start-2 text-card text-body lg:col-start-3">
-                {row.body[locale]}
-              </span>
-              {/* Same step as the title it belongs to, rather than its own
-               * size. The weight is pinned back to 500 because the token's 700
-               * is a heading weight and JetBrains Mono only ships 400/500 here
-               * — asking for 700 would hand the arrow a synthesised bold. */}
-              <span
-                aria-hidden
-                className="hidden justify-self-end font-mono text-h3 font-medium text-accent lg:block"
+        {rows.map((row) => {
+          const slug = ANCHOR_TO_PRODUCT_SLUG.get(row.anchor as AnchorId);
+          const href = slug
+            ? routes.product(locale, slug)
+            : productAnchor(locale, row.anchor as AnchorId);
+
+          return (
+            <li key={row.index} className="border-t border-ink/12 last:border-b">
+              <Link
+                href={href}
+                className="grid grid-cols-[28px_1fr] items-start gap-[clamp(14px,1.6vw,28px)] px-gutter py-[clamp(20px,2.2vw,30px)] text-ink transition-colors hover:bg-accent/7 lg:grid-cols-[44px_minmax(210px,0.9fr)_minmax(260px,1.15fr)_28px]"
               >
-                →
-              </span>
-            </Link>
-          </li>
-        ))}
+                <span className="font-mono text-kicker text-accent">{row.index}</span>
+                <span className="font-heading text-h3">{row.title[locale]}</span>
+                <span className="col-start-2 text-card text-body lg:col-start-3">
+                  {row.body[locale]}
+                </span>
+                {/* Same step as the title it belongs to, rather than its own
+                 * size. The weight is pinned back to 500 because the token's 700
+                 * is a heading weight and JetBrains Mono only ships 400/500 here
+                 * — asking for 700 would hand the arrow a synthesised bold. */}
+                <span
+                  aria-hidden
+                  className="hidden justify-self-end font-mono text-h3 font-medium text-accent lg:block"
+                >
+                  →
+                </span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </Section>
   );

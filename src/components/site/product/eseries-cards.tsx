@@ -1,61 +1,71 @@
-import { Reveal } from "@/components/motion/reveal";
-import { GroupRule, SpecGrid, VignetteImage } from "@/components/site/primitives";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
+import { cn } from "@/lib/utils";
 
 /**
- * The two E-Series accelerator cards side by side.
- *
- * E20's figures are set in accent while E10's are not — that contrast is the
- * whole point of showing them together, and it is why the accent flag lives on
- * the spec data rather than on the card.
+ * Compact comparison for the two accelerator cards. Their hardware render is
+ * already the anchor of the application bento, so repeating two more large
+ * product images here would push the actual specifications below the viewport.
  */
 export function ESeriesCards({ locale }: { locale: Locale }) {
   const copy = dictionary.product.eseries;
 
   return (
-    <>
-      <div className="mt-[clamp(24px,2.6vw,40px)] grid gap-x-col lg:grid-cols-2">
-        {copy.cards.map((card, index) => (
-          <Reveal key={card.name} delay={index * 0.08} className="flex flex-col gap-[18px] py-8">
-            <div className="flex items-baseline justify-between gap-4">
-              <span className="font-heading text-card-title">{card.name}</span>
+    <div className="mt-3">
+      <div className="mb-3 flex items-baseline justify-between gap-4">
+        <span className="font-mono text-label text-accent">{copy.lineupLabel[locale]}</span>
+        <span className="font-mono text-label text-faint">E10 / E20</span>
+      </div>
+
+      <div className="grid gap-2 sm:grid-cols-2">
+        {copy.cards.map((card) => (
+          <article key={card.name} className="bg-ink/[0.035] p-3.5 sm:p-4">
+            <div className="flex items-baseline justify-between gap-3">
+              <h3 className="font-heading text-h3">{card.name}</h3>
               <span className="font-mono text-label text-accent">{card.index}</span>
             </div>
+            <p className="mt-1.5 text-note font-semibold text-contact">{card.heading[locale]}</p>
+            <p className="mt-1.5 text-note text-body">{card.body[locale]}</p>
 
-            <VignetteImage
-              src={card.image}
-              alt={card.imageAlt[locale]}
-              fit="contain"
-              sizes="(max-width: 1023px) 94vw, 46vw"
-              className="product-chrome-art"
-            />
-
-            <span className="text-lead font-semibold">{card.heading[locale]}</span>
-            <p className="max-w-[46ch] text-card text-body">{card.body[locale]}</p>
-
-            <SpecGrid specs={card.specs} locale={locale} className="mt-1.5" />
-          </Reveal>
+            <dl className="mt-3 grid gap-2">
+              {card.specs.map((spec) => (
+                <div key={spec.label} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-2">
+                  <dt className="font-mono text-[9px] leading-tight tracking-[0.1em] text-faint">
+                    {spec.label.replace(/^\d+\s*/, "")}
+                  </dt>
+                  <dd>
+                    <span
+                      className={cn(
+                        "font-heading text-[1.05rem] leading-none font-bold",
+                        "accent" in spec && spec.accent ? "text-accent" : "text-ink",
+                      )}
+                    >
+                      {spec.value}
+                    </span>
+                    {spec.unit ? (
+                      <span className="ml-1.5 font-mono text-[8px] leading-tight text-muted">
+                        {spec.unit}
+                      </span>
+                    ) : null}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </article>
         ))}
       </div>
 
-      {/* The stack is the second kind of content in this section — two
-          accelerator cards, then the software that runs on them — so it opens
-          on the rule every other group does instead of on a bare label. */}
-      <GroupRule label={copy.stackLabel}>
-        <span className="text-lead text-contact">{copy.stackLead[locale]}</span>
-      </GroupRule>
-
-      {/* A hairline over each entry — the same rule /bio uses for its figures
-          and partner rows. Without it the stack was five unseparated words
-          adrift on one line, with nothing to say they are five items. */}
-      <ul className="mt-5 grid gap-x-col sm:grid-cols-2 lg:grid-cols-5">
-        {copy.stack.map((item) => (
-          <li key={item} className="border-t border-ink/14 py-[18px] text-card text-contact">
+      <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
+        <span className="font-mono text-label text-accent">{copy.stackLabel}</span>
+        {copy.stack.map((item, index) => (
+          <span key={item} className="flex items-center gap-x-3 text-note text-contact">
             {item}
-          </li>
+            {index < copy.stack.length - 1 ? (
+              <span aria-hidden className="text-faint">·</span>
+            ) : null}
+          </span>
         ))}
-      </ul>
-    </>
+      </div>
+    </div>
   );
 }

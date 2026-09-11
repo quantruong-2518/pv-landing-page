@@ -88,20 +88,20 @@ ${copy.papaya.flexSpecs.map((spec) => `${spec.value} — ${spec.note?.[en] ?? ""
 ### MINT — ${content.product.mint.title[en]}
 ${content.product.mint.lead[en]}
 Applications: ${copy.mint.apps.join(", ")}.
-Read more: ${absolute(routes.products(en))}#${routes.anchors.mint}
+Read more: ${absolute(routes.product(en, "mint"))}
 
 ### PAPAYA & PAPAYA FLEX — ${content.product.papaya.title[en]}
 ${content.product.papaya.lead[en]}
-Read more: ${absolute(routes.products(en))}#${routes.anchors.papaya}
+Read more: ${absolute(routes.product(en, "papaya"))}
 
 ### ESPRESSO — ${content.product.espresso.title[en]}
 ${content.product.espresso.lead[en]}
-Read more: ${absolute(routes.products(en))}#${routes.anchors.espresso}
+Read more: ${absolute(routes.product(en, "espresso"))}
 
 ### E-Series — ${content.product.eseries.title[en]}
 ${content.product.eseries.lead[en]}
 Software stack: ${copy.eseries.stack.join(", ")}.
-Read more: ${absolute(routes.products(en))}#${routes.anchors.eSeries}
+Read more: ${absolute(routes.product(en, "e-series"))}
 
 ### Enterprise software
 ${content.product.software.lead[en]}

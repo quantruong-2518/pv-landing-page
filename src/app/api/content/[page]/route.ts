@@ -6,7 +6,7 @@ import { isAdminAuthenticated } from "@/lib/auth/admin";
 import { CONTENT_PAGE_IDS, type ContentPageId } from "@/lib/content/schema";
 import { getPageContent, resetSection, saveSection } from "@/lib/content/store";
 import { LOCALES } from "@/lib/i18n/config";
-import { routes } from "@/lib/routes";
+import { PRODUCT_SLUGS, routes } from "@/lib/routes";
 
 /**
  * Content API for one page.
@@ -57,6 +57,13 @@ async function requireSession(): Promise<NextResponse | null> {
  * been removed from `[locale]` for the same reason — see CLAUDE.md §4 — but
  * revalidating by concrete path is still required regardless.) /llms.txt and
  * /sitemap.xml read the same document and have to go with them.
+ *
+ * Each product line's own page (`/[locale]/products/<slug>`) renders the same
+ * `product.<key>.title` / `.lead` CMS fields the hub does — it is exactly the
+ * §4 /bio bug again if a save updates the hub's copy of a product and leaves
+ * that product's own page on the stale prerender until the ISR window
+ * expires. PRODUCT_SLUGS (routes.ts) drives the loop so a fifth product line
+ * only needs adding there, not here too.
  */
 function publish() {
   for (const locale of LOCALES) {
@@ -66,6 +73,9 @@ function publish() {
     // home document. Leave it out of this loop and a published edit shows on
     // /vi and silently does not on /vi/bio until the ISR window expires.
     revalidatePath(routes.bio(locale));
+    for (const slug of PRODUCT_SLUGS) {
+      revalidatePath(routes.product(locale, slug));
+    }
   }
   revalidatePath("/llms.txt");
   // sitemap.ts now reads getPublishedAt() for `lastModified`, so a publish

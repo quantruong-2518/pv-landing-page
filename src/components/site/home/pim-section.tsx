@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import type { HomeContent } from "@/lib/content/schema";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
-import { productAnchor, routes } from "@/lib/routes";
+import { routes } from "@/lib/routes";
 
 type PimSignalKind = "analog" | "digital";
 
@@ -73,13 +73,15 @@ export function PimSection({ content, locale }: { content: HomeContent["pim"]; l
       ...copy.analog,
       kind: "analog" as const,
       image: content.imageA,
-      href: productAnchor(locale, routes.anchors.mint),
+      // The chip lines now have their own pages; this used to point at a
+      // hub section that the URL split removed, so the button dead-ended.
+      href: routes.product(locale, "mint"),
     },
     {
       ...copy.digital,
       kind: "digital" as const,
       image: content.imageB,
-      href: productAnchor(locale, routes.anchors.espresso),
+      href: routes.product(locale, "espresso"),
     },
   ];
 

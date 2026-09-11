@@ -31,6 +31,7 @@ export function ProductDetail({
   beforeCta,
   className,
   children,
+  headingLevel = "h2",
 }: {
   id: string;
   locale: Locale;
@@ -48,8 +49,18 @@ export function ProductDetail({
   beforeCta?: ReactNode;
   className?: string;
   children?: ReactNode;
+  /**
+   * `h1` on a product's own page (`/[locale]/products/[product]`), where the
+   * product name is the document's only heading; `h2` (the default) for any
+   * future use as one section among several on a longer page — the way this
+   * component used to sit on the /products hub before each chip got its own
+   * URL. A page must carry exactly one `<h1>`, so the caller — not this
+   * component — decides which it is.
+   */
+  headingLevel?: "h1" | "h2";
 }) {
   const headingId = `${id}-title`;
+  const Heading = headingLevel;
 
   return (
     <Section
@@ -57,15 +68,15 @@ export function ProductDetail({
       labelledBy={headingId}
       screen
       spend="between"
-      className={cn("py-section-lg", className)}
+      className={cn("py-section", className)}
     >
       <ProductKicker label={kicker} meta={meta} />
 
-      <div className="grid items-start gap-[clamp(26px,3vw,52px)] gap-x-col pt-[clamp(22px,2.4vw,36px)] lg:grid-cols-2">
+      <div className="grid items-start gap-[clamp(20px,2vw,32px)] gap-x-col pt-[clamp(18px,1.6vw,26px)] lg:grid-cols-2">
         <div className="flex flex-col gap-6">
-          <h2 id={headingId} className="font-heading text-h2-detail text-balance">
+          <Heading id={headingId} className="font-heading text-h2-detail text-balance">
             {title}
-          </h2>
+          </Heading>
           <p className="max-w-[58ch] text-lead text-body">{lead}</p>
 
           {apps?.length ? (
@@ -105,7 +116,7 @@ export function ProductDetail({
           ) : null}
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 lg:col-start-2 lg:row-start-1 lg:row-span-2">
           {media}
           {!media && image ? (
             <VignetteImage
@@ -117,9 +128,9 @@ export function ProductDetail({
             />
           ) : null}
         </div>
-      </div>
 
-      {children}
+        {children ? <div className="lg:col-start-1 lg:row-start-2">{children}</div> : null}
+      </div>
     </Section>
   );
 }

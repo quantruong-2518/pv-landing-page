@@ -111,6 +111,14 @@ export function BioMasthead({ locale }: { locale: Locale }) {
                 </span>
               </h1>
 
+              {/* One plain sentence naming what kind of company this is, in the
+                  words someone would actually search with. The tagline below it
+                  says what the company does; this says what it *is*, which is
+                  the thing the sheet never stated outright and the thing an
+                  answer engine has to be able to quote. No superlative in it on
+                  purpose — "hàng đầu" would be a claim the site cannot source. */}
+              <p className="max-w-[52ch] text-lead text-ink">{copy.positioning[locale]}</p>
+
               <p className="max-w-[52ch] text-lead text-body">{footer.tagline[locale]}</p>
 
               <dl className="grid gap-x-col sm:grid-cols-2">

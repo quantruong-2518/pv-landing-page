@@ -6,7 +6,27 @@ import { Section } from "@/components/site/section";
 import type { ProductContent } from "@/lib/content/schema";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
-import { anchor, routes, type AnchorId } from "@/lib/routes";
+import {
+  anchor,
+  PRODUCT_SLUG_TO_ANCHOR,
+  PRODUCT_SLUGS,
+  routes,
+  type AnchorId,
+  type ProductSlug,
+} from "@/lib/routes";
+
+/**
+ * `catalog.hardware[].anchor` (dictionary.ts, owned by the copy agent) is a
+ * bare anchor id such as `"mint"` left over from when these four cards linked
+ * to a section on this same page. The correspondence between that id and its
+ * `ProductSlug` is owned by `PRODUCT_SLUG_TO_ANCHOR` (routes.ts), so it is
+ * inverted here rather than assumed identical — this is what lets a hardware
+ * card link straight to the chip's own page instead of a page anchor that no
+ * longer exists.
+ */
+const ANCHOR_TO_PRODUCT_SLUG = new Map<AnchorId, ProductSlug>(
+  PRODUCT_SLUGS.map((slug) => [PRODUCT_SLUG_TO_ANCHOR[slug], slug]),
+);
 
 /**
  * Catalogue hero: heading, then every product as a card that jumps to its own
@@ -66,28 +86,36 @@ export function Catalogue({
           The row gap lives on the parent because a subgrid takes its gutters
           from the grid it borrows tracks from. */}
       <div className="-mx-5 grid gap-x-col gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-        {copy.hardware.map((card, index) => (
-          <Reveal key={card.name} delay={index * 0.06} className="row-span-5 grid grid-rows-subgrid">
-            <Link
-              href={anchor(card.anchor as AnchorId)}
-              className="row-span-5 grid grid-rows-subgrid px-5 pt-6 pb-7 text-ink transition-colors hover:bg-accent/9"
-            >
-              <Kicker className="text-accent">{card.badge}</Kicker>
-              <span className="font-heading text-card-title">{card.name}</span>
-              <VignetteImage
-                src={card.image}
-                alt={card.imageAlt[locale]}
-                fit="contain"
-                sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 22vw"
-                priority={index === 0}
-              />
-              <span className="text-card text-body">{card.body[locale]}</span>
-              <span aria-hidden className="font-mono text-kicker text-accent">
-                →
-              </span>
-            </Link>
-          </Reveal>
-        ))}
+        {copy.hardware.map((card, index) => {
+          // catalog.hardware only ever lists the four product lines, so this
+          // always resolves; the page-anchor fallback only protects against
+          // that invariant breaking, rather than throwing at render time.
+          const slug = ANCHOR_TO_PRODUCT_SLUG.get(card.anchor as AnchorId);
+          const href = slug ? routes.product(locale, slug) : anchor(card.anchor as AnchorId);
+
+          return (
+            <Reveal key={card.name} delay={index * 0.06} className="row-span-5 grid grid-rows-subgrid">
+              <Link
+                href={href}
+                className="row-span-5 grid grid-rows-subgrid px-5 pt-6 pb-7 text-ink transition-colors hover:bg-accent/9"
+              >
+                <Kicker className="text-accent">{card.badge}</Kicker>
+                <span className="font-heading text-card-title">{card.name}</span>
+                <VignetteImage
+                  src={card.image}
+                  alt={card.imageAlt[locale]}
+                  fit="contain"
+                  sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 22vw"
+                  priority={index === 0}
+                />
+                <span className="text-card text-body">{card.body[locale]}</span>
+                <span aria-hidden className="font-mono text-kicker text-accent">
+                  →
+                </span>
+              </Link>
+            </Reveal>
+          );
+        })}
       </div>
 
       <GroupRule label={copy.groupSolutions[locale]} meta={copy.groupSolutionsLine[locale]} />

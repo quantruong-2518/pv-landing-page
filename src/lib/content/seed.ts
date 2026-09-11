@@ -216,9 +216,14 @@ export const SEED_CONTENT: SiteContent = {
         ko: "MINT — 온디바이스 엣지 AI를 위한 아날로그 PIM 칩",
       },
       lead: {
-        vi: "MINT là chip AI do Pebble Vina phát triển cho các thiết bị cần xử lý dữ liệu trực tiếp tại biên. Sử dụng công nghệ Analog PIM, MINT triệt tiêu độ trễ di chuyển dữ liệu giữa bộ nhớ và bộ xử lý, giúp gia tăng độ chính xác của dữ liệu phân tích và tối ưu khả năng dự báo cho các mô hình AI. Giải pháp mang lại tốc độ phản hồi tức thì với mức tiêu thụ điện năng cực kỳ thấp.",
-        en: "MINT is an AI chip developed by Pebble Vina for devices that must process data directly at the edge. Using Analog PIM, MINT removes the latency of moving data between memory and processor, improving the accuracy of analysed data and the predictive capability of AI models — with instant response at extremely low power draw.",
-        ko: "MINT는 엣지에서 데이터를 직접 처리해야 하는 기기를 위해 Pebble Vina가 개발한 AI 칩입니다. 아날로그 PIM 기술로 메모리와 프로세서 사이의 데이터 이동 지연을 없애 분석 데이터의 정확도를 높이고 AI 모델의 예측 성능을 최적화합니다. 극히 낮은 소비 전력으로 즉각적인 응답 속도를 제공합니다.",
+        // Third sentence works "tiết kiệm điện" / "hiệu suất năng lượng" / "công
+        // suất thấp" into the copy, anchored to the 17,6 TOPS/W figure the site
+        // already publishes at `product.mint.specs` (dictionary.ts) — not the
+        // bare "chip tiết kiệm điện" claim, which in Vietnamese search reads as
+        // a household gadget rather than a semiconductor part.
+        vi: "MINT là chip AI do Pebble Vina phát triển cho các thiết bị cần xử lý dữ liệu trực tiếp tại biên. Sử dụng công nghệ Analog PIM, MINT triệt tiêu độ trễ di chuyển dữ liệu giữa bộ nhớ và bộ xử lý, giúp gia tăng độ chính xác của dữ liệu phân tích và tối ưu khả năng dự báo cho các mô hình AI. Nhờ vậy, đây là chip AI tiết kiệm điện với hiệu suất năng lượng 17,6 TOPS/W, phản hồi tức thì ở mức công suất thấp.",
+        en: "MINT is an AI chip developed by Pebble Vina for devices that must process data directly at the edge. Using Analog PIM, MINT removes the latency of moving data between memory and processor, improving the accuracy of analysed data and the predictive capability of AI models. As a result, it is a power-efficient AI chip reaching 17.6 TOPS/W in energy efficiency, responding instantly at low power draw.",
+        ko: "MINT는 엣지에서 데이터를 직접 처리해야 하는 기기를 위해 Pebble Vina가 개발한 AI 칩입니다. 아날로그 PIM 기술로 메모리와 프로세서 사이의 데이터 이동 지연을 없애 분석 데이터의 정확도를 높이고 AI 모델의 예측 성능을 최적화합니다. 이 덕분에 MINT는 17.6 TOPS/W의 에너지 효율을 내는 저전력 AI 칩으로, 낮은 소비 전력에서도 즉각적으로 응답합니다.",
       },
       image: "/images/mint-chrome-v4.png",
     },
@@ -231,9 +236,13 @@ export const SEED_CONTENT: SiteContent = {
         ko: "PAPAYA & PAPAYA FLEX — 온디바이스 비전을 위한 아날로그 칩 플랫폼",
       },
       lead: {
-        vi: "PAPAYA và PAPAYA FLEX là các dòng chip chuyên biệt cho xử lý hình ảnh và thị giác máy trực tiếp tại thiết bị. Nhờ lợi thế của công nghệ Analog, nền tảng này mang lại kết quả xử lý dữ liệu với độ chính xác cao, nâng cao đáng kể khả năng dự báo của các mô hình AI theo thời gian thực.",
-        en: "PAPAYA and PAPAYA FLEX are chip lines dedicated to image processing and machine vision directly on the device. Thanks to the advantages of Analog technology, the platform delivers high-accuracy data processing and markedly improves the real-time predictive capability of AI models.",
-        ko: "PAPAYA와 PAPAYA FLEX는 기기에서 곧바로 영상 처리와 머신 비전을 수행하도록 만든 전용 칩 라인입니다. 아날로그 기술의 강점을 살려 높은 정확도의 데이터 처리 결과를 제공하며, AI 모델의 실시간 예측 성능을 크게 끌어올립니다.",
+        // Third sentence adds the same qualified energy-efficiency vocabulary as
+        // MINT's lead, anchored to PAPAYA's own 30 TOPS/W figure
+        // (`product.papaya.specs`, dictionary.ts) — an absolute spec, not one of
+        // the flexSpecs comparisons, so it carries no NVIDIA Jetson Nano note.
+        vi: "PAPAYA và PAPAYA FLEX là các dòng chip chuyên biệt cho xử lý hình ảnh và thị giác máy trực tiếp tại thiết bị. Nhờ lợi thế của công nghệ Analog, nền tảng này mang lại kết quả xử lý dữ liệu với độ chính xác cao, nâng cao đáng kể khả năng dự báo của các mô hình AI theo thời gian thực. Kiến trúc Analog PIM cũng giúp PAPAYA tiết kiệm điện ở hiệu suất năng lượng 30 TOPS/W, giữ công suất thấp cho các ứng dụng thị giác máy tại thiết bị.",
+        en: "PAPAYA and PAPAYA FLEX are chip lines dedicated to image processing and machine vision directly on the device. Thanks to the advantages of Analog technology, the platform delivers high-accuracy data processing and markedly improves the real-time predictive capability of AI models. The Analog PIM architecture also makes PAPAYA power-efficient, reaching 30 TOPS/W in energy efficiency and keeping power draw low for on-device machine-vision applications.",
+        ko: "PAPAYA와 PAPAYA FLEX는 기기에서 곧바로 영상 처리와 머신 비전을 수행하도록 만든 전용 칩 라인입니다. 아날로그 기술의 강점을 살려 높은 정확도의 데이터 처리 결과를 제공하며, AI 모델의 실시간 예측 성능을 크게 끌어올립니다. 아날로그 PIM 구조 덕분에 PAPAYA는 30 TOPS/W의 에너지 효율로 전력을 절감하며, 온디바이스 머신 비전 응용에서도 낮은 소비 전력을 유지합니다.",
       },
       image: "/images/papaya-chrome-v4.png",
     },

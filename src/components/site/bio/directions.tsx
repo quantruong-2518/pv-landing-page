@@ -8,7 +8,25 @@ import { Button } from "@/components/ui/button";
 import type { HomeContent } from "@/lib/content/schema";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
-import { productAnchor, routes, type AnchorId } from "@/lib/routes";
+import {
+  PRODUCT_SLUG_TO_ANCHOR,
+  PRODUCT_SLUGS,
+  productAnchor,
+  routes,
+  type AnchorId,
+  type ProductSlug,
+} from "@/lib/routes";
+
+/**
+ * `hardware[].anchor` (dictionary.ts, owned by the copy agent) is a bare
+ * anchor id such as `"mint"`. Each part link below used to point at that
+ * section on `/products`; now it points at the chip's own page instead, so
+ * the id is resolved to its `ProductSlug` through `PRODUCT_SLUG_TO_ANCHOR`
+ * (routes.ts, inverted here) rather than assumed identical to the slug.
+ */
+const ANCHOR_TO_PRODUCT_SLUG = new Map<AnchorId, ProductSlug>(
+  PRODUCT_SLUGS.map((slug) => [PRODUCT_SLUG_TO_ANCHOR[slug], slug]),
+);
 
 /**
  * § 02 — the two PIM directions, on the sheet's one daylight band.
@@ -49,13 +67,13 @@ export function BioDirections({
     {
       ...pim.analog,
       image: copy.directions.analogImage,
-      href: productAnchor(locale, routes.anchors.mint),
+      href: routes.product(locale, "mint"),
       parts: hardware.filter((card) => card.badge.startsWith("ANALOG PIM")),
     },
     {
       ...pim.digital,
       image: copy.directions.digitalImage,
-      href: productAnchor(locale, routes.anchors.espresso),
+      href: routes.product(locale, "espresso"),
       parts: hardware.filter((card) => card.badge.startsWith("DIGITAL PIM")),
     },
   ];
@@ -112,19 +130,29 @@ export function BioDirections({
                 {copy.directions.implementedBy[locale]}
               </span>
               <ul className="flex flex-col">
-                {column.parts.map((part) => (
-                  <li key={part.name}>
-                    <Link
-                      href={productAnchor(locale, part.anchor as AnchorId)}
-                      className="flex flex-col gap-1 border-b border-ink/14 py-3 transition-colors hover:text-accent sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
-                    >
-                      <span className="text-card font-semibold">{part.name}</span>
-                      <span className="font-mono text-label whitespace-nowrap text-faint">
-                        {part.badge}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
+                {column.parts.map((part) => {
+                  // `hardware` only ever lists the four product lines, so this
+                  // always resolves; `#top` (the catalogue itself) is the
+                  // fallback only if that invariant ever breaks.
+                  const slug = ANCHOR_TO_PRODUCT_SLUG.get(part.anchor as AnchorId);
+                  const href = slug
+                    ? routes.product(locale, slug)
+                    : productAnchor(locale, routes.anchors.top);
+
+                  return (
+                    <li key={part.name}>
+                      <Link
+                        href={href}
+                        className="flex flex-col gap-1 border-b border-ink/14 py-3 transition-colors hover:text-accent sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
+                      >
+                        <span className="text-card font-semibold">{part.name}</span>
+                        <span className="font-mono text-label whitespace-nowrap text-faint">
+                          {part.badge}
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 

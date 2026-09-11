@@ -1,6 +1,16 @@
 import type { Locale } from "@/lib/i18n/config";
 
 /**
+ * The four product lines, each getting its own page at
+ * `/[locale]/products/<slug>` instead of sharing `/[locale]/products#<anchor>`
+ * with the other three — one URL cannot rank for four different product
+ * subjects. Order is cosmetic here (it is not used to render anything); the
+ * page that lists them decides display order.
+ */
+export const PRODUCT_SLUGS = ["mint", "papaya", "espresso", "e-series"] as const;
+export type ProductSlug = (typeof PRODUCT_SLUGS)[number];
+
+/**
  * Every internal URL is built here. Changing the URL shape — dropping the
  * locale prefix, moving products under /san-pham — is then one edit, not a
  * grep across components.
@@ -8,6 +18,7 @@ import type { Locale } from "@/lib/i18n/config";
 export const routes = {
   home: (locale: Locale) => `/${locale}`,
   products: (locale: Locale) => `/${locale}/products`,
+  product: (locale: Locale, slug: ProductSlug) => `/${locale}/products/${slug}`,
   bio: (locale: Locale) => `/${locale}/bio`,
 
   /** In-page anchors. Slugs stay Vietnamese in both locales so a link shared
@@ -45,6 +56,36 @@ export const anchor = (id: AnchorId) => `#${id}`;
 export const homeAnchor = (locale: Locale, id: AnchorId) => `${routes.home(locale)}#${id}`;
 export const productAnchor = (locale: Locale, id: AnchorId) => `${routes.products(locale)}#${id}`;
 export const bioAnchor = (locale: Locale, id: AnchorId) => `${routes.bio(locale)}#${id}`;
+
+/**
+ * A product's URL slug does not match the key its CMS section is stored
+ * under (`src/lib/content/schema.ts`, `productContentSchema`): the slug
+ * `e-series` reads better in a URL than the schema's `eseries`, and the
+ * schema key predates the slug. Resolving through this map means the schema
+ * key never has to be guessed or re-typed at each call site — `getPageContent
+ * ("product").<key>` always uses `PRODUCT_SLUG_TO_CONTENT_KEY[slug]`.
+ */
+export const PRODUCT_SLUG_TO_CONTENT_KEY: Record<ProductSlug, "mint" | "papaya" | "espresso" | "eseries"> =
+  {
+    mint: "mint",
+    papaya: "papaya",
+    espresso: "espresso",
+    "e-series": "eseries",
+  };
+
+/**
+ * A product's URL slug does not match the anchor id it used before it had
+ * its own page (`routes.anchors`, e.g. `eSeries: "e-series"` is keyed by a
+ * camelCase property name, not the slug). The home page still links into
+ * these anchors on the hub, so this map is how a caller converts a slug into
+ * the anchor it needs without re-deriving the correspondence by hand.
+ */
+export const PRODUCT_SLUG_TO_ANCHOR: Record<ProductSlug, AnchorId> = {
+  mint: routes.anchors.mint,
+  papaya: routes.anchors.papaya,
+  espresso: routes.anchors.espresso,
+  "e-series": routes.anchors.eSeries,
+};
 
 export const admin = {
   root: "/admin",

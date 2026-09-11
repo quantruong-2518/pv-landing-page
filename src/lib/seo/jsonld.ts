@@ -1,6 +1,14 @@
 import { LOCALES, LOCALE_TAGS, type Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
-import { absolute, external, routes, siteUrl } from "@/lib/routes";
+import {
+  absolute,
+  external,
+  PRODUCT_SLUG_TO_CONTENT_KEY,
+  PRODUCT_SLUGS,
+  routes,
+  siteUrl,
+  type ProductSlug,
+} from "@/lib/routes";
 
 /**
  * Structured data.
@@ -223,21 +231,85 @@ export function breadcrumbJsonLd(
 /** Availability status as the site itself labels it. */
 type ProductStatus = "shipped" | "poc" | "roadmap";
 
-interface ProductEntry {
-  name: string;
-  anchor: string;
-  description: string;
-  image: string;
-  status: ProductStatus;
-  /** Headline figures, rendered as `PropertyValue` so they stay quotable. */
-  properties: ReadonlyArray<{ name: string; value: string }>;
-}
-
 const STATUS_LABEL: Record<ProductStatus, Record<Locale, string>> = {
   shipped: { vi: "Đang sản xuất", en: "In production", ko: "양산 중" },
   poc: { vi: "Proof of concept", en: "Proof of concept", ko: "Proof of concept" },
   roadmap: { vi: "Trong lộ trình", en: "On the roadmap", ko: "로드맵 단계" },
 };
+
+interface ProductFacts {
+  name: string;
+  status: ProductStatus;
+  /** Headline figures, rendered as `PropertyValue` so they stay quotable. */
+  properties: ReadonlyArray<{ name: string; value: string }>;
+}
+
+/**
+ * The facts about each product line that do not depend on the CMS — name,
+ * shipping status, headline figures. Keyed by `ProductSlug` (routes.ts) so
+ * both `buildProductItemList` (the /products catalogue) and
+ * `productPageJsonLd` (each product's own page) describe the same chip the
+ * same way; a figure changed here changes on both. Every figure is copied
+ * unmodified from CLAUDE.md §2's approved list — do not add or infer new
+ * ones here.
+ */
+const PRODUCT_FACTS: Record<ProductSlug, ProductFacts> = {
+  mint: {
+    name: "MINT",
+    status: "shipped",
+    properties: [
+      { name: "Performance", value: "30 GOPS" },
+      { name: "Efficiency", value: "17.6 TOPS/W" },
+      { name: "Die area", value: "5 × 5 mm²" },
+    ],
+  },
+  papaya: {
+    name: "PAPAYA / PAPAYA FLEX",
+    status: "poc",
+    properties: [
+      { name: "Performance", value: "0.5 TOPS" },
+      { name: "Efficiency", value: "30 TOPS/W" },
+      { name: "Die area", value: "5 × 5 mm²" },
+    ],
+  },
+  espresso: {
+    name: "ESPRESSO",
+    status: "roadmap",
+    properties: [
+      { name: "Performance", value: "160 TOPS" },
+      { name: "Efficiency", value: "16 TOPS/W" },
+      { name: "Die area", value: "20 × 23 mm²" },
+      { name: "4-chip card", value: "640 TOPS" },
+    ],
+  },
+  "e-series": {
+    name: "E-Series E10 / E20",
+    status: "roadmap",
+    properties: [
+      { name: "E10 compute", value: "512T FP8/INT8, 32 AI cores" },
+      { name: "E10 memory", value: "48 GB" },
+      { name: "E20 compute", value: "1024T FP8/INT8, 64 AI cores" },
+      { name: "E20 memory", value: "96 GB" },
+    ],
+  },
+};
+
+/** Shared by the ItemList entries and each product's own page so the status
+ *  label and figures are built identically in both places. */
+function productAdditionalProperties(locale: Locale, facts: ProductFacts) {
+  return [
+    {
+      "@type": "PropertyValue",
+      name: locale === "vi" ? "Trạng thái" : "Status",
+      value: STATUS_LABEL[facts.status][locale],
+    },
+    ...facts.properties.map((property) => ({
+      "@type": "PropertyValue",
+      name: property.name,
+      value: property.value,
+    })),
+  ];
+}
 
 /** Named so `collectionPageJsonLd` can share it without repeating the shape. */
 export type ProductCatalogueContent = {
@@ -257,89 +329,86 @@ export type ProductCatalogueContent = {
  * emits the list once, inside the page node — so if a second caller ever needs
  * a standalone `ItemList`, wrap this and add `@context` at the call site rather
  * than emitting both and asking a crawler which one counts.
+ *
+ * Each entry's `url` used to be a fragment on this same page
+ * (`/products#mint`); now that every product line has its own page, it points
+ * there instead — see `routes.product` / `PRODUCT_SLUG_TO_CONTENT_KEY`.
  */
 function buildProductItemList(locale: Locale, content: ProductCatalogueContent) {
-  const entries: ProductEntry[] = [
-    {
-      name: "MINT",
-      anchor: routes.anchors.mint,
-      description: content.mint.description,
-      image: content.mint.image,
-      status: "shipped",
-      properties: [
-        { name: "Performance", value: "30 GOPS" },
-        { name: "Efficiency", value: "17.6 TOPS/W" },
-        { name: "Die area", value: "5 × 5 mm²" },
-      ],
-    },
-    {
-      name: "PAPAYA / PAPAYA FLEX",
-      anchor: routes.anchors.papaya,
-      description: content.papaya.description,
-      image: content.papaya.image,
-      status: "poc",
-      properties: [
-        { name: "Performance", value: "0.5 TOPS" },
-        { name: "Efficiency", value: "30 TOPS/W" },
-        { name: "Die area", value: "5 × 5 mm²" },
-      ],
-    },
-    {
-      name: "ESPRESSO",
-      anchor: routes.anchors.espresso,
-      description: content.espresso.description,
-      image: content.espresso.image,
-      status: "roadmap",
-      properties: [
-        { name: "Performance", value: "160 TOPS" },
-        { name: "Efficiency", value: "16 TOPS/W" },
-        { name: "Die area", value: "20 × 23 mm²" },
-        { name: "4-chip card", value: "640 TOPS" },
-      ],
-    },
-    {
-      name: "E-Series E10 / E20",
-      anchor: routes.anchors.eSeries,
-      description: content.eseries.description,
-      image: content.eseries.image,
-      status: "roadmap",
-      properties: [
-        { name: "E10 compute", value: "512T FP8/INT8, 32 AI cores" },
-        { name: "E10 memory", value: "48 GB" },
-        { name: "E20 compute", value: "1024T FP8/INT8, 64 AI cores" },
-        { name: "E20 memory", value: "96 GB" },
-      ],
-    },
-  ];
-
   return {
     name: dictionary.meta.products.title[locale],
-    itemListElement: entries.map((entry, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "Product",
-        name: entry.name,
-        url: `${absolute(routes.products(locale))}#${entry.anchor}`,
-        image: absolute(entry.image),
-        description: entry.description,
-        category: "AI semiconductor",
-        brand: { "@id": ORGANISATION_ID },
-        manufacturer: { "@id": ORGANISATION_ID },
-        additionalProperty: [
-          {
-            "@type": "PropertyValue",
-            name: locale === "vi" ? "Trạng thái" : "Status",
-            value: STATUS_LABEL[entry.status][locale],
-          },
-          ...entry.properties.map((property) => ({
-            "@type": "PropertyValue",
-            name: property.name,
-            value: property.value,
-          })),
-        ],
-      },
-    })),
+    itemListElement: PRODUCT_SLUGS.map((slug, index) => {
+      const facts = PRODUCT_FACTS[slug];
+      const entryContent = content[PRODUCT_SLUG_TO_CONTENT_KEY[slug]];
+
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Product",
+          name: facts.name,
+          url: absolute(routes.product(locale, slug)),
+          image: absolute(entryContent.image),
+          description: entryContent.description,
+          category: "AI semiconductor",
+          brand: { "@id": ORGANISATION_ID },
+          manufacturer: { "@id": ORGANISATION_ID },
+          additionalProperty: productAdditionalProperties(locale, facts),
+        },
+      };
+    }),
+  };
+}
+
+export interface ProductPageOptions extends DatedPageOptions {
+  slug: ProductSlug;
+  /** CMS title, resolved to one locale. */
+  title: string;
+  /** CMS lead, resolved to one locale. */
+  description: string;
+  /** Path under /public to the product's chip render. */
+  image: string;
+}
+
+/**
+ * One product line's own page. `mainEntity` is the same `Product` the
+ * catalogue's `ItemList` carries for this slug — same `name`, `category`,
+ * `brand`/`manufacturer` @id references, and `additionalProperty` status and
+ * figures from `PRODUCT_FACTS` — except `url` now points at this page instead
+ * of a fragment on /products.
+ *
+ * No `offers` on this node, ever, and especially not for `espresso` or
+ * `e-series`: both are roadmap parts (CLAUDE.md §2), and marking a chip that
+ * has not shipped as purchasable is a false claim in a machine-readable
+ * field. If a chip genuinely starts shipping, adding `offers` is a deliberate
+ * human decision to make at that point — do not "restore" it here as a
+ * simplification.
+ */
+export function productPageJsonLd(locale: Locale, options: ProductPageOptions) {
+  const url = absolute(routes.product(locale, options.slug));
+  const facts = PRODUCT_FACTS[options.slug];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemPage",
+    "@id": `${url}#itempage`,
+    url,
+    name: options.title,
+    description: options.description,
+    inLanguage: LOCALE_TAGS[locale],
+    isPartOf: { "@id": WEBSITE_ID },
+    dateModified: options.dateModified,
+    mainEntity: {
+      "@type": "Product",
+      name: facts.name,
+      url,
+      image: absolute(options.image),
+      description: options.description,
+      category: "AI semiconductor",
+      brand: { "@id": ORGANISATION_ID },
+      manufacturer: { "@id": ORGANISATION_ID },
+      additionalProperty: productAdditionalProperties(locale, facts),
+    },
   };
 }
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { LOCALES, LOCALE_TAGS, otherLocales, type Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
-import { absolute, siteUrl } from "@/lib/routes";
+import { absolute, routes, siteUrl } from "@/lib/routes";
 
 /**
  * Per-page metadata.
@@ -10,13 +10,33 @@ import { absolute, siteUrl } from "@/lib/routes";
  * Both languages are separate URLs, so every page declares its own canonical
  * plus the full hreflang set. `x-default` points at Vietnamese: the company is
  * Vietnamese and that is the page a locale-less visitor should land on.
+ *
+ * The four `product*` keys are flat rather than nested under one "product"
+ * key because `dictionary.meta` indexes directly by `PageKey`
+ * (`dictionary.meta[page]`) — the copy agent adds `meta.productMint`,
+ * `meta.productPapaya`, `meta.productEspresso`, `meta.productESeries` as
+ * sibling keys of `meta.home` for the same reason.
  */
-type PageKey = "home" | "products" | "bio";
+type PageKey =
+  | "home"
+  | "products"
+  | "bio"
+  | "productMint"
+  | "productPapaya"
+  | "productEspresso"
+  | "productESeries";
 
+// `routes.product(locale, slug)` is the one place the /products/<slug> path
+// shape is written — PATHS below calls it rather than rebuilding the path,
+// so the slug list in routes.ts stays the single source of truth for it.
 const PATHS: Record<PageKey, (locale: Locale) => string> = {
   home: (locale) => `/${locale}`,
   products: (locale) => `/${locale}/products`,
   bio: (locale) => `/${locale}/bio`,
+  productMint: (locale) => routes.product(locale, "mint"),
+  productPapaya: (locale) => routes.product(locale, "papaya"),
+  productEspresso: (locale) => routes.product(locale, "espresso"),
+  productESeries: (locale) => routes.product(locale, "e-series"),
 };
 
 function languageAlternates(page: PageKey): Record<string, string> {

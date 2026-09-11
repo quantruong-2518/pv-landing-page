@@ -102,6 +102,8 @@ export function GroupRule({
   meta,
   children,
   className,
+  labelAs: LabelTag = "span",
+  labelId,
 }: {
   name?: string;
   label?: string;
@@ -109,6 +111,15 @@ export function GroupRule({
   /** A full sentence after the label, where the group needs one. */
   children?: ReactNode;
   className?: string;
+  /**
+   * Render the label as a heading where the group it opens is a real section of
+   * the document rather than a run-in divider. Defaults to `span` so every
+   * existing rule keeps its markup; the styling is identical either way, since
+   * the label's look comes from the mono/label tokens and not from the tag.
+   */
+  labelAs?: "span" | "h2" | "h3";
+  /** Set with `labelAs` when a `Section` points `labelledBy` at this label. */
+  labelId?: string;
 }) {
   const hasHead = Boolean(name || label || meta || children);
 
@@ -127,7 +138,9 @@ export function GroupRule({
         <span className="font-heading text-card-title tracking-[0.04em]">{name}</span>
       ) : null}
       {label ? (
-        <span className="font-mono text-label whitespace-nowrap text-accent">{label}</span>
+        <LabelTag id={labelId} className="font-mono text-label whitespace-nowrap text-accent">
+          {label}
+        </LabelTag>
       ) : null}
       {meta ? (
         <span className="font-mono text-label whitespace-normal text-faint">{meta}</span>
@@ -249,7 +262,7 @@ export function SpecGrid({
  */
 export function ProductKicker({ label, meta }: { label: string; meta: string }) {
   return (
-    <div className="flex flex-wrap items-baseline gap-5 pb-6">
+    <div className="flex flex-wrap items-baseline gap-5">
       <Kicker className="text-accent">{label}</Kicker>
       <Kicker className="whitespace-normal text-faint">{meta}</Kicker>
     </div>
@@ -262,11 +275,19 @@ export function NumberedItem({
   title,
   body,
   className,
+  titleAs: TitleTag = "div",
 }: {
   index: string;
   title: ReactNode;
   body: ReactNode;
   className?: string;
+  /**
+   * A heading tag where these items are the substance of a section rather than
+   * a list of asides — an application's name carries the words a reader (and a
+   * crawler) uses to find it, and a `div` keeps it out of the outline. Defaults
+   * to `div` so the existing callers are unchanged.
+   */
+  titleAs?: "div" | "h3" | "h4";
 }) {
   return (
     <div className={cn("flex flex-col gap-3.5 pt-9", className)}>
@@ -275,7 +296,7 @@ export function NumberedItem({
        * of the scale with the other sub-heads instead of inventing its own. The
        * weight stays 600 — the token's 700 is meant for the heading face, and
        * the design refs set these sans titles at 600. */}
-      <div className="text-h3 font-semibold">{title}</div>
+      <TitleTag className="text-h3 font-semibold">{title}</TitleTag>
       <p className="text-card text-body">{body}</p>
     </div>
   );
