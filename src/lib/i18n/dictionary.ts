@@ -621,6 +621,9 @@ export const dictionary = {
     /** Labels reused across every product detail block. */
     shared: {
       applications: L("ỨNG DỤNG", "APPLICATIONS", "응용 분야"),
+      visualSystem: L("HỆ SINH THÁI ỨNG DỤNG", "APPLICATION ECOSYSTEM", "애플리케이션 생태계"),
+      chipCore: L("CHIP XỬ LÝ", "PROCESSING CHIP", "프로세싱 칩"),
+      applicationDevice: L("THIẾT BỊ ỨNG DỤNG", "APPLICATION DEVICE", "응용 기기"),
       keySpecs: L("THÔNG SỐ CHÍNH", "KEY SPECIFICATIONS", "주요 사양"),
       consult: L("ĐĂNG KÝ TƯ VẤN NGAY →", "BOOK A CONSULTATION →", "상담 신청하기 →"),
       hardware: L("01 • PHẦN CỨNG", "01 • HARDWARE", "01 • 하드웨어"),
@@ -639,6 +642,26 @@ export const dictionary = {
         "브러시드 메탈 사각형 패키지로 렌더링된 MINT 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
       ),
       apps: ["Smart Home", "IoT", "Failure Analysis"],
+      visuals: [
+        {
+          image: "/images/products/mint-smart-home.webp",
+          title: L("Trung tâm AI nhà thông minh", "Smart-home AI hub", "스마트홈 AI 허브"),
+          alt: L(
+            "Trung tâm AI nhà thông minh bằng kim loại graphite cùng hai cảm biến phòng, viền sáng xanh cyan.",
+            "Graphite metal smart-home AI hub with two room sensors and cyan edge lighting.",
+            "그래파이트 메탈 소재의 스마트홈 AI 허브와 두 개의 실내 센서, 시안 엣지 조명.",
+          ),
+        },
+        {
+          image: "/images/products/mint-predictive-maintenance.webp",
+          title: L("Giám sát rung & hỏng hóc", "Predictive maintenance", "진동·고장 예지 보전"),
+          alt: L(
+            "Cảm biến rung nhỏ gắn trên động cơ công nghiệp để theo dõi tình trạng và dự báo hỏng hóc.",
+            "A compact vibration sensor mounted on an industrial motor for condition monitoring and failure prediction.",
+            "산업용 모터에 장착되어 상태를 모니터링하고 고장을 예측하는 소형 진동 센서.",
+          ),
+        },
+      ],
       specs: [
         { label: "01 PERFORMANCE", value: "30", unit: "GOPS" },
         { label: "02 EFFICIENCY", value: "17,6", unit: "TOPS/W" },
@@ -670,6 +693,35 @@ export const dictionary = {
         L("Hệ thống an ninh", "Security systems", "보안 시스템"),
         L("Robot", "Robot", "로봇"),
         L("Thị giác máy", "Machine vision", "머신 비전"),
+      ],
+      visuals: [
+        {
+          image: "/images/products/papaya-machine-vision.webp",
+          title: L("Kiểm tra thị giác máy", "Machine-vision inspection", "머신 비전 검사"),
+          alt: L(
+            "Camera thị giác máy kiểm tra linh kiện điện tử trên băng chuyền chính xác.",
+            "A machine-vision camera inspecting electronic components on a precision conveyor.",
+            "정밀 컨베이어 위 전자 부품을 검사하는 머신 비전 카메라.",
+          ),
+        },
+        {
+          image: "/images/products/papaya-uav-vision.webp",
+          title: L("Thị giác trên UAV", "Onboard UAV vision", "UAV 온보드 비전"),
+          alt: L(
+            "UAV công nghiệp nhỏ gọn với camera gimbal phục vụ xử lý hình ảnh ngay trên thiết bị.",
+            "A compact industrial UAV with a gimbal camera for onboard image processing.",
+            "기기 내 영상 처리를 위한 짐벌 카메라를 탑재한 소형 산업용 UAV.",
+          ),
+        },
+        {
+          image: "/images/products/papaya-thermal-vision.webp",
+          title: L("Phát hiện ảnh nhiệt", "Thermal object detection", "열화상 객체 감지"),
+          alt: L(
+            "Camera AI hai phổ kết hợp ống kính quang học và cảm biến hồng ngoại nhiệt.",
+            "A dual-spectrum AI camera combining an optical lens and a thermal infrared sensor.",
+            "광학 렌즈와 열 적외선 센서를 결합한 듀얼 스펙트럼 AI 카메라.",
+          ),
+        },
       ],
       specs: [
         { label: "01 PERFORMANCE", value: "0,5", unit: "TOPS" },
@@ -737,6 +789,26 @@ export const dictionary = {
         { name: "Robotics", when: L("Dự kiến Q3/2026", "Expected Q3/2026", "2026년 3분기 예정") },
         { name: "Data Center", when: L("Trong lộ trình", "On the roadmap", "로드맵 단계") },
       ],
+      visuals: [
+        {
+          image: "/images/products/espresso-ai-pc.webp",
+          title: L("AI PC đa phương thức", "Multimodal AI PC", "멀티모달 AI PC"),
+          alt: L(
+            "Máy tính xách tay AI bằng nhôm graphite hiển thị trực quan sóng thần kinh màu cyan.",
+            "A graphite aluminum AI laptop displaying an abstract cyan neural-wave visualisation.",
+            "시안 신경망 파형을 표시하는 그래파이트 알루미늄 AI 노트북.",
+          ),
+        },
+        {
+          image: "/images/products/espresso-robotics.webp",
+          title: L("Robot tự hành", "Autonomous robotics", "자율 이동 로봇"),
+          alt: L(
+            "Robot tự hành nhỏ gọn có tay máy và cụm camera stereo để cảm nhận môi trường theo thời gian thực.",
+            "A compact autonomous mobile robot with an arm and stereo cameras for real-time perception.",
+            "실시간 환경 인식을 위한 로봇 팔과 스테레오 카메라를 갖춘 소형 자율 이동 로봇.",
+          ),
+        },
+      ],
       specs: [
         { label: "01 PERFORMANCE", value: "160", unit: "TOPS" },
         { label: "02 EFFICIENCY", value: "16", unit: "TOPS/W" },
@@ -766,6 +838,26 @@ export const dictionary = {
         "Computer Vision",
         "NLP & Speech AI",
         "Multi-card Computing",
+      ],
+      visuals: [
+        {
+          image: "/images/products/eseries-inference-rack.webp",
+          title: L("Cụm suy luận LLM", "LLM inference rack", "LLM 추론 랙"),
+          alt: L(
+            "Cụm máy chủ AI dạng rack với bốn khay tăng tốc cho suy luận LLM và đa phương thức.",
+            "An AI server rack with four accelerator trays for LLM and multimodal inference.",
+            "LLM 및 멀티모달 추론을 위한 가속기 트레이 네 개를 갖춘 AI 서버 랙.",
+          ),
+        },
+        {
+          image: "/images/products/eseries-multi-card.webp",
+          title: L("Tính toán đa card", "Multi-card computing", "멀티카드 컴퓨팅"),
+          alt: L(
+            "Khung máy chủ mở với bốn card tăng tốc AI đồng nhất kết nối thành một hệ thống tính toán.",
+            "An open server chassis with four matching AI accelerator cards connected as one compute system.",
+            "동일한 AI 가속기 카드 네 장을 하나의 연산 시스템으로 연결한 오픈 서버 섀시.",
+          ),
+        },
       ],
       cards: [
         {

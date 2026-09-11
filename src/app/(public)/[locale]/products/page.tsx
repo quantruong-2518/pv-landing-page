@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { SpecGrid, VignetteImage } from "@/components/site/primitives";
+import { SpecGrid } from "@/components/site/primitives";
+import { ApplicationBento } from "@/components/site/product/application-bento";
 import { Catalogue } from "@/components/site/product/catalogue";
 import { ESeriesCards } from "@/components/site/product/eseries-cards";
 import { ProductContact } from "@/components/site/product/product-contact";
@@ -76,8 +77,14 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             meta={copy.mint.meta[locale]}
             title={content.mint.title[locale]}
             lead={content.mint.lead[locale]}
-            image={{ src: content.mint.image, alt: copy.mint.imageAlt[locale] }}
-            apps={copy.mint.apps}
+            media={
+              <ApplicationBento
+                locale={locale}
+                product="MINT"
+                chip={{ image: content.mint.image, alt: copy.mint.imageAlt[locale] }}
+                applications={copy.mint.visuals}
+              />
+            }
             className="glow-mint bg-navy"
           >
             <SpecHeading label={copy.shared.keySpecs[locale]} />
@@ -102,8 +109,14 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             meta={copy.papaya.meta[locale]}
             title={content.papaya.title[locale]}
             lead={content.papaya.lead[locale]}
-            image={{ src: content.papaya.image, alt: copy.papaya.imageAlt[locale] }}
-            apps={copy.papaya.apps.map((app) => app[locale])}
+            media={
+              <ApplicationBento
+                locale={locale}
+                product="PAPAYA"
+                chip={{ image: content.papaya.image, alt: copy.papaya.imageAlt[locale] }}
+                applications={copy.papaya.visuals}
+              />
+            }
             className="glow-papaya bg-night-deep"
           >
             {/* Two spec blocks: PAPAYA's own figures, then FLEX stated purely as
@@ -113,19 +126,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             <SpecGrid specs={copy.papaya.specs} locale={locale} className="lg:grid-cols-4" />
 
             <SpecHeading name="PAPAYA FLEX" label={copy.papaya.flexLabel} />
-            {/* `items-start`, not `items-center`: the FLEX render is far taller
-                than the three-figure column, and centring the figures against
-                it opened ~120px of nothing directly under the "PAPAYA FLEX"
-                heading. Specs start under their own heading. */}
-            <div className="grid items-start gap-col lg:grid-cols-[1fr_0.65fr]">
-              <SpecGrid specs={copy.papaya.flexSpecs} locale={locale} className="lg:grid-cols-3" />
-              <VignetteImage
-                src="/images/papaya-flex-chrome-v4.png"
-                alt={copy.papaya.flexImageAlt[locale]}
-                sizes="(max-width: 1023px) 94vw, 38vw"
-                className="product-chrome-art"
-              />
-            </div>
+            <SpecGrid specs={copy.papaya.flexSpecs} locale={locale} className="lg:grid-cols-3" />
           </ProductDetail>
         ) : null}
 
@@ -137,7 +138,14 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             meta={copy.espresso.meta[locale]}
             title={content.espresso.title[locale]}
             lead={content.espresso.lead[locale]}
-            image={{ src: content.espresso.image, alt: copy.espresso.imageAlt[locale] }}
+            media={
+              <ApplicationBento
+                locale={locale}
+                product="ESPRESSO"
+                chip={{ image: content.espresso.image, alt: copy.espresso.imageAlt[locale] }}
+                applications={copy.espresso.visuals}
+              />
+            }
             className="glow-espresso bg-navy"
             beforeCta={
               // Target platforms with their dates — ESPRESSO is a Q3/2026 part,
@@ -198,8 +206,14 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             meta={copy.eseries.meta[locale]}
             title={content.eseries.title[locale]}
             lead={content.eseries.lead[locale]}
-            image={{ src: content.eseries.image, alt: copy.eseries.imageAlt[locale] }}
-            apps={copy.eseries.apps}
+            media={
+              <ApplicationBento
+                locale={locale}
+                product="E-SERIES"
+                chip={{ image: content.eseries.image, alt: copy.eseries.imageAlt[locale] }}
+                applications={copy.eseries.visuals}
+              />
+            }
             showCta={false}
             className="glow-eseries bg-night-deep"
           >

@@ -25,6 +25,7 @@ export function ProductDetail({
   title,
   lead,
   image,
+  media,
   apps,
   showCta = true,
   beforeCta,
@@ -39,6 +40,8 @@ export function ProductDetail({
   lead: string;
   /** Omitted when the block renders its own imagery (E-Series sub-cards). */
   image?: { src: string; alt: string };
+  /** A richer visual system (for example, chip + application bento). */
+  media?: ReactNode;
   apps?: readonly string[];
   showCta?: boolean;
   /** Extra content in the left-hand column, between the copy and the CTA. */
@@ -103,7 +106,8 @@ export function ProductDetail({
         </div>
 
         <div className="flex flex-col gap-6">
-          {image ? (
+          {media}
+          {!media && image ? (
             <VignetteImage
               src={image.src}
               alt={image.alt}
