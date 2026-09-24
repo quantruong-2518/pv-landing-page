@@ -4,7 +4,7 @@ import {
   absolute,
   external,
   PRODUCT_SLUG_TO_CONTENT_KEY,
-  PRODUCT_SLUGS,
+  PUBLIC_PRODUCT_SLUGS,
   routes,
   siteUrl,
   type ProductSlug,
@@ -333,11 +333,15 @@ export type ProductCatalogueContent = {
  * Each entry's `url` used to be a fragment on this same page
  * (`/products#mint`); now that every product line has its own page, it points
  * there instead — see `routes.product` / `PRODUCT_SLUG_TO_CONTENT_KEY`.
+ *
+ * Iterates PUBLIC_PRODUCT_SLUGS, not PRODUCT_SLUGS: a hidden line (routes.ts
+ * HIDDEN_PRODUCT_SLUGS, e.g. "e-series") must not appear in this ItemList —
+ * its page 404s, so listing it here would point a crawler at a dead URL.
  */
 function buildProductItemList(locale: Locale, content: ProductCatalogueContent) {
   return {
     name: dictionary.meta.products.title[locale],
-    itemListElement: PRODUCT_SLUGS.map((slug, index) => {
+    itemListElement: PUBLIC_PRODUCT_SLUGS.map((slug, index) => {
       const facts = PRODUCT_FACTS[slug];
       const entryContent = content[PRODUCT_SLUG_TO_CONTENT_KEY[slug]];
 

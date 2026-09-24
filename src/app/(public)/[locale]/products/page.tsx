@@ -61,7 +61,12 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
 
       <main>
         {content.catalog.visible ? (
-          <Catalogue content={content.catalog} locale={locale} />
+          <Catalogue
+            content={content.catalog}
+            locale={locale}
+            softwareImage={content.software.image}
+            trainingImage={content.training.image}
+          />
         ) : (
           // Catalogue owns the page's only <h1>. Hiding the catalog section
           // from the CMS `visible` toggle must not strip the document of its

@@ -78,12 +78,6 @@ export const dictionary = {
      *  three languages the control is a list, not a toggle. */
     language: L("Ngôn ngữ", "Language", "언어"),
     languageMenu: L("Chọn ngôn ngữ", "Choose a language", "언어 선택"),
-    /** Day/night switch. The label names the surface the control turns on, and
-     *  `aria-pressed` says whether it is on — so one string covers both states,
-     *  which is also what keeps the button announceable before hydration. */
-    theme: {
-      label: L("Giao diện sáng", "Light theme", "라이트 테마"),
-    },
   },
 
   footer: {

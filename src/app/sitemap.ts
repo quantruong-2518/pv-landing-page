@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { getPublishedAt } from "@/lib/content/store";
 import { LOCALES, LOCALE_TAGS } from "@/lib/i18n/config";
-import { absolute, PRODUCT_SLUGS, routes } from "@/lib/routes";
+import { absolute, PUBLIC_PRODUCT_SLUGS, routes } from "@/lib/routes";
 
 /**
  * Sitemap.
@@ -49,12 +49,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
       alternates: { languages: languagesFor(routes.bio) },
     },
-    // One entry per product line, derived from PRODUCT_SLUGS rather than
-    // four hand-written literals — adding a fifth line only means adding it
-    // to that list. Priority sits just under the hub (0.9): each page is a
-    // real ranking target for its own product subject, but the hub is still
-    // the page most readers and crawlers should land on first.
-    ...PRODUCT_SLUGS.map((slug) => ({
+    // One entry per *public* product line, derived from PUBLIC_PRODUCT_SLUGS
+    // rather than hand-written literals — adding a fifth line only means
+    // adding it to that list, and a slug in HIDDEN_PRODUCT_SLUGS (routes.ts)
+    // never gets listed as a public URL. Priority sits just under the hub
+    // (0.9): each page is a real ranking target for its own product subject,
+    // but the hub is still the page most readers and crawlers should land on
+    // first.
+    ...PUBLIC_PRODUCT_SLUGS.map((slug) => ({
       url: absolute(routes.product(locale, slug)),
       lastModified,
       changeFrequency: "monthly" as const,

@@ -11,6 +11,27 @@ export const PRODUCT_SLUGS = ["mint", "papaya", "espresso", "e-series"] as const
 export type ProductSlug = (typeof PRODUCT_SLUGS)[number];
 
 /**
+ * Business decision 2026-09-24: E-Series (E10 / E20, "GP-GPU / GP-DSA") is
+ * pulled from the public site — no page, no catalogue card, no JSON-LD, no
+ * mention in generated text — while its content, dictionary copy and the
+ * `ESeriesCards` component all stay in the codebase so it can come back with
+ * a one-line change here. `PRODUCT_SLUGS` keeps listing every line (the CMS
+ * still edits E-Series content); every public-facing surface must read
+ * `PUBLIC_PRODUCT_SLUGS` / `isPublicProduct` instead.
+ */
+export const HIDDEN_PRODUCT_SLUGS = ["e-series"] as const satisfies readonly ProductSlug[];
+export type HiddenProductSlug = (typeof HIDDEN_PRODUCT_SLUGS)[number];
+
+export const PUBLIC_PRODUCT_SLUGS = PRODUCT_SLUGS.filter(
+  (slug): slug is Exclude<ProductSlug, HiddenProductSlug> =>
+    !(HIDDEN_PRODUCT_SLUGS as readonly ProductSlug[]).includes(slug),
+);
+
+export function isPublicProduct(slug: ProductSlug): boolean {
+  return !(HIDDEN_PRODUCT_SLUGS as readonly ProductSlug[]).includes(slug);
+}
+
+/**
  * Every internal URL is built here. Changing the URL shape — dropping the
  * locale prefix, moving products under /san-pham — is then one edit, not a
  * grep across components.

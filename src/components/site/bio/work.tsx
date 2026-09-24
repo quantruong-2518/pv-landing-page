@@ -6,7 +6,25 @@ import { Section } from "@/components/site/section";
 import type { HomeContent } from "@/lib/content/schema";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
-import { productAnchor, routes } from "@/lib/routes";
+import {
+  isPublicProduct,
+  PRODUCT_SLUG_TO_ANCHOR,
+  PRODUCT_SLUGS,
+  productAnchor,
+  routes,
+  type AnchorId,
+  type ProductSlug,
+} from "@/lib/routes";
+
+/**
+ * Same inversion as `solutions-list.tsx` / `catalogue.tsx` — resolves a row's
+ * bare anchor id back to the `ProductSlug` it names, so the row below can be
+ * dropped when that slug is hidden rather than linking to a fragment that no
+ * card on `/products` still carries an id for.
+ */
+const ANCHOR_TO_PRODUCT_SLUG = new Map<AnchorId, ProductSlug>(
+  PRODUCT_SLUGS.map((slug) => [PRODUCT_SLUG_TO_ANCHOR[slug], slug]),
+);
 
 /**
  * § 01 — what the company works on.
@@ -18,10 +36,19 @@ import { productAnchor, routes } from "@/lib/routes";
  * Beside them, the four solution rows are reduced to an index — number, title,
  * destination. Their bodies stay on the home page; repeating them here would
  * make this a second home page rather than a contents sheet.
+ *
+ * `solutions.rows[1]` (anchor "e-series") is filtered out below: its only
+ * destination is the E-Series product, now in HIDDEN_PRODUCT_SLUGS
+ * (routes.ts) — left in, this row would render "/vi/products#e-series" on
+ * every locale of /bio, mentioning the hidden line in a plain href even
+ * though the row's own copy never names it.
  */
 export function BioWork({ content, locale }: { content: HomeContent["hero"]; locale: Locale }) {
   const copy = dictionary.bio;
-  const rows = dictionary.home.solutions.rows;
+  const rows = dictionary.home.solutions.rows.filter((row) => {
+    const slug = ANCHOR_TO_PRODUCT_SLUG.get(row.anchor as AnchorId);
+    return !slug || isPublicProduct(slug);
+  });
 
   return (
     <Section id={routes.anchors.bioWork} labelledBy="bio-work-title" className="bg-night">
@@ -44,7 +71,7 @@ export function BioWork({ content, locale }: { content: HomeContent["hero"]; loc
             // inside would match every row, because the link is always the only
             // child of its own <li>.
             <Reveal
-              key={row.index}
+              key={row.anchor}
               as="li"
               delay={index * 0.06}
               className="border-t border-ink/12 last:border-b"
@@ -59,7 +86,13 @@ export function BioWork({ content, locale }: { content: HomeContent["hero"]; loc
                 href={productAnchor(locale, row.anchor)}
                 className="flex items-baseline gap-4 px-3 py-5 text-ink transition-colors hover:bg-accent/9"
               >
-                <span className="font-mono text-kicker text-accent">{row.index}</span>
+                {/* Recomputed from position, not `row.index`: with the hidden
+                    row filtered out above, the dictionary's own "01"/"02"/…
+                    would otherwise skip a number instead of counting the rows
+                    actually shown. */}
+                <span className="font-mono text-kicker text-accent">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
                 <span className="flex-1 text-card font-semibold">{row.title[locale]}</span>
                 <span aria-hidden className="font-mono text-kicker text-accent">
                   →

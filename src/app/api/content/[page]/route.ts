@@ -6,7 +6,7 @@ import { isAdminAuthenticated } from "@/lib/auth/admin";
 import { CONTENT_PAGE_IDS, type ContentPageId } from "@/lib/content/schema";
 import { getPageContent, resetSection, saveSection } from "@/lib/content/store";
 import { LOCALES } from "@/lib/i18n/config";
-import { PRODUCT_SLUGS, routes } from "@/lib/routes";
+import { PUBLIC_PRODUCT_SLUGS, routes } from "@/lib/routes";
 
 /**
  * Content API for one page.
@@ -62,8 +62,9 @@ async function requireSession(): Promise<NextResponse | null> {
  * `product.<key>.title` / `.lead` CMS fields the hub does — it is exactly the
  * §4 /bio bug again if a save updates the hub's copy of a product and leaves
  * that product's own page on the stale prerender until the ISR window
- * expires. PRODUCT_SLUGS (routes.ts) drives the loop so a fifth product line
- * only needs adding there, not here too.
+ * expires. PUBLIC_PRODUCT_SLUGS (routes.ts) drives the loop so a fifth
+ * product line only needs adding there, not here too — a slug listed in
+ * HIDDEN_PRODUCT_SLUGS has no public page to revalidate.
  */
 function publish() {
   for (const locale of LOCALES) {
@@ -73,7 +74,7 @@ function publish() {
     // home document. Leave it out of this loop and a published edit shows on
     // /vi and silently does not on /vi/bio until the ISR window expires.
     revalidatePath(routes.bio(locale));
-    for (const slug of PRODUCT_SLUGS) {
+    for (const slug of PUBLIC_PRODUCT_SLUGS) {
       revalidatePath(routes.product(locale, slug));
     }
   }

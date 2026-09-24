@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   LOCALES,
@@ -84,20 +83,15 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
             `priority`; preloading both would pull down a logo the viewport is
             never going to render.
 
-            The breakpoint is `xl`, not `lg`, since the theme switch joined this
-            row. Measured at 1024 with the Vietnamese nav (the longest) and the
-            real webfonts: gutters 2x34.8 + lockup 235 + gap 24 + nav 752.2 =
-            1080.8 against 1024 available, and flex paid for it by rendering the
-            235px lockup at 178 — squashed, since its height is fixed. The mark
-            is what the 1024-1279 band gets instead, which is what every
-            narrower viewport has always shown; from 1280 the lockup returns
-            with ~85px to spare.
-
-            `lockup-wordmark` / `lockup-mark` are theme hooks, not styling: the
-            lockup sets PEBBLE VINA in white and vanishes on the day surface, so
-            globals.css swaps the pair there. The decision — and the reason no
-            filter can recover that artwork — lives with the rest of the theme,
-            in globals.css; this file only says which element is which. */}
+            The breakpoint is `xl`, not `lg`. Measured at 1024 with the
+            Vietnamese nav (the longest) and the real webfonts: gutters 2x34.8 +
+            lockup 235 + gap 24 + nav 752.2 = 1080.8 against 1024 available, and
+            flex paid for it by rendering the 235px lockup at 178 — squashed,
+            since its height is fixed. The mark is what the 1024-1279 band gets
+            instead, which is what every narrower viewport has always shown;
+            from 1280 the lockup returns with ~85px to spare. The measurement
+            was taken with the day/night switch still in this row, so it holds
+            with room to spare now that the switch is gone. */}
         <Image
           src="/images/logo-wordmark.png"
           alt=""
@@ -108,14 +102,14 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
           width={235}
           height={36}
           priority
-          className="lockup-wordmark hidden h-9 w-auto xl:block"
+          className="hidden h-9 w-auto xl:block"
         />
         <Image
           src="/images/logo.png"
           alt=""
           width={36}
           height={36}
-          className="lockup-mark block xl:hidden"
+          className="block xl:hidden"
         />
       </Link>
 
@@ -156,11 +150,10 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
 
         <LocaleMenu locale={locale} active={active} />
 
-        {/* 44px plus one 16px gap, on a row that had about six pixels of slack
-            at 1024 — which is why the lockup above now waits for `xl`. Nothing
-            else goes in this row without re-measuring the Vietnamese nav at
-            1024 with the real webfonts loaded. */}
-        <ThemeToggle locale={locale} />
+        {/* Nothing else goes in this row without re-measuring the Vietnamese nav
+            at 1024 with the real webfonts loaded: it had about six pixels of
+            slack there even before the day/night switch was taken out, which is
+            why the lockup above waits for `xl`. */}
 
         {/* `size="lg"` rather than hand-set padding around a hand-set type
             size: the same 13px step, and the button clears 44px, which the old
@@ -207,11 +200,6 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
               {link.label}
             </Link>
           ))}
-
-          {/* A row of its own rather than a fourth control in the row below:
-              the language bar and the CTA already fill that line at 300px, and
-              a wrapped CTA is worse than one more row. */}
-          <ThemeToggle locale={locale} variant="row" />
 
           <div className="mt-1 flex flex-wrap items-center justify-between gap-3 border-t border-ink/14 px-3 pt-3">
             <LocaleBar locale={locale} active={active} />

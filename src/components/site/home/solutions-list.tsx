@@ -6,6 +6,7 @@ import type { HomeContent } from "@/lib/content/schema";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
 import {
+  isPublicProduct,
   PRODUCT_SLUG_TO_ANCHOR,
   PRODUCT_SLUGS,
   productAnchor,
@@ -49,7 +50,18 @@ export function SolutionsList({
   content: HomeContent["solutions"];
   locale: Locale;
 }) {
-  const rows = dictionary.home.solutions.rows.slice(0, content.count);
+  // `solutions.rows[1]` (anchor "e-series") is "PERSONALISED LLM TRAINING" —
+  // its only destination is the E-Series product page, now in
+  // HIDDEN_PRODUCT_SLUGS (routes.ts) and 404ing. Filtered out here, before
+  // `content.count` (CMS) picks how many of the *remaining* rows to show, so
+  // a save never resurrects a link to a hidden page. `row.index` is not used
+  // for display below — it is recomputed from position so the visible rows
+  // read 01, 02, 03 with no gap where the dropped row used to be.
+  const availableRows = dictionary.home.solutions.rows.filter((row) => {
+    const slug = ANCHOR_TO_PRODUCT_SLUG.get(row.anchor as AnchorId);
+    return !slug || isPublicProduct(slug);
+  });
+  const rows = availableRows.slice(0, content.count);
 
   return (
     <Section
@@ -69,19 +81,20 @@ export function SolutionsList({
       />
 
       <ul>
-        {rows.map((row) => {
+        {rows.map((row, position) => {
           const slug = ANCHOR_TO_PRODUCT_SLUG.get(row.anchor as AnchorId);
           const href = slug
             ? routes.product(locale, slug)
             : productAnchor(locale, row.anchor as AnchorId);
+          const displayIndex = String(position + 1).padStart(2, "0");
 
           return (
-            <li key={row.index} className="border-t border-ink/12 last:border-b">
+            <li key={row.anchor} className="border-t border-ink/12 last:border-b">
               <Link
                 href={href}
                 className="grid grid-cols-[28px_1fr] items-start gap-[clamp(14px,1.6vw,28px)] px-gutter py-[clamp(20px,2.2vw,30px)] text-ink transition-colors hover:bg-accent/7 lg:grid-cols-[44px_minmax(210px,0.9fr)_minmax(260px,1.15fr)_28px]"
               >
-                <span className="font-mono text-kicker text-accent">{row.index}</span>
+                <span className="font-mono text-kicker text-accent">{displayIndex}</span>
                 <span className="font-heading text-h3">{row.title[locale]}</span>
                 <span className="col-start-2 text-card text-body lg:col-start-3">
                   {row.body[locale]}
