@@ -20,6 +20,37 @@ import type { Localized } from "@/lib/i18n/config";
  */
 const L = (vi: string, en: string, ko: string): Localized => ({ vi, en, ko });
 
+/**
+ * Icon ids for a hardware card's "ỨNG DỤNG" row (`catalog.hardware[].apps`).
+ * The SVG path data lives beside the icon itself in
+ * `src/components/site/product/app-icons.tsx`; the type is declared here,
+ * next to the data that names it, following the same split as `Spec` below.
+ */
+export type AppIconId =
+  | "shieldbolt"
+  | "factory"
+  | "watch"
+  | "sound"
+  | "eye"
+  | "cube"
+  | "arm"
+  | "scan"
+  | "enterprise"
+  | "robot"
+  | "humanoid"
+  | "server"
+  /** IoT tile, `/products/mint` — a chip-node glyph with no photo asset (DETAIL brief). */
+  | "chip"
+  /** "Hệ thống an ninh" tile, `/products/papaya` — the shield outline alone,
+   *  without `shieldbolt`'s lightning stroke (DETAIL brief, D-Papaya mock). */
+  | "shield";
+
+/** One application row on a hardware card. */
+export interface HardwareApp {
+  icon: AppIconId;
+  label: Localized;
+}
+
 /** A figure card: mono label, large value, unit or footnote underneath. */
 export interface Spec {
   label: string;
@@ -47,6 +78,12 @@ export const dictionary = {
      *  three languages the control is a list, not a toggle. */
     language: L("Ngôn ngữ", "Language", "언어"),
     languageMenu: L("Chọn ngôn ngữ", "Choose a language", "언어 선택"),
+    /** Day/night switch. The label names the surface the control turns on, and
+     *  `aria-pressed` says whether it is on — so one string covers both states,
+     *  which is also what keeps the button announceable before hydration. */
+    theme: {
+      label: L("Giao diện sáng", "Light theme", "라이트 테마"),
+    },
   },
 
   footer: {
@@ -125,14 +162,19 @@ export const dictionary = {
         ),
         cta: L("KHÁM PHÁ CHIP DIGITAL →", "EXPLORE THE DIGITAL CHIP →", "디지털 칩 살펴보기 →"),
       },
-      statementLead: L(
-        "Hai hướng tiếp cận công nghệ, một mục tiêu chung:",
-        "Two technical approaches, one shared objective:",
-        "두 갈래의 기술 접근, 하나의 목표:",
-      ),
     },
 
     why: {
+      /**
+       * The two labels on the data-movement render. They name the parts the
+       * section's own lead paragraph already names — "bộ nhớ (DRAM)" and "bộ
+       * xử lý (NPU)" — so the picture and the sentence agree; nothing here is a
+       * claim the copy does not already make.
+       */
+      diagram: {
+        memory: L("DRAM · BỘ NHỚ", "DRAM · MEMORY", "DRAM · 메모리"),
+        processor: L("NPU · BỘ XỬ LÝ", "NPU · PROCESSOR", "NPU · 프로세서"),
+      },
       cards: [
         {
           index: "01",
@@ -178,9 +220,9 @@ export const dictionary = {
             "데이터 이동 최적화",
           ) as Localized | null,
           body: L(
-            "Xử lý dữ liệu trực tiếp tại nơi lưu trữ, giảm nhu cầu truyền dữ liệu giữa bộ nhớ và bộ xử lý.",
-            "Data is processed directly where it is stored, reducing transfers between memory and processor.",
-            "데이터를 저장된 자리에서 바로 처리해 메모리와 프로세서 간 전송을 줄입니다.",
+            "Xử lý dữ liệu **trực tiếp tại nơi lưu trữ**, giảm nhu cầu truyền dữ liệu giữa bộ nhớ và bộ xử lý.",
+            "Data is processed **directly where it is stored**, reducing transfers between memory and processor.",
+            "데이터를 **저장된 자리에서 바로 처리**해 메모리와 프로세서 간 전송을 줄입니다.",
           ),
           outcome: "→ ENERGY EFFICIENCY",
           accent: false,
@@ -201,9 +243,9 @@ export const dictionary = {
             "연산 뉴런 포인트",
           ) as Localized | null,
           body: L(
-            "400.000 điểm xử lý tạo nền tảng cho khả năng thực hiện đồng thời khối lượng lớn phép tính AI.",
-            "400,000 processing points underpin the ability to run large volumes of AI computation concurrently.",
-            "40만 개의 처리 포인트가 대규모 AI 연산을 동시에 수행할 수 있는 기반이 됩니다.",
+            "**400.000 điểm xử lý** tạo nền tảng cho khả năng thực hiện đồng thời khối lượng lớn phép tính AI.",
+            "**400,000 processing points** underpin the ability to run large volumes of AI computation concurrently.",
+            "**40만 개의 처리 포인트**가 대규모 AI 연산을 동시에 수행할 수 있는 기반이 됩니다.",
           ),
           outcome: "→ HIGH THROUGHPUT",
           accent: true,
@@ -221,9 +263,9 @@ export const dictionary = {
           ) as Localized | null,
           label: null as Localized | null,
           body: L(
-            "Phân bổ dữ liệu đồng đều trên các điểm xử lý giúp duy trì sự cân bằng trong quá trình tính toán.",
-            "Distributing data evenly across processing points keeps the computation balanced.",
-            "처리 포인트에 데이터를 고르게 분산해 연산 과정의 균형을 유지합니다.",
+            "Phân bổ dữ liệu đồng đều trên các điểm xử lý giúp **duy trì sự cân bằng** trong quá trình tính toán.",
+            "Distributing data evenly across processing points keeps the computation **balanced**.",
+            "처리 포인트에 데이터를 고르게 분산해 연산 과정의 **균형을 유지**합니다.",
           ),
           outcome: "→ STABLE & CONSISTENT PROCESSING",
           accent: false,
@@ -301,6 +343,16 @@ export const dictionary = {
 
     news: {
       /**
+       * The phone slider's two steppers, added with the 2026-09 redesign. The
+       * dots are named after the story they lead to — a destination is more
+       * useful than a number — so these two name the *direction*, which is what
+       * a stepper pair is expected to announce.
+       */
+      controls: {
+        previous: L("Tin trước", "Previous story", "이전 소식"),
+        next: L("Tin tiếp theo", "Next story", "다음 소식"),
+      },
+      /**
        * Cards render as articles, not links: there is no /news route and no
        * article URLs yet, and a card that goes back to its own section is worse
        * than one that goes nowhere. Give them `href` when the route exists.
@@ -314,9 +366,9 @@ export const dictionary = {
             "한국 유수의 기술 파트너와 MOU 체결",
           ),
           body: L(
-            "Hợp tác nghiên cứu và phát triển giải pháp PIM AI nhằm tối ưu hiệu năng và mở rộng ứng dụng.",
-            "Joint research and development of PIM AI solutions, targeting higher performance and broader applications.",
-            "성능 최적화와 응용 확대를 목표로 PIM AI 솔루션을 공동 연구·개발합니다.",
+            "Hợp tác nghiên cứu và phát triển giải pháp **PIM AI** nhằm tối ưu hiệu năng và mở rộng ứng dụng.",
+            "Joint research and development of **PIM AI solutions**, targeting higher performance and broader applications.",
+            "성능 최적화와 응용 확대를 목표로 **PIM AI 솔루션**을 공동 연구·개발합니다.",
           ),
         },
         {
@@ -327,9 +379,9 @@ export const dictionary = {
             "일본 전략 파트너와의 미팅",
           ),
           body: L(
-            "Thảo luận về xu hướng AI on-device và cơ hội hợp tác phát triển thị trường bán dẫn thế hệ mới.",
-            "Discussing on-device AI trends and opportunities to develop the next-generation semiconductor market together.",
-            "온디바이스 AI 트렌드와 차세대 반도체 시장을 함께 개척할 협력 기회를 논의했습니다.",
+            "Thảo luận về xu hướng AI on-device và **cơ hội hợp tác phát triển thị trường bán dẫn thế hệ mới**.",
+            "Discussing on-device AI trends and **opportunities to develop the next-generation semiconductor market** together.",
+            "온디바이스 AI 트렌드와 **차세대 반도체 시장을 함께 개척할 협력 기회**를 논의했습니다.",
           ),
         },
         {
@@ -340,9 +392,9 @@ export const dictionary = {
             "베트남 기업과 함께하는 AI 솔루션 도입",
           ),
           body: L(
-            "Đồng hành xây dựng hệ thống AI tùy chỉnh, phù hợp với đặc thù ngành và nhu cầu vận hành thực tế.",
-            "Building custom AI systems that fit each industry's specifics and real operating needs.",
-            "산업별 특성과 실제 운영 요구에 맞는 맞춤형 AI 시스템을 함께 구축합니다.",
+            "Đồng hành xây dựng **hệ thống AI tùy chỉnh**, phù hợp với đặc thù ngành và nhu cầu vận hành thực tế.",
+            "Building **custom AI systems** that fit each industry's specifics and real operating needs.",
+            "산업별 특성과 실제 운영 요구에 맞는 **맞춤형 AI 시스템**을 함께 구축합니다.",
           ),
         },
         {
@@ -353,9 +405,9 @@ export const dictionary = {
             "글로벌 파트너와 전략적 협력 체결",
           ),
           body: L(
-            "Cùng nhau thúc đẩy đổi mới AI và mang các giải pháp tiên tiến đến thị trường toàn cầu.",
-            "Accelerating AI innovation together and bringing advanced solutions to the global market.",
-            "AI 혁신을 함께 가속하고 앞선 솔루션을 글로벌 시장에 선보입니다.",
+            "Cùng nhau thúc đẩy đổi mới AI và mang **các giải pháp tiên tiến đến thị trường toàn cầu**.",
+            "Accelerating AI innovation together and bringing **advanced solutions to the global market**.",
+            "AI 혁신을 함께 가속하고 **앞선 솔루션을 글로벌 시장에** 선보입니다.",
           ),
         },
       ],
@@ -491,6 +543,10 @@ export const dictionary = {
         {
           anchor: "mint" as const,
           badge: "ANALOG PIM · 05/2023",
+          // `family`: the P1 catalogue card's tag pill. A plain string, not
+          // `Localized` — like `badge`, it is an English category name the
+          // design keeps as-is in every locale (brief P1 § 2).
+          family: "ANALOG PIM",
           name: "MINT",
           image: "/images/mint-chrome-v4.png",
           imageAlt: L(
@@ -503,10 +559,19 @@ export const dictionary = {
             "An Analog chip using Processing-in-Memory to cut data movement between memory and processor.",
             "Processing-in-Memory 기술로 메모리와 프로세서 사이의 데이터 이동을 줄이는 아날로그 칩입니다.",
           ),
+          // The card's four applications (brief P1 § 2) — icon ids resolve
+          // through `AppIcon` (app-icons.tsx).
+          apps: [
+            { icon: "shieldbolt", label: L("An toàn điện", "Electrical safety", "전기 안전") },
+            { icon: "factory", label: L("Sức khoẻ nhà máy", "Factory health monitoring", "공장 상태 모니터링") },
+            { icon: "watch", label: L("Thiết bị đeo thông minh", "Smart wearables", "스마트 웨어러블") },
+            { icon: "sound", label: L("Cảm biến âm thanh", "Acoustic sensors", "음향 센서") },
+          ] satisfies HardwareApp[],
         },
         {
           anchor: "papaya" as const,
           badge: "ANALOG PIM · PoC 2024",
+          family: "ANALOG PIM",
           name: "PAPAYA / PAPAYA FLEX",
           image: "/images/papaya-chrome-v4.png",
           imageAlt: L(
@@ -519,10 +584,20 @@ export const dictionary = {
             "Analog PIM chips for machine-vision workloads that must process data at the edge.",
             "엣지에서 데이터를 처리해야 하는 머신 비전 워크로드를 위한 아날로그 PIM 칩입니다.",
           ),
+          // "AI Box" is kept literal across locales, same as the ESPRESSO
+          // apps below — it is a product-category term, not a sentence to
+          // translate, and the Vietnamese source already writes it in English.
+          apps: [
+            { icon: "eye", label: L("Thị giác máy", "Machine vision", "머신 비전") },
+            { icon: "cube", label: L("AI Box", "AI Box", "AI Box") },
+            { icon: "arm", label: L("Cánh tay robot", "Robotic arm", "로봇 팔") },
+            { icon: "scan", label: L("Nhận dạng ảnh", "Image recognition", "영상 인식") },
+          ] satisfies HardwareApp[],
         },
         {
           anchor: "espresso" as const,
           badge: "DIGITAL PIM · Q3/2026",
+          family: "DIGITAL PIM",
           name: "ESPRESSO",
           image: "/images/espresso-chrome-v4.png",
           imageAlt: L(
@@ -535,10 +610,23 @@ export const dictionary = {
             "The next Digital-PIM generation, built for AI workloads with compute demands beyond Edge AI.",
             "Edge AI를 넘어서는 연산 요구를 가진 AI 워크로드를 위해 개발 중인 차세대 Digital-PIM 칩입니다.",
           ),
+          // Kept in English in every locale (brief P1 § 2) — these are the
+          // workload category names the industry already uses in VI/EN/KO copy.
+          apps: [
+            { icon: "enterprise", label: L("Enterprise AI", "Enterprise AI", "Enterprise AI") },
+            { icon: "robot", label: L("Robotics", "Robotics", "Robotics") },
+            { icon: "humanoid", label: L("Physical AI", "Physical AI", "Physical AI") },
+            { icon: "server", label: L("AI Server", "AI Server", "AI Server") },
+          ] satisfies HardwareApp[],
         },
         {
           anchor: "e-series" as const,
           badge: "GP-GPU / GP-DSA",
+          // Not one of the two PIM families — kept as the card's own
+          // category string rather than forced into "ANALOG PIM" /
+          // "DIGITAL PIM" (brief P1 § 2). Moot on the public site today:
+          // E-Series is filtered out by `isPublicProduct` before render.
+          family: "GP-GPU / GP-DSA",
           name: "E-SERIES · E10 / E20",
           image: "/images/e20-chrome-v4.png",
           imageAlt: L(
@@ -551,16 +639,26 @@ export const dictionary = {
             "AI accelerator cards for AI servers, LLM training & inference, and multi-card computing systems.",
             "AI 서버, LLM 학습·추론, 멀티카드 연산 시스템을 위한 AI 가속 카드 라인업입니다.",
           ),
+          // Hidden card (HIDDEN_PRODUCT_SLUGS, routes.ts) — no apps needed.
+          apps: [] satisfies HardwareApp[],
         },
       ],
       other: [
         {
           anchor: "phan-mem" as const,
+          // `badge` kept — nothing else in the codebase reads it (grepped),
+          // but the CMS/dictionary split treats it as the section's stored
+          // value and P2 only adds a rendering split, not a data removal.
           badge: L(
             "PHẦN MỀM · DỰ KIẾN 12/2026",
             "SOFTWARE · EXPECTED 12/2026",
             "소프트웨어 · 2026년 12월 예정",
           ),
+          // `category` + `when` split `badge` at its " · " for the P2 solution
+          // card, which renders them as two separate elements (category label,
+          // then a date Pill) rather than one string (brief P2 § "Solution cards").
+          category: L("PHẦN MỀM", "SOFTWARE", "소프트웨어"),
+          when: L("DỰ KIẾN 12/2026", "EXPECTED 12/2026", "2026년 12월 예정"),
           name: L("Phần mềm doanh nghiệp", "Enterprise software", "기업용 소프트웨어"),
           body: L(
             "Kết nối dữ liệu và quy trình từ CRM, ERP, HRM và DMS, hỗ trợ đưa AI vào các hoạt động vận hành và ra quyết định.",
@@ -571,6 +669,8 @@ export const dictionary = {
         {
           anchor: "dao-tao" as const,
           badge: L("ĐÀO TẠO · KHẢO SÁT 2027", "TRAINING · SURVEY 2027", "교육 · 2027년 수요 조사"),
+          category: L("ĐÀO TẠO", "TRAINING", "교육"),
+          when: L("KHẢO SÁT 2027", "SURVEY 2027", "2027년 수요 조사"),
           name: L("Đào tạo AI doanh nghiệp", "Enterprise AI training", "기업 AI 교육"),
           body: L(
             "Chương trình đào tạo AI được định hướng dựa trên bài toán, quy trình và nhu cầu sử dụng AI của từng doanh nghiệp.",
@@ -583,23 +683,32 @@ export const dictionary = {
        * `state` is not decoration: /bio draws a filled mark for what has
        * happened and a hollow one for what has not, so the split between
        * shipped silicon and a dated announcement survives being skimmed.
-       * The catalogue strip ignores the field and reads `when` / `what`.
+       * The catalogue strip's P2 layout reads `status` / `item` instead of
+       * `what` (a status Pill + a product name are two elements now, not one
+       * sentence) — `what` stays, unchanged, for `BioTimeline`
+       * (bio/timeline.tsx), which still reads it as one line.
        */
       timeline: [
         {
           when: "05/2023",
           state: "done" as const,
           what: L("Sản xuất — MINT", "In production — MINT", "양산 — MINT"),
+          status: L("SẢN XUẤT", "IN PRODUCTION", "양산"),
+          item: L("MINT", "MINT", "MINT"),
         },
         {
           when: "2024",
           state: "done" as const,
           what: L("PoC — PAPAYA", "PoC — PAPAYA", "PoC — PAPAYA"),
+          status: L("PoC", "PoC", "PoC"),
+          item: L("PAPAYA", "PAPAYA", "PAPAYA"),
         },
         {
           when: "Q3/2026",
           state: "roadmap" as const,
           what: L("Roadmap — ESPRESSO", "Roadmap — ESPRESSO", "로드맵 — ESPRESSO"),
+          status: L("ROADMAP", "ROADMAP", "로드맵"),
+          item: L("ESPRESSO", "ESPRESSO", "ESPRESSO"),
         },
         {
           when: "12/2026",
@@ -609,11 +718,15 @@ export const dictionary = {
             "Roadmap — enterprise software",
             "로드맵 — 기업용 소프트웨어",
           ),
+          status: L("ROADMAP", "ROADMAP", "로드맵"),
+          item: L("Phần mềm doanh nghiệp", "Enterprise software", "기업용 소프트웨어"),
         },
         {
           when: "2027",
           state: "roadmap" as const,
           what: L("Khảo sát — đào tạo AI", "Needs survey — AI training", "수요 조사 — AI 교육"),
+          status: L("KHẢO SÁT", "SURVEY", "수요 조사"),
+          item: L("Đào tạo AI", "AI training", "AI 교육"),
         },
       ],
     },
@@ -626,7 +739,21 @@ export const dictionary = {
       applicationDevice: L("THIẾT BỊ ỨNG DỤNG", "APPLICATION DEVICE", "응용 기기"),
       keySpecs: L("THÔNG SỐ CHÍNH", "KEY SPECIFICATIONS", "주요 사양"),
       consult: L("ĐĂNG KÝ TƯ VẤN NGAY →", "BOOK A CONSULTATION →", "상담 신청하기 →"),
+      /** Sentence-case reading of `consult`, for the DETAIL redesign's CTA
+       *  (`DetailCta`, product/detail.tsx) — every D-*-mock.html button reads
+       *  "Đăng ký tư vấn ngay →", not the all-caps mono treatment `consult`
+       *  was written for (still used by the dark `ProductDetail` and
+       *  `software-section.tsx` CTAs). Same call to action either way. */
+      consultCta: L("Đăng ký tư vấn ngay →", "Book a consultation →", "상담 신청하기 →"),
       hardware: L("01 • PHẦN CỨNG", "01 • HARDWARE", "01 • 하드웨어"),
+      /**
+       * The partner-name pill on `/products/{mint,papaya,espresso}` (DETAIL
+       * brief, every desktop/mobile mock) — plain, not `Localized`, same rule
+       * as `hardware[].family` above: it is the technology partner's own
+       * name, not a translated phrase (footer's `partnerValue` names the same
+       * entity as "Pebble Square Inc.").
+       */
+      pillPebbleSquare: "Pebble Square",
     },
 
     mint: {
@@ -635,6 +762,16 @@ export const dictionary = {
         "ANALOG · IN PRODUCTION 05/2023",
         "ANALOG · 2023년 5월 양산",
       ),
+      /**
+       * The two remaining status pills beside `shared.pillPebbleSquare` on
+       * the DETAIL redesign's hero (D-Mint mocks) — `meta` above stays for
+       * the old dark `ProductDetail` still rendering E-Series, but its
+       * "ANALOG · SẢN XUẤT 05/2023" shape doesn't split into the mock's two
+       * separate square pills without guessing at capitalisation per locale,
+       * so these are their own fields rather than a string split at render.
+       */
+      pillType: "Analog",
+      pillStatus: L("Sản xuất 05/2023", "In production 05/2023", "2023년 5월 양산"),
       /** Alt text for the main MINT render (`content.mint.image`, CMS-owned path). */
       imageAlt: L(
         "Ảnh render chip MINT dạng khối vuông kim loại xước, trên nền mạch điện tử phát sáng xanh.",
@@ -694,6 +831,16 @@ export const dictionary = {
         "ANALOG · PoC 2024 · PC-VISION & 5G",
         "ANALOG · 2024 PoC · PC-VISION & 5G",
       ),
+      // Same split as `mint.pillType` / `mint.pillStatus` above, for the
+      // DETAIL redesign's hero pills (D-Papaya mocks).
+      pillType: "Analog",
+      pillStatus: L("PoC 2024", "PoC 2024", "2024년 PoC"),
+      /** PAPAYA's own name-plate subtitle on the DETAIL panel (D-Papaya
+       *  mocks) — the same "PC-VISION & 5G" category tag `meta` already
+       *  carries, cased to match the mock's mixed-case wordmark subtitle
+       *  rather than the all-caps kicker/meta line. Plain string, same rule
+       *  as `hardware[].family`: an English category name, not translated. */
+      nameTag: "PC-Vision & 5G",
       /** Alt text for the main PAPAYA render (`content.papaya.image`, CMS-owned path). */
       imageAlt: L(
         "Ảnh render chip PAPAYA dạng khối vuông kim loại xước với viền chân đồng, trên nền mạch điện tử phát sáng xanh.",
@@ -785,6 +932,34 @@ export const dictionary = {
         },
       ] satisfies Spec[],
       flexLabel: "MACHINE VISION BENCHMARK",
+      /** Mixed-case reading of `flexLabel` for the DETAIL panel's wordmark
+       *  subtitle (D-Papaya mocks show "Machine Vision Benchmark", not the
+       *  all-caps kicker treatment `flexLabel` was written for). Same plain,
+       *  untranslated string either way — see `nameTag` above. */
+      flexNameTag: "Machine Vision Benchmark",
+      /**
+       * The DETAIL redesign's PAPAYA FLEX spec tiles (D-Papaya mocks) —
+       * absolute figures, not the `~50× / ~100× / ~25×` NVIDIA Jetson Nano
+       * comparisons below. CLAUDE.md § 2/§ 3 forbids inventing a number: 10 ×
+       * 10 MM² and 0,1–0,15 W already exist as this file's own
+       * `flexSpecs[1]`/`[0]` notes; 1,5 TOPS is new and was supplied by the
+       * user directly in the locked design comp (D-Papaya-desktop-render.png,
+       * 2026-09-24) rather than measured elsewhere in this codebase.
+       */
+      flexAbsoluteSpecs: [
+        { label: "01 PERFORMANCE", value: "1,5", unit: "TOPS" },
+        { label: "02 CHIP AREA", value: "10 × 10", unit: "MM²" },
+        { label: "03 POWER", value: "0,1–0,15", unit: "W" },
+      ] satisfies Spec[],
+      /**
+       * The `~50× / ~100× / ~25×` comparison figures below stay in the
+       * dictionary — `/llms.txt` (`src/app/llms.txt/route.ts`) still reads
+       * them verbatim, each with its own note — but are no longer rendered on
+       * `/products/papaya` itself. The DETAIL brief moves this page to
+       * PAPAYA FLEX's own absolute figures (`flexAbsoluteSpecs` above); the
+       * panel's tighter tile layout has no room for a multiple *and* the
+       * measurement-plus-named-part note CLAUDE.md § 2 requires beside it.
+       */
       flexSpecs: [
         {
           label: "01 POWER",
@@ -825,6 +1000,10 @@ export const dictionary = {
         "DIGITAL · ROADMAP Q3/2026",
         "DIGITAL · 로드맵 2026년 3분기",
       ),
+      // Same split as `mint.pillType` / `mint.pillStatus` above, for the
+      // DETAIL redesign's hero pills (D-Espresso mocks).
+      pillType: "Digital",
+      pillStatus: L("Roadmap Q3/2026", "Roadmap Q3/2026", "2026년 3분기 로드맵"),
       /** Alt text for the main ESPRESSO render (`content.espresso.image`, CMS-owned path). */
       imageAlt: L(
         "Ảnh render chip ESPRESSO dạng khối vuông với mặt trên bóng gương, trên nền mạch điện tử phát sáng xanh.",
@@ -883,6 +1062,12 @@ export const dictionary = {
       ] satisfies Spec[],
       cardLabel: L("CARD 4 CHIP", "4-CHIP CARD", "4칩 카드"),
       cardValue: "640 TOPS",
+      /** Mixed-case, sentence-form reading of `cardLabel` for the DETAIL
+       *  panel's tile 01 footnote ("Card 4 chip: 640 TOPS", D-Espresso mocks)
+       *  — `cardLabel` stays all-caps because `/bio` (`bio/figures.tsx`)
+       *  still reads it as a mono figure-card label. Same 640 TOPS value
+       *  either way. */
+      cardNote: L("Card 4 chip:", "4-chip card:", "4칩 카드:"),
     },
 
     eseries: {
@@ -1353,9 +1538,9 @@ export const dictionary = {
             "Pebble Vina의 어떤 제품이 지금 도입 가능하고, 어떤 제품이 로드맵 단계인가요?",
           ),
           answer: L(
-            "MINT là chip Analog PIM đã sản xuất từ 05/2023, còn PAPAYA / PAPAYA FLEX là PoC năm 2024 cùng hướng Analog PIM cho thị giác máy. ESPRESSO là chip Digital-PIM đang trong lộ trình, dự kiến Q3/2026. E-Series (E10/E20) là dòng card tăng tốc AI đã có thông số sản phẩm công bố, dùng cho AI server và hệ thống nhiều card. Phần mềm doanh nghiệp (dự kiến 12/2026) và đào tạo AI doanh nghiệp (khảo sát nhu cầu 2027) vẫn đang ở giai đoạn lộ trình.",
-            "MINT is an Analog PIM chip in production since 05/2023, while PAPAYA / PAPAYA FLEX is a 2024 proof of concept in the same Analog PIM direction, built for machine vision. ESPRESSO is a Digital-PIM chip on the roadmap, expected Q3/2026. E-Series (E10/E20) is an AI accelerator card line with published product data, for AI servers and multi-card systems. Enterprise software (expected 12/2026) and enterprise AI training (needs survey, 2027) remain on the roadmap.",
-            "MINT는 2023년 5월부터 양산 중인 아날로그 PIM 칩이며, PAPAYA / PAPAYA FLEX는 같은 아날로그 PIM 방향의 머신 비전용 2024년 PoC입니다. ESPRESSO는 로드맵 단계의 Digital-PIM 칩으로 2026년 3분기 출시가 예정되어 있습니다. E-Series(E10/E20)는 제품 정보가 공개된 AI 가속 카드 라인으로 AI 서버와 멀티카드 시스템에 사용됩니다. 기업용 소프트웨어(2026년 12월 예정)와 기업 AI 교육(2027년 수요 조사)은 아직 로드맵 단계입니다.",
+            "MINT là chip Analog PIM đã sản xuất từ 05/2023, còn PAPAYA / PAPAYA FLEX là PoC năm 2024 cùng hướng Analog PIM cho thị giác máy. ESPRESSO là chip Digital-PIM đang trong lộ trình, dự kiến Q3/2026. Phần mềm doanh nghiệp (dự kiến 12/2026) và đào tạo AI doanh nghiệp (khảo sát nhu cầu 2027) vẫn đang ở giai đoạn lộ trình.",
+            "MINT is an Analog PIM chip in production since 05/2023, while PAPAYA / PAPAYA FLEX is a 2024 proof of concept in the same Analog PIM direction, built for machine vision. ESPRESSO is a Digital-PIM chip on the roadmap, expected Q3/2026. Enterprise software (expected 12/2026) and enterprise AI training (needs survey, 2027) remain on the roadmap.",
+            "MINT는 2023년 5월부터 양산 중인 아날로그 PIM 칩이며, PAPAYA / PAPAYA FLEX는 같은 아날로그 PIM 방향의 머신 비전용 2024년 PoC입니다. ESPRESSO는 로드맵 단계의 Digital-PIM 칩으로 2026년 3분기 출시가 예정되어 있습니다. 기업용 소프트웨어(2026년 12월 예정)와 기업 AI 교육(2027년 수요 조사)은 아직 로드맵 단계입니다.",
           ),
         },
         {
@@ -1502,14 +1687,14 @@ export const dictionary = {
     },
     products: {
       title: L(
-        "Chip MINT, PAPAYA, ESPRESSO & card E-Series | Pebble Vina",
-        "MINT, PAPAYA, ESPRESSO chips & E-Series cards | Pebble Vina",
+        "Chip AI MINT, PAPAYA, ESPRESSO | Pebble Vina",
+        "MINT, PAPAYA, ESPRESSO AI chips | Pebble Vina",
         "MINT·PAPAYA·ESPRESSO 칩 | Pebble Vina",
       ),
       description: L(
-        "Danh mục chip AI Pebble Vina: MINT (30 GOPS, 17,6 TOPS/W), PAPAYA & PAPAYA FLEX cho thị giác máy, ESPRESSO Digital-PIM 160 TOPS, card E-Series E10/E20.",
-        "Pebble Vina's AI chip catalogue: MINT (30 GOPS, 17.6 TOPS/W), PAPAYA & PAPAYA FLEX for machine vision, ESPRESSO Digital-PIM 160 TOPS, E10/E20 cards.",
-        "Pebble Vina 칩: MINT(30 GOPS·17.6 TOPS/W), PAPAYA·FLEX, ESPRESSO 160 TOPS, E10/E20 가속 카드.",
+        "Danh mục chip AI Pebble Vina: MINT (30 GOPS, 17,6 TOPS/W), PAPAYA & PAPAYA FLEX cho thị giác máy, ESPRESSO Digital-PIM 160 TOPS.",
+        "Pebble Vina's AI chip catalogue: MINT (30 GOPS, 17.6 TOPS/W), PAPAYA & PAPAYA FLEX for machine vision, ESPRESSO Digital-PIM 160 TOPS.",
+        "Pebble Vina 칩: MINT(30 GOPS·17.6 TOPS/W), PAPAYA·FLEX, ESPRESSO 160 TOPS.",
       ),
     },
     bio: {

@@ -47,6 +47,13 @@
   --color-accent-soft: #5f9dff;
   /* Deep blue used only inside section glows — never for text or a border. */
   --color-glow: #1d4ed8;
+  /* Info: the teal "planned/dated" tone the P2 redesign adds beside the blue
+   * accent — a roadmap Pill and a solution card's date Pill both read
+   * "expected", not "shipped", and need a colour the accent scale doesn't
+   * already carry that meaning for. Text/dot/border read this token; the
+   * fill reuses `--color-signal-teal` at 28% opacity (`bg-signal-teal/28`)
+   * rather than a second teal hex (brief P2 § "Date pill"). */
+  --color-info: #7fdbe6;
   /* Same story as `--color-copy` above: the handoff's rule colour, retired.
    * At 1.66:1 on night-deep the "/" separators it was named for were in the
    * DOM and absent from the screen. They are `--color-faint` now. */
@@ -57,6 +64,24 @@
   --color-day-body: #475d76;
   --color-signal-blue: #205dcc;
   --color-signal-teal: #087c85;
+
+  /*
+   * DETAIL brief (2026-09-24) — the light-theme hero + spec panel on
+   * `/products/{mint,papaya,espresso}`. Every hex here is transcribed from
+   * the locked D-Mint/D-Papaya/D-Espresso mocks (brief § "Tokens / rules");
+   * `--color-signal-blue` / `--color-signal-teal` above are reused as-is for
+   * this palette rather than re-declared. Scoped to their own names instead
+   * of overriding `--color-ink` etc. (the way `.bio-day` does) because this
+   * redesign touches only the product detail page, not a whole section that
+   * also has to keep working in the dark palette.
+   */
+  --color-paper: #eef2f8; /* hero background, top stop */
+  --color-paper-2: #e6ebf3; /* hero background, bottom stop */
+  --color-tile: #f5f7fb; /* spec/application tile fill inside the white panel */
+  --color-panel-white: #ffffff; /* the spec panel itself */
+  --color-ink-navy: #0f1f3d; /* headings and primary text on the light hero/panel */
+  --color-body-slate: #3b4a63; /* lead paragraph on the light hero */
+  --color-band: #0b1a3a; /* the navy strip the panel overlaps and the CTA sits on */
 
   /* Rhythm. Section padding and gutters are fluid, so they are spacing tokens
    * rather than breakpoint steps: px-gutter, py-section, gap-col, h-header. */
@@ -95,11 +120,14 @@
    *   titles      h1-hero · h1-catalogue · h2 · h2-detail · card-title · h3
    *   figures     stat-xl · stat-lg · stat
    *   paragraphs  lead-hero · lead · card (also the 15px one-offs) · note
-   *   mono labels eyebrow · kicker (12px) · label (11px, and the 11.5px ones)
+   *   mono labels eyebrow · eyebrow-compact (hero, < sm) · kicker (12px) · label (11px, and the 11.5px ones)
    */
-  --text-h1-hero: clamp(2rem, 4.6vw, 4.5rem);
-  --text-h1-hero--line-height: 1.2;
-  --text-h1-hero--letter-spacing: -0.008em;
+  /* Tightened from the handoff's 32px / 4.6vw / 1.2 / -0.008em in the 2026-09
+   * hero review: a display line at 70px reads as one mark only when the
+   * leading is near solid and the tracking is pulled in. */
+  --text-h1-hero: clamp(2.25rem, 4.9vw, 4.5rem);
+  --text-h1-hero--line-height: 1.04;
+  --text-h1-hero--letter-spacing: -0.02em;
   --text-h1-hero--font-weight: 700;
 
   --text-h1-catalogue: clamp(1.8125rem, 3.7vw, 3.5rem);
@@ -136,6 +164,24 @@
   --text-wordmark--line-height: 1.15;
   --text-wordmark--font-weight: 700;
 
+  /* The P1 catalogue hardware card's name (MINT, PAPAYA / PAPAYA FLEX,
+   * ESPRESSO) — Be Vietnam Pro 800, not the Chakra Petch heading face
+   * `card-title` uses, and its own fixed 22px→26px step from the locked
+   * mock rather than a `card-title`-style fluid clamp. */
+  --text-card-name: clamp(1.375rem, 1.9vw, 1.625rem);
+  --text-card-name--line-height: 1.1;
+  --text-card-name--letter-spacing: -0.01em;
+  --text-card-name--font-weight: 800;
+
+  /* The P2 solution card's name (Enterprise software / AI training) — same
+   * Be Vietnam Pro 800 face as `card-name`, but its own 21px→28px step: the
+   * locked mock sets it a notch larger than the P1 hardware card name it
+   * otherwise mirrors. */
+  --text-solution-name: clamp(1.3125rem, 2.2vw, 1.75rem);
+  --text-solution-name--line-height: 1.15;
+  --text-solution-name--letter-spacing: -0.01em;
+  --text-solution-name--font-weight: 800;
+
   --text-stat: clamp(1.75rem, 2.6vw, 2.5rem);
   --text-stat--line-height: 1;
   --text-stat--letter-spacing: -0.008em;
@@ -170,6 +216,15 @@
   --text-eyebrow: clamp(0.6875rem, 0.9vw, 0.8125rem);
   --text-eyebrow--letter-spacing: 0.15em;
   --text-eyebrow--font-weight: 500;
+
+  /* Hero eyebrow below sm only. The Vietnamese line is 46 mono characters and
+   * the 2026-09 hero review asked for it on one line at 390px; at the 11px
+   * eyebrow floor it needs ~390px of the 350 available. Deliberately below the
+   * 11px `label` step — a single-line mark, not reading copy. */
+  --text-eyebrow-compact: 0.625rem;
+  --text-eyebrow-compact--line-height: 1.4;
+  --text-eyebrow-compact--letter-spacing: 0.06em;
+  --text-eyebrow-compact--font-weight: 500;
 
   --text-label: 0.6875rem; /* 11px mono field/section labels */
   --text-label--line-height: 1.4;
@@ -305,6 +360,13 @@
   .glow-core {
     background-image: radial-gradient(90% 70% at 12% 92%, var(--glow-medium), transparent 60%);
   }
+  .glow-core-figure {
+    background-image: radial-gradient(
+      50% 50% at 42% 50%,
+      color-mix(in srgb, var(--color-accent) 22%, transparent),
+      transparent 70%
+    );
+  }
   .glow-solutions {
     background-image: linear-gradient(180deg, var(--glow-faint), transparent 46%);
   }
@@ -328,6 +390,81 @@
     background-image: linear-gradient(180deg, var(--glow-soft), transparent 46%);
   }
 
+  /* The scrim over a P1 catalogue hardware card's chip render — dark top,
+   * clear middle band around the wordmark/tag, solid again into the copy
+   * block. Mapped from the mock's own `#060a16` stops to `--color-marquee`
+   * (`#070b18`, the nearest theme surface — the two are visually
+   * indistinguishable) rather than pasting the raw hex (CLAUDE.md § 2). */
+  .scrim-hardware-card {
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-marquee) 92%, transparent) 0%,
+      color-mix(in srgb, var(--color-marquee) 30%, transparent) 22%,
+      transparent 36%,
+      transparent 56%,
+      color-mix(in srgb, var(--color-marquee) 90%, transparent) 76%,
+      var(--color-marquee) 81%
+    );
+  }
+
+  /* The P2 solution card's scrim — bottom-up dark plus a left-to-right
+   * darkening so the copy block (bottom-left, ≤78% width) stays readable
+   * over a full-bleed photo. `--color-night` (`#05070f`), which the mock's
+   * own `rgba(5,7,15,…)` stops already are. */
+  .scrim-solution-card {
+    background-image:
+      linear-gradient(
+        0deg,
+        color-mix(in srgb, var(--color-night) 97%, transparent) 0%,
+        color-mix(in srgb, var(--color-night) 90%, transparent) 34%,
+        color-mix(in srgb, var(--color-night) 35%, transparent) 64%,
+        color-mix(in srgb, var(--color-night) 10%, transparent) 100%
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--color-night) 55%, transparent) 0%,
+        transparent 60%
+      );
+  }
+
+  /* Below `md` the card is narrower and the copy runs full-width, so the
+   * left-right layer is dropped — same move as `.scrim-hero`'s mobile
+   * override — and the vertical stops match the mobile mock's own values. */
+  @media (width < 48rem) {
+    .scrim-solution-card {
+      background-image: linear-gradient(
+        0deg,
+        color-mix(in srgb, var(--color-night) 98%, transparent) 0%,
+        color-mix(in srgb, var(--color-night) 88%, transparent) 40%,
+        color-mix(in srgb, var(--color-night) 15%, transparent) 68%,
+        color-mix(in srgb, var(--color-night) 5%, transparent) 100%
+      );
+    }
+  }
+
+  /*
+   * Roadmap "planned" bar — a dashed `--color-info` track standing in for
+   * the solid accent bar a "done" entry gets. Direction is a class variant
+   * (horizontal for the desktop 5-column row, vertical for the mobile row's
+   * left spine) since `repeating-linear-gradient`'s angle isn't expressible
+   * as a scale token either way; on/off widths are each breakpoint's own
+   * mock value (brief P2 § Roadmap).
+   */
+  .roadmap-bar-planned-x {
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-info) 55%, transparent) 0 10px,
+      transparent 10px 16px
+    );
+  }
+  .roadmap-bar-planned-y {
+    background-image: repeating-linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-info) 55%, transparent) 0 8px,
+      transparent 8px 13px
+    );
+  }
+
   /* Hero: darkens the left third for the headline, then the bottom for the
    * three-column row, while leaving the chip render visible on the right. */
   .scrim-hero {
@@ -347,29 +484,46 @@
       );
   }
 
-  /* PIM cards use independent layers: drafting ground, isolated chip, signal,
-   * then copy. Hovering therefore cannot move the grid or signal drawing. */
-  .pim-technical-card {
-    isolation: isolate;
-    background-image:
-      radial-gradient(
-        ellipse 72% 64% at 60% 76%,
-        color-mix(in srgb, var(--color-signal-blue) 12%, transparent),
-        transparent 72%
-      ),
-      linear-gradient(145deg, var(--color-navy) 0%, var(--color-night-deep) 82%);
+  /* Below md the copy fills the full width, so a 105deg sweep only greys the
+   * whole render evenly. The mobile scrim is vertical instead: the text block
+   * sits on the dark bottom half and the chip keeps the top half clear. */
+  @media (width < 48rem) {
+    .scrim-hero {
+      background-image: linear-gradient(
+        to top,
+        color-mix(in srgb, var(--color-night) 95%, transparent) 0%,
+        color-mix(in srgb, var(--color-night) 60%, transparent) 42%,
+        color-mix(in srgb, var(--color-night) 18%, transparent) 68%,
+        transparent 88%
+      );
+    }
   }
 
+  /* A PIM direction card: a flat drafting surface (`bg-marquee`, the mock's
+   * #070b18) carrying its own grid, with the chip render lit on its own band.
+   * `isolation` keeps the render's hover scale from lifting over the card's
+   * border, and the layers stay independent, so hovering cannot move the grid or
+   * the signal drawing. */
+  .pim-technical-card {
+    isolation: isolate;
+  }
+
+  /* The drafting grid runs across the whole card, as the mock draws it — the
+   * vertical mask this rule used to carry existed to release the image where the
+   * copy sat on top of it, and the copy has its own band now. Two modules: the
+   * 32px one the mock specifies, plus a heavier line every fifth, which is what
+   * reads as drafting paper rather than as compression noise (same argument as
+   * `.bio-grid`). */
   .pim-technical-grid {
     background-image:
       linear-gradient(
         to right,
-        color-mix(in srgb, var(--color-ink) 7%, transparent) 1px,
+        color-mix(in srgb, var(--color-accent) 6%, transparent) 1px,
         transparent 1px
       ),
       linear-gradient(
         to bottom,
-        color-mix(in srgb, var(--color-ink) 7%, transparent) 1px,
+        color-mix(in srgb, var(--color-accent) 6%, transparent) 1px,
         transparent 1px
       ),
       linear-gradient(
@@ -382,25 +536,31 @@
         color-mix(in srgb, var(--color-accent) 10%, transparent) 1px,
         transparent 1px
       );
-    background-size: 28px 28px, 28px 28px, 140px 140px, 140px 140px;
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 92%, transparent);
-    mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 92%, transparent);
+    background-size: 32px 32px, 32px 32px, 160px 160px, 160px 160px;
   }
 
+  /* The lit band the chip stands on. Geometry and strength are the mock's. */
+  .pim-chip-stage {
+    background-image: radial-gradient(
+      45% 58% at 50% 55%,
+      color-mix(in srgb, var(--color-signal-blue) 22%, transparent),
+      transparent 70%
+    );
+  }
+
+  /* No `filter` any more: the render used to sit under the card's copy and was
+   * desaturated so the type could win. It has its own band now, so it is shown
+   * as photographed. */
   .pim-chip-render {
     backface-visibility: hidden;
-    filter: saturate(0.58) brightness(0.88) contrast(1.04);
     transform: translate3d(0, 0, 0);
-    transform-origin: 38% 78%;
-    transition:
-      transform 1100ms cubic-bezier(0.16, 1, 0.3, 1),
-      filter 1100ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: 50% 56%;
+    transition: transform 1100ms cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform;
   }
 
   .group:hover .pim-chip-render {
-    filter: saturate(0.64) brightness(0.92) contrast(1.04);
-    transform: translate3d(0, 0, 0) scale(1.16);
+    transform: translate3d(0, 0, 0) scale(1.08);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -413,30 +573,38 @@
     }
   }
 
-  /* The copy scrim is sized by the copy rather than by the full card, so the
-   * drafting layer remains visible below it at every responsive line count. */
-  .scrim-pim-card {
-    /* The fade is sized by the *copy*, not by the card. As percentages of the
-     * card the scrim released the image at 58% while the copy block reached
-     * 64% of the card height at 1440×900 — further still at narrower widths,
-     * where the body wraps to more lines — so the paragraph's last lines
-     * landed on the signal drawing across the middle. Anchoring the fade to
-     * `100%` of this element and
-     * giving the element the fade's own height as bottom padding keeps the
-     * type over 88%+ at any width and any line count, with the release always
-     * below it. */
-    /* The padding that reserves the fade is applied in the markup
-     * (`pb-[var(--scrim-pim-fade)]`) so Tailwind owns the padding utilities on
-     * this element and there is no utility-vs-component ordering to reason
-     * about. */
-    --scrim-pim-fade: clamp(44px, 4.6vw, 68px);
+  /* "Tại sao PIM": the render holds the right half and the copy the left, so
+   * the image has to be `navy` again before it reaches the column. Geometry is
+   * the locked mock's. */
+  .scrim-why {
     background-image: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--color-night-deep) 94%, transparent) 0%,
-      color-mix(in srgb, var(--color-night-deep) 88%, transparent)
-        calc(100% - var(--scrim-pim-fade)),
-      transparent 100%
+      90deg,
+      var(--color-navy) 0%,
+      color-mix(in srgb, var(--color-navy) 40%, transparent) 22%,
+      transparent 45%
     );
+  }
+
+  /* Below lg the render is a band of its own with no copy on it, so only its
+   * left edge is dimmed — enough to seat the DRAM label, not enough to grey out
+   * the one picture the section has on a phone. */
+  @media (width < 64rem) {
+    .scrim-why {
+      background-image: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--color-navy) 70%, transparent) 0%,
+        transparent 40%
+      );
+    }
+  }
+
+  /* The drawing-office numeral behind each benefit row: outline, near-empty
+   * fill. `tabular-nums` so 01/02/03 are the same width and the three rows line
+   * up down the gutter. */
+  .why-index {
+    color: color-mix(in srgb, var(--color-accent) 5%, transparent);
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--color-accent) 26%, transparent);
+    font-variant-numeric: tabular-nums;
   }
 
   /* "Why PIM" and the training block: text sits left, image reads through right. */
@@ -457,23 +625,42 @@
     );
   }
 
-  /* Contact column over the HQ photograph — horizontal fade plus a vertical
-   * one so the card meets the section background cleanly at both ends. */
-  .scrim-contact {
-    background-image:
-      linear-gradient(
-        100deg,
-        color-mix(in srgb, var(--color-navy-lit) 70%, transparent) 0%,
+  /* The HQ photograph behind the contact column, in two layers because the copy
+   * lands in two places: the veil the title and lead sit on, and a bottom fade
+   * under the mini-stats row. These are classes rather than utilities baked into
+   * the section because their *strength* is theme-dependent — a veil that holds
+   * copy at 58% over a dark photograph leaves ink sitting on the photograph
+   * itself once the token behind it is a pale surface.
+   *
+   * The open end is `navy-lit` at 0%, not `transparent`: Tailwind and the
+   * browser interpolate in oklab, where a fade to transparent black greys the
+   * midpoint of the gradient. */
+  .scrim-contact-photo {
+    background-image: linear-gradient(
+      to top,
+      var(--color-navy-lit) 4%,
+      color-mix(in srgb, var(--color-navy-lit) 72%, transparent) 46%,
+      color-mix(in srgb, var(--color-navy-lit) 30%, transparent) 100%
+    );
+  }
+
+  @media (width >= 64rem) {
+    .scrim-contact-photo {
+      background-image: linear-gradient(
+        120deg,
+        color-mix(in srgb, var(--color-navy-lit) 94%, transparent) 0%,
         color-mix(in srgb, var(--color-navy-lit) 86%, transparent) 46%,
-        var(--color-navy-lit) 84%
-      ),
-      linear-gradient(
-        180deg,
-        var(--color-navy-lit) 0%,
-        transparent 15%,
-        transparent 85%,
-        var(--color-navy-lit) 100%
+        color-mix(in srgb, var(--color-navy-lit) 58%, transparent) 100%
       );
+    }
+  }
+
+  .scrim-contact-foot {
+    background-image: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--color-navy-lit) 96%, transparent) 0%,
+      color-mix(in srgb, var(--color-navy-lit) 0%, transparent) 34%
+    );
   }
 
   /* Software section: accent bloom top-right, then a heavy vertical fade so
@@ -531,6 +718,34 @@
   .mask-vignette-contain {
     -webkit-mask-image: radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%);
     mask-image: radial-gradient(125% 125% at 50% 48%, #000 52%, transparent 94%);
+  }
+
+  /*
+   * DETAIL brief hero chip render mask — `closest-side`, not the vignette
+   * masks' fixed percentages above, because this render sits in a container
+   * whose aspect ratio itself changes between the mobile band and the
+   * desktop right-column (brief § "Mobile"). The two stop pairs are the
+   * D-*-mobile-mock.html / D-*-desktop-mock.html values respectively; `lg`
+   * matches the breakpoint the hero switches layout at.
+   */
+  .mask-chip-hero {
+    -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+  }
+  @media (min-width: 1024px) {
+    .mask-chip-hero {
+      -webkit-mask-image: radial-gradient(closest-side, #000 42%, transparent 88%);
+      mask-image: radial-gradient(closest-side, #000 42%, transparent 88%);
+    }
+  }
+
+  /* The small 110×110 chip thumbnail beside a PAPAYA / PAPAYA FLEX spec tile
+   * (D-Papaya-desktop-mock.html) — a tighter circular fade than the hero
+   * render above, since it sits inline with numeric tiles rather than
+   * bleeding off the edge of a whole column. */
+  .mask-chip-tile {
+    -webkit-mask-image: radial-gradient(closest-side, #000 60%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 60%, transparent 100%);
   }
 
   /*
@@ -629,4 +844,466 @@
   .glow-bio-figures {
     background-image: radial-gradient(80% 90% at 100% 40%, var(--glow-medium), transparent 60%);
   }
+}
+
+/* ========================================================================
+ * The day surface — `<html data-theme="light">`.
+ *
+ * Night is the brand's look and stays the default: the attribute is absent on
+ * every prerendered page, so `:root:not([data-theme="light"])` is the dark
+ * theme and nothing below runs until a reader asks for daylight (the boot
+ * script in the [locale] layout writes the attribute before the body parses).
+ *
+ * It is a re-pointing of the palette, not a second design. Every public
+ * component already reads `bg-night`, `text-body`, `border-ink/14`, so moving
+ * the tokens moves all nine pages at once — the same move `.bio-day` above has
+ * been making for one band since the page shipped, applied to the root.
+ *
+ * Deliberately outside `@layer`: unlayered declarations beat everything in
+ * `@layer theme` and `@layer utilities`, so these win over `@theme`'s `:root`
+ * and over the section rules further up whatever order Tailwind emits them in.
+ *
+ * Light values were picked to hold the dark theme's own contrast floor. Text
+ * on the page surface (#f6f9fd), computed from the hexes below:
+ *   ink 13.7:1 · contact 10.1 · body 6.4 · muted 6.0 · faint 5.8 · accent 5.7
+ * and on the most tinted surface (`navy-lit`, #d8e6f7), which is the worst case:
+ *   ink 11.4 · contact 8.4 · body 5.4 · muted 5.0 · faint 4.8 · accent 4.7.
+ * `faint` carries the 11px mono labels, so 4.5 is its floor everywhere, which
+ * is why it is darker here relative to `body` than its night counterpart is.
+ * `dim` (3.5 on navy-lit) keeps its role: placeholders and disabled links, the
+ * two things WCAG exempts, exactly as on the night surface.
+ * ======================================================================== */
+
+:root[data-theme="light"] {
+  /* Form controls, scrollbars and the UA's own widgets follow this, not the
+   * `<meta name="color-scheme">` the layout's `viewport` export emits — a root
+   * `color-scheme` declaration overrides the document default. */
+  color-scheme: light;
+
+  /*
+   * Surfaces. Not a literal inversion of the night table: on the night page
+   * lightness means "lit" (navy-lit carries solutions, software, contact) and
+   * darkness is ground, so on the day page *tint* carries the same meaning and
+   * near-white is ground. Order of visual weight, lightest ground first:
+   *   night 97.8 L* · night-deep 95.7 · marquee 94.5 · navy 93.4
+   *   night-footer 92.0 · navy-lit 90.7
+   * Every step is ≥1.1 L* from its neighbour — the margin the seam comment
+   * above measured as the minimum before two flat fields read as one colour.
+   * The night table bottoms out inside 0.6 L*; this one does not have to.
+   */
+  --color-night: #f6f9fd;
+  --color-night-deep: #eef3fa;
+  --color-night-footer: #dfe9f6;
+  --color-marquee: #e9f0f8;
+  --color-panel: #eef3fa;
+  --color-navy: var(--color-mist);
+  --color-navy-lit: #d8e6f7;
+  --color-field: #ffffff;
+
+  /* Text. `ink` and `body` are the day scale the /bio band already uses; the
+   * three steps between and below them are new, spaced so the night theme's
+   * hierarchy (ink > contact > body > muted > faint > dim) survives the flip. */
+  --color-ink: var(--color-day-ink);
+  --color-contact: #26405c;
+  --color-body: var(--color-day-body);
+  --color-muted: #4d6279;
+  --color-faint: #4f6478;
+  --color-dim: #65798f;
+  /* Both retired on the night surface too (see their notes in @theme). Kept in
+   * step so a revival measures the same on either surface. */
+  --color-copy: #7d8fa4;
+  --color-rule: #c3d2e4;
+
+  /* Accent. `accent` is the day scale's signal blue; hover goes *darker* here
+   * rather than lighter, because on a light ground the brighter blue is the
+   * weaker one — #17469e measures 8.3:1 against the page. `accent-soft` is the
+   * eyebrow-over-photography tone and is likewise darkened, not brightened, for
+   * the same reason: it has to win against a scrimmed photograph, and here the
+   * scrim is pale. */
+  --color-accent: var(--color-signal-blue);
+  --color-accent-hover: #17469e;
+  --color-accent-soft: #1a4fb5;
+  /* Glow is never text or a border — it exists only inside the `.glow-*`
+   * blooms, where a deep blue over near-white would read as a stain rather than
+   * as light. A pale sky at the same alphas gives the same ~3-4 L* lift the
+   * night blooms give. */
+  --color-glow: #7aa8f0;
+  /* The teal that means "planned, not shipped". Darkened until it clears 4.5:1
+   * on its own `bg-signal-teal/28` fill (measured 5.0 on the page surface, 4.6
+   * on navy), which the night theme's bright teal cannot do on a pale fill. */
+  --color-info: #05585f;
+}
+
+/* The bloom alphas themselves. Same four steps, pulled in a little: a wash over
+ * near-white shows every percent, where the night page swallowed the first ten. */
+:root[data-theme="light"] {
+  --glow-strong: color-mix(in srgb, var(--color-glow) 22%, transparent);
+  --glow-medium: color-mix(in srgb, var(--color-glow) 18%, transparent);
+  --glow-soft: color-mix(in srgb, var(--color-glow) 15%, transparent);
+  --glow-faint: color-mix(in srgb, var(--color-glow) 12%, transparent);
+}
+
+/*
+ * Scrims.
+ *
+ * Every scrim is built from a surface token, so the flip already turns each one
+ * from a dark veil into a pale one and the copy on top re-resolves to day ink —
+ * that part needs no rule. What does not survive the flip is the *strength*:
+ * a veil that leaves 30% of a dark photograph showing is a mid-grey ground,
+ * and mid-grey is where dark text loses. Measured against the worst case, a
+ * pure-black photograph under a veil of the page surface:
+ *   70% → ink 6.5:1, body 3.1, faint 2.8   ← body and faint fail
+ *   88% → ink 10.4,  body 4.9, faint 4.4
+ *   92% → ink 11.5,  body 5.4, faint 4.9   ← the floor used below
+ * So every stop that sits under copy is raised to ≥90%, and only the stops with
+ * nothing on them are left open for the render to read through.
+ */
+
+/* Hero: the headline column keeps its 105deg sweep, opened up at the right end
+ * where the chip render lives and nothing is set over it. */
+:root[data-theme="light"] .scrim-hero {
+  background-image:
+    linear-gradient(
+      105deg,
+      color-mix(in srgb, var(--color-night) 97%, transparent) 0%,
+      color-mix(in srgb, var(--color-night) 94%, transparent) 38%,
+      color-mix(in srgb, var(--color-night) 70%, transparent) 72%,
+      color-mix(in srgb, var(--color-night) 88%, transparent) 100%
+    ),
+    linear-gradient(
+      to top,
+      color-mix(in srgb, var(--color-night) 93%, transparent) 0%,
+      color-mix(in srgb, var(--color-night) 45%, transparent) 34%,
+      transparent 62%
+    );
+}
+
+/* Below md the copy fills the width and the render keeps the top of the frame.
+ * The 42% stop is where the eyebrow lands, and it is the one mark on this page
+ * set in the accent rather than in ink — rendered at 390x844 it was the first
+ * thing to go soft, so that stop carries 82% rather than the night rule's 60%. */
+@media (width < 48rem) {
+  :root[data-theme="light"] .scrim-hero {
+    background-image: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--color-night) 98%, transparent) 0%,
+      color-mix(in srgb, var(--color-night) 82%, transparent) 42%,
+      color-mix(in srgb, var(--color-night) 30%, transparent) 68%,
+      transparent 88%
+    );
+  }
+}
+
+/* "Tại sao PIM": copy left, render right. The night rule hands the copy column
+ * solid navy and fades by 45%; on the day surface the fade is pushed out so the
+ * three benefit rows never sit on the open part of the photograph. */
+:root[data-theme="light"] .scrim-why {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-navy) 0%,
+    color-mix(in srgb, var(--color-navy) 92%, transparent) 26%,
+    color-mix(in srgb, var(--color-navy) 55%, transparent) 40%,
+    transparent 52%
+  );
+}
+
+@media (width < 64rem) {
+  :root[data-theme="light"] .scrim-why {
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-navy) 82%, transparent) 0%,
+      transparent 40%
+    );
+  }
+}
+
+/* The two left-column scrims. The night versions let the right edge drop to 58%
+ * / 86% because the image reading through is the point; the tail is raised here
+ * so that a line of copy that reaches past the halfway mark still has ground
+ * under it. */
+:root[data-theme="light"] .scrim-left-navy {
+  background-image: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-navy) 98%, transparent) 0%,
+    color-mix(in srgb, var(--color-navy) 93%, transparent) 44%,
+    color-mix(in srgb, var(--color-navy) 74%, transparent) 100%
+  );
+}
+:root[data-theme="light"] .scrim-left-navy-strong {
+  background-image: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-navy) 99%, transparent) 0%,
+    color-mix(in srgb, var(--color-navy) 96%, transparent) 45%,
+    color-mix(in srgb, var(--color-navy) 90%, transparent) 100%
+  );
+}
+
+/* Software section. The night rule blooms `--color-accent` at 30%; on a pale
+ * ground the accent is a *dark* blue, so 30% of it is a bruise rather than a
+ * light. The bloom is re-aimed at the same pale sky the `.glow-*` rules use,
+ * which is what "accent light" means on this surface. */
+:root[data-theme="light"] .scrim-software {
+  background-image:
+    radial-gradient(72% 58% at 74% 26%, var(--glow-strong), transparent 64%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-navy-lit) 70%, transparent) 0%,
+      color-mix(in srgb, var(--color-navy-lit) 84%, transparent) 34%,
+      color-mix(in srgb, var(--color-navy-lit) 97%, transparent) 62%,
+      var(--color-navy-lit) 100%
+    );
+}
+
+/* The shared contact band. The texture underneath it is a dark render, so on
+ * the day surface it is held to a whisper — at the night value (84%) it greys
+ * the whole band and the 11px `faint` labels in it measure 3.5:1 against a
+ * black worst-case pixel. At 96% they measure 4.6:1 and the texture is still
+ * there, which is all it was ever asked to be. */
+:root[data-theme="light"] .band-contact {
+  background-image:
+    linear-gradient(
+      color-mix(in srgb, var(--color-navy-lit) 96%, transparent),
+      color-mix(in srgb, var(--color-navy-lit) 99%, transparent)
+    ),
+    url("/images/semiconductor-texture-wide-v2.png");
+}
+
+@media (max-width: 639px) {
+  :root[data-theme="light"] .band-contact {
+    background-image:
+      linear-gradient(
+        color-mix(in srgb, var(--color-navy-lit) 96%, transparent),
+        color-mix(in srgb, var(--color-navy-lit) 99%, transparent)
+      ),
+      url("/images/semiconductor-texture-mobile-v2.png");
+  }
+}
+
+/*
+ * The catalogue hardware card. Its name and family tag sit in the *top* band of
+ * the card, over the render — the night rule gives them 92% falling to 30% by
+ * 22%, which is enough when the type is light and the render is dark, and is
+ * not when the type is ink. The top is closed up (95% → 62%): the name lands at
+ * roughly 8:1 and the tag, which carries its own `bg-night/55` plate, higher
+ * still. The clear middle band is left clear — nothing is set on it, it is the
+ * chip, and closing it would be closing the only picture the card has.
+ */
+:root[data-theme="light"] .scrim-hardware-card {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-marquee) 95%, transparent) 0%,
+    color-mix(in srgb, var(--color-marquee) 62%, transparent) 22%,
+    color-mix(in srgb, var(--color-marquee) 22%, transparent) 36%,
+    color-mix(in srgb, var(--color-marquee) 22%, transparent) 56%,
+    color-mix(in srgb, var(--color-marquee) 93%, transparent) 76%,
+    var(--color-marquee) 81%
+  );
+}
+
+/* The solution card: copy bottom-left over a full-bleed photo. Same move as the
+ * hero — the stops under the copy block go to ≥92%, the top of the card stays
+ * open for the photograph. */
+:root[data-theme="light"] .scrim-solution-card {
+  background-image:
+    linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--color-night) 98%, transparent) 0%,
+      color-mix(in srgb, var(--color-night) 93%, transparent) 34%,
+      color-mix(in srgb, var(--color-night) 45%, transparent) 64%,
+      color-mix(in srgb, var(--color-night) 12%, transparent) 100%
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-night) 62%, transparent) 0%,
+      transparent 60%
+    );
+}
+
+@media (width < 48rem) {
+  :root[data-theme="light"] .scrim-solution-card {
+    background-image: linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--color-night) 99%, transparent) 0%,
+      color-mix(in srgb, var(--color-night) 92%, transparent) 40%,
+      color-mix(in srgb, var(--color-night) 20%, transparent) 68%,
+      color-mix(in srgb, var(--color-night) 6%, transparent) 100%
+    );
+  }
+}
+
+/*
+ * Drawn marks: grids, the lit stage, the outline numerals.
+ *
+ * All three are a percentage of a token over a surface, and a percentage that
+ * reads as a hairline of light on near-black does not read at all as a hairline
+ * of ink on near-white — the eye grants far less to a dark line on white than
+ * to a light line on black at the same alpha. The grids and the numeral are
+ * opened up; the chip stage, which is a coloured *light*, is pulled back.
+ */
+:root[data-theme="light"] .pim-technical-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-accent) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-accent) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-accent) 14%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-accent) 14%, transparent) 1px,
+      transparent 1px
+    );
+}
+
+:root[data-theme="light"] .pim-chip-stage {
+  background-image: radial-gradient(
+    45% 58% at 50% 55%,
+    color-mix(in srgb, var(--color-signal-blue) 12%, transparent),
+    transparent 70%
+  );
+}
+
+:root[data-theme="light"] .why-index {
+  color: color-mix(in srgb, var(--color-accent) 7%, transparent);
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+
+/* The /bio drafting grid is ink, so the flip already turns it from light rules
+ * on black into ink rules on white — at the night alphas that reads as ruled
+ * paper rather than as the ground under the masthead. Halved. */
+:root[data-theme="light"] .bio-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-ink) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-ink) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-ink) 3.5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-ink) 3.5%, transparent) 1px,
+      transparent 1px
+    );
+}
+
+/*
+ * /bio § 02, the inverted band.
+ *
+ * `.bio-day` is the page's one deliberate interruption: a daylight sheet in the
+ * middle of a night dossier. On the day surface it would be a light band on a
+ * light page — the one thing it was drawn not to be — so it inverts the other
+ * way and the interruption survives the theme.
+ *
+ * It can be written here because it is built entirely from the fixed day scale,
+ * which no theme re-points: `--color-day-ink` is a deep navy and serves as the
+ * ground, `--color-ice` / `--color-mist` are the two lightest tones on the
+ * site, and the accent is the signal blue lifted toward ice until it holds on
+ * that ground (6.7:1). Measured on the band: ice 13.4:1, mist 12.3:1.
+ */
+:root[data-theme="light"] .bio-day {
+  --color-ink: var(--color-ice);
+  --color-body: var(--color-mist);
+  --color-muted: var(--color-mist);
+  --color-faint: var(--color-mist);
+  --color-accent: color-mix(in srgb, var(--color-signal-blue) 45%, var(--color-ice));
+  --color-accent-soft: color-mix(in srgb, var(--color-signal-blue) 45%, var(--color-ice));
+  color: var(--color-ink);
+  background-color: var(--color-day-ink);
+  /* The 150deg sheen the night version has, mirrored: the second stop is the
+   * ground pulled toward signal blue rather than toward white. */
+  background-image: linear-gradient(
+    150deg,
+    var(--color-day-ink),
+    color-mix(in srgb, var(--color-day-ink) 84%, var(--color-signal-blue)) 78%
+  );
+}
+
+/*
+ * Assets that only exist for one ground.
+ *
+ * The supplied horizontal lockup sets PEBBLE VINA in white with a silver
+ * gradient, so on the day surface the wordmark disappears and only the navy
+ * mark and the flag star survive. No filter recovers it — recolouring the type
+ * would recolour the star with it — so until a dark-ink lockup is supplied the
+ * day surface gets the square mark alone at every width, which is what every
+ * viewport under `xl` already shows. Two hooks rather than a colour: the
+ * component says which element is which, this file decides what the theme does
+ * with them. The same artwork is in the footer, whose file is not this one's to
+ * edit; it needs the same pair of hooks.
+ */
+:root[data-theme="light"] .lockup-wordmark {
+  display: none;
+}
+:root[data-theme="light"] .lockup-mark {
+  display: block;
+}
+
+/* The contact photograph's veils. The night values open at 58% (desktop) and
+ * 30% (phone) because a dark photograph is already most of the contrast; on the
+ * day surface those stops leave `day-ink` copy over the picture itself, so every
+ * stop that carries text is pulled to 78% or above. */
+:root[data-theme="light"] .scrim-contact-photo {
+  background-image: linear-gradient(
+    to top,
+    var(--color-navy-lit) 4%,
+    color-mix(in srgb, var(--color-navy-lit) 92%, transparent) 46%,
+    color-mix(in srgb, var(--color-navy-lit) 60%, transparent) 100%
+  );
+}
+
+@media (width >= 64rem) {
+  :root[data-theme="light"] .scrim-contact-photo {
+    background-image: linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--color-navy-lit) 97%, transparent) 0%,
+      color-mix(in srgb, var(--color-navy-lit) 92%, transparent) 46%,
+      color-mix(in srgb, var(--color-navy-lit) 78%, transparent) 100%
+    );
+  }
+}
+
+:root[data-theme="light"] .scrim-contact-foot {
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-navy-lit) 98%, transparent) 0%,
+    color-mix(in srgb, var(--color-navy-lit) 0%, transparent) 34%
+  );
+}
+
+/* Same story as the section glows: a wash over near-white shows every percent,
+ * and at the night value this one reads as a bruise rather than a bloom. */
+:root[data-theme="light"] .glow-core-figure {
+  background-image: radial-gradient(
+    50% 50% at 42% 50%,
+    color-mix(in srgb, var(--color-accent) 12%, transparent),
+    transparent 70%
+  );
+}
+
+/* The sticky header is a frosted band: 85% of the page surface plus a 14px
+ * blur. On night that reads as a tint, because the surface and what is behind
+ * it are both dark. On day the thing behind it is still a dark photograph, and
+ * 15% of it through the blur is a grey smear across the band — measured on the
+ * contact and hero sections. Closing the fill to 96% keeps the frost (the hero
+ * still shows through as a soft cast) without the smear. */
+:root[data-theme="light"] .site-header {
+  background-color: color-mix(in srgb, var(--color-night) 96%, transparent);
 }

@@ -23,6 +23,8 @@ const TEXT_SIZE_TOKENS = [
   "h2-detail",
   "h3",
   "card-title",
+  "card-name",
+  "solution-name",
   "wordmark",
   "stat",
   "stat-lg",
@@ -32,6 +34,7 @@ const TEXT_SIZE_TOKENS = [
   "card",
   "note",
   "eyebrow",
+  "eyebrow-compact",
   "label",
   "kicker",
 ] as const;

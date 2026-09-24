@@ -9,6 +9,7 @@ import { Analytics } from "@/components/site/consent/analytics";
 import { ConsentBanner } from "@/components/site/consent/consent-banner";
 import { ScrollBehaviour } from "@/components/site/scroll-behaviour";
 import { SiteFooter } from "@/components/site/site-footer";
+import { THEME_BOOT_SCRIPT } from "@/components/site/theme";
 import { LOCALES, LOCALE_TAGS, isLocale } from "@/lib/i18n/config";
 import { absolute, siteUrl } from "@/lib/routes";
 
@@ -178,6 +179,23 @@ export default async function PublicLayout({
       suppressHydrationWarning
     >
       <body className="overflow-x-hidden bg-night text-ink antialiased">
+        {/*
+          The day/night surface, decided before anything else in the body is
+          parsed. One line of inline JavaScript rather than a component, because
+          a component runs at hydration and by then the reader has already been
+          shown the other theme — the same class of bug the `[data-reveal]`
+          `<noscript>` rule below exists for, on the other trigger. Night is the
+          default and is the absence of the attribute, so this is a no-op on the
+          first visit and for every crawler, and the nine public pages stay
+          prerendered exactly as they were. The `suppressHydrationWarning`
+          already on `<html>` above is also what keeps React quiet about the
+          attribute this sets before it ever renders.
+
+          `dangerouslySetInnerHTML` is the only way to put an inline script in
+          the tree; the content is a module constant with no interpolation of
+          anything a reader can supply.
+        */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
         {/*
           Scroll-reveal blocks are server-rendered with `opacity: 0` — that is
           how motion avoids a flash of the final state before it animates. With

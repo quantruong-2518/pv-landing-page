@@ -85,7 +85,11 @@ export const CONTENT_PAGES: PageDescriptor[] = [
         label: "Hero",
         fields: [
           text("eyebrow", "EYEBROW", "Dòng mono nhỏ phía trên tiêu đề"),
-          area("title", "TIÊU ĐỀ", "Chữ hoa, 2–3 dòng là vừa"),
+          area(
+            "title",
+            "TIÊU ĐỀ",
+            "Chữ hoa, 2 dòng. Xuống dòng = ngắt dòng trên desktop; bọc cụm nhấn trong *…* để tô màu",
+          ),
           area("lead", "MÔ TẢ CHÍNH", "Cột trái, chữ sáng"),
           area("sub", "MÔ TẢ PHỤ", "Cột giữa, chữ nhạt hơn"),
           text("cta", "NHÃN CTA"),
@@ -102,12 +106,18 @@ export const CONTENT_PAGES: PageDescriptor[] = [
         label: "01 · Công nghệ PIM",
         fields: [
           text("eyebrow", "EYEBROW"),
-          area("title", "TIÊU ĐỀ"),
-          area("lead", "MÔ TẢ"),
-          img("imageA", "ẢNH ANALOG", "Cột trái", "cover 16:9 — vignette tròn"),
-          img("imageB", "ẢNH DIGITAL", "Cột phải", "cover 16:9 — vignette tròn"),
-          text("statement", "CÂU CHỐT"),
-          img("imageC", "ẢNH CHIP PIM", "PNG nền trong suốt", "PNG trong suốt, không khung"),
+          area(
+            "title",
+            "TIÊU ĐỀ",
+            "Chữ hoa. Xuống dòng = ngắt dòng trên desktop; dòng thứ hai trở đi in màu nhạt hơn",
+          ),
+          area(
+            "lead",
+            "MÔ TẢ",
+            "Xuống dòng = đoạn mới, đoạn sau chữ nhỏ hơn. *…* tô màu nhấn, **…** in đậm sáng",
+          ),
+          img("imageA", "ẢNH ANALOG", "Thẻ trái", "PNG chip, nằm giữa khung kỹ thuật"),
+          img("imageB", "ẢNH DIGITAL", "Thẻ phải", "PNG chip, nằm giữa khung kỹ thuật"),
         ],
       },
       {
@@ -115,8 +125,12 @@ export const CONTENT_PAGES: PageDescriptor[] = [
         label: "02 · Tại sao PIM",
         fields: [
           area("title", "TIÊU ĐỀ"),
-          area("lead", "MÔ TẢ"),
-          img("image", "ẢNH NỀN", "Ảnh nền dải ngang", "cover — nằm dưới gradient tối"),
+          area(
+            "lead",
+            "MÔ TẢ",
+            "Xuống dòng = đoạn mới; đoạn 2 là câu trả lời, trên điện thoại nằm trong khung nhấn. **…** in đậm sáng",
+          ),
+          img("image", "ẢNH SƠ ĐỒ", "Nửa phải màn lớn, dải ngang trên điện thoại", "cover — nhãn DRAM/NPU đặt lên trên"),
         ],
       },
       {

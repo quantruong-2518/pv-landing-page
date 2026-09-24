@@ -51,6 +51,12 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             {/* Same rule as the header: the supplied horizontal lockup once the
                 grid goes to four columns and the column is wide enough for it,
                 the mark alone below that. */}
+            {/* `lockup-wordmark` / `lockup-mark` are the header's theme hooks,
+                carried here for the same reason: the supplied lockup is white
+                artwork and disappears on the day surface, so the light theme
+                swaps it for the square mark (globals.css). A filter cannot
+                recover it — recolouring the type recolours the flag star with
+                it — so the hooks stay until a dark-ink lockup is supplied. */}
             <Image
               src="/images/logo-wordmark.png"
               alt=""
@@ -59,9 +65,15 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               // mark size the mock gives this column.
               width={209}
               height={32}
-              className="hidden h-8 w-auto lg:block"
+              className="lockup-wordmark hidden h-8 w-auto lg:block"
             />
-            <Image src="/images/logo.png" alt="" width={32} height={32} className="block lg:hidden" />
+            <Image
+              src="/images/logo.png"
+              alt=""
+              width={32}
+              height={32}
+              className="lockup-mark block lg:hidden"
+            />
           </Link>
           <p className="max-w-[34ch] text-sm leading-[1.75] text-body">{copy.tagline[locale]}</p>
           <a

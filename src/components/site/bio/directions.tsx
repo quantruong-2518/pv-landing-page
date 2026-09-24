@@ -5,6 +5,7 @@ import { SHEET_TOTAL, SectionMark } from "@/components/site/bio/sheet";
 import { VignetteImage } from "@/components/site/primitives";
 import { Section } from "@/components/site/section";
 import { Button } from "@/components/ui/button";
+import { plainText } from "@/lib/content/markup";
 import type { HomeContent } from "@/lib/content/schema";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
@@ -84,7 +85,11 @@ export function BioDirections({
         mark={copy.sections.tech.mark}
         total={SHEET_TOTAL}
         title={copy.sections.tech.title[locale]}
-        lead={content.lead[locale]}
+        // `plainText`, because the home block's lead now carries that section's
+        // own typesetting — a paragraph break and two emphasis marks
+        // (lib/content/markup.ts). The sheet quotes it as one plain paragraph,
+        // and without this the marks would print as asterisks.
+        lead={plainText(content.lead[locale])}
         headingId="bio-tech-title"
       />
 

@@ -28,9 +28,9 @@ export const SEED_CONTENT: SiteContent = {
         ko: "차세대 엣지 AI 반도체",
       },
       title: {
-        vi: "KIẾN TẠO CÔNG NGHỆ BÁN DẪN CHO KỶ NGUYÊN AI",
-        en: "ENGINEERING SEMICONDUCTORS FOR THE AI ERA",
-        ko: "AI 시대를 여는 반도체 기술",
+        vi: "KIẾN TẠO CÔNG NGHỆ BÁN DẪN\nCHO *KỶ NGUYÊN AI*",
+        en: "ENGINEERING SEMICONDUCTORS\nFOR *THE AI ERA*",
+        ko: "*AI 시대*를 여는\n반도체 기술",
       },
       lead: {
         vi: "Pebble Vina tập trung nghiên cứu và phát triển các công nghệ bán dẫn AI, từ thiết kế kiến trúc chip, công nghệ xử lý trong bộ nhớ (PIM) đến phát triển phần mềm và các giải pháp AI ứng dụng.",
@@ -67,23 +67,19 @@ export const SEED_CONTENT: SiteContent = {
         ko: "01 — PROCESSING IN MEMORY",
       },
       title: {
-        vi: "CÔNG NGHỆ PIM NỀN TẢNG TÍNH TOÁN CHO AI",
-        en: "THE COMPUTING FOUNDATION FOR AI",
+        vi: "CÔNG NGHỆ PIM\nNỀN TẢNG TÍNH TOÁN CHO AI",
+        en: "THE COMPUTING FOUNDATION\nFOR AI",
+        // One line: "AI 연산의 토대가 되는" is a modifier, and breaking it off
+        // would leave the dimmer line carrying the subject of the headline.
         ko: "AI 연산의 토대가 되는 PIM 기술",
       },
       lead: {
-        vi: "PIM (Processing-in-Memory) là công nghệ tính toán đưa hoạt động xử lý đến gần nơi dữ liệu được lưu trữ, qua đó giảm lượng dữ liệu phải di chuyển giữa bộ nhớ và bộ xử lý. Pebble Vina phát triển hai hướng công nghệ PIM gồm Analog và Digital nhằm đáp ứng các nhu cầu tính toán AI khác nhau.",
-        en: "PIM (Processing-in-Memory) brings computation close to where data is stored, cutting the volume of data that has to move between memory and processor. Pebble Vina develops two PIM directions — Analog and Digital — to serve different AI computing needs.",
-        ko: "PIM(Processing-in-Memory)은 연산을 데이터가 저장된 자리 가까이로 옮겨, 메모리와 프로세서 사이를 오가야 하는 데이터의 양을 줄이는 기술입니다. Pebble Vina는 서로 다른 AI 연산 수요에 대응하기 위해 아날로그와 디지털 두 갈래의 PIM 기술을 개발하고 있습니다.",
+        vi: "**PIM (Processing-in-Memory)** là công nghệ tính toán đưa hoạt động xử lý đến gần nơi dữ liệu được lưu trữ, qua đó giảm lượng dữ liệu phải di chuyển giữa bộ nhớ và bộ xử lý.\nPebble Vina phát triển hai hướng công nghệ PIM gồm *Analog* và *Digital* nhằm đáp ứng các nhu cầu tính toán AI khác nhau.",
+        en: "**PIM (Processing-in-Memory)** brings computation close to where data is stored, cutting the volume of data that has to move between memory and processor.\nPebble Vina develops two PIM directions — *Analog* and *Digital* — to serve different AI computing needs.",
+        ko: "**PIM(Processing-in-Memory)**은 연산을 데이터가 저장된 자리 가까이로 옮겨, 메모리와 프로세서 사이를 오가야 하는 데이터의 양을 줄이는 기술입니다.\nPebble Vina는 서로 다른 AI 연산 수요에 대응하기 위해 *아날로그*와 *디지털* 두 갈래의 PIM 기술을 개발하고 있습니다.",
       },
       imageA: "/images/mint-analog-pim-v2.png",
       imageB: "/images/espresso-digital-pim-v2.png",
-      statement: {
-        vi: "NÂNG CAO HIỆU SUẤT TÍNH TOÁN CHO AI.",
-        en: "RAISING COMPUTE EFFICIENCY FOR AI.",
-        ko: "AI 연산 효율을 끌어올립니다.",
-      },
-      imageC: "/images/pim-memory-compute-v2.png",
     },
 
     why: {
@@ -94,9 +90,9 @@ export const SEED_CONTENT: SiteContent = {
         ko: "PIM 기술이 AI에 중요한 이유",
       },
       lead: {
-        vi: "Khi các mô hình AI ngày càng lớn, nhu cầu xử lý và truyền dữ liệu cũng tăng theo. Việc liên tục di chuyển dữ liệu giữa bộ nhớ (DRAM) và bộ xử lý (NPU) có thể ảnh hưởng đến hiệu quả của quá trình tính toán. Công nghệ PIM tiếp cận bài toán này bằng cách đưa hoạt động tính toán đến gần nơi dữ liệu được lưu trữ, từ đó giảm nhu cầu di chuyển dữ liệu đối với các workload AI phù hợp.",
-        en: "As AI models grow, so does the demand for processing and moving data. Continuously shuttling data between memory (DRAM) and the processor (NPU) can hold back computational efficiency. PIM approaches this by bringing computation close to where data is stored, reducing data movement for suitable AI workloads.",
-        ko: "AI 모델이 커질수록 데이터를 처리하고 옮기는 부담도 함께 커집니다. 메모리(DRAM)와 프로세서(NPU) 사이에서 데이터가 끊임없이 오가면 연산 효율이 떨어질 수 있습니다. PIM 기술은 연산을 데이터가 저장된 자리 가까이로 옮기는 방식으로 이 문제에 접근해, 적합한 AI 워크로드에서 데이터 이동 자체를 줄입니다.",
+        vi: "Khi các mô hình AI ngày càng lớn, nhu cầu xử lý và truyền dữ liệu cũng tăng theo. Việc liên tục di chuyển dữ liệu giữa bộ nhớ (DRAM) và bộ xử lý (NPU) có thể ảnh hưởng đến hiệu quả của quá trình tính toán.\n**Công nghệ PIM** tiếp cận bài toán này bằng cách đưa hoạt động tính toán đến gần nơi dữ liệu được lưu trữ, từ đó giảm nhu cầu di chuyển dữ liệu đối với các workload AI phù hợp.",
+        en: "As AI models grow, so does the demand for processing and moving data. Continuously shuttling data between memory (DRAM) and the processor (NPU) can hold back computational efficiency.\n**PIM** approaches this by bringing computation close to where data is stored, reducing data movement for suitable AI workloads.",
+        ko: "AI 모델이 커질수록 데이터를 처리하고 옮기는 부담도 함께 커집니다. 메모리(DRAM)와 프로세서(NPU) 사이에서 데이터가 끊임없이 오가면 연산 효율이 떨어질 수 있습니다.\n**PIM 기술**은 연산을 데이터가 저장된 자리 가까이로 옮기는 방식으로 이 문제에 접근해, 적합한 AI 워크로드에서 데이터 이동 자체를 줄입니다.",
       },
       image: "/images/pim-ai-data-movement-v2.png",
     },
@@ -109,14 +105,14 @@ export const SEED_CONTENT: SiteContent = {
         ko: "02 — CORE CAPABILITY",
       },
       title: {
-        vi: "NĂNG LỰC CỐT LÕI CỦA CÔNG NGHỆ CHIP",
-        en: "CORE CAPABILITIES OF THE CHIP TECHNOLOGY",
+        vi: "NĂNG LỰC CỐT LÕI\nCỦA CÔNG NGHỆ CHIP",
+        en: "CORE CAPABILITIES\nOF THE CHIP TECHNOLOGY",
         ko: "칩 기술의 핵심 역량",
       },
       lead: {
-        vi: "Pebble Vina phát triển kiến trúc công nghệ chip bán dẫn tích hợp AI ngoại biên với trọng tâm tối ưu luồng dữ liệu, năng lực xử lý song song và hiệu quả tính toán, hướng tới khả năng xử lý ổn định và hiệu quả năng lượng.",
-        en: "Pebble Vina develops edge-AI semiconductor architecture centred on data-flow optimisation, parallel processing capability and computational efficiency — built for the rising demands of AI workloads while targeting stable processing and energy efficiency.",
-        ko: "Pebble Vina는 데이터 흐름 최적화와 병렬 처리 능력, 연산 효율을 중심에 두고 엣지 AI 반도체 아키텍처를 개발하며, 안정적인 처리 성능과 에너지 효율을 함께 지향합니다.",
+        vi: "Pebble Vina phát triển kiến trúc công nghệ chip bán dẫn tích hợp AI ngoại biên với trọng tâm **tối ưu luồng dữ liệu, năng lực xử lý song song và hiệu quả tính toán**, hướng tới khả năng xử lý ổn định và hiệu quả năng lượng.",
+        en: "Pebble Vina develops edge-AI semiconductor architecture centred on **data-flow optimisation, parallel processing capability and computational efficiency** — built for the rising demands of AI workloads while targeting stable processing and energy efficiency.",
+        ko: "Pebble Vina는 **데이터 흐름 최적화와 병렬 처리 능력, 연산 효율**을 중심에 두고 엣지 AI 반도체 아키텍처를 개발하며, 안정적인 처리 성능과 에너지 효율을 함께 지향합니다.",
       },
       stat: "400K",
     },
@@ -150,9 +146,9 @@ export const SEED_CONTENT: SiteContent = {
       },
       title: { vi: "TIN TỨC & HỢP TÁC", en: "NEWS & PARTNERSHIPS", ko: "뉴스 & 협력" },
       lead: {
-        vi: "Pebble Vina luôn chủ động mở rộng hợp tác chiến lược với các đối tác, khách hàng và tổ chức hàng đầu để thúc đẩy đổi mới công nghệ và tạo ra giá trị bền vững.",
-        en: "Pebble Vina actively expands strategic collaboration with leading partners, customers and institutions to drive technological innovation and create lasting value.",
-        ko: "Pebble Vina는 기술 혁신을 앞당기고 지속 가능한 가치를 만들기 위해, 선도적인 파트너·고객·기관과의 전략적 협력을 꾸준히 넓혀 갑니다.",
+        vi: "Pebble Vina luôn chủ động mở rộng **hợp tác chiến lược với các đối tác, khách hàng và tổ chức hàng đầu** để thúc đẩy đổi mới công nghệ và tạo ra giá trị bền vững.",
+        en: "Pebble Vina actively expands **strategic collaboration with leading partners, customers and institutions** to drive technological innovation and create lasting value.",
+        ko: "Pebble Vina는 기술 혁신을 앞당기고 지속 가능한 가치를 만들기 위해, **선도적인 파트너·고객·기관과의 전략적 협력**을 꾸준히 넓혀 갑니다.",
       },
       count: 4,
       image1: "/images/news-korea-semiconductor-partnership-v2.png",
@@ -164,14 +160,14 @@ export const SEED_CONTENT: SiteContent = {
     contact: {
       visible: true,
       title: {
-        vi: "Cùng nhau kiến tạo giải pháp chip bán dẫn tích hợp AI ngoại biên đột phá",
-        en: "LET'S BUILD BREAKTHROUGH EDGE-AI SEMICONDUCTOR SOLUTIONS TOGETHER",
-        ko: "혁신적인 엣지 AI 반도체 솔루션, 함께 만들어 가십시오",
+        vi: "Cùng nhau kiến tạo giải pháp chip bán dẫn tích hợp *AI ngoại biên đột phá*",
+        en: "LET'S BUILD BREAKTHROUGH *EDGE-AI SEMICONDUCTOR SOLUTIONS* TOGETHER",
+        ko: "*혁신적인 엣지 AI 반도체 솔루션*, 함께 만들어 가십시오",
       },
       lead: {
-        vi: "Chúng tôi luôn sẵn sàng lắng nghe và đồng hành cùng bạn để biến ý tưởng thành giá trị thực tiễn, dẫn dắt tương lai công nghệ.",
-        en: "We are always ready to listen and work alongside you to turn ideas into practical value and shape the future of technology.",
-        ko: "아이디어를 실질적인 가치로 바꾸고 기술의 미래를 함께 열어 갈 수 있도록, 언제든 귀사의 이야기를 듣고 동행하겠습니다.",
+        vi: "Chúng tôi luôn sẵn sàng lắng nghe và **đồng hành cùng bạn để biến ý tưởng thành giá trị thực tiễn**, dẫn dắt tương lai công nghệ.",
+        en: "We are always ready to listen and **work alongside you to turn ideas into practical value** and shape the future of technology.",
+        ko: "**아이디어를 실질적인 가치로 바꾸고 기술의 미래를 함께** 열어 갈 수 있도록, 언제든 귀사의 이야기를 듣고 동행하겠습니다.",
       },
       cta: { vi: "GỬI THÔNG TIN", en: "SEND", ko: "보내기" },
       note: {
@@ -187,20 +183,29 @@ export const SEED_CONTENT: SiteContent = {
     catalog: {
       visible: true,
       eyebrow: {
-        vi: "DANH MỤC CHIP AI VÀ GIẢI PHÁP AI",
-        en: "AI CHIP & AI SOLUTION CATALOGUE",
-        ko: "AI 칩 & AI 솔루션 카탈로그",
+        vi: "SẢN PHẨM & GIẢI PHÁP AI",
+        en: "PRODUCTS & AI SOLUTIONS",
+        ko: "제품 & AI 솔루션",
       },
+      // `\n` breaks the line (lib/content/markup.ts); the catalogue head
+      // renders line 2 in `text-muted`, same mechanism as
+      // `home.pim.title` (see PimSection in home/pim-section.tsx).
       title: {
-        vi: "Danh mục sản phẩm công nghệ AI của Pebble Vina",
-        en: "Pebble Vina's AI technology product catalogue",
-        ko: "Pebble Vina의 AI 기술 제품 카탈로그",
+        vi: "Từ con chip AI\nđến giải pháp doanh nghiệp",
+        en: "From AI chips\nto enterprise solutions",
+        ko: "AI 칩에서\n기업용 솔루션까지",
       },
+      // Two paragraphs (`\n` = new paragraph). `**x**` = bright bold, `*x*` =
+      // accent bold (lib/content/markup.ts) — same phrases marked in every
+      // locale, no new claim added (brief P1 § "Content changes").
       lead: {
-        vi: "Tại Pebble Vina, chúng tôi tin rằng AI không chỉ là xu hướng mà là công cụ để tối ưu hóa kinh doanh. Chúng tôi cung cấp các giải pháp toàn diện chip bán dẫn tích hợp AI và các giải pháp phần mềm nhằm đưa năng lực xử lý AI đến gần nơi dữ liệu được tạo ra và sử dụng.",
-        en: "At Pebble Vina we believe AI is not just a trend but a tool for optimising business. We deliver end-to-end solutions — AI-integrated semiconductors and software — bringing AI processing close to where data is created and used.",
-        ko: "Pebble Vina는 AI를 한때의 흐름이 아니라 비즈니스를 최적화하는 도구로 봅니다. AI를 집적한 반도체와 소프트웨어를 아우르는 통합 솔루션으로, 데이터가 만들어지고 쓰이는 자리 가까이에 AI 처리 능력을 가져다 놓습니다.",
+        vi: "Tại Pebble Vina, chúng tôi tin rằng AI không chỉ là xu hướng mà là **công cụ để tối ưu hóa kinh doanh**.\nChúng tôi cung cấp các giải pháp toàn diện *chip bán dẫn tích hợp AI* và *các giải pháp phần mềm* nhằm đưa năng lực xử lý AI **đến gần nơi dữ liệu được tạo ra và sử dụng**.",
+        en: "At Pebble Vina, we believe AI is not just a trend but **a tool to optimise business**.\nWe deliver end-to-end solutions in *AI-integrated semiconductors* and *software solutions*, bringing AI processing power **close to where data is created and used**.",
+        ko: "Pebble Vina는 AI를 한때의 흐름이 아니라 **비즈니스를 최적화하는 도구**로 봅니다.\n저희는 *AI를 집적한 반도체*와 *소프트웨어 솔루션*을 아우르는 통합 솔루션으로, 데이터가 만들어지고 쓰이는 자리 가까이에 **AI 처리 능력**을 가져다 놓습니다.",
       },
+      // No longer rendered — `Catalogue` drops the row that showed it (brief
+      // P1 § "Content changes"; it also overlapped at 390px). Kept in the
+      // schema/CMS so the field isn't lost if the row comes back.
       hint: {
         vi: "Bấm vào sản phẩm để xem chi tiết bên dưới",
         en: "Tap a product to see its detail below",

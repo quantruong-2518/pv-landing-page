@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   LOCALES,
@@ -58,23 +59,45 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
         "sticky top-0 z-50 flex h-header items-center justify-between gap-6 px-gutter",
         // 82% opacity + blur is what lets the hero image show through without
         // the wordmark losing contrast against it.
-        "bg-night/85 backdrop-blur-[14px]",
+        //
+        // `site-header` is a theme hook, not styling: at 85% the frosted band
+        // reads as a tint over a night page and as a grey smear over a day one,
+        // because what is behind it is a dark photograph either way. globals.css
+        // closes it on the light surface.
+        "site-header bg-night/85 backdrop-blur-[14px]",
       )}
     >
       <Link
         href={routes.home(locale)}
-        // Below `lg` the link is exactly the 36x36 mark, eight pixels under the
-        // 44px minimum on a phone. The box grows around the artwork instead of
-        // the artwork growing: the mark keeps its size and its position at the
-        // left gutter, and the extra pixels are dead space the thumb can use.
-        className="flex items-center gap-3.5 text-ink max-lg:min-h-11 max-lg:min-w-11"
+        // Wherever the link is exactly the 36x36 mark it is eight pixels under
+        // the 44px minimum a thumb needs. The box grows around the artwork
+        // instead of the artwork growing: the mark keeps its size and its
+        // position at the left gutter, and the extra pixels are dead space the
+        // thumb can use. `shrink-0` so the row can never squash the lockup —
+        // a 235x36 artwork rendered 178 wide is the brand drawn wrong.
+        className="flex shrink-0 items-center gap-3.5 text-ink max-xl:min-h-11 max-xl:min-w-11"
         aria-label="Pebble Vina"
       >
-        {/* From lg the header has the width for the supplied horizontal lockup,
+        {/* From xl the header has the width for the supplied horizontal lockup,
             so it runs unaltered: mark, wordmark and flag star as one artwork.
-            Below lg it would shrink past reading size, so the mark alone
-            stands in for it instead. Only the lockup is `priority`; preloading
-            both would pull down a logo the viewport is never going to render. */}
+            Below that the mark alone stands in for it. Only the lockup is
+            `priority`; preloading both would pull down a logo the viewport is
+            never going to render.
+
+            The breakpoint is `xl`, not `lg`, since the theme switch joined this
+            row. Measured at 1024 with the Vietnamese nav (the longest) and the
+            real webfonts: gutters 2x34.8 + lockup 235 + gap 24 + nav 752.2 =
+            1080.8 against 1024 available, and flex paid for it by rendering the
+            235px lockup at 178 — squashed, since its height is fixed. The mark
+            is what the 1024-1279 band gets instead, which is what every
+            narrower viewport has always shown; from 1280 the lockup returns
+            with ~85px to spare.
+
+            `lockup-wordmark` / `lockup-mark` are theme hooks, not styling: the
+            lockup sets PEBBLE VINA in white and vanishes on the day surface, so
+            globals.css swaps the pair there. The decision — and the reason no
+            filter can recover that artwork — lives with the rest of the theme,
+            in globals.css; this file only says which element is which. */}
         <Image
           src="/images/logo-wordmark.png"
           alt=""
@@ -85,9 +108,15 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
           width={235}
           height={36}
           priority
-          className="hidden h-9 w-auto lg:block"
+          className="lockup-wordmark hidden h-9 w-auto xl:block"
         />
-        <Image src="/images/logo.png" alt="" width={36} height={36} className="block lg:hidden" />
+        <Image
+          src="/images/logo.png"
+          alt=""
+          width={36}
+          height={36}
+          className="lockup-mark block xl:hidden"
+        />
       </Link>
 
       {/*
@@ -109,9 +138,14 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
             key={link.key}
             href={link.href}
             aria-current={link.key === active ? "page" : undefined}
+            // Uppercase with an accent underline on the current page, from the
+            // 2026-09 hero review. Every link carries the 2px border (transparent
+            // when inactive) so moving the active state never shifts the row.
             className={cn(
-              "text-sm font-medium tracking-[0.02em] whitespace-nowrap transition-colors",
-              link.key === active ? "text-ink" : "text-muted hover:text-ink",
+              "border-b-2 pt-2 pb-1.5 text-note font-semibold tracking-[0.08em] whitespace-nowrap uppercase transition-colors",
+              link.key === active
+                ? "border-accent text-ink"
+                : "border-transparent text-muted hover:text-ink",
             )}
           >
             {link.label}
@@ -121,6 +155,12 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
         <span aria-hidden className="h-7 w-px bg-ink/18" />
 
         <LocaleMenu locale={locale} active={active} />
+
+        {/* 44px plus one 16px gap, on a row that had about six pixels of slack
+            at 1024 — which is why the lockup above now waits for `xl`. Nothing
+            else goes in this row without re-measuring the Vietnamese nav at
+            1024 with the real webfonts loaded. */}
+        <ThemeToggle locale={locale} />
 
         {/* `size="lg"` rather than hand-set padding around a hand-set type
             size: the same 13px step, and the button clears 44px, which the old
@@ -167,6 +207,11 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
               {link.label}
             </Link>
           ))}
+
+          {/* A row of its own rather than a fourth control in the row below:
+              the language bar and the CTA already fill that line at 300px, and
+              a wrapped CTA is worse than one more row. */}
+          <ThemeToggle locale={locale} variant="row" />
 
           <div className="mt-1 flex flex-wrap items-center justify-between gap-3 border-t border-ink/14 px-3 pt-3">
             <LocaleBar locale={locale} active={active} />

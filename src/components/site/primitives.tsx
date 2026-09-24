@@ -1,6 +1,7 @@
 import Image from "next/image";
-import type { ComponentProps, ReactNode } from "react";
+import { Fragment, type ComponentProps, type ReactNode } from "react";
 
+import { parseInline } from "@/lib/content/markup";
 import type { Spec } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
@@ -26,10 +27,72 @@ export function Eyebrow({ className, ...props }: ComponentProps<"span">) {
   );
 }
 
+/**
+ * A CMS string with its inline marks resolved — see `lib/content/markup.ts` for
+ * the grammar. Renders spans only, so it drops into a heading or a paragraph
+ * without inventing a block.
+ *
+ * `strong` is bright ink at 600 rather than a `<strong>`: the mark is the
+ * design's lead-in treatment, and an editor bolding the first phrase of a
+ * paragraph is not making a semantic claim about it.
+ */
+export function MarkedText({ value }: { value: string }) {
+  return parseInline(value).map((segment, index) =>
+    segment.emphasis === "none" ? (
+      <Fragment key={index}>{segment.text}</Fragment>
+    ) : (
+      <span
+        key={index}
+        className={segment.emphasis === "accent" ? "text-accent" : "font-semibold text-ink"}
+      >
+        {segment.text}
+      </span>
+    ),
+  );
+}
+
 /** The smaller, dimmer status line that sits beside a kicker on product pages. */
 export function Kicker({ className, ...props }: ComponentProps<"span">) {
   return (
     <span className={cn("font-mono text-label whitespace-nowrap", className)} {...props} />
+  );
+}
+
+/**
+ * A square status pill: a 6×6 dot in `currentColor`, then mono label text.
+ * Added in the P2 redesign for two spots that need a "this is planned/dated"
+ * or "this has shipped" read at a glance — the solution cards' date pill and
+ * the roadmap's status pill (brief P2).
+ *
+ *  - `"info"` — the teal "planned" tone (`--color-info`, globals.css): a
+ *    roadmap date, a "expected"/"survey" status.
+ *  - `"accent"` — the existing blue, for "this has shipped/is in progress"
+ *    (done roadmap entries, PoC).
+ *
+ * No rounded corners (CLAUDE.md § 3): the dot and the pill are both square.
+ */
+export function Pill({
+  tone,
+  className,
+  children,
+}: {
+  tone: "info" | "accent";
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex w-fit items-center gap-1.5 whitespace-nowrap border px-[9px] py-1 font-mono text-label tracking-[0.12em]",
+        tone === "info"
+          ? "border-info/38 bg-signal-teal/28 text-info"
+          : "border-accent/45 bg-accent/14 text-accent-hover",
+        className,
+      )}
+    >
+      <span aria-hidden className="h-1.5 w-1.5 shrink-0 bg-current" />
+      {children}
+    </span>
   );
 }
 
@@ -107,7 +170,14 @@ export function GroupRule({
 }: {
   name?: string;
   label?: string;
-  meta?: string;
+  /**
+   * A qualifier after the label. Usually a string, but `ReactNode` so a
+   * caller can wrap part of it responsively — the P2 roadmap group hides its
+   * meta line below `md` (brief P2 § Roadmap) by passing
+   * `<span className="max-md:hidden">…</span>` rather than adding a second
+   * prop just for that one case.
+   */
+  meta?: ReactNode;
   /** A full sentence after the label, where the group needs one. */
   children?: ReactNode;
   className?: string;
@@ -199,7 +269,13 @@ export function VignetteImage({
  */
 const VN_NUMBER = /^(~?)(\d{1,3}(?:\.\d{3})*)(,\d+)?(×?)$/;
 
-function localizeFigure(value: string, locale: Locale): string {
+/**
+ * Exported so the DETAIL brief's light-theme spec tiles (`product/detail.tsx`)
+ * can apply the same VN→EN/KO number-format swap without duplicating the
+ * regex — the figures they read (`product.<chip>.specs`) are the same
+ * VN-formatted `Spec.value` strings this file already localizes for `SpecCard`.
+ */
+export function localizeFigure(value: string, locale: Locale): string {
   if (locale === "vi") return value;
   const match = VN_NUMBER.exec(value);
   if (!match) return value;

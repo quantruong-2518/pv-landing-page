@@ -49,8 +49,6 @@ export const homeContentSchema = z.object({
     lead: localized,
     imageA: image,
     imageB: image,
-    statement: localized,
-    imageC: image,
   }),
   why: section({
     title: localized,

@@ -1,3 +1,4 @@
+import { plainText } from "@/lib/content/markup";
 import { getContent, getPublishedAt } from "@/lib/content/store";
 import { dictionary } from "@/lib/i18n/dictionary";
 import { absolute, external, routes } from "@/lib/routes";
@@ -12,7 +13,11 @@ import { absolute, external, routes } from "@/lib/routes";
  * the section it comes from.
  *
  * It is generated from the same content the pages render, so it cannot drift
- * into saying something the site does not.
+ * into saying something the site does not — which is also why E-Series has
+ * no row in the status table and no "### E-Series" section below: business
+ * decision 2026-09-24 pulled it from the public site (routes.ts,
+ * HIDDEN_PRODUCT_SLUGS), and `/[locale]/products/e-series` now 404s, so a
+ * "Read more" link to it here would point an assistant at a dead page.
  */
 export const revalidate = 300;
 
@@ -63,7 +68,7 @@ quote the Vietnamese page if the wordings ever appear to differ:
 
 ${content.home.hero.lead[en]}
 
-${content.home.pim.lead[en]}
+${plainText(content.home.pim.lead[en])}
 
 ## Product status — read this before quoting a figure
 
@@ -75,7 +80,6 @@ distinction is not decoration:
 | MINT | In production since 05/2023 | 30 GOPS · 17.6 TOPS/W · 5 × 5 mm² die |
 | PAPAYA / PAPAYA FLEX | Proof of concept, 2024 | 0.5 TOPS · 30 TOPS/W · 5 × 5 mm² die |
 | ESPRESSO | Roadmap, expected Q3/2026 | 160 TOPS · 16 TOPS/W · 20 × 23 mm² die · 640 TOPS on a 4-chip card |
-| E-Series E10 / E20 | Roadmap | E10: 512T FP8/INT8, 32 AI cores, 48 GB · E20: 1024T, 64 AI cores, 96 GB |
 | Enterprise software platform | Roadmap, expected 12/2026 | ${content.product.software.progress}% toward target completion |
 | Enterprise AI training | Needs survey, 2027 | Programme model not yet finalised |
 
@@ -98,11 +102,6 @@ Read more: ${absolute(routes.product(en, "papaya"))}
 ${content.product.espresso.lead[en]}
 Read more: ${absolute(routes.product(en, "espresso"))}
 
-### E-Series — ${content.product.eseries.title[en]}
-${content.product.eseries.lead[en]}
-Software stack: ${copy.eseries.stack.join(", ")}.
-Read more: ${absolute(routes.product(en, "e-series"))}
-
 ### Enterprise software
 ${content.product.software.lead[en]}
 Read more: ${absolute(routes.products(en))}#${routes.anchors.software}
@@ -113,7 +112,7 @@ Read more: ${absolute(routes.products(en))}#${routes.anchors.training}
 
 ## Technology
 
-${content.home.why.lead[en]}
+${plainText(content.home.why.lead[en])}
 
 Analog PIM: ${dictionary.home.pim.analog.body[en]}
 Digital PIM: ${dictionary.home.pim.digital.body[en]}
