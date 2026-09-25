@@ -29,6 +29,18 @@ import { external, homeAnchor, routes } from "@/lib/routes";
 export function SiteFooter({ locale }: { locale: Locale }) {
   const copy = dictionary.footer;
 
+  // Software/training used to have no page of their own to link from the
+  // footer (DARK-BUILD-brief PART B gives each one a URL — routes.ts). Their
+  // link text reuses `catalog.other[].name` — the same "Phần mềm doanh
+  // nghiệp" / "Đào tạo AI doanh nghiệp" copy the /products hub's own
+  // solution cards already show — rather than adding a second, footer-only
+  // label the copy agent would have to keep in sync with those cards.
+  // Looked up by anchor id (not array position) because `other` is a plain
+  // array, not a fixed tuple — see the same pattern in catalogue.tsx.
+  const solutionCards = dictionary.product.catalog.other;
+  const softwareCard = solutionCards.find((card) => card.anchor === routes.anchors.software);
+  const trainingCard = solutionCards.find((card) => card.anchor === routes.anchors.training);
+
   // The label that opens columns 2-4. Its height is the logo's, which is what
   // makes the four first rows one row from `lg` up — see the note above.
   const columnLabel =
@@ -96,6 +108,19 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <Link href={routes.bio(locale)} className="flex items-center text-sm text-body transition-colors hover:text-ink max-lg:min-h-11">
             {dictionary.header.nav.bio[locale]}
           </Link>
+          <Link href={routes.news(locale)} className="flex items-center text-sm text-body transition-colors hover:text-ink max-lg:min-h-11">
+            {dictionary.header.nav.news[locale]}
+          </Link>
+          {softwareCard ? (
+            <Link href={routes.productSoftware(locale)} className="flex items-center text-sm text-body transition-colors hover:text-ink max-lg:min-h-11">
+              {softwareCard.name[locale]}
+            </Link>
+          ) : null}
+          {trainingCard ? (
+            <Link href={routes.productTraining(locale)} className="flex items-center text-sm text-body transition-colors hover:text-ink max-lg:min-h-11">
+              {trainingCard.name[locale]}
+            </Link>
+          ) : null}
           <Link href={homeAnchor(locale, "lien-he")} className="flex items-center text-sm text-body transition-colors hover:text-ink max-lg:min-h-11">
             {copy.contactLink[locale]}
           </Link>

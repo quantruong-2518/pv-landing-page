@@ -284,15 +284,20 @@ export const SEED_CONTENT: SiteContent = {
 
     software: {
       visible: true,
+      // DARK-BUILD-brief PART B (2026-09-24): the standalone `/products/software`
+      // page's own hero copy, replacing the hub section's title/lead — the
+      // ORIGINAL sentence below now lives as `product.software.hubBody`
+      // (dictionary.ts), still printed verbatim on the same page, just no
+      // longer as the hero lead (CLAUDE.md § 3: reuse, don't discard).
       title: {
-        vi: "NỀN TẢNG PHẦN MỀM TÍCH HỢP DỮ LIỆU VÀ AI CHO DOANH NGHIỆP",
-        en: "A SOFTWARE PLATFORM INTEGRATING ENTERPRISE DATA AND AI",
-        ko: "기업의 데이터와 AI를 통합하는 소프트웨어 플랫폼",
+        vi: "PHẦN MỀM DOANH NGHIỆP\nCÓ AI HỖ TRỢ RA QUYẾT ĐỊNH",
+        en: "ENTERPRISE SOFTWARE\nWITH AI-ASSISTED DECISIONS",
+        ko: "AI 의사결정 지원\n기업용 소프트웨어",
       },
       lead: {
-        vi: "Pebble Vina phát triển nền tảng phần mềm giúp kết nối dữ liệu từ CRM, ERP, HRM và DMS trên một môi trường thống nhất, tạo nền tảng cho việc phân tích dữ liệu và ứng dụng AI trong hoạt động doanh nghiệp.",
-        en: "Pebble Vina is building a software platform that connects data from CRM, ERP, HRM and DMS in one unified environment — the foundation for data analysis and applied AI across enterprise operations.",
-        ko: "Pebble Vina는 CRM, ERP, HRM, DMS의 데이터를 하나의 통합 환경에서 연결하는 소프트웨어 플랫폼을 개발하고 있습니다. 이는 기업 운영 전반의 데이터 분석과 AI 활용을 위한 토대가 됩니다.",
+        vi: "Bộ phần mềm dành cho doanh nghiệp, có *AI hỗ trợ* ở từng khâu vận hành. Mỗi sản phẩm **kế thừa dữ liệu** của sản phẩm trước, để việc ra quyết định diễn ra **xuyên suốt, nhanh và chính xác**.",
+        en: "A software suite for enterprises, with *AI support* at every step of operations. Each product **inherits the data** of the one before it, so decisions happen **consistently, quickly and accurately**.",
+        ko: "기업을 위한 소프트웨어 모음으로, 운영의 각 단계마다 *AI 지원*을 제공합니다. 각 제품은 이전 제품의 **데이터를 이어받아**, 의사결정이 **일관되고 빠르며 정확하게** 이루어지도록 합니다.",
       },
       progress: 82,
       image: "/images/enterprise-ai-software-v2.png",

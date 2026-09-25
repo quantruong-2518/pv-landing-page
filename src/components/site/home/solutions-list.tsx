@@ -9,20 +9,21 @@ import {
   isPublicProduct,
   PRODUCT_SLUG_TO_ANCHOR,
   PRODUCT_SLUGS,
-  productAnchor,
   routes,
+  SOLUTION_ANCHOR_TO_ROUTE,
   type AnchorId,
   type ProductSlug,
 } from "@/lib/routes";
 
 /**
  * `solutions.rows[].anchor` (dictionary.ts, owned by the copy agent) mixes
- * three product anchors ("mint", "papaya", "e-series") with one hub section
- * anchor ("phan-mem"). The former now have their own page; the latter is
- * still a section on `/products` (CLAUDE.md: leave `#phan-mem` alone). This
- * map — inverted from `PRODUCT_SLUG_TO_ANCHOR` (routes.ts) rather than
- * assumed — is how a row tells the two apart without the dictionary itself
- * having to change.
+ * three product anchors ("mint", "papaya", "e-series") with one solution
+ * anchor ("phan-mem") — that one used to be a section on `/products`
+ * (`#phan-mem`); DARK-BUILD-brief PART B gives it its own page instead
+ * (`SOLUTION_ANCHOR_TO_ROUTE`, routes.ts), which is where this row now
+ * points. This map — inverted from `PRODUCT_SLUG_TO_ANCHOR` (routes.ts)
+ * rather than assumed — is how a row tells the product anchors apart from
+ * the solution one without the dictionary itself having to change.
  */
 const ANCHOR_TO_PRODUCT_SLUG = new Map<AnchorId, ProductSlug>(
   PRODUCT_SLUGS.map((slug) => [PRODUCT_SLUG_TO_ANCHOR[slug], slug]),
@@ -85,7 +86,7 @@ export function SolutionsList({
           const slug = ANCHOR_TO_PRODUCT_SLUG.get(row.anchor as AnchorId);
           const href = slug
             ? routes.product(locale, slug)
-            : productAnchor(locale, row.anchor as AnchorId);
+            : (SOLUTION_ANCHOR_TO_ROUTE[row.anchor as AnchorId]?.(locale) ?? routes.products(locale));
           const displayIndex = String(position + 1).padStart(2, "0");
 
           return (

@@ -103,12 +103,22 @@ ${content.product.espresso.lead[en]}
 Read more: ${absolute(routes.product(en, "espresso"))}
 
 ### Enterprise software
-${content.product.software.lead[en]}
-Read more: ${absolute(routes.products(en))}#${routes.anchors.software}
+${plainText(content.product.software.lead[en])}
+Read more: ${absolute(routes.productSoftware(en))}
 
 ### Enterprise AI training
 ${content.product.training.lead[en]} ${copy.training.secondary[en]}
-Read more: ${absolute(routes.products(en))}#${routes.anchors.training}
+Read more: ${absolute(routes.productTraining(en))}
+
+## News and partnerships
+
+${plainText(content.home.news.lead[en])}
+Read more: ${absolute(routes.news(en))}
+
+${dictionary.home.news.items
+  .slice(0, content.home.news.count)
+  .map((item) => `- ${item.date}: ${item.title[en]} — ${plainText(item.body[en])}`)
+  .join("\n")}
 
 ## Technology
 

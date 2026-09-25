@@ -16,6 +16,7 @@ import {
   PRODUCT_SLUG_TO_ANCHOR,
   PRODUCT_SLUGS,
   routes,
+  SOLUTION_ANCHOR_TO_ROUTE,
   type AnchorId,
   type ProductSlug,
 } from "@/lib/routes";
@@ -188,7 +189,15 @@ export function Catalogue({
         {copy.other.map((card, index) => (
           <SolutionCard
             key={card.anchor}
-            href={anchor(card.anchor as AnchorId)}
+            // Software/training now each have their own page
+            // (SOLUTION_ANCHOR_TO_ROUTE, routes.ts) rather than a section on
+            // this one — `anchor(card.anchor)` is kept as a fallback so a
+            // future `catalog.other` entry with no route mapping still links
+            // somewhere instead of throwing.
+            href={
+              SOLUTION_ANCHOR_TO_ROUTE[card.anchor as AnchorId]?.(locale) ??
+              anchor(card.anchor as AnchorId)
+            }
             image={solutionImages[card.anchor] ?? softwareImage}
             category={card.category[locale]}
             when={card.when[locale]}

@@ -6,7 +6,7 @@ import { AppIcon } from "@/components/site/product/app-icons";
 import { localizeFigure } from "@/components/site/primitives";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary, type AppIconId, type Spec } from "@/lib/i18n/dictionary";
-import { anchor, routes } from "@/lib/routes";
+import { homeAnchor, routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 /**
@@ -617,8 +617,11 @@ export function PapayaAppTile({
 export function DetailCta({ locale }: { locale: Locale }) {
   return (
     <div className="flex justify-center px-gutter py-7 lg:py-12">
+      {/* The contact form lives on the home page only — a bare `#lien-he` on a
+          chip / software / training page pointed at nothing, so the page's one
+          CTA went nowhere. */}
       <Link
-        href={anchor(routes.anchors.contact)}
+        href={homeAnchor(locale, routes.anchors.contact)}
         className="inline-flex items-center gap-3 bg-accent px-[18px] py-3 text-[15px] font-bold text-night lg:px-[18px] lg:py-3 lg:text-[16px]"
       >
         {dictionary.product.shared.consultCta[locale]}

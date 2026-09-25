@@ -63,5 +63,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
       alternates: { languages: languagesFor((forLocale) => routes.product(forLocale, slug)) },
     })),
+    // Same priority band as the four product-detail pages — DARK-BUILD-brief
+    // PART B split these off the hub the same way MINT/PAPAYA/ESPRESSO were.
+    {
+      url: absolute(routes.productSoftware(locale)),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+      alternates: { languages: languagesFor(routes.productSoftware) },
+    },
+    {
+      url: absolute(routes.productTraining(locale)),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+      alternates: { languages: languagesFor(routes.productTraining) },
+    },
+    {
+      url: absolute(routes.news(locale)),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      alternates: { languages: languagesFor(routes.news) },
+    },
   ]);
 }

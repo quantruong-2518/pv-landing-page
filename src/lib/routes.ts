@@ -40,7 +40,13 @@ export const routes = {
   home: (locale: Locale) => `/${locale}`,
   products: (locale: Locale) => `/${locale}/products`,
   product: (locale: Locale, slug: ProductSlug) => `/${locale}/products/${slug}`,
+  /** Static siblings of `[product]/page.tsx` — Next resolves a static segment
+   *  before the dynamic one at the same level, so `/products/software` never
+   *  reaches `isProductSlug` in that file (DARK-BUILD-brief PART B). */
+  productSoftware: (locale: Locale) => `/${locale}/products/software`,
+  productTraining: (locale: Locale) => `/${locale}/products/training`,
   bio: (locale: Locale) => `/${locale}/bio`,
+  news: (locale: Locale) => `/${locale}/news`,
 
   /** In-page anchors. Slugs stay Vietnamese in both locales so a link shared
    *  from the VI page still lands correctly on the EN page. */
@@ -106,6 +112,21 @@ export const PRODUCT_SLUG_TO_ANCHOR: Record<ProductSlug, AnchorId> = {
   papaya: routes.anchors.papaya,
   espresso: routes.anchors.espresso,
   "e-series": routes.anchors.eSeries,
+};
+
+/**
+ * Software and training used to be sections on `/products` itself
+ * (`#phan-mem` / `#dao-tao`, `routes.anchors.software` / `.training`) — the
+ * P2 solution cards (catalogue.tsx) and the home solutions row that names
+ * "CRM" (solutions-list.tsx) both linked into them. DARK-BUILD-brief PART B
+ * gives each its own page and removes those sections from the hub, so both
+ * call sites resolve through this map instead of the anchor. Keyed by the
+ * same anchor id `catalog.other[].anchor` / `solutions.rows[].anchor`
+ * (dictionary.ts) already store, so neither CMS-adjacent list has to change.
+ */
+export const SOLUTION_ANCHOR_TO_ROUTE: Partial<Record<AnchorId, (locale: Locale) => string>> = {
+  [routes.anchors.software]: routes.productSoftware,
+  [routes.anchors.training]: routes.productTraining,
 };
 
 export const admin = {

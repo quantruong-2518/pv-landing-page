@@ -173,6 +173,104 @@ export function aboutPageJsonLd(locale: Locale, options: DatedPageOptions) {
   };
 }
 
+export interface StandalonePageOptions extends DatedPageOptions {
+  /** Absolute path under the site root — `routes.productSoftware(locale)` /
+   *  `routes.productTraining(locale)`, already locale-resolved by the caller. */
+  path: string;
+  title: string;
+  description: string;
+  /** Path under /public — the page's own hero image (`content.software.image`
+   *  / `.training.image`, CMS-owned). */
+  image: string;
+}
+
+/**
+ * `/products/software` and `/products/training` (DARK-BUILD-brief PART B) —
+ * same `WebPage` shape as `webPageJsonLd` above, generalised to take its
+ * path/title/description/image rather than reading `dictionary.meta.home`
+ * directly, since two pages now need it. No `offers` anywhere on either
+ * node: both describe a roadmap item (CLAUDE.md § 2), and `WebPage` never
+ * carries one regardless.
+ */
+export function standalonePageJsonLd(locale: Locale, options: StandalonePageOptions) {
+  const url = absolute(options.path);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: options.title,
+    description: options.description,
+    inLanguage: LOCALE_TAGS[locale],
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": ORGANISATION_ID },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: absolute(options.image),
+    },
+    dateModified: options.dateModified,
+  };
+}
+
+export interface NewsPageOptions extends DatedPageOptions {
+  /** Already resolved to one locale and newest-first, matching the page's
+   *  own render order — `NewsPage` (news/news-page.tsx) builds this list. */
+  items: ReadonlyArray<{
+    /** Stable id for the node's own `@id` fragment — the story's ISO date is
+     *  unique across `home.news.items` (dictionary.ts) today; a real slug
+     *  would replace this if articles ever get their own URLs. */
+    id: string;
+    /** ISO 8601 (yyyy-mm-dd) — `NewsPage`'s own `toIsoDate` conversion. */
+    datePublished: string;
+    headline: string;
+    description: string;
+    image: string;
+  }>;
+}
+
+/**
+ * `/news` (DARK-BUILD-brief PART B). `CollectionPage` wrapping an `ItemList`
+ * of `NewsArticle` nodes, the same shape `collectionPageJsonLd` gives the
+ * product catalogue — except each entry's `mainEntityOfPage` points back at
+ * this one page's `#webpage` fragment instead of a `url` of its own: there is
+ * no per-article route yet (this file's `NewsPage` doc comment), so nothing
+ * here claims one.
+ */
+export function newsPageJsonLd(locale: Locale, options: NewsPageOptions) {
+  const url = absolute(routes.news(locale));
+  const webpageId = `${url}#webpage`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${url}#collectionpage`,
+    url,
+    name: dictionary.meta.news.title[locale],
+    description: dictionary.meta.news.description[locale],
+    inLanguage: LOCALE_TAGS[locale],
+    isPartOf: { "@id": WEBSITE_ID },
+    dateModified: options.dateModified,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: options.items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "NewsArticle",
+          "@id": `${url}#${item.id}`,
+          headline: item.headline,
+          datePublished: item.datePublished,
+          description: item.description,
+          image: absolute(item.image),
+          mainEntityOfPage: { "@id": webpageId },
+          publisher: { "@id": ORGANISATION_ID },
+        },
+      })),
+    },
+  };
+}
+
 /**
  * FAQPage. `items` is already resolved to one locale — this file has no
  * business picking a language, only shaping data it was handed.

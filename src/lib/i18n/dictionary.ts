@@ -748,6 +748,14 @@ export const dictionary = {
        * entity as "Pebble Square Inc.").
        */
       pillPebbleSquare: "Pebble Square",
+      /**
+       * Plain-case "roadmap" tag — the Software/Training/News standalone
+       * pages' own `Pill` badges (N-Software/N-Training-dark mocks) read
+       * "Lộ trình", not the all-caps `catalog.groupTimeline` ("LỘ TRÌNH")
+       * built for a section heading. Same word, sized for a small pill
+       * instead of a mono label.
+       */
+      roadmapLabel: L("Lộ trình", "Roadmap", "로드맵"),
     },
 
     mint: {
@@ -1262,15 +1270,107 @@ export const dictionary = {
           ),
         },
       ],
+      /**
+       * The standalone `/products/software` page's own hero pills
+       * (N-Software-dark mocks) — a compound "<module> · <status>" string
+       * distinct from `modules[].name` / the catalogue's `category`/`when`
+       * split (dictionary above), so kept as its own pair rather than
+       * composed from either at render time.
+       */
+      heroPillCrm: L("CRM · Ra mắt 12/2026", "CRM · Launching 12/2026", "CRM · 2026년 12월 출시"),
+      heroPillRoadmap: L(
+        "ERP · HRM · DMS · Lộ trình",
+        "ERP · HRM · DMS · Roadmap",
+        "ERP · HRM · DMS · 로드맵",
+      ),
+      /** Card 01's own date pill in the "BỘ SẢN PHẨM" chain — cards 02-04 use
+       *  `product.shared.roadmapLabel` instead (N-Software-dark mocks). */
+      launchLabel: L("Ra mắt 12/2026", "Launching 12/2026", "2026년 12월 출시"),
+      /** The "BỘ SẢN PHẨM" panel's left column: label + two short paragraphs
+       *  framing the four-module chain (N-Software-dark mocks). */
+      suiteLabel: L("Bộ sản phẩm", "The product suite", "제품군"),
+      suiteBody1: L(
+        "Bốn sản phẩm nối tiếp nhau: sản phẩm sau **kế thừa dữ liệu** của sản phẩm trước.",
+        "Four products in sequence: each one **inherits the data** of the one before it.",
+        "네 개의 제품이 순서대로 이어집니다: 다음 제품은 이전 제품의 **데이터를 그대로 이어받습니다**.",
+      ),
+      suiteBody2: L(
+        "Dữ liệu của cả bốn cùng đổ về *Trung tâm vận hành AI*.",
+        "Data from all four flows into the *AI operations centre*.",
+        "네 제품의 데이터는 모두 *AI 운영 센터*로 모입니다.",
+      ),
+      /** The second panel's left column: the same "Trung tâm vận hành AI"
+       *  name as `modules[4].name` above, printed on two lines
+       *  (N-Software-dark-Desktop-mock.html's `<br>`) — split at render with
+       *  `splitLines` (lib/content/markup.ts) rather than a second string. */
+      hubLabel: L(
+        "Trung tâm\nvận hành AI",
+        "AI operations\ncentre",
+        "AI\n운영 센터",
+      ),
+      /** The second panel's lead paragraph — the platform's original
+       *  `product.software.lead` (seed.ts) before the DARK-BUILD hero copy
+       *  replaced it there; kept here verbatim (CLAUDE.md § 3: reuse, don't
+       *  invent) since the mock still prints this exact sentence, just no
+       *  longer as the hero lead. */
+      hubBody: L(
+        "Pebble Vina phát triển nền tảng phần mềm giúp **kết nối dữ liệu từ CRM, ERP, HRM và DMS** trên một môi trường thống nhất, tạo nền tảng cho việc phân tích dữ liệu và ứng dụng AI trong hoạt động doanh nghiệp.",
+        "Pebble Vina is building a software platform that **connects data from CRM, ERP, HRM and DMS** in one unified environment — the foundation for data analysis and applied AI across enterprise operations.",
+        "Pebble Vina는 **CRM, ERP, HRM, DMS의 데이터를 하나의 통합 환경에서 연결하는** 소프트웨어 플랫폼을 개발하고 있습니다. 이는 기업 운영 전반의 데이터 분석과 AI 활용을 위한 토대가 됩니다.",
+      ),
+      /** The "TRUNG TÂM VẬN HÀNH AI" panel's own 4-step row — a second,
+       *  shorter numbered list from `modules[4].body` above, which is one
+       *  sentence; this is the same idea broken into the mock's four
+       *  separate steps (N-Software-dark mocks). */
+      hubSteps: [
+        {
+          index: "01",
+          title: L("Tổng hợp dữ liệu", "Aggregate data", "데이터 통합"),
+          body: L("từ CRM, ERP, HRM và DMS", "from CRM, ERP, HRM and DMS", "CRM, ERP, HRM, DMS로부터"),
+        },
+        {
+          index: "02",
+          title: L("Phân tích hoạt động", "Analyse operations", "운영 분석"),
+          body: L(
+            "trên cùng một nguồn dữ liệu đã kết nối",
+            "on one connected data source",
+            "하나로 연결된 데이터를 기반으로",
+          ),
+        },
+        {
+          index: "03",
+          title: L("Phát hiện vấn đề", "Detect issues", "문제 발견"),
+          body: L(
+            "trong hoạt động của doanh nghiệp",
+            "in the business's operations",
+            "기업 운영 과정에서",
+          ),
+        },
+        {
+          index: "04",
+          title: L("Hỗ trợ ra quyết định", "Support decisions", "의사결정 지원"),
+          body: L(
+            "xuyên suốt, nhanh và chính xác",
+            "consistently, quickly and accurately",
+            "일관되고 빠르며 정확하게",
+          ),
+        },
+      ],
     },
 
     training: {
-      kicker: L(
-        "03 • ĐÀO TẠO AI DOANH NGHIỆP",
-        "03 • ENTERPRISE AI TRAINING",
-        "03 • 기업 AI 교육",
-      ),
+      /**
+       * Shortened for the standalone `/products/training` page's hero
+       * (N-Training-dark mocks: "03 • ĐÀO TẠO", not the longer form below) —
+       * safe to repoint rather than add a second field: grepped, this key had
+       * exactly one reader, the hub's `TrainingSection`, which DARK-BUILD-
+       * brief PART B removes.
+       */
+      kicker: L("03 • ĐÀO TẠO", "03 • TRAINING", "03 • 교육"),
       meta: L("KHẢO SÁT NHU CẦU · 2027", "NEEDS SURVEY · 2027", "수요 조사 · 2027년"),
+      /** Hero status pill — info tone (N-Training-dark mocks). The plain
+       *  "Lộ trình" pill beside it is `product.shared.roadmapLabel`. */
+      heroPillSurvey: L("Khảo sát 2027", "2027 survey", "2027년 수요 조사"),
       /** Second, deliberately fainter paragraph. */
       secondary: L(
         "Lộ trình 2027 tập trung vào khảo sát nhu cầu và hoàn thiện mô hình đào tạo.",
@@ -1281,40 +1381,72 @@ export const dictionary = {
         {
           index: "01",
           title: L("Khảo sát trước", "Survey first", "먼저 조사합니다"),
+          // `**…**` marks added here (dictionary.ts is fixed copy, not seed.ts
+          // CMS content — this file's own edits are in scope) to match the
+          // bold phrases N-Training-dark-Desktop-mock.html sets in this exact
+          // sentence; no word added, cut or reordered (markup.ts: "emphasis
+          // is style, not content").
           body: L(
-            "Tìm hiểu nhu cầu, các bài toán doanh nghiệp đang gặp phải và mức độ sẵn sàng trước khi xây dựng chương trình.",
-            "Understanding needs, the problems the business faces and its readiness before any programme is designed.",
-            "프로그램을 설계하기 전에 기업의 요구와 당면 과제, 준비 수준을 먼저 파악합니다.",
+            "Tìm hiểu **nhu cầu, các bài toán** doanh nghiệp đang gặp phải và **mức độ sẵn sàng** trước khi xây dựng chương trình.",
+            "Understanding **needs, the problems** the business faces and its **readiness** before any programme is designed.",
+            "프로그램을 설계하기 전에 기업의 **요구와 당면 과제**, **준비 수준**을 먼저 파악합니다.",
           ),
         },
         {
           index: "02",
           title: L("Thiết kế riêng", "Designed to fit", "맞춤으로 설계합니다"),
           body: L(
-            "Xây dựng nội dung dựa trên lĩnh vực hoạt động và những bài toán AI mà doanh nghiệp muốn giải quyết.",
-            "Content built around the organisation's field of work and the AI problems it wants to solve.",
-            "기업의 사업 영역과 실제로 풀고자 하는 AI 과제를 바탕으로 교육 내용을 구성합니다.",
+            "Xây dựng nội dung dựa trên **lĩnh vực hoạt động** và những **bài toán AI** mà doanh nghiệp muốn giải quyết.",
+            "Content built around the organisation's **field of work** and the **AI problems** it wants to solve.",
+            "기업의 **사업 영역**과 실제로 풀고자 하는 **AI 과제**를 바탕으로 교육 내용을 구성합니다.",
           ),
         },
         {
           index: "03",
           title: L("Đi vào thực hành", "Straight into practice", "곧바로 실무로 이어집니다"),
           body: L(
-            "Tập trung vào các tình huống gần với công việc hằng ngày, giúp đội ngũ hiểu cách lựa chọn công cụ, xây dựng quy trình và ứng dụng AI vào công việc.",
-            "Focused on situations close to daily work, so teams learn to choose tools, build processes and apply AI on the job.",
-            "일상 업무에 가까운 상황을 중심으로, 도구를 고르고 프로세스를 만들고 업무에 AI를 적용하는 방법을 익힙니다.",
+            "Tập trung vào các tình huống **gần với công việc hằng ngày**, giúp đội ngũ hiểu cách lựa chọn công cụ, xây dựng quy trình và ứng dụng AI vào công việc.",
+            "Focused on situations **close to daily work**, so teams learn to choose tools, build processes and apply AI on the job.",
+            "**일상 업무에 가까운 상황**을 중심으로, 도구를 고르고 프로세스를 만들고 업무에 AI를 적용하는 방법을 익힙니다.",
           ),
         },
         {
           index: "04",
           title: L("Đo bằng ROI", "Measured by ROI", "ROI로 확인합니다"),
           body: L(
-            "Xác định các chỉ số phù hợp để đánh giá mức độ ứng dụng AI, khả năng triển khai vào công việc và hiệu quả đạt được sau chương trình.",
-            "Defining the right indicators to assess AI adoption, deployment into work and the results achieved after the programme.",
-            "AI 활용 수준과 업무 적용도, 교육 이후의 성과를 확인할 수 있는 지표를 함께 정의합니다.",
+            "Xác định **các chỉ số phù hợp** để đánh giá mức độ ứng dụng AI, khả năng triển khai vào công việc và hiệu quả đạt được sau chương trình.",
+            "Defining **the right indicators** to assess AI adoption, deployment into work and the results achieved after the programme.",
+            "AI 활용 수준과 업무 적용도, 교육 이후의 성과를 확인할 수 있는 **지표**를 함께 정의합니다.",
           ),
         },
       ],
+      /** "CÁCH XÂY DỰNG CHƯƠNG TRÌNH" panel head — label + the step count
+       *  (N-Training-dark mocks). */
+      buildLabel: L(
+        "Cách xây dựng chương trình",
+        "How the programme is built",
+        "프로그램 구성 방식",
+      ),
+      stepsCountLabel: L("4 bước", "4 steps", "4단계"),
+      /** "LỘ TRÌNH 2027" panel: label + lead, then two phases — the first
+       *  marked current, the second next (N-Training-dark mocks). Both phase
+       *  titles are new, short UI labels distinct from `steps[].title` above
+       *  (those describe how a programme gets built once commissioned; these
+       *  two describe where the 2027 roadmap itself stands). */
+      roadmap2027Label: L("Lộ trình 2027", "2027 roadmap", "2027년 로드맵"),
+      roadmap2027Body: L(
+        "Chương trình hiện ở giai đoạn **khảo sát nhu cầu** và **chưa triển khai**.",
+        "The programme is currently at the **needs-survey** stage and **has not launched**.",
+        "프로그램은 현재 **수요 조사** 단계이며 **아직 시작하지 않았습니다**.",
+      ),
+      currentPhaseLabel: L("Giai đoạn hiện tại", "Current phase", "현재 단계"),
+      nextPhaseLabel: L("Tiếp theo", "Next", "다음 단계"),
+      phase1Title: L("Khảo sát nhu cầu", "Survey needs", "수요 조사"),
+      phase2Title: L(
+        "Hoàn thiện mô hình đào tạo",
+        "Finalise the training model",
+        "교육 모델 정립",
+      ),
     },
 
     contact: {
@@ -1658,6 +1790,33 @@ export const dictionary = {
   },
 
   /**
+   * `/news` — the standalone listing (N-News-dark mocks, DARK-BUILD-brief
+   * PART B). The stories themselves stay `home.news.items` above (this page
+   * is the same four announcements as the home section, newest first, just
+   * with room for all of them instead of one featured + a 3-item slider) —
+   * these are only the page's own UI labels, none of which exist yet because
+   * nothing on the site needed a news *listing* before this page did.
+   *
+   * Cards read as `<article>`s here too, not links — same reasoning as
+   * `NewsBoard`'s own doc comment (home/news-board.tsx): there is still no
+   * per-article route or URL, only a page that lists every announcement, so
+   * "Đọc toàn bài" / "Đọc tin" render as plain text rather than an `<a>` that
+   * would have nowhere real to go.
+   */
+  news: {
+    kicker: L("04 • TIN TỨC", "04 • NEWS", "04 • 뉴스"),
+    /** Doubles as the hero pill's prefix ("Mới nhất {date}") and the
+     *  featured story's own mono label above it. */
+    newestLabel: L("Mới nhất", "Newest", "최신"),
+    /** "{count}" is replaced at render time — same placeholder convention as
+     *  `home.contact.form.rateLimitBody`'s "{minutes}" above. */
+    countTemplate: L("{count} tin", "{count} stories", "{count}건"),
+    previousLabel: L("Các tin trước", "Earlier stories", "이전 소식"),
+    readFullLabel: L("Đọc toàn bài →", "Read the full story →", "전체 기사 읽기 →"),
+    readMoreLabel: L("Đọc tin →", "Read more →", "더 보기 →"),
+  },
+
+  /**
    * Page-level SEO copy. Written to be read by a person in a result list.
    *
    * Length budget, measured in characters, because a SERP truncates by pixel
@@ -1770,6 +1929,50 @@ export const dictionary = {
         "E-Series gồm card tăng tốc AI E10, E20 của Pebble Vina: 512T/1024T FP8/INT8, 48 GB/96 GB bộ nhớ — cho AI server, LLM training & inference, đa card.",
         "E-Series is Pebble Vina's E10/E20 AI accelerator cards: 512T/1024T FP8/INT8, 48 GB/96 GB memory — for AI servers, LLM training & inference, multi-card.",
         "E-Series는 Pebble Vina의 E10·E20 AI 가속 카드로 512T·1024T FP8/INT8, 48GB·96GB 메모리를 제공합니다.",
+      ),
+    },
+    /**
+     * The three DARK-BUILD-brief PART B pages. Same shape/budget as the
+     * product-detail keys above. Facts: CRM launch date and ERP/HRM/DMS
+     * roadmap status — `product.software.heroPillCrm` / `.heroPillRoadmap`
+     * (this file); 2027 survey stage — `product.training.roadmap2027Body`;
+     * the partnership claim — `home.news.lead` (seed.ts), already published
+     * on the home page.
+     */
+    productSoftware: {
+      title: L(
+        "Phần mềm doanh nghiệp có AI | Pebble Vina",
+        "Enterprise Software with AI | Pebble Vina",
+        "AI 기업용 소프트웨어 | Pebble Vina",
+      ),
+      description: L(
+        "Nền tảng phần mềm CRM, ERP, HRM, DMS có AI hỗ trợ ra quyết định của Pebble Vina — CRM dự kiến ra mắt 12/2026, các sản phẩm còn lại trong lộ trình.",
+        "Pebble Vina's CRM, ERP, HRM and DMS software platform with AI-assisted decisions — CRM launching 12/2026, the rest still on the roadmap.",
+        "Pebble Vina의 AI 의사결정 지원 CRM·ERP·HRM·DMS 플랫폼 — CRM은 2026년 12월 출시, 나머지는 로드맵입니다.",
+      ),
+    },
+    productTraining: {
+      title: L(
+        "Đào tạo AI doanh nghiệp | Pebble Vina",
+        "Enterprise AI Training | Pebble Vina",
+        "기업 AI 교육 | Pebble Vina",
+      ),
+      description: L(
+        "Chương trình đào tạo AI doanh nghiệp của Pebble Vina, xây dựng theo bài toán và năng lực thực tế — lộ trình 2027 đang ở giai đoạn khảo sát nhu cầu.",
+        "Pebble Vina's enterprise AI training, shaped by each organisation's real problems and capability — the 2027 roadmap is at the needs-survey stage.",
+        "기업 과제와 역량에 맞춘 Pebble Vina AI 교육 — 2027년 로드맵은 수요 조사 단계입니다.",
+      ),
+    },
+    news: {
+      title: L(
+        "Tin tức & hợp tác | Pebble Vina",
+        "News & Partnerships | Pebble Vina",
+        "뉴스 & 협력 | Pebble Vina",
+      ),
+      description: L(
+        "Tin tức và hợp tác chiến lược của Pebble Vina với các đối tác, khách hàng và tổ chức công nghệ hàng đầu tại Việt Nam và quốc tế.",
+        "News and strategic partnerships from Pebble Vina with leading technology partners, customers and institutions in Vietnam and abroad.",
+        "Pebble Vina의 국내외 기술 파트너·고객·기관과의 전략적 협력 소식입니다.",
       ),
     },
     /** Short organisation blurb reused by JSON-LD and llms.txt. */

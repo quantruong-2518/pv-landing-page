@@ -65,6 +65,12 @@ async function requireSession(): Promise<NextResponse | null> {
  * expires. PUBLIC_PRODUCT_SLUGS (routes.ts) drives the loop so a fifth
  * product line only needs adding there, not here too — a slug listed in
  * HIDDEN_PRODUCT_SLUGS has no public page to revalidate.
+ *
+ * `/products/software`, `/products/training` and `/news` (DARK-BUILD-brief
+ * PART B) are the same §4 bug a third time over: software/training render
+ * `product.software`/`.training` CMS fields, and /news renders `home.news` —
+ * a save to either document has to drop these three exactly like /bio drops
+ * for a home save, or the standalone page keeps the stale prerender.
  */
 function publish() {
   for (const locale of LOCALES) {
@@ -74,6 +80,13 @@ function publish() {
     // home document. Leave it out of this loop and a published edit shows on
     // /vi and silently does not on /vi/bio until the ISR window expires.
     revalidatePath(routes.bio(locale));
+    // Same reasoning as /bio above, for the CMS document each standalone
+    // page actually renders: software/training read `product`, /news reads
+    // `home` — so both a `product` save and a `home` save have to drop all
+    // three, not just the document each one happens to know it owns.
+    revalidatePath(routes.productSoftware(locale));
+    revalidatePath(routes.productTraining(locale));
+    revalidatePath(routes.news(locale));
     for (const slug of PUBLIC_PRODUCT_SLUGS) {
       revalidatePath(routes.product(locale, slug));
     }

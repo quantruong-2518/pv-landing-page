@@ -13,7 +13,7 @@ import { dictionary } from "@/lib/i18n/dictionary";
 import { anchor, homeAnchor, routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
-type ActivePage = "home" | "products" | "bio";
+type ActivePage = "home" | "products" | "bio" | "news";
 
 /**
  * Where the language toggle goes from each page. A map rather than a ternary:
@@ -24,6 +24,7 @@ const PAGE_PATH: Record<ActivePage, (locale: Locale) => string> = {
   home: routes.home,
   products: routes.products,
   bio: routes.bio,
+  news: routes.news,
 };
 
 /**
@@ -44,12 +45,10 @@ export function SiteHeader({ locale, active }: { locale: Locale; active: ActiveP
     { href: routes.home(locale), label: nav.home[locale], key: "home" as const },
     { href: routes.products(locale), label: nav.products[locale], key: "products" as const },
     { href: routes.bio(locale), label: nav.bio[locale], key: "bio" as const },
-    // News lives only on the home page, so from /products it needs the full path.
-    {
-      href: active === "home" ? anchor("tin-tuc") : homeAnchor(locale, "tin-tuc"),
-      label: nav.news[locale],
-      key: "news" as const,
-    },
+    // `/news` (DARK-BUILD-brief PART B) — was an anchor into the home news
+    // section (`#tin-tuc`) before this page existed; now a real destination
+    // from every page, home included.
+    { href: routes.news(locale), label: nav.news[locale], key: "news" as const },
   ];
 
   return (

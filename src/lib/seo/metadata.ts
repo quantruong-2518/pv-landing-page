@@ -24,7 +24,10 @@ type PageKey =
   | "productMint"
   | "productPapaya"
   | "productEspresso"
-  | "productESeries";
+  | "productESeries"
+  | "productSoftware"
+  | "productTraining"
+  | "news";
 
 // `routes.product(locale, slug)` is the one place the /products/<slug> path
 // shape is written — PATHS below calls it rather than rebuilding the path,
@@ -37,6 +40,9 @@ const PATHS: Record<PageKey, (locale: Locale) => string> = {
   productPapaya: (locale) => routes.product(locale, "papaya"),
   productEspresso: (locale) => routes.product(locale, "espresso"),
   productESeries: (locale) => routes.product(locale, "e-series"),
+  productSoftware: routes.productSoftware,
+  productTraining: routes.productTraining,
+  news: routes.news,
 };
 
 function languageAlternates(page: PageKey): Record<string, string> {
