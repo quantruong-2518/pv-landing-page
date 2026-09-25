@@ -122,7 +122,7 @@ export function DetailPill({
   return (
     <span
       className={cn(
-        "inline-flex w-fit items-center justify-center whitespace-nowrap border px-3.5 py-[7px] text-[12px] font-medium lg:text-[13px]",
+        "inline-flex w-fit items-center justify-center whitespace-nowrap border px-3.5 py-[7px] text-[12px] font-medium xl:text-[13px]",
         tone === "accent" && "border-accent/45 bg-accent/12 text-accent-hover",
         tone === "info" && "border-info/38 bg-signal-teal/28 text-info",
         tone === "navy" && "border-ink/18 bg-night/55 text-contact",
@@ -197,14 +197,14 @@ export function DetailScreen({
 
       <div className="relative mx-auto grid w-full max-w-[1440px] flex-1 items-center gap-5 px-gutter py-5 lg:min-h-0 lg:py-4">
         <div className="relative z-10 flex flex-col gap-3.5 lg:max-w-[56%] lg:gap-4">
-          <DetailKicker label={eyebrow} className="text-[13px] lg:text-[16px]" />
+          <DetailKicker label={eyebrow} className="text-[13px] lg:text-[14px] xl:text-[16px]" />
           <DetailTitle
             value={title}
             id={titleId}
-            className="text-[25px] leading-[1.18] font-extrabold text-balance text-ink uppercase lg:text-[34px] lg:leading-[1.12] lg:tracking-[-0.01em] xl:text-[40px]"
+            className="text-[25px] leading-[1.18] font-extrabold text-balance text-ink uppercase lg:text-[30px] lg:leading-[1.08] lg:tracking-[-0.01em] xl:text-[40px] xl:leading-[1.12]"
           />
           <DetailRule />
-          <p className="max-w-[62ch] text-[15px] leading-[1.55] text-body lg:text-[15px] lg:leading-[1.55] xl:text-[16px]">
+          <p className="max-w-[62ch] text-[15px] leading-[1.55] text-body lg:text-[14px] lg:leading-[1.45] xl:text-[16px] xl:leading-[1.55]">
             {lead}
           </p>
           <div className="flex flex-wrap items-center gap-2 lg:gap-2.5">

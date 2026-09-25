@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Reveal } from "@/components/motion/reveal";
 import { AppIcon } from "@/components/site/product/app-icons";
 import { CardCarousel } from "@/components/site/product/card-carousel";
 import { Eyebrow, GroupRule, MarkedText, Pill } from "@/components/site/primitives";
@@ -98,6 +97,13 @@ export function Catalogue({
     "dao-tao": trainingImage,
   };
 
+  const carouselLabels = {
+    previous: dictionary.product.shared.carousel.previous[locale],
+    next: dictionary.product.shared.carousel.next[locale],
+    pause: dictionary.product.shared.carousel.pause[locale],
+    play: dictionary.product.shared.carousel.play[locale],
+  };
+
   return (
     <Section
       id={routes.anchors.top}
@@ -153,7 +159,7 @@ export function Catalogue({
       <CardCarousel
         label={copy.groupProducts[locale]}
         meta={copy.groupChipLine[locale]}
-        count={hardware.length}
+        labels={carouselLabels}
         gridColsClassName={HARDWARE_GRID_COLS[hardware.length] ?? "lg:grid-cols-4"}
       >
         {hardware.map((card, index) => {
@@ -174,7 +180,6 @@ export function Catalogue({
               apps={card.apps}
               locale={locale}
               priority={index === 0}
-              delay={index * 0.06}
             />
           );
         })}
@@ -183,10 +188,10 @@ export function Catalogue({
       <CardCarousel
         label={copy.groupSolutions[locale]}
         meta={copy.groupSolutionsLine[locale]}
-        count={copy.other.length}
+        labels={carouselLabels}
         gridColsClassName="lg:grid-cols-2"
       >
-        {copy.other.map((card, index) => (
+        {copy.other.map((card) => (
           <SolutionCard
             key={card.anchor}
             // Software/training now each have their own page
@@ -203,7 +208,6 @@ export function Catalogue({
             when={card.when[locale]}
             name={card.name[locale]}
             body={card.body[locale]}
-            delay={index * 0.06}
           />
         ))}
       </CardCarousel>
@@ -226,7 +230,7 @@ export function Catalogue({
  *
  * Sits inside `<CardCarousel>` as a plain child, not a grid/flex item
  * itself — the sizing that makes it a 300px-wide slide below `lg` and a full
- * grid cell from `lg` lives on the `<Reveal>` wrapper, so this component only
+ * grid cell from `lg` lives on the wrapper `<div>`, so this component only
  * ever states the card's own box (border, height, internal layout).
  */
 function HardwareCard({
@@ -238,7 +242,6 @@ function HardwareCard({
   apps,
   locale,
   priority,
-  delay,
 }: {
   href: string;
   name: string;
@@ -248,11 +251,9 @@ function HardwareCard({
   apps: HardwareApp[];
   locale: Locale;
   priority: boolean;
-  delay: number;
 }) {
   return (
-    <Reveal
-      delay={delay}
+    <div
       className="w-[300px] flex-none snap-start lg:w-auto lg:flex-auto lg:snap-align-none"
     >
       <Link
@@ -272,9 +273,11 @@ function HardwareCard({
         <div aria-hidden className="scrim-hardware-card absolute inset-0" />
 
         <div className="relative flex flex-col gap-2.5 px-[18px] pt-[18px] lg:px-6 lg:pt-6">
-          <span className="flex items-center justify-between gap-3">
-            <span className="font-sans text-card-name whitespace-nowrap">{name}</span>
-            <span aria-hidden className="font-mono text-lg text-accent">
+          {/* The name may wrap on the 300px slide ("PAPAYA / PAPAYA FLEX" ran
+              under the arrow when it was nowrap); one line from `lg`. */}
+          <span className="flex items-start justify-between gap-3">
+            <span className="min-w-0 font-sans text-card-name lg:whitespace-nowrap">{name}</span>
+            <span aria-hidden className="shrink-0 font-mono text-lg text-accent">
               →
             </span>
           </span>
@@ -330,7 +333,7 @@ function HardwareCard({
           </div>
         </div>
       </Link>
-    </Reveal>
+    </div>
   );
 }
 
@@ -348,7 +351,6 @@ function SolutionCard({
   when,
   name,
   body,
-  delay,
 }: {
   href: string;
   image: string;
@@ -356,11 +358,9 @@ function SolutionCard({
   when: string;
   name: string;
   body: string;
-  delay: number;
 }) {
   return (
-    <Reveal
-      delay={delay}
+    <div
       className="w-[300px] flex-none snap-start lg:w-auto lg:flex-auto lg:snap-align-none"
     >
       <Link
@@ -396,7 +396,7 @@ function SolutionCard({
           </span>
         </span>
       </Link>
-    </Reveal>
+    </div>
   );
 }
 

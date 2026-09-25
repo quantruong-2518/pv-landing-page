@@ -732,11 +732,12 @@ export const dictionary = {
       chipCore: L("CHIP XỬ LÝ", "PROCESSING CHIP", "프로세싱 칩"),
       applicationDevice: L("THIẾT BỊ ỨNG DỤNG", "APPLICATION DEVICE", "응용 기기"),
       keySpecs: L("THÔNG SỐ CHÍNH", "KEY SPECIFICATIONS", "주요 사양"),
-      /** Controls of the chip pages' application carousel
-       *  (application-carousel.tsx); screen-reader labels only. */
+      /** Controls of every card carousel (snap-carousel.tsx) — the chip
+       *  pages' applications and the `/products` card rows; screen-reader
+       *  labels only. */
       carousel: {
-        previous: L("Ứng dụng trước", "Previous application", "이전 응용 분야"),
-        next: L("Ứng dụng tiếp theo", "Next application", "다음 응용 분야"),
+        previous: L("Thẻ trước", "Previous card", "이전 카드"),
+        next: L("Thẻ tiếp theo", "Next card", "다음 카드"),
         pause: L("Tạm dừng tự chạy", "Pause autoplay", "자동 재생 일시정지"),
         play: L("Tiếp tục tự chạy", "Resume autoplay", "자동 재생 계속"),
       },

@@ -1,8 +1,10 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 
+import { Reveal } from "@/components/motion/reveal";
 import { GroupRule } from "@/components/site/primitives";
+import { CarouselControls, useSnapCarousel, type CarouselLabels } from "@/components/site/product/snap-carousel";
 import { cn } from "@/lib/utils";
 
 /**
@@ -32,71 +34,59 @@ import { cn } from "@/lib/utils";
 export function CardCarousel({
   label,
   meta,
-  count,
   gridColsClassName,
+  labels,
   children,
 }: {
   label: string;
   meta: string;
-  count: number;
   gridColsClassName: string;
+  /** Screen-reader labels for the pause / previous / next controls. */
+  labels: CarouselLabels;
   children: ReactNode;
 }) {
-  const [active, setActive] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
-
-  // Reads the step between two cards from the DOM instead of assuming a
-  // fixed card width + gap, so this keeps working if that sizing ever
-  // changes without a matching edit here, and for either card row's own
-  // width.
-  function handleScroll() {
-    const track = trackRef.current;
-    if (!track || count < 2) return;
-    const first = track.children[0] as HTMLElement | undefined;
-    const second = track.children[1] as HTMLElement | undefined;
-    if (!first || !second) return;
-    const step = second.offsetLeft - first.offsetLeft;
-    if (!step) return;
-    const index = Math.round(track.scrollLeft / step);
-    setActive(Math.min(count - 1, Math.max(0, index)));
-  }
+  // Same autoplay + controls as the chip pages' application carousel. From
+  // `lg` the track is a static grid that does not scroll, so the hook finds
+  // one stop and neither autoplays nor renders its controls.
+  const carousel = useSnapCarousel(trackRef);
+  const total = Math.max(carousel.stops.length, 1);
 
   return (
-    <>
+    // `contents`: the wrapper only carries the carousel's group role and
+    // interaction handlers; the rule, track and controls stay direct flow
+    // children of the section, so its spacing is unchanged.
+    <div {...carousel.rootProps} className="contents">
       <GroupRule label={label} meta={meta}>
         {/* Hidden from `lg`: the grid shows every card at once, so a "which
             card am I on" readout has nothing left to count. */}
-        <span className="ml-auto font-mono text-label text-faint lg:hidden">
-          <span className="text-ink">{String(active + 1).padStart(2, "0")}</span> /{" "}
-          {String(count).padStart(2, "0")}
-        </span>
+        {total > 1 ? (
+          <span className="ml-auto font-mono text-label text-faint lg:hidden">
+            <span className="text-ink">{String(carousel.active + 1).padStart(2, "0")}</span> /{" "}
+            {String(total).padStart(2, "0")}
+          </span>
+        ) : null}
       </GroupRule>
 
+      {/* One reveal for the whole row, not one per card: a card that only
+          peeks in from the right edge of the slider (~60px of 300) never
+          reached a per-card reveal's visibility threshold, so it stayed
+          transparent and the row looked cut off with a blank strip. */}
+      <Reveal>
       <div
         ref={trackRef}
-        onScroll={handleScroll}
+        onScroll={carousel.onScroll}
         className={cn(
-          "-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-pl-5 px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          "relative -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-pl-5 px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
           "lg:mx-0 lg:grid lg:snap-none lg:gap-x-col lg:gap-y-4 lg:overflow-visible lg:px-0 lg:pb-0",
           gridColsClassName,
         )}
       >
         {children}
       </div>
+      </Reveal>
 
-      {count > 1 ? (
-        <div aria-hidden className="mx-5 flex items-center gap-1.5 lg:hidden">
-          {Array.from({ length: count }, (_, index) => (
-            <span
-              key={index}
-              className={cn(
-                "h-[3px] transition-[width,background-color]",
-                index === active ? "w-[22px] bg-accent" : "w-[10px] bg-ink/22",
-              )}
-            />
-          ))}
-        </div>
-      ) : null}
-    </>
+      <CarouselControls carousel={carousel} labels={labels} className="lg:hidden" />
+    </div>
   );
 }
