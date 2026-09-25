@@ -732,6 +732,14 @@ export const dictionary = {
       chipCore: L("CHIP XỬ LÝ", "PROCESSING CHIP", "프로세싱 칩"),
       applicationDevice: L("THIẾT BỊ ỨNG DỤNG", "APPLICATION DEVICE", "응용 기기"),
       keySpecs: L("THÔNG SỐ CHÍNH", "KEY SPECIFICATIONS", "주요 사양"),
+      /** Controls of the chip pages' application carousel
+       *  (application-carousel.tsx); screen-reader labels only. */
+      carousel: {
+        previous: L("Ứng dụng trước", "Previous application", "이전 응용 분야"),
+        next: L("Ứng dụng tiếp theo", "Next application", "다음 응용 분야"),
+        pause: L("Tạm dừng tự chạy", "Pause autoplay", "자동 재생 일시정지"),
+        play: L("Tiếp tục tự chạy", "Resume autoplay", "자동 재생 계속"),
+      },
       consult: L("ĐĂNG KÝ TƯ VẤN NGAY →", "BOOK A CONSULTATION →", "상담 신청하기 →"),
       /** Sentence-case reading of `consult`, for the DETAIL redesign's CTA
        *  (`DetailCta`, product/detail.tsx) — every D-*-mock.html button reads
@@ -781,6 +789,53 @@ export const dictionary = {
         "브러시드 메탈 사각형 패키지로 렌더링된 MINT 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
       ),
       apps: ["Smart Home", "IoT", "Failure Analysis"],
+      detailApps: [
+        {
+          image: "/images/products/mint-smart-home.webp",
+          label: L("Nhà thông minh", "Smart home", "스마트 홈"),
+          alt: L(
+            "Trung tâm AI nhà thông minh bằng kim loại graphite cùng hai cảm biến phòng, viền sáng xanh cyan.",
+            "A graphite smart-home AI hub with two room sensors and cyan edge lighting.",
+            "그래파이트 스마트홈 AI 허브와 두 개의 실내 센서, 시안 엣지 조명.",
+          ),
+        },
+        {
+          image: "/images/products/mint-iot.webp",
+          label: L("Thiết bị IoT", "IoT devices", "IoT 기기"),
+          alt: L(
+            "Bộ gateway IoT công nghiệp nhỏ gọn kết nối với nhiều nút cảm biến không dây.",
+            "A compact industrial IoT gateway connected to several wireless sensor nodes.",
+            "여러 무선 센서 노드에 연결된 소형 산업용 IoT 게이트웨이.",
+          ),
+        },
+        {
+          image: "/images/products/mint-predictive-maintenance.webp",
+          label: L("Phân tích lỗi", "Failure analysis", "고장 분석"),
+          alt: L(
+            "Cảm biến rung nhỏ gắn trên động cơ công nghiệp để theo dõi tình trạng và dự báo hỏng hóc.",
+            "A compact vibration sensor mounted on an industrial motor for condition monitoring and failure prediction.",
+            "산업용 모터에 장착되어 상태를 모니터링하고 고장을 예측하는 소형 진동 센서.",
+          ),
+        },
+        {
+          image: "/images/products/mint-smart-wearables.webp",
+          label: L("Thiết bị đeo thông minh", "Smart wearables", "스마트 웨어러블"),
+          alt: L(
+            "Đồng hồ thông minh và vòng đeo theo dõi sức khỏe bằng kim loại graphite trên đế sạc.",
+            "A graphite smartwatch and health-monitoring band on a charging dock.",
+            "충전 도크 위의 그래파이트 스마트워치와 건강 모니터링 밴드.",
+          ),
+        },
+        {
+          image: "/images/products/mint-acoustic-sensors.webp",
+          label: L("Cảm biến âm thanh", "Acoustic sensors", "음향 센서"),
+          alt: L(
+            "Cụm cảm biến âm thanh dạng vòng gắn bên động cơ công nghiệp để thu nhận tín hiệu tại thiết bị.",
+            "A circular acoustic sensor array mounted beside an industrial motor for on-device signal capture.",
+            "기기 내 신호 수집을 위해 산업용 모터 옆에 장착된 원형 음향 센서 어레이.",
+          ),
+        },
+      ],
       visuals: [
         {
           image: "/images/products/mint-smart-home.webp",
@@ -861,6 +916,53 @@ export const dictionary = {
         L("Hệ thống an ninh", "Security systems", "보안 시스템"),
         L("Robot", "Robot", "로봇"),
         L("Thị giác máy", "Machine vision", "머신 비전"),
+      ],
+      detailApps: [
+        {
+          image: "/images/products/papaya-machine-vision.webp",
+          label: L("Kiểm tra thị giác máy", "Machine-vision inspection", "머신 비전 검사"),
+          alt: L(
+            "Camera thị giác máy kiểm tra linh kiện điện tử trên băng chuyền chính xác.",
+            "A machine-vision camera inspecting electronic components on a precision conveyor.",
+            "정밀 컨베이어 위 전자 부품을 검사하는 머신 비전 카메라.",
+          ),
+        },
+        {
+          image: "/images/products/papaya-uav-vision.webp",
+          label: L("Thị giác trên UAV", "Onboard UAV vision", "UAV 온보드 비전"),
+          alt: L(
+            "UAV công nghiệp nhỏ gọn với camera gimbal phục vụ xử lý hình ảnh ngay trên thiết bị.",
+            "A compact industrial UAV with a gimbal camera for onboard image processing.",
+            "기기 내 영상 처리를 위한 짐벌 카메라를 탑재한 소형 산업용 UAV.",
+          ),
+        },
+        {
+          image: "/images/products/papaya-thermal-vision.webp",
+          label: L("Phát hiện ảnh nhiệt", "Thermal object detection", "열화상 객체 감지"),
+          alt: L(
+            "Camera AI hai phổ kết hợp ống kính quang học và cảm biến hồng ngoại nhiệt.",
+            "A dual-spectrum AI camera combining an optical lens and a thermal infrared sensor.",
+            "광학 렌즈와 열 적외선 센서를 결합한 듀얼 스펙트럼 AI 카메라.",
+          ),
+        },
+        {
+          image: "/images/products/papaya-robot-arm.webp",
+          label: L("Cánh tay robot", "Robotic arm", "로봇 팔"),
+          alt: L(
+            "Cánh tay robot công nghiệp tích hợp camera đang gắp và kiểm tra một linh kiện điện tử.",
+            "An industrial robotic arm with an integrated camera picking and inspecting an electronic component.",
+            "통합 카메라로 전자 부품을 집어 검사하는 산업용 로봇 팔.",
+          ),
+        },
+        {
+          image: "/images/products/papaya-ai-box.webp",
+          label: L("AI Box", "AI Box", "AI Box"),
+          alt: L(
+            "AI Box không quạt nhỏ gọn kết nối với hai camera thị giác công nghiệp.",
+            "A compact fanless AI Box connected to two industrial vision cameras.",
+            "두 대의 산업용 비전 카메라에 연결된 소형 팬리스 AI Box.",
+          ),
+        },
       ],
       visuals: [
         {
@@ -1016,6 +1118,53 @@ export const dictionary = {
         { name: "AI PC", when: L("Dự kiến Q3/2026", "Expected Q3/2026", "2026년 3분기 예정") },
         { name: "Robotics", when: L("Dự kiến Q3/2026", "Expected Q3/2026", "2026년 3분기 예정") },
         { name: "Data Center", when: L("Trong lộ trình", "On the roadmap", "로드맵 단계") },
+      ],
+      detailApps: [
+        {
+          image: "/images/products/espresso-ai-pc.webp",
+          label: L("AI PC đa phương thức", "Multimodal AI PC", "멀티모달 AI PC"),
+          alt: L(
+            "Máy tính xách tay AI bằng nhôm graphite hiển thị trực quan sóng thần kinh màu cyan.",
+            "A graphite aluminum AI laptop displaying an abstract cyan neural-wave visualisation.",
+            "시안 신경망 파형을 표시하는 그래파이트 알루미늄 AI 노트북.",
+          ),
+        },
+        {
+          image: "/images/products/espresso-robotics.webp",
+          label: L("Robot tự hành", "Autonomous robotics", "자율 이동 로봇"),
+          alt: L(
+            "Robot tự hành nhỏ gọn có tay máy và cụm camera stereo để cảm nhận môi trường theo thời gian thực.",
+            "A compact autonomous mobile robot with an arm and stereo cameras for real-time perception.",
+            "실시간 환경 인식을 위한 로봇 팔과 스테레오 카메라를 갖춘 소형 자율 이동 로봇.",
+          ),
+        },
+        {
+          image: "/images/products/espresso-enterprise-ai.webp",
+          label: L("Enterprise AI", "Enterprise AI", "Enterprise AI"),
+          alt: L(
+            "Thiết bị máy trạm AI doanh nghiệp dạng tháp cùng các mô-đun xử lý dữ liệu bảo mật.",
+            "An enterprise AI workstation tower accompanied by secure data-processing modules.",
+            "보안 데이터 처리 모듈과 함께 구성된 기업용 AI 워크스테이션 타워.",
+          ),
+        },
+        {
+          image: "/images/products/espresso-physical-ai.webp",
+          label: L("Physical AI", "Physical AI", "Physical AI"),
+          alt: L(
+            "Robot hình người nhỏ gọn với các khớp cơ khí và cụm camera stereo.",
+            "A compact humanoid robot with articulated mechanical joints and stereo vision cameras.",
+            "관절형 기계 구조와 스테레오 비전 카메라를 갖춘 소형 휴머노이드 로봇.",
+          ),
+        },
+        {
+          image: "/images/products/espresso-ai-server.webp",
+          label: L("AI Server", "AI Server", "AI Server"),
+          alt: L(
+            "Máy chủ AI dạng rack dày đặc với nhiều khay tăng tốc và hệ thống làm mát chính xác.",
+            "A dense rack-mounted AI server with multiple accelerator trays and precision cooling.",
+            "여러 가속기 트레이와 정밀 냉각 구조를 갖춘 고밀도 랙 마운트 AI 서버.",
+          ),
+        },
       ],
       visuals: [
         {

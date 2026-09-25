@@ -2,30 +2,24 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { AppIcon } from "@/components/site/product/app-icons";
+import { ApplicationCarousel } from "@/components/site/product/application-carousel";
 import { localizeFigure } from "@/components/site/primitives";
 import type { Locale } from "@/lib/i18n/config";
-import { dictionary, type AppIconId, type Spec } from "@/lib/i18n/dictionary";
+import { dictionary, type Spec } from "@/lib/i18n/dictionary";
 import { homeAnchor, routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 /**
- * The DETAIL brief's hero + spec panel + navy CTA band, used by
- * `/products/{mint,papaya,espresso}` only (`[product]/page.tsx`). Re-themed
- * dark per DARK-BUILD-brief (2026-09-24, THEME-BRIEF.md § DARK): the hero and
- * panel surfaces that were `--color-paper` / `--color-panel-white` etc. now
- * read the site's own dark tokens (`--color-marquee`, `--color-navy`,
- * `--color-ink`, `--color-accent`, `--color-info`) instead of a second,
- * DETAIL-only palette — those seven tokens are gone from `@theme` (globals.css).
+ * The chip pages' template — `/products/{mint,papaya,espresso}` only
+ * (`[product]/page.tsx`): one screen of hero + spec/application board
+ * (`DetailScreen`, `DetailBoard`), then the page's one CTA (`DetailCta`).
+ * Dark per DARK-BUILD-brief (2026-09-24): every surface reads the site's own
+ * tokens (`marquee`, `navy-lit`, `ink`, `accent`, `info`).
  *
- * This is still a second, self-contained set of components next to the dark
- * `ProductDetail` (`product-detail.tsx`) rather than a reuse of it: that
- * component still renders E-Series (kept in the codebase behind
- * `HIDDEN_PRODUCT_SLUGS`, routes.ts), and `SpecCard` / `SpecGrid` /
- * `ProductKicker` inside it carry `ProductDetail`'s own spacing/typography,
- * which the DETAIL brief's locked layout (hero + white-turned-dark spec panel
- * + navy band) does not match — reusing them would be a rewrite of this
- * component's markup, not a restyle.
+ * Separate from the dark `ProductDetail` (`product-detail.tsx`), which still
+ * renders the hidden E-Series page (`HIDDEN_PRODUCT_SLUGS`, routes.ts).
+ * `DetailKicker`, `DetailPill` and `DetailCta` are shared with the software,
+ * training and news pages.
  */
 
 /**
@@ -140,56 +134,47 @@ export function DetailPill({
 }
 
 /**
- * The hero: kicker, title, rule, lead, the chip render — shared shape for all
- * three products. `pillsUnderLead` is PAPAYA-only (brief: "PAPAYA also shows
- * its 3 pills under the lead"); MINT/ESPRESSO print the same three pills inside
- * the panel's first column instead (`DetailNamePlate` below), which is why this
- * component never renders them itself.
+ * One chip page's first screen: the hero (kicker, title, rule, lead, pills,
+ * render) over one spec + application board. MINT, PAPAYA and ESPRESSO all
+ * render through this one shape — the first cut had three (a name-plate
+ * panel for MINT/ESPRESSO, two panels plus a separate app strip for PAPAYA),
+ * so the same facts sat in different places from chip to chip and PAPAYA ran
+ * well past the fold.
+ *
+ * From `lg` the block is exactly one screen tall (`100svh` minus the header):
+ * the hero takes the free height, while the board and CTA stay inside the
+ * bottom edge. Smaller screens use plain flow so content is never clipped.
  */
-export function DetailHero({
-  locale,
+export function DetailScreen({
   titleId,
   eyebrow,
   title,
   lead,
-  pillsUnderLead,
+  pills,
   image,
   imageAlt,
-  // Three tiers, not one flat `lg:` value: the render beside this column is
-  // `lg:absolute` at 44%–54% width (below), so the text has less room at
-  // 1024–1279 than it does once the page reaches the mock's own 1440px —
-  // PAPAYA's longer H1 ran under the render at 1024 with a flat 1000px cap.
-  maxWidthClassName = "lg:max-w-[550px] xl:max-w-[680px] min-[1400px]:max-w-[820px]",
+  action,
+  children,
 }: {
-  locale: Locale;
   /** Sets the `<h1>`'s id so the page section can point `aria-labelledby` at it. */
   titleId?: string;
   eyebrow: string;
   title: string;
   lead: string;
-  pillsUnderLead?: ReactNode;
+  pills: ReactNode;
   image: string;
   imageAlt: string;
-  maxWidthClassName?: string;
+  /** The page CTA, kept inside the desktop screen-height budget. */
+  action: ReactNode;
+  /** The board (`DetailBoard`), pinned to the bottom of the screen. */
+  children: ReactNode;
 }) {
-  void locale;
   return (
-    <div className="relative overflow-hidden bg-marquee pb-16 lg:pb-24">
-      {/* The highlight behind the chip render keeps the mock's geometry (right
-          of centre, `75% 35%`) and is `.glow-detail-hero` rather than an inline
-          gradient: a gradient is not expressible as a colour token, but it does
-          not belong in JSX either — the whole `.glow-*` family lives in
-          globals.css, named after the block it belongs to and built from
-          `--color-glow`, which is the one token declared for exactly this and
-          never for text or a border (@theme). */}
-      <div
-        aria-hidden
-        className="glow-detail-hero pointer-events-none absolute inset-0 hidden lg:block"
-      />
-      {/* Decorative circuit trace, left edge — path data copied verbatim from
-          the D-*-desktop-mock.html files (identical across all three, from the
-          original light DETAIL brief), desktop only per those mocks. Purely
-          decorative. */}
+    <div className="relative flex flex-col bg-marquee md:min-h-[calc(100svh-var(--spacing-header))] lg:h-[calc(100svh-var(--spacing-header))] lg:min-h-0 lg:overflow-hidden">
+      {/* `.glow-detail-hero` (globals.css) — the highlight behind the render. */}
+      <div aria-hidden className="glow-detail-hero pointer-events-none absolute inset-0 hidden lg:block" />
+      {/* Decorative circuit trace, left edge — path data from the
+          D-*-desktop-mock.html files, desktop only. */}
       <svg
         aria-hidden
         focusable="false"
@@ -199,7 +184,7 @@ export function DetailHero({
         fill="none"
         stroke="currentColor"
         strokeWidth={1.2}
-        className="pointer-events-none absolute top-[84px] left-0 hidden text-accent/[0.13] lg:block"
+        className="pointer-events-none absolute top-10 left-0 hidden text-accent/[0.13] lg:block"
       >
         <path d="M0 40h40l20 20h40M0 90h60l20-20M0 150h30l30 30h50M0 220h70M0 270h20l25 25h55M0 340h45l20-20h30" />
         <circle cx="100" cy="60" r="3" />
@@ -210,400 +195,189 @@ export function DetailHero({
         <circle cx="95" cy="320" r="3" />
       </svg>
 
-      {/* Not `lg:grid-cols-2`: the render below becomes `lg:absolute` at this
-          breakpoint, so a 2-column grid would still hand the text block a
-          50%-wide track (~644px on a 1440px page) even though nothing else
-          occupies the second column — well under the mock's 820/1000px
-          `maxWidthClassName`, which is what was forcing MINT's H1 onto 3
-          lines instead of 2. The text column sets its own max-width instead. */}
-      <div className="relative mx-auto max-w-[1440px] px-gutter pt-8 lg:pt-14">
-        {/* Chip render. A static top band under 1024px (D-*-mobile-mock.html);
-            an absolute right-hand column from `lg` (D-*-desktop-mock.html) —
-            one <Image>, only its container changes shape, so the render never
-            double-fetches. */}
-        <div className="relative -mx-gutter mb-6 h-[200px] overflow-hidden lg:absolute lg:inset-y-0 lg:right-[-64px] lg:mx-0 lg:mb-0 lg:h-auto lg:w-[44%] xl:w-[54%]">
+      <div className="relative mx-auto grid w-full max-w-[1440px] flex-1 items-center gap-5 px-gutter py-5 lg:min-h-0 lg:py-4">
+        <div className="relative z-10 flex flex-col gap-3.5 lg:max-w-[56%] lg:gap-4">
+          <DetailKicker label={eyebrow} className="text-[13px] lg:text-[16px]" />
+          <DetailTitle
+            value={title}
+            id={titleId}
+            className="text-[25px] leading-[1.18] font-extrabold text-balance text-ink uppercase lg:text-[34px] lg:leading-[1.12] lg:tracking-[-0.01em] xl:text-[40px]"
+          />
+          <DetailRule />
+          <p className="max-w-[62ch] text-[15px] leading-[1.55] text-body lg:text-[15px] lg:leading-[1.55] xl:text-[16px]">
+            {lead}
+          </p>
+          <div className="flex flex-wrap items-center gap-2 lg:gap-2.5">
+            {pills}
+            {action}
+          </div>
+        </div>
+        {/* From `lg` the render fills the whole right side of the hero, top to
+            board, instead of a fixed-height grid cell: the free height left by
+            the board is what it gets, so the chip stays as large as the screen
+            allows. `object-cover` trims the render's empty glow margin, which
+            `contain` kept and which made the chip itself read small. */}
+        <div className="relative -mx-gutter h-[200px] lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:h-auto lg:w-[46%]">
           <Image
             src={image}
             alt={imageAlt}
             fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            sizes="(min-width: 1024px) 46vw, 100vw"
             priority
             className="mask-chip-hero object-cover lg:object-contain"
           />
         </div>
+      </div>
 
-        <div className={cn("relative z-10 flex flex-col gap-4 lg:gap-[22px]", maxWidthClassName)}>
-          <DetailKicker label={eyebrow} className="text-[13px] lg:text-[18px]" />
-          <DetailTitle
-            value={title}
-            id={titleId}
-            className="text-[25px] leading-[1.18] font-extrabold text-balance text-ink uppercase lg:text-[40px] lg:leading-[1.12] lg:tracking-[-0.01em] xl:text-[50px]"
-          />
-          <DetailRule />
-          <p className="max-w-[58ch] text-[15px] leading-[1.6] text-body lg:text-[18px] lg:leading-[1.7]">
-            {lead}
-          </p>
-          {pillsUnderLead}
-        </div>
+      <div className="relative z-10 shrink-0 px-gutter pb-4">
+        <div className="mx-auto max-w-[1440px]">{children}</div>
       </div>
     </div>
   );
 }
 
-/** "01" / "02" / "03" figure tile — index, label, value, unit. `tone` swaps
- *  the index/unit colour for PAPAYA FLEX's teal (`info`) panel; the value
- *  itself stays plain `ink` either way, same rule `SpecCard` (primitives.tsx)
+/** "THÔNG SỐ CHÍNH" / "ỨNG DỤNG" over a board column. */
+export function DetailGroupLabel({ children }: { children: ReactNode }) {
+  return <h2 className="text-[15px] font-bold tracking-[0.02em] text-accent lg:text-[17px]">{children}</h2>;
+}
+
+/** One figure: index + label on the first line, value + unit on the second.
+ *  `tone` swaps the index/unit colour for PAPAYA FLEX's teal (`info`) row;
+ *  the value itself stays plain `ink`, same rule `SpecCard` (primitives.tsx)
  *  uses. */
 export function DetailSpecTile({
   spec,
   locale,
   tone = "blue",
-  /** ESPRESSO's "Card 4 chip: 640 TOPS" line — part of tile 01's own column
-   *  in D-Espresso-desktop-mock.html, appended right after that tile's unit,
-   *  not a row below the whole 3-tile grid. */
-  footer,
-  className,
 }: {
   spec: Spec;
   locale: Locale;
   tone?: "blue" | "teal";
-  footer?: ReactNode;
-  className?: string;
 }) {
   const [index, ...rest] = spec.label.split(" ");
-  // `Spec.label` is "NN UPPERCASE WORDS" (dictionary.ts) — the DETAIL tiles
-  // set the words in title case ("Performance", "Die / Chip Area"), so this
-  // reads the same data other spec grids do rather than adding a second,
-  // differently-cased label per figure.
+  // `Spec.label` is "NN UPPERCASE WORDS" (dictionary.ts) — set in title case
+  // here ("Performance", "Die / Chip Area") rather than a second label field.
   const title = rest
     .join(" ")
     .toLowerCase()
     .replace(/(^|\s)\S/g, (char) => char.toUpperCase());
+  const toneText = tone === "teal" ? "text-info" : "text-accent";
   return (
-    <div
-      className={cn(
-        // THEME-BRIEF.md § DARK: "tiles rgba(232,237,247,.04)" over the panel's
-        // own opaque navy (`DetailPanel`/`PapayaPanel` below) — a hair lighter
-        // than the panel so the tile grid still reads as tiles, not a flat field.
-        "flex flex-col gap-1 border border-ink/10 bg-ink/[0.04] px-3 py-[11px] pb-3 lg:gap-1.5 lg:px-[18px] lg:py-[18px] lg:pb-5",
-        className,
-      )}
-    >
-      <span
-        className={cn(
-          "text-[14px] font-semibold lg:text-[22px]",
-          tone === "teal" ? "text-info" : "text-accent",
-        )}
-      >
-        {index}
+    <div className="flex min-w-0 flex-col justify-between gap-2 border border-ink/10 bg-ink/[0.04] px-3 py-2.5 lg:px-4 lg:py-3">
+      {/* Index over label on a phone, where a 3-up tile is ~100px wide and
+          "Performance" would otherwise be cut; one line from `lg`. */}
+      <span className="flex flex-col gap-0.5 text-[11px] leading-tight font-medium text-body lg:flex-row lg:items-baseline lg:gap-2 lg:text-[13px]">
+        <span className={cn("font-semibold", toneText)}>{index}</span>
+        <span>{title}</span>
       </span>
-      <span className="text-[9.5px] font-medium text-ink lg:text-[15px]">{title}</span>
-      {/* Long ranges ("0,1–0,15") would spill out of a 3-up tile at the
-          36px the short figures use (PAPAYA FLEX, 1440px) — size by length
-          rather than letting one tile overflow into the chip render beside it. */}
-      <span
-        className={cn(
-          "mt-1 leading-none font-semibold whitespace-nowrap text-ink lg:mt-2",
-          spec.value.length > 6 ? "text-[18px] lg:text-[28px]" : "text-[22px] lg:text-[36px]",
-        )}
-      >
-        {localizeFigure(spec.value, locale)}
-      </span>
-      {spec.unit ? (
+      <span className="flex flex-wrap items-baseline gap-x-1.5">
+        {/* Long ranges ("0,1–0,15", "20 × 23") step down so a 3-up row
+            never overflows its tile. */}
         <span
           className={cn(
-            "text-[9.5px] font-semibold tracking-[0.04em] lg:text-[15px]",
-            tone === "teal" ? "text-info" : "text-accent",
+            "leading-none font-semibold whitespace-nowrap text-ink",
+            spec.value.length > 6 ? "text-[19px] lg:text-[24px]" : "text-[22px] lg:text-[30px]",
           )}
         >
-          {spec.unit}
+          {localizeFigure(spec.value, locale)}
         </span>
-      ) : null}
-      {footer}
-    </div>
-  );
-}
-
-/** "THÔNG SỐ CHÍNH" heading over a spec tile row — plain span, not
- *  `GroupRule`/`SpecHeading` (primitives.tsx, product-detail.tsx): those
- *  print in the dark theme's `--color-accent` and carry a hairline this
- *  panel's own dividers already provide. */
-export function DetailGroupLabel({
-  children,
-  tone = "blue",
-  className,
-}: {
-  children: ReactNode;
-  tone?: "blue" | "teal";
-  className?: string;
-}) {
-  return (
-    <span
-      className={cn(
-        "text-[17px] font-bold tracking-[0.01em] lg:text-[28px]",
-        tone === "teal" ? "text-info" : "text-accent",
-        className,
-      )}
-    >
-      {children}
-    </span>
-  );
-}
-
-/** A thin vertical hairline between two panel columns, desktop only — the
- *  mock's `grid-template-columns: … 1px … 1px …` dividers. */
-export function DetailColumnRule({ className }: { className?: string }) {
-  return <span aria-hidden className={cn("hidden w-px self-stretch bg-ink/14 xl:block", className)} />;
-}
-
-/** One "ỨNG DỤNG" tile: a photo, or (no asset) an icon on a soft tile fill —
- *  MINT's IoT tile and PAPAYA's Robot tile both ship with no image
- *  (DETAIL brief). `date` is ESPRESSO's "Dự kiến Q3/2026" line. */
-export function DetailAppTile({
-  image,
-  alt,
-  icon,
-  label,
-  date,
-  className,
-}: {
-  image?: string;
-  alt?: string;
-  icon?: AppIconId;
-  label: string;
-  date?: string;
-  className?: string;
-}) {
-  return (
-    <div className={cn("flex w-[140px] flex-none flex-col items-center gap-2 lg:w-[150px]", className)}>
-      {/* Same tile fill as `DetailSpecTile` — rgba(232,237,247,.04) over the
-          panel, THEME-BRIEF.md § DARK — for the icon-only fallback (no photo
-          asset: MINT's IoT tile). */}
-      <div className="relative aspect-[150/170] w-full overflow-hidden bg-ink/[0.04]">
-        {image ? (
-          <Image src={image} alt={alt ?? ""} fill sizes="160px" className="object-cover" />
-        ) : (
-          <span className="flex h-full w-full items-center justify-center">
-            {icon ? <AppIcon id={icon} className="h-10 w-10 text-accent lg:h-14 lg:w-14" /> : null}
+        {spec.unit ? (
+          <span className={cn("text-[11px] font-semibold tracking-[0.04em] lg:text-[13px]", toneText)}>
+            {spec.unit}
           </span>
-        )}
-      </div>
-      <span className="text-center text-[14px] font-semibold text-ink lg:text-[17px]">{label}</span>
-      {date ? (
-        <span className="text-center text-[12.5px] font-semibold text-accent lg:text-[14px]">{date}</span>
-      ) : null}
-    </div>
-  );
-}
-
-/** The horizontal application row for MINT/ESPRESSO — a static flex row from
- *  `lg`, a scroll-snap strip below it (D-*-mobile-mock.html has no page-dot
- *  counter here, unlike `CardCarousel`'s catalogue rows, so this stays a
- *  plain SSR scroller rather than pulling in that "use client" component). */
-export function DetailAppRow({ children }: { children: ReactNode }) {
-  return (
-    <div className="-mx-5 flex gap-2.5 overflow-x-auto px-5 pb-1 [scrollbar-width:none] lg:mx-0 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden">
-      {children}
-    </div>
-  );
-}
-
-/** The spec panel's wordmark column: product name, then its pills.
- *  MINT/ESPRESSO only — PAPAYA's two panels print a wordmark + a subtitle
- *  tag instead (`PapayaPanel` below), no pills of their own. */
-export function DetailNamePlate({ name, pills, className }: { name: string; pills: ReactNode; className?: string }) {
-  return (
-    <div className={cn("flex flex-col items-start gap-3 lg:gap-3.5", className)}>
-      {/* 54px (the mock's MINT size) sets ESPRESSO wider than its 250px
-          column and it ran into the spec heading — long names step down. */}
-      <span
-        className={cn(
-          "text-[28px] leading-none font-extrabold text-accent",
-          name.length > 6 ? "lg:text-[42px]" : "lg:text-[54px]",
-        )}
-      >
-        {name}
+        ) : null}
       </span>
-      <div className="flex flex-wrap gap-2 lg:gap-2.5">{pills}</div>
     </div>
   );
 }
+
+export type DetailSpecRowData = {
+  /** Only multi-chip boards need a row name; a single chip already has an H1. */
+  name?: string;
+  /** PAPAYA's per-part subtitle ("PC-Vision & 5G", "Machine Vision Benchmark"). */
+  tag?: string;
+  tone?: "blue" | "teal";
+  specs: readonly Spec[];
+};
+
+export type DetailApp = {
+  label: string;
+  image: string;
+  alt: string;
+  /** ESPRESSO's "Dự kiến Q3/2026" — a roadmap app carries its date in place
+   *  (CLAUDE.md § 2). */
+  date?: string;
+};
 
 /**
- * MINT/ESPRESSO's one panel: wordmark + pills | "THÔNG SỐ CHÍNH" + 3
- * tiles | "ỨNG DỤNG" + the application row, divided by hairlines
- * (D-Mint/D-Espresso-desktop-mock.html's
- * `grid-template-columns: <name> 1px minmax(0,1fr) 1px max-content`).
- * `nameColWidth` is the one dimension the two mocks disagree on (170px vs
- * ESPRESSO's wider 250px, which has to fit three wrapped pills under a
- * longer wordmark) — a CSS custom property, not a second Tailwind class per
- * caller, since Tailwind has no utility for an arbitrary `grid-template-columns`
- * track list.
+ * The board under the hero: key specs (one row per part — PAPAYA has two,
+ * PAPAYA and PAPAYA FLEX) on the left, applications on the right. Two equal
+ * columns from `xl`; stacked below that — at 1024 a two-up board left each
+ * spec tile ~95px and PAPAYA FLEX's "0,1–0,15" ran out of its tile.
  */
-export function DetailPanel({
-  name,
-  pills,
+export function DetailBoard({
+  locale,
   specLabel,
-  specs,
-  specTileFooter,
+  rows,
+  specNote,
   appsLabel,
   apps,
-  locale,
-  nameColWidth,
 }: {
-  name: string;
-  pills: ReactNode;
+  locale: Locale;
   specLabel: string;
-  specs: readonly Spec[];
-  /** Keyed by `specs` index — ESPRESSO passes one for index 0 only, to print
-   *  "Card 4 chip: 640 TOPS" inside that tile (`DetailSpecTile`'s `footer`). */
-  specTileFooter?: (index: number) => ReactNode;
+  rows: readonly DetailSpecRowData[];
+  /** ESPRESSO's "Card 4 chip: 640 TOPS" line under its spec row. */
+  specNote?: ReactNode;
   appsLabel: string;
-  apps: ReactNode;
-  locale: Locale;
-  nameColWidth: string;
+  apps: readonly DetailApp[];
 }) {
   return (
-    <div
-      // `navy-lit` is the palette's lit surface — the one the solutions,
-      // software and contact blocks sit on. It is the panel here for the same
-      // reason the brief made this block white: it is the page's emphasis, and
-      // it overlaps a `navy` band, so it has to be the lighter of the two.
-      className="flex flex-col gap-6 bg-navy-lit p-6 lg:p-10 xl:grid xl:items-start xl:gap-x-9"
-      // Three columns only from xl: at 1024 the max-content apps column left the
-      // spec tiles ~20px wide each, so below xl the panel stacks instead.
-      style={{ gridTemplateColumns: `${nameColWidth} 1px minmax(0,1fr) 1px max-content` }}
-    >
-      <DetailNamePlate name={name} pills={pills} />
-      <DetailColumnRule />
-      <div className="flex flex-col gap-3 lg:gap-[18px]">
+    <div className="grid gap-4 border border-ink/10 bg-navy-lit p-4 xl:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] xl:gap-6">
+      <div className="flex flex-col gap-3">
         <DetailGroupLabel>{specLabel}</DetailGroupLabel>
-        <div className="grid grid-cols-3 gap-2 lg:gap-4">
-          {specs.map((spec, index) => (
-            <DetailSpecTile key={spec.label} spec={spec} locale={locale} footer={specTileFooter?.(index)} />
-          ))}
+        {/* Rows grow to the application column's height, so a one-row chip
+            (MINT, ESPRESSO) fills its half of the board instead of leaving a
+            gap under three short tiles. */}
+        <div className="flex flex-1 flex-col gap-2.5">
+          {rows.map((row, rowIndex) => {
+            const toneText = row.tone === "teal" ? "text-info" : "text-accent";
+            return (
+              <div
+                key={row.name ?? rowIndex}
+                className={cn("grid flex-1 gap-2 sm:items-stretch sm:gap-3", row.name && "sm:grid-cols-[136px_minmax(0,1fr)]")}
+              >
+                {row.name ? (
+                  <span className="flex flex-col justify-center gap-1">
+                    <span className={cn("text-[16px] leading-none font-extrabold whitespace-nowrap lg:text-[17px]", toneText)}>
+                      {row.name}
+                    </span>
+                    {row.tag ? <span className="text-[11px] font-medium text-body">{row.tag}</span> : null}
+                  </span>
+                ) : null}
+                <div className="grid grid-cols-3 gap-2">
+                  {row.specs.map((spec) => (
+                    <DetailSpecTile key={spec.label} spec={spec} locale={locale} tone={row.tone} />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
+        {specNote}
       </div>
-      <DetailColumnRule />
-      <div className="flex flex-col gap-3 lg:gap-[18px]">
+      <span aria-hidden className="hidden w-px self-stretch bg-ink/14 xl:block" />
+      <div className="flex min-w-0 flex-col gap-3">
         <DetailGroupLabel>{appsLabel}</DetailGroupLabel>
-        {apps}
+        <ApplicationCarousel
+          apps={apps}
+          labels={{
+            previous: dictionary.product.shared.carousel.previous[locale],
+            next: dictionary.product.shared.carousel.next[locale],
+            pause: dictionary.product.shared.carousel.pause[locale],
+            play: dictionary.product.shared.carousel.play[locale],
+          }}
+        />
       </div>
-    </div>
-  );
-}
-
-/**
- * One of PAPAYA's two side-by-side panels: wordmark + subtitle tag, a
- * divider, "THÔNG SỐ CHÍNH", then 3 spec tiles plus a small masked chip
- * thumbnail (D-Papaya-desktop-mock.html). MINT/ESPRESSO use `DetailNamePlate`
- * + `DetailGroupLabel` + `DetailSpecTile` directly instead — those two share
- * one panel with a third ỨNG DỤNG column the mock's grid-template-columns
- * gives fixed widths, which a generic 2-panel component would have to
- * special-case away.
- */
-export function PapayaPanel({
-  name,
-  tag,
-  specLabel,
-  specs,
-  locale,
-  chipImage,
-  chipAlt,
-  tone,
-  className,
-}: {
-  name: string;
-  tag: string;
-  specLabel: string;
-  specs: readonly Spec[];
-  locale: Locale;
-  chipImage: string;
-  chipAlt: string;
-  tone: "blue" | "teal";
-  className?: string;
-}) {
-  return (
-    // `navy-lit` for the same reason as `DetailPanel` above: this panel
-    // overlaps the `navy` band, so it has to be the lighter of the two.
-    <div className={cn("flex flex-col gap-4 bg-navy-lit p-6 lg:gap-[22px] lg:p-8", className)}>
-      <div className="grid grid-cols-[max-content_1px_1fr] items-start gap-x-5 lg:gap-x-7">
-        <span className="flex flex-col gap-1">
-          <span
-            className={cn(
-              "text-[20px] leading-none font-bold tracking-[0.01em]",
-              tone === "teal" ? "text-info" : "text-accent",
-            )}
-          >
-            {name}
-          </span>
-          <span
-            className={cn(
-              "text-[13px] font-semibold",
-              tone === "teal" ? "text-info" : "text-accent",
-            )}
-          >
-            {tag}
-          </span>
-        </span>
-        <span aria-hidden className="w-px self-stretch bg-ink/14" />
-        <DetailGroupLabel tone={tone} className="pt-1 text-[13px] whitespace-nowrap lg:text-[18px]">
-          {specLabel}
-        </DetailGroupLabel>
-      </div>
-
-      <div className="grid grid-cols-3 items-center gap-2 lg:grid-cols-[repeat(3,minmax(0,1fr))_110px] lg:gap-3">
-        {specs.map((spec) => (
-          <DetailSpecTile key={spec.label} spec={spec} locale={locale} tone={tone} />
-        ))}
-        <div className="relative hidden aspect-square w-[110px] lg:block">
-          <Image src={chipImage} alt={chipAlt} fill sizes="110px" className="mask-chip-tile object-contain" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/**
- * One row of PAPAYA's full-width ỨNG DỤNG panel: icon, photo, label — or, on
- * the "Robot" tile (no photo asset), the icon alone twice over (once as the
- * desktop leading cell, once inline with the mobile label) rather than a
- * blank photo box (D-Papaya mocks, both breakpoints).
- *
- * One element handles both layouts via CSS `order`, not two conditionally
- * rendered trees: below `sm` this is a flex column (photo, then an icon+label
- * line); from `sm` the same three children become a 3-column grid
- * (icon | photo | label), so nothing double-renders the photo.
- */
-export function PapayaAppTile({
-  image,
-  alt,
-  icon,
-  label,
-}: {
-  image?: string;
-  alt?: string;
-  icon: AppIconId;
-  label: string;
-}) {
-  return (
-    <div className="flex flex-col gap-2 border border-ink/10 bg-ink/[0.04] p-2 sm:grid sm:grid-cols-[34px_104px_minmax(0,1fr)] sm:items-center sm:gap-3 sm:p-3">
-      <div className="relative h-[86px] overflow-hidden bg-ink/[0.04] sm:order-2 sm:h-[78px]">
-        {image ? (
-          <Image src={image} alt={alt ?? ""} fill sizes="110px" className="object-cover" />
-        ) : (
-          <span className="flex h-full w-full items-center justify-center">
-            <AppIcon id={icon} className="h-9 w-9 text-accent sm:hidden" />
-          </span>
-        )}
-      </div>
-      <span className="hidden justify-center sm:order-1 sm:flex">
-        <AppIcon id={icon} className="h-7 w-7 text-accent" />
-      </span>
-      <span className="flex items-center gap-1.5 text-[13.5px] font-semibold text-ink sm:order-3 sm:text-base">
-        <AppIcon id={icon} className="h-4 w-4 shrink-0 text-accent sm:hidden" />
-        {label}
-      </span>
     </div>
   );
 }
@@ -614,9 +388,9 @@ export function PapayaAppTile({
  *  of its variants are this plain accent-on-dark-text combination, and that
  *  component is shared across the whole site, so a one-off tone for this page
  *  belongs here instead of as a fourth variant nothing else uses. */
-export function DetailCta({ locale }: { locale: Locale }) {
+export function DetailCta({ locale, inline = false }: { locale: Locale; inline?: boolean }) {
   return (
-    <div className="flex justify-center px-gutter py-7 lg:py-12">
+    <div className={cn("flex justify-center", !inline && "px-gutter py-7 lg:py-12")}>
       {/* The contact form lives on the home page only — a bare `#lien-he` on a
           chip / software / training page pointed at nothing, so the page's one
           CTA went nowhere. */}

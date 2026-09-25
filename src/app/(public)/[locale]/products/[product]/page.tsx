@@ -3,15 +3,10 @@ import { notFound } from "next/navigation";
 
 import { ApplicationBento, ApplicationDetails } from "@/components/site/product/application-bento";
 import {
-  DetailAppRow,
-  DetailAppTile,
+  DetailBoard,
   DetailCta,
-  DetailGroupLabel,
-  DetailHero,
-  DetailPanel,
   DetailPill,
-  PapayaAppTile,
-  PapayaPanel,
+  DetailScreen,
   firstSentences,
 } from "@/components/site/product/detail";
 import { ESeriesCards } from "@/components/site/product/eseries-cards";
@@ -132,230 +127,130 @@ export default async function ProductPage({
 
       <main>
         {/*
-         * MINT / PAPAYA / ESPRESSO — DETAIL brief (2026-09-24, locked). Each is
-         * one light hero + white spec panel + navy CTA band (`product/detail.tsx`),
-         * not the dark `ProductDetail` shell E-Series still uses below. The long
-         * per-application prose (`ApplicationBento`'s bento grid, `ApplicationDetails`)
-         * is no longer rendered on these three pages — the panel's ỨNG DỤNG row is a
-         * photo + label, not a body paragraph — but both components and
-         * `copy.<chip>.visuals`'s `body` text stay in the codebase (same "kept, not
-         * shown" treatment as E-Series itself, routes.ts) since the photo/label tiles
-         * below still read `visuals[].image` / `.alt`.
+         * MINT / PAPAYA / ESPRESSO share one template (`product/detail.tsx`):
+         * a one-screen hero + spec/application carousel + CTA. The long
+         * per-application prose (`ApplicationBento`, `ApplicationDetails`) is
+         * not rendered here; the larger auto-advancing cards stay glanceable
+         * without forcing desktop readers onto a second screen.
          */}
         {product === "mint" ? (
           <section id={routes.anchors.mint} aria-labelledby="mint-title" className="relative bg-navy">
-            <DetailHero
-              locale={locale}
+            <DetailScreen
               titleId="mint-title"
               eyebrow={copy.shared.hardware[locale]}
               title={content.mint.title[locale]}
               lead={content.mint.lead[locale]}
+              pills={
+                <>
+                  <DetailPill>{copy.shared.pillPebbleSquare}</DetailPill>
+                  <DetailPill tone="accent">{copy.mint.pillStatus[locale]}</DetailPill>
+                  <DetailPill>{copy.mint.pillType}</DetailPill>
+                </>
+              }
               image={content.mint.image}
               imageAlt={copy.mint.imageAlt[locale]}
-            />
-            <div className="relative z-10 -mt-10 px-gutter lg:-mt-16">
-              <div className="mx-auto max-w-[1440px]">
-                <DetailPanel
-                  name="MINT"
-                  pills={
-                    <>
-                      <DetailPill>{copy.shared.pillPebbleSquare}</DetailPill>
-                      <DetailPill tone="accent">{copy.mint.pillStatus[locale]}</DetailPill>
-                      <DetailPill>{copy.mint.pillType}</DetailPill>
-                    </>
-                  }
-                  specLabel={copy.shared.keySpecs[locale]}
-                  specs={copy.mint.specs}
-                  locale={locale}
-                  appsLabel={copy.shared.applications[locale]}
-                  apps={
-                    <DetailAppRow>
-                      {/* `copy.mint.apps` and `.visuals` are two parallel lists that
-                          share an order but not a length — IoT (apps[1]) has no
-                          photo asset, so it sits between the two images below
-                          rather than being visuals[1]. */}
-                      <DetailAppTile
-                        image={copy.mint.visuals[0].image}
-                        alt={copy.mint.visuals[0].alt[locale]}
-                        label={copy.mint.apps[0]}
-                      />
-                      <DetailAppTile icon="chip" label={copy.mint.apps[1]} />
-                      <DetailAppTile
-                        image={copy.mint.visuals[1].image}
-                        alt={copy.mint.visuals[1].alt[locale]}
-                        label={copy.mint.apps[2]}
-                      />
-                    </DetailAppRow>
-                  }
-                  nameColWidth="170px"
-                />
-              </div>
-            </div>
-            <DetailCta locale={locale} />
+              action={<DetailCta locale={locale} inline />}
+            >
+              <DetailBoard
+                locale={locale}
+                specLabel={copy.shared.keySpecs[locale]}
+                rows={[{ specs: copy.mint.specs }]}
+                appsLabel={copy.shared.applications[locale]}
+                apps={copy.mint.detailApps.map((app) => ({
+                  label: app.label[locale],
+                  image: app.image,
+                  alt: app.alt[locale],
+                }))}
+              />
+            </DetailScreen>
           </section>
         ) : null}
 
         {product === "papaya" ? (
           <section id={routes.anchors.papaya} aria-labelledby="papaya-title" className="relative bg-navy">
-            <DetailHero
-              locale={locale}
+            <DetailScreen
               titleId="papaya-title"
               eyebrow={copy.shared.hardware[locale]}
-              // First two sentences only — D-Papaya-desktop-render.png stops
-              // before the third (PAPAYA's own 30 TOPS/W efficiency line);
-              // `firstSentences` reads the full CMS lead so the two never drift.
-              lead={firstSentences(content.papaya.lead[locale], 2)}
               title={content.papaya.title[locale]}
-              pillsUnderLead={
-                <div className="flex flex-wrap gap-2.5">
+              // First two sentences only: the third repeats PAPAYA's 30 TOPS/W,
+              // which the board already prints. `firstSentences` reads the
+              // full CMS lead so the two never drift.
+              lead={firstSentences(content.papaya.lead[locale], 2)}
+              pills={
+                <>
                   <DetailPill>{copy.shared.pillPebbleSquare}</DetailPill>
                   <DetailPill tone="accent">{copy.papaya.pillStatus[locale]}</DetailPill>
                   <DetailPill>{copy.papaya.pillType}</DetailPill>
-                </div>
+                </>
               }
               image={content.papaya.image}
               imageAlt={copy.papaya.imageAlt[locale]}
-              maxWidthClassName="lg:max-w-[550px] xl:max-w-[680px] min-[1400px]:max-w-[1000px]"
-            />
-            <div className="relative z-10 -mt-10 flex flex-col gap-3 px-gutter lg:-mt-16 lg:gap-4">
-              {/* `xl:grid-cols-2`, not `lg:` — at 1024px each panel's own
-                  3-tile-plus-thumbnail row (`PapayaPanel`) only has ~480px to
-                  work with once split two-up, and "Performance" / "0,1–0,15"
-                  wrapped and overran their tiles. Brief § "Mobile" calls the
-                  768–1023 zone "sane intermediate (panel columns may stack)"
-                  — they stack through `lg` and only go side by side from
-                  `xl` (1280px), where each panel gets ~700px. */}
-              <div className="mx-auto grid w-full max-w-[1440px] gap-3 xl:grid-cols-2 xl:gap-4">
-                <PapayaPanel
-                  name="PAPAYA"
-                  tag={copy.papaya.nameTag}
-                  specLabel={copy.shared.keySpecs[locale]}
-                  // First 3 only — `specs[3]` (POWER, "~10.000") is a
-                  // Jetson Nano comparison figure this panel doesn't carry
-                  // (brief: PAPAYA tiles are 0,5 TOPS · 30 TOPS/W · 5 × 5 MM²).
-                  specs={copy.papaya.specs.slice(0, 3)}
-                  locale={locale}
-                  chipImage={content.papaya.image}
-                  chipAlt={copy.papaya.imageAlt[locale]}
-                  tone="blue"
-                />
-                <PapayaPanel
-                  name="PAPAYA FLEX"
-                  tag={copy.papaya.flexNameTag}
-                  specLabel={copy.shared.keySpecs[locale]}
-                  specs={copy.papaya.flexAbsoluteSpecs}
-                  locale={locale}
-                  // Hardcoded like `mint`/`papaya`/`espresso`'s own `content.*.image`
-                  // call sites elsewhere on this page — FLEX has no CMS-owned image
-                  // field (schema.ts's `productContentSchema` has no `papayaFlex`
-                  // section), same as the old dark `ProductDetail` branch this
-                  // replaces (see `flexImageAlt`'s own doc comment, dictionary.ts).
-                  chipImage="/images/papaya-flex-chrome-v4.png"
-                  chipAlt={copy.papaya.flexImageAlt[locale]}
-                  tone="teal"
-                />
-              </div>
-              <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-3 bg-navy-lit p-6 lg:gap-[14px] lg:p-[26px]">
-                <DetailGroupLabel className="text-[17px] lg:text-[20px]">
-                  {copy.shared.applications[locale]}
-                </DetailGroupLabel>
-                <div className="grid grid-cols-2 gap-2 lg:grid-cols-4 lg:gap-3">
-                  {/* Display order is the brief's own (Nhận dạng hình ảnh / Thị
-                      giác máy / Hệ thống an ninh / Robot), which is not
-                      `copy.papaya.apps`'s stored order — indices below are
-                      picked to match, not sequential. */}
-                  <PapayaAppTile
-                    image={copy.papaya.visuals[0].image}
-                    alt={copy.papaya.visuals[0].alt[locale]}
-                    icon="scan"
-                    label={copy.papaya.apps[0][locale]}
-                  />
-                  <PapayaAppTile
-                    image={copy.papaya.visuals[1].image}
-                    alt={copy.papaya.visuals[1].alt[locale]}
-                    icon="eye"
-                    label={copy.papaya.apps[3][locale]}
-                  />
-                  <PapayaAppTile
-                    image={copy.papaya.visuals[2].image}
-                    alt={copy.papaya.visuals[2].alt[locale]}
-                    icon="shield"
-                    label={copy.papaya.apps[1][locale]}
-                  />
-                  <PapayaAppTile icon="robot" label={copy.papaya.apps[2][locale]} />
-                </div>
-              </div>
-            </div>
-            <DetailCta locale={locale} />
+              action={<DetailCta locale={locale} inline />}
+            >
+              <DetailBoard
+                locale={locale}
+                specLabel={copy.shared.keySpecs[locale]}
+                rows={[
+                  // First 3 only — `specs[3]` (POWER, "~10.000") is a Jetson
+                  // Nano comparison figure with no unit; it is not shown bare.
+                  { name: "PAPAYA", tag: copy.papaya.nameTag, specs: copy.papaya.specs.slice(0, 3) },
+                  {
+                    name: "PAPAYA FLEX",
+                    tag: copy.papaya.flexNameTag,
+                    tone: "teal",
+                    specs: copy.papaya.flexAbsoluteSpecs,
+                  },
+                ]}
+                appsLabel={copy.shared.applications[locale]}
+                apps={copy.papaya.detailApps.map((app) => ({
+                  label: app.label[locale],
+                  image: app.image,
+                  alt: app.alt[locale],
+                }))}
+              />
+            </DetailScreen>
           </section>
         ) : null}
 
         {product === "espresso" ? (
           <section id={routes.anchors.espresso} aria-labelledby="espresso-title" className="relative bg-navy">
-            <DetailHero
-              locale={locale}
+            <DetailScreen
               titleId="espresso-title"
               eyebrow={copy.shared.hardware[locale]}
               title={content.espresso.title[locale]}
               lead={content.espresso.lead[locale]}
+              pills={
+                <>
+                  <DetailPill>{copy.shared.pillPebbleSquare}</DetailPill>
+                  <DetailPill tone="info">{copy.espresso.pillStatus[locale]}</DetailPill>
+                  <DetailPill>{copy.espresso.pillType}</DetailPill>
+                </>
+              }
               image={content.espresso.image}
               imageAlt={copy.espresso.imageAlt[locale]}
-            />
-            <div className="relative z-10 -mt-10 px-gutter lg:-mt-16">
-              <div className="mx-auto max-w-[1440px]">
-                <DetailPanel
-                  name="ESPRESSO"
-                  pills={
-                    <>
-                      <DetailPill>{copy.shared.pillPebbleSquare}</DetailPill>
-                      <DetailPill tone="info">{copy.espresso.pillStatus[locale]}</DetailPill>
-                      <DetailPill>{copy.espresso.pillType}</DetailPill>
-                    </>
-                  }
-                  specLabel={copy.shared.keySpecs[locale]}
-                  // 160 TOPS, not the ~140 that shows up in some working
-                  // comps — `copy.espresso.specs[0]` is this file's one
-                  // source for the figure (CLAUDE.md § 1/§ 2).
-                  specs={copy.espresso.specs}
-                  // Desktop-only: D-Espresso-mobile-mock.html's tile 01 has no
-                  // "Card 4 chip" line at all — index/label/value/unit alone,
-                  // same as tiles 02/03 — so this only renders from `lg`.
-                  specTileFooter={(index) =>
-                    index === 0 ? (
-                      <span className="hidden flex-wrap items-baseline gap-x-1.5 text-[13px] text-body lg:mt-2 lg:flex">
-                        {copy.espresso.cardNote[locale]}
-                        <strong className="font-bold text-accent">{copy.espresso.cardValue}</strong>
-                      </span>
-                    ) : null
-                  }
-                  locale={locale}
-                  appsLabel={copy.shared.applications[locale]}
-                  apps={
-                    <DetailAppRow>
-                      {/* Only the first two `targets` — Data Center (targets[2])
-                          has no application photo and the brief's own tile list
-                          for this page is "AI PC / Robotics" alone. */}
-                      <DetailAppTile
-                        image={copy.espresso.visuals[0].image}
-                        alt={copy.espresso.visuals[0].alt[locale]}
-                        label={copy.espresso.targets[0].name}
-                        date={copy.espresso.targets[0].when[locale]}
-                        className="lg:w-[160px]"
-                      />
-                      <DetailAppTile
-                        image={copy.espresso.visuals[1].image}
-                        alt={copy.espresso.visuals[1].alt[locale]}
-                        label={copy.espresso.targets[1].name}
-                        date={copy.espresso.targets[1].when[locale]}
-                        className="lg:w-[160px]"
-                      />
-                    </DetailAppRow>
-                  }
-                  nameColWidth="250px"
-                />
-              </div>
-            </div>
-            <DetailCta locale={locale} />
+              action={<DetailCta locale={locale} inline />}
+            >
+              <DetailBoard
+                locale={locale}
+                specLabel={copy.shared.keySpecs[locale]}
+                // 160 TOPS, not the ~140 in some working comps —
+                // `copy.espresso.specs[0]` is the one source (CLAUDE.md § 1/§ 2).
+                rows={[{ specs: copy.espresso.specs }]}
+                specNote={
+                  <span className="flex flex-wrap items-baseline gap-x-1.5 text-[12px] text-body lg:text-[13px]">
+                    {copy.espresso.cardNote[locale]}
+                    <strong className="font-bold text-accent">{copy.espresso.cardValue}</strong>
+                  </span>
+                }
+                appsLabel={copy.shared.applications[locale]}
+                apps={copy.espresso.detailApps.map((app) => ({
+                  label: app.label[locale],
+                  date: copy.espresso.pillStatus[locale],
+                  image: app.image,
+                  alt: app.alt[locale],
+                }))}
+              />
+            </DetailScreen>
           </section>
         ) : null}
 

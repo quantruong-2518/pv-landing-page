@@ -234,6 +234,19 @@
   --text-kicker--line-height: 1.4;
   --text-kicker--letter-spacing: 0.13em;
   --text-kicker--font-weight: 500;
+
+  /* The application carousel's active progress bar fills over one autoplay
+   * interval; the duration is set inline from `AUTOPLAY_DELAY_MS`
+   * (application-carousel.tsx) so the two never disagree. */
+  --animate-carousel-progress: carousel-progress linear forwards;
+  @keyframes carousel-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
 }
 
 @layer base {
@@ -743,15 +756,6 @@
       -webkit-mask-image: radial-gradient(closest-side, #000 42%, transparent 88%);
       mask-image: radial-gradient(closest-side, #000 42%, transparent 88%);
     }
-  }
-
-  /* The small 110×110 chip thumbnail beside a PAPAYA / PAPAYA FLEX spec tile
-   * (D-Papaya-desktop-mock.html) — a tighter circular fade than the hero
-   * render above, since it sits inline with numeric tiles rather than
-   * bleeding off the edge of a whole column. */
-  .mask-chip-tile {
-    -webkit-mask-image: radial-gradient(closest-side, #000 60%, transparent 100%);
-    mask-image: radial-gradient(closest-side, #000 60%, transparent 100%);
   }
 
   /*
