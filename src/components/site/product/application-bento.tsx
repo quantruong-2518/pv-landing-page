@@ -152,7 +152,7 @@ function VisualCard({
   return (
     <figure
       className={cn(
-        "group relative min-h-0 overflow-hidden bg-night-deep",
+        "group relative min-h-0 overflow-hidden rounded-card bg-night-deep",
         className,
       )}
     >

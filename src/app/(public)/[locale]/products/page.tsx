@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Catalogue } from "@/components/site/product/catalogue";
 import { ProductContact } from "@/components/site/product/product-contact";
 import { SiteHeader } from "@/components/site/site-header";
+import { plainText } from "@/lib/content/markup";
 import { getPageContent, getPublishedAt } from "@/lib/content/store";
 import { isLocale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
@@ -104,17 +105,17 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
             content: {
               mint: {
                 title: content.mint.title[locale],
-                description: content.mint.lead[locale],
+                description: plainText(content.mint.lead[locale]),
                 image: content.mint.image,
               },
               papaya: {
                 title: content.papaya.title[locale],
-                description: content.papaya.lead[locale],
+                description: plainText(content.papaya.lead[locale]),
                 image: content.papaya.image,
               },
               espresso: {
                 title: content.espresso.title[locale],
-                description: content.espresso.lead[locale],
+                description: plainText(content.espresso.lead[locale]),
                 image: content.espresso.image,
               },
               eseries: {

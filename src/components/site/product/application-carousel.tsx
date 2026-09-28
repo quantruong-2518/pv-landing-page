@@ -24,7 +24,7 @@ export function ApplicationCarousel({ apps, labels }: { apps: readonly DetailApp
         {apps.map((app, index) => (
           <figure
             key={`${app.label}-${index}`}
-            className="group relative aspect-[16/10] w-[84%] flex-none snap-start overflow-hidden bg-ink/[0.04] sm:w-[calc(50%-6px)]"
+            className="group relative aspect-[16/10] w-[84%] flex-none snap-start overflow-hidden rounded-card bg-ink/[0.04] sm:w-[calc(50%-6px)]"
           >
             <Image
               src={app.image}

@@ -117,7 +117,7 @@ export function BioDirections({
                 hairline frame is what makes this one read as a plate in a
                 document". No new colour: both tokens already exist, and
                 `.bio-day` re-resolves `border-ink` to the day scale for us. */}
-            <div className="border border-ink/20 p-[clamp(10px,1.2vw,18px)]">
+            <div className="rounded-card border border-ink/20 p-[clamp(10px,1.2vw,18px)]">
               <div className="bg-night-deep">
                 <VignetteImage
                   src={column.image}

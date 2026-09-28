@@ -1,4 +1,6 @@
-import { Reveal } from "@/components/motion/reveal";
+import type { ReactNode } from "react";
+
+import { CoreCarousel } from "@/components/site/home/core-carousel";
 import { Eyebrow, MarkedText } from "@/components/site/primitives";
 import { Section } from "@/components/site/section";
 import { splitLines } from "@/lib/content/markup";
@@ -8,64 +10,37 @@ import { dictionary } from "@/lib/i18n/dictionary";
 import { cn } from "@/lib/utils";
 
 /**
- * 02 — Core capability, as locked with the client on 2026-09-24 (artboards
- * "Core — Desktop" 1440×900 / "Core — Mobile" 390×940).
+ * 03 — Core capability, rebuilt around the owner's four-capability brief
+ * (2026-09-28): CIM/IMC, dual architecture, full-stack integration, silicon
+ * validation.
  *
- * Three decisions from that review shape the whole file, and each one undoes
- * something the previous three-card grid did:
+ * The previous layout was three full-width rows built to carry one loud figure
+ * (`400K`) and two phrases. Four capabilities of unlike shape — a principle, a
+ * pair, a stack, a track record — do not fit that: each one now gets a column
+ * of the same anatomy, so they read as four answers to one question, and the
+ * difference between them lives in the glyph and the evidence list underneath.
  *
- *  - **Rows, not columns.** Three full-width rows of `figure | label + body |
- *    outcome`, vertically centred, splitting the section's spare height evenly.
- *    The card grid had to make three unlike things (a wordmark, a figure, a
- *    phrase) share four subgridded edges; as rows they no longer compete for a
- *    common baseline, so each one can be set at the size its content deserves.
- *  - **No borders and no rules.** Separation is whitespace and the type scale
- *    only. So there is deliberately no `GroupRule`, no `border-ink/…` and no
- *    divider anywhere below — a hairline here would read as a table.
- *  - **One loud mark per section.** `400K` is the largest thing on the screen
- *    and the only accent-coloured figure, with a soft radial glow behind it;
- *    `CIM` is a step down; the row-03 headline is smaller again *because it is a
- *    phrase, not a figure* (`small: true` in the dictionary).
+ *   index · tag        what the capability is called
+ *   glyph              a 120×72 drawing of it (square, hairline, no fill)
+ *   title + body       the claim, with its keywords marked (lib/content/markup.ts)
+ *   evidence list      the concrete parts of it, pinned to the card's foot
  *
- * The `→ ENERGY EFFICIENCY` / `HIGH THROUGHPUT` / `STABLE & CONSISTENT
- * PROCESSING` lines are the third beat of every row rather than a footnote: for
- * investors and partners they are what the row is *for*, so they are set larger
- * than any other mono on the page (15px against the 12px kicker).
+ * `400K` left this section with the rows. It is still a CMS field (`core.stat`)
+ * because `/bio` prints it; nothing here reads it.
  *
- * The head is written out instead of using `SectionHead` for the same reason
- * pim-section.tsx does: the mock sets title lines after the first in `muted`,
- * and both the title break and the lead's emphasis live in the CMS string
- * (`lib/content/markup.ts`), so a locale that wants one line still gets one.
- *
- * Card 02's figure is the one value here the CMS owns (`core.stat`); the other
- * two are fixed phrases, so only card 02 reads from content.
+ * Four columns from `lg`, a 2×2 at `md`, a swipe carousel below
+ * (`core-carousel.tsx`). The evidence list is `mt-auto`, so the four lists
+ * share a baseline whatever the body length.
  */
-
-/**
- * The three display steps, transcribed from the mock's own px values
- * (mobile 390 → desktop 1440) rather than taken from `@theme`: the locked
- * hierarchy *is* the ratio between them, and no existing `--text-stat*` token
- * reaches 108px. The `vw` term is set so each clamp lands exactly on the mock's
- * desktop figure at 1440 — 5.7vw = 82px, 7.5vw = 108px.
- */
-const FIGURE = "font-heading text-[clamp(3.25rem,5.7vw,5.125rem)] leading-none tracking-[-0.015em]";
-const FIGURE_LOUD =
-  "font-heading text-accent text-[clamp(4.25rem,7.5vw,6.75rem)] leading-none tracking-[-0.02em]";
-
-/**
- * Row body copy: 15px on a phone, 17px at 1440 (1.18vw). One step *above* the
- * section lead, which stays on `text-lead` — the mock sets the head at 16px and
- * the rows at 17px precisely so the rows read as the payload and the head as
- * the introduction.
- */
-const ROW_BODY = "text-[clamp(0.9375rem,1.18vw,1.0625rem)] leading-[1.72]";
-
-/** The outcome rail: mono 600, 13px → 15px, wide tracking, always accent. */
-const OUTCOME =
-  "font-mono font-semibold text-accent text-[clamp(0.8125rem,1.05vw,0.9375rem)] leading-[1.5] tracking-[0.1em]";
-
 export function CoreStats({ content, locale }: { content: HomeContent["core"]; locale: Locale }) {
   const titleLines = splitLines(content.title[locale]);
+  const carousel = dictionary.product.shared.carousel;
+  const carouselLabels = {
+    previous: carousel.previous[locale],
+    next: carousel.next[locale],
+    pause: carousel.pause[locale],
+    play: carousel.play[locale],
+  };
 
   return (
     <Section
@@ -80,9 +55,8 @@ export function CoreStats({ content, locale }: { content: HomeContent["core"]; l
           <h2 id="core-title" className="font-heading text-h2 text-balance">
             {titleLines.map((line, index) => (
               // Lines after the first qualify the headline and are set in
-              // `muted`, as the mock does. `block` only from `md`: on a phone a
-              // 26px display line has no room to break where a desktop layout
-              // wants it, so the lines run on and wrap.
+              // `muted`. `block` only from `md`: on a phone a display line has
+              // no room to break where a desktop layout wants it.
               <span key={index} className={cn("md:block", index > 0 && "text-muted")}>
                 {index > 0 ? " " : null}
                 <MarkedText value={line} />
@@ -96,80 +70,116 @@ export function CoreStats({ content, locale }: { content: HomeContent["core"]; l
         </p>
       </div>
 
-      {/* `grow` is how this block spends a full screen: the surplus goes to the
-       * rows, which then split it three ways, instead of collecting as one band
-       * of empty navy under the head — this section carries no photograph to
-       * fill that band, unlike "Tại sao CIM" next door.
-       *
-       * The vertical gap is a phone/tablet device only. From `lg` the rows are
-       * `flex-1` and centre their own content, so the air between them is the
-       * leftover height and a gap on top of it would double-count. */}
-      <div className="flex grow flex-col gap-y-[clamp(26px,3vw,34px)] lg:gap-y-0">
-        {dictionary.home.core.cards.map((card, index) => (
-          <Reveal
-            key={card.index}
-            delay={index * 0.08}
-            // `items-center` against a stretched row track is what the mock's
-            // `align-items: center` on a `flex: 1` grid does: figure, body and
-            // outcome share one optical centre line rather than a top edge.
-            //
-            // The 1 / 1.75 / 1 ratio reproduces the mock's 340 / 584 / 330px
-            // tracks at 1440 and keeps behaving down at 1024, where the mock's
-            // fixed pixel columns would leave the middle one ~230px wide.
-            className="grid items-center gap-x-col gap-y-3 md:flex-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.75fr)_minmax(0,1fr)]"
+      <CoreCarousel labels={carouselLabels}>
+        {dictionary.home.core.pillars.map((pillar, index) => (
+          <article
+            key={pillar.index}
+            className={cn(
+              "relative flex flex-col gap-[clamp(12px,1.2vw,16px)] rounded-card border bg-marquee p-[clamp(18px,1.8vw,26px)]",
+              // The first capability is the premise of the other three, so it
+              // alone gets the accent frame.
+              index === 0 ? "border-accent/40" : "border-ink/12",
+            )}
           >
-            <div className="relative flex flex-col gap-2.5">
-              {/* The glow is the loud row's only decoration — no frame, no
-               * border. Built from `--color-accent` at element opacity rather
-               * than a pasted rgba (CLAUDE.md § 2.4); the geometry is the
-               * mock's, scaled from 300×190 on a phone to 380×240 at 1440. */}
-              {card.accent ? (
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute -top-[clamp(24px,2vw,30px)] -left-[clamp(40px,4vw,60px)] h-[clamp(190px,17vw,240px)] w-[clamp(300px,26.4vw,380px)] glow-core-figure"
-                />
-              ) : null}
-
-              <span className="relative font-mono text-kicker text-accent">{card.index}</span>
-
-              {card.headline ? (
-                // Row 03's "figure" is a phrase, so it sits on the heading
-                // scale instead of the display scale. It is allowed to wrap
-                // inside its own column — the mock hard-breaks it after "DỮ
-                // LIỆU" at 1440, which is where a 1fr column breaks it anyway,
-                // and a `\n` in the dictionary would break the other locales in
-                // the wrong place.
-                <span className="relative font-heading text-h2-detail">
-                  {card.headline[locale]}
-                </span>
-              ) : (
-                <span className={cn("relative", card.accent ? FIGURE_LOUD : FIGURE)}>
-                  {card.fromCms ? content.stat : card.value}
-                </span>
-              )}
-
-              {/* The loud row's label is a notch brighter than the other two —
-               * the mock sets it `muted` where rows 01 and 03 are `faint`. */}
-              {card.label ? (
-                <span
-                  className={cn(
-                    "relative font-mono text-kicker",
-                    card.accent ? "text-muted" : "text-faint",
-                  )}
-                >
-                  {card.label[locale]}
-                </span>
-              ) : null}
+            <div className="flex items-baseline justify-between gap-3 font-mono text-kicker">
+              <span className="text-accent">{pillar.index}</span>
+              <span className="text-faint">{pillar.tag}</span>
             </div>
 
-            <p className={cn("max-w-[52ch]", ROW_BODY, card.accent ? "text-contact" : "text-muted")}>
-              <MarkedText value={card.body[locale]} />
+            <Glyph kind={pillar.kind} />
+
+            <h3 className="text-h3 font-semibold">{pillar.title[locale]}</h3>
+            <p className="text-card text-body">
+              <MarkedText value={pillar.body[locale]} />
             </p>
 
-            <span className={OUTCOME}>{card.outcome}</span>
-          </Reveal>
+            <ul className="mt-auto flex flex-col gap-3 border-t border-ink/12 pt-[clamp(12px,1.2vw,16px)]">
+              {pillar.items.map((item) => (
+                <li key={item.tag} className="flex flex-col gap-0.5">
+                  <span className="font-mono text-label text-accent">{item.tag}</span>
+                  <span className="text-note text-muted">{item.text[locale]}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
         ))}
-      </div>
+      </CoreCarousel>
     </Section>
+  );
+}
+
+type GlyphKind = (typeof dictionary.home.core.pillars)[number]["kind"];
+
+/**
+ * One 120×72 line drawing per capability, in `currentColor` so the card's own
+ * `text-accent` colours it. Hairline strokes and square caps only: the design
+ * has no rounded corners, and a filled shape would be the loudest thing on a
+ * card whose job is the sentence under it.
+ */
+function Glyph({ kind }: { kind: GlyphKind }) {
+  const shapes: Record<GlyphKind, ReactNode> = {
+    // A memory array with compute cells inside it: the one lit cell is the
+    // point — the arithmetic happens in the array, not beside it.
+    cim: (
+      <>
+        <rect x="6" y="6" width="108" height="60" />
+        {[0, 1, 2].flatMap((row) =>
+          [0, 1, 2, 3].map((col) => (
+            <rect
+              key={`${row}-${col}`}
+              x={18 + col * 24}
+              y={16 + row * 16}
+              width="12"
+              height="8"
+              opacity={row === 1 && col === 2 ? 1 : 0.35}
+              fill={row === 1 && col === 2 ? "currentColor" : "none"}
+            />
+          )),
+        )}
+      </>
+    ),
+    // Two chips, two signals: the continuous wave of the analog line, the
+    // square pulse of the digital one, echoing the PIM cards above.
+    dual: (
+      <>
+        <rect x="4" y="6" width="52" height="60" />
+        <rect x="64" y="6" width="52" height="60" />
+        <path d="M10 36c6-16 12-16 18 0s12 16 18 0" opacity="0.9" />
+        <path d="M70 46h8v-20h10v20h10v-20h6" opacity="0.9" />
+      </>
+    ),
+    // Three layers, hardware at the bottom, joined by a spine.
+    stack: (
+      <>
+        <rect x="16" y="6" width="88" height="16" opacity="0.5" />
+        <rect x="16" y="28" width="88" height="16" opacity="0.75" />
+        <rect x="16" y="50" width="88" height="16" />
+        <path d="M60 22v6M60 44v6" strokeDasharray="2 2" />
+      </>
+    ),
+    // Three bars stepping up, each capped by a square: measured, then higher.
+    silicon: (
+      <>
+        <path d="M6 66h108" />
+        <rect x="16" y="44" width="20" height="22" opacity="0.5" />
+        <rect x="50" y="30" width="20" height="36" opacity="0.75" />
+        <rect x="84" y="12" width="20" height="54" />
+        <rect x="90" y="4" width="8" height="8" fill="currentColor" />
+      </>
+    ),
+  };
+
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 120 72"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.25"
+      strokeLinecap="square"
+      className="h-[clamp(56px,6vw,76px)] w-auto self-start text-accent"
+    >
+      {shapes[kind]}
+    </svg>
   );
 }

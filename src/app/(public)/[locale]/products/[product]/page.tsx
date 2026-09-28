@@ -11,6 +11,7 @@ import {
 import { ESeriesCards } from "@/components/site/product/eseries-cards";
 import { ProductDetail } from "@/components/site/product/product-detail";
 import { SiteHeader } from "@/components/site/site-header";
+import { plainText } from "@/lib/content/markup";
 import { getPageContent, getPublishedAt } from "@/lib/content/store";
 import { isLocale } from "@/lib/i18n/config";
 import { dictionary } from "@/lib/i18n/dictionary";
@@ -300,7 +301,7 @@ export default async function ProductPage({
             // jsonld.ts; this is the CMS document's own last-publish timestamp.
             dateModified: publishedAt.toISOString(),
             title: section.title[locale],
-            description: section.lead[locale],
+            description: plainText(section.lead[locale]),
             image: section.image,
           }),
         ])}

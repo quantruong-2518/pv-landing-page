@@ -73,7 +73,7 @@ export function TrainingPage({
           hex units from that value, see the note on `DetailPanel`,
           product/detail.tsx). */}
       <div className="relative z-10 mt-5 px-gutter">
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-7 border border-ink/10 bg-navy p-6 lg:p-11">
+        <div className="mx-auto flex max-w-[1440px] flex-col gap-7 rounded-card border border-ink/10 bg-navy p-6 lg:p-11">
           <div className="flex items-baseline justify-between">
             <span className="font-mono text-[12px] font-medium tracking-[0.14em] text-accent uppercase">
               {copy.buildLabel[locale]}
@@ -141,7 +141,7 @@ export function TrainingPage({
 
       {/* "LỘ TRÌNH 2027" — same opaque-navy panel treatment. */}
       <div className="relative z-10 mt-4 px-gutter">
-        <div className="mx-auto grid max-w-[1440px] gap-x-12 gap-y-6 border border-ink/10 bg-navy p-6 lg:grid-cols-[340px_1px_minmax(0,1fr)] lg:p-11">
+        <div className="mx-auto grid max-w-[1440px] gap-x-12 gap-y-6 rounded-card border border-ink/10 bg-navy p-6 lg:grid-cols-[340px_1px_minmax(0,1fr)] lg:p-11">
           <div className="flex flex-col gap-4">
             <span className="font-mono text-[12px] font-medium tracking-[0.14em] text-accent uppercase">
               {copy.roadmap2027Label[locale]}
@@ -229,7 +229,7 @@ function StepCard({
   body: ReactNode;
 }) {
   return (
-    <div className="flex w-full flex-col gap-3 border border-ink/6 bg-ink/[0.04] p-[26px] pb-[30px]">
+    <div className="flex w-full flex-col gap-3 rounded-card border border-ink/6 bg-ink/[0.04] p-[26px] pb-[30px]">
       <span className="flex items-center justify-between">
         <span className="font-mono text-[15px] font-medium tracking-[0.04em] text-accent">{index}</span>
         <Icon className="size-[26px] text-accent" />
@@ -256,7 +256,7 @@ function PhaseCard({
   return (
     <div
       className={cn(
-        "flex flex-col gap-3.5 border border-ink/6 bg-ink/[0.04] p-[26px] pb-7",
+        "flex flex-col gap-3.5 rounded-card border border-ink/6 bg-ink/[0.04] p-[26px] pb-7",
         current && "border-t-2 border-t-accent",
       )}
     >

@@ -75,7 +75,7 @@ export function WhySection({ content, locale }: { content: HomeContent["why"]; l
           // answer to the paragraph above it and has to survive being read after
           // a 260px picture. From `lg` the two paragraphs are a pair again and
           // the frame would only box in half of it.
-          <p className="max-w-[58ch] border border-accent/28 bg-accent/8 p-4 text-lead text-contact lg:border-0 lg:bg-transparent lg:p-0">
+          <p className="max-w-[58ch] rounded-card border border-accent/28 bg-accent/8 p-4 text-lead text-contact lg:border-0 lg:bg-transparent lg:p-0">
             <MarkedText value={solution} />
           </p>
         ) : null}

@@ -86,16 +86,16 @@ distinction is not decoration:
 ## Products
 
 ### MINT — ${content.product.mint.title[en]}
-${content.product.mint.lead[en]}
+${plainText(content.product.mint.lead[en])}
 Applications: ${copy.mint.apps.join(", ")}.
 Read more: ${absolute(routes.product(en, "mint"))}
 
 ### PAPAYA & PAPAYA FLEX — ${content.product.papaya.title[en]}
-${content.product.papaya.lead[en]}
+${plainText(content.product.papaya.lead[en])}
 Read more: ${absolute(routes.product(en, "papaya"))}
 
 ### ESPRESSO — ${content.product.espresso.title[en]}
-${content.product.espresso.lead[en]}
+${plainText(content.product.espresso.lead[en])}
 Read more: ${absolute(routes.product(en, "espresso"))}
 
 ### Enterprise software

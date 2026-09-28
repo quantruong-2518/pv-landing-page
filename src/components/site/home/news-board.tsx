@@ -112,7 +112,7 @@ function FeaturedStory({ story, selected }: { story: NewsStory; selected: boolea
       as="article"
       className={cn("flex flex-col gap-3 md:gap-[18px]", !selected && "max-md:hidden")}
     >
-      <div className="relative aspect-video overflow-hidden md:aspect-auto md:min-h-[240px] md:grow">
+      <div className="relative aspect-video overflow-hidden rounded-card md:aspect-auto md:min-h-[240px] md:grow">
         <Image
           src={story.image}
           alt=""
@@ -164,7 +164,7 @@ function CompactStory({
         !selected && "max-md:hidden",
       )}
     >
-      <div className="relative aspect-video overflow-hidden md:aspect-[4/3]">
+      <div className="relative aspect-video overflow-hidden rounded-card md:aspect-[4/3]">
         <Image
           src={story.image}
           alt=""

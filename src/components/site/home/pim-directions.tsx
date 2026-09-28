@@ -154,7 +154,7 @@ function PimCard({ direction }: { direction: PimDirection }) {
     <Link
       href={direction.href}
       id={`pim-card-${direction.kind}`}
-      className="pim-technical-card group relative flex w-full grow flex-col overflow-hidden border border-ink/12 bg-marquee max-md:border-t-0"
+      className="pim-technical-card group relative flex w-full grow flex-col overflow-hidden rounded-card border border-ink/12 bg-marquee max-md:rounded-t-none max-md:border-t-0"
     >
       <div aria-hidden className="pim-technical-grid pointer-events-none absolute inset-0" />
 

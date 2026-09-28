@@ -110,9 +110,9 @@ export const SEED_CONTENT: SiteContent = {
         ko: "칩 기술의 핵심 역량",
       },
       lead: {
-        vi: "Pebble Vina phát triển kiến trúc công nghệ chip bán dẫn tích hợp AI ngoại biên với trọng tâm **tối ưu luồng dữ liệu, năng lực xử lý song song và hiệu quả tính toán**, hướng tới khả năng xử lý ổn định và hiệu quả năng lượng.",
-        en: "Pebble Vina develops edge-AI semiconductor architecture centred on **data-flow optimisation, parallel processing capability and computational efficiency** — built for the rising demands of AI workloads while targeting stable processing and energy efficiency.",
-        ko: "Pebble Vina는 **데이터 흐름 최적화와 병렬 처리 능력, 연산 효율**을 중심에 두고 엣지 AI 반도체 아키텍처를 개발하며, 안정적인 처리 성능과 에너지 효율을 함께 지향합니다.",
+        vi: "Pebble Vina phát triển công nghệ chip bán dẫn AI trên bốn năng lực cốt lõi: **CIM, kiến trúc kép Analog và Digital, tích hợp toàn diện, thực chứng silicon**.",
+        en: "Pebble Vina builds AI semiconductor technology on four core capabilities: **CIM, a dual Analog and Digital architecture, full-stack integration and silicon validation**.",
+        ko: "Pebble Vina는 **CIM, 아날로그·디지털 이중 아키텍처, 풀스택 통합, 실리콘 검증** 네 가지 핵심 역량을 바탕으로 AI 반도체 기술을 개발합니다.",
       },
       stat: "400K",
     },
@@ -205,9 +205,9 @@ export const SEED_CONTENT: SiteContent = {
         // is `product.mint.meta`; 600.000 chips and the 92% pass rate come from the
         // owner's product brief (2026-09-28). Best-for line: safety monitoring, electrical
         // equipment, sensors.
-        vi: "MINT là giải pháp AI tiên phong đã được chứng minh qua sản xuất hàng loạt từ 05/2023. Là chip Analog CIM chuyên dụng cho các thiết bị cần giám sát liên tục với mức tiêu thụ điện cực thấp, MINT đạt 30 GOPS ở hiệu suất 17,6 TOPS/W. Hơn 600.000 chip đã được sản xuất với tỷ lệ đạt chuẩn 92%, mang lại độ tin cậy cao cho các ứng dụng an toàn điện như AFCI. MINT dành cho thiết bị giám sát an toàn, thiết bị điện và cảm biến cần AI chạy trực tiếp tại biên với độ ổn định cao.",
-        en: "MINT is the proven edge safety AI — an Analog CIM chip in mass production since 05/2023. Built for devices that need continuous monitoring at ultra-low power, it delivers 30 GOPS at 17.6 TOPS/W. With more than 600,000 chips produced at a 92% pass rate, MINT brings dependable reliability to electrical-safety applications such as AFCI. It is made for safety-monitoring devices, electrical equipment and sensors that need AI running right at the edge with high stability.",
-        ko: "MINT는 2023년 5월부터 대량 생산으로 검증된 엣지 안전 AI입니다. 초저전력으로 상시 모니터링이 필요한 기기를 위한 전용 아날로그 CIM 칩으로, 17.6 TOPS/W 효율로 30 GOPS를 냅니다. 60만 개 이상을 92%의 합격률로 생산해 AFCI 같은 전기 안전 응용에 높은 신뢰성을 제공합니다. 안전 모니터링 기기, 전기 설비, 그리고 엣지에서 AI를 안정적으로 구동해야 하는 센서에 적합합니다.",
+        vi: "MINT là giải pháp AI tiên phong đã được **chứng minh qua sản xuất hàng loạt** từ *05/2023*. Là chip **Analog CIM** chuyên dụng cho các thiết bị cần **giám sát liên tục** với mức tiêu thụ điện cực thấp, MINT đạt *30 GOPS* ở hiệu suất *17,6 TOPS/W*. Hơn *600.000 chip* đã được sản xuất với tỷ lệ đạt chuẩn *92%*, mang lại độ tin cậy cao cho các ứng dụng **an toàn điện như AFCI**. MINT dành cho **thiết bị giám sát an toàn**, thiết bị điện và cảm biến cần **AI chạy trực tiếp tại biên** với độ ổn định cao.",
+        en: "MINT is the proven edge safety AI — an **Analog CIM** chip in **mass production** since *05/2023*. Built for devices that need **continuous monitoring** at ultra-low power, it delivers *30 GOPS* at *17.6 TOPS/W*. With more than *600,000 chips* produced at a *92%* pass rate, MINT brings dependable reliability to **electrical-safety** applications such as AFCI. It is made for **safety-monitoring devices**, electrical equipment and sensors that need **AI running right at the edge** with high stability.",
+        ko: "MINT는 *2023년 5월*부터 **대량 생산**으로 검증된 엣지 안전 AI입니다. 초저전력으로 **상시 모니터링**이 필요한 기기를 위한 전용 **아날로그 CIM** 칩으로, *17.6 TOPS/W* 효율로 *30 GOPS*를 냅니다. *60만 개* 이상을 *92%*의 합격률로 생산해 AFCI 같은 **전기 안전** 응용에 높은 신뢰성을 제공합니다. **안전 모니터링 기기**, 전기 설비, 그리고 **엣지에서 AI를 안정적으로 구동**해야 하는 센서에 적합합니다.",
       },
       image: "/images/mint-chrome-v4.png",
     },
@@ -224,9 +224,9 @@ export const SEED_CONTENT: SiteContent = {
         // `flexAbsoluteSpecs` (dictionary.ts); 32M synapses and the 2027 H1 target come
         // from the owner's product brief (2026-09-28). FLEX is not shipping, so its date
         // sits in the sentence (CLAUDE.md § 2).
-        vi: "PAPAYA là động cơ thị giác đã được kiểm chứng silicon: chip Analog CIM thế hệ mới cho các tác vụ thị giác máy tính. Chỉ khoảng 50 mW, PAPAYA đưa AI xử lý hình ảnh ngay tại thiết bị đầu cuối mà không cần kết nối cloud — lý tưởng cho camera AI, thiết bị giám sát hình ảnh và Edge Vision công nghiệp. PAPAYA FLEX, đang hoàn thiện sản phẩm với mục tiêu 2027 H1, nâng lên 32M synapse và 2 TOPS trong khung điện năng thấp ~200 mW, dành cho robot, cảm biến vật lý phức tạp và Physical AI cần xử lý dữ liệu đa kênh.",
-        en: "PAPAYA is the verified vision engine: a next-generation Analog CIM chip, silicon-verified for computer-vision workloads. At around 50 mW, it runs image processing right on the end device with no cloud connection — ideal for AI cameras, video-monitoring equipment and industrial edge vision. PAPAYA FLEX, now being productized with a target of 2027 H1, steps up to 32M synapses and 2 TOPS within a low ~200 mW envelope, for robots, complex physical sensors and physical AI that must process multi-channel data.",
-        ko: "PAPAYA는 실리콘 검증을 마친 비전 엔진으로, 컴퓨터 비전 작업을 위한 차세대 아날로그 CIM 칩입니다. 약 50 mW로 클라우드 연결 없이 단말 기기에서 바로 영상을 처리해 AI 카메라, 영상 모니터링 장비, 산업용 엣지 비전에 적합합니다. 제품화를 진행 중인 PAPAYA FLEX(2027년 상반기 목표)는 약 200 mW의 저전력 범위에서 3,200만 시냅스와 2 TOPS를 제공하며, 다채널 데이터를 처리해야 하는 로봇, 복합 물리 센서, 피지컬 AI를 겨냥합니다.",
+        vi: "PAPAYA là **động cơ thị giác đã được kiểm chứng silicon**: chip **Analog CIM** thế hệ mới cho các tác vụ **thị giác máy tính**. Chỉ khoảng *50 mW*, PAPAYA đưa AI xử lý hình ảnh **ngay tại thiết bị đầu cuối, không cần kết nối cloud** — lý tưởng cho **camera AI**, thiết bị giám sát hình ảnh và **Edge Vision công nghiệp**. **PAPAYA FLEX**, đang hoàn thiện sản phẩm với mục tiêu *2027 H1*, nâng lên *32M synapse* và *2 TOPS* trong khung điện năng thấp *~200 mW*, dành cho **robot**, cảm biến vật lý phức tạp và **Physical AI** cần xử lý dữ liệu đa kênh.",
+        en: "PAPAYA is the **verified vision engine**: a next-generation **Analog CIM** chip, silicon-verified for **computer-vision** workloads. At around *50 mW*, it runs image processing **right on the end device with no cloud connection** — ideal for **AI cameras**, video-monitoring equipment and **industrial edge vision**. **PAPAYA FLEX**, now being productized with a target of *2027 H1*, steps up to *32M synapses* and *2 TOPS* within a low *~200 mW* envelope, for **robots**, complex physical sensors and **physical AI** that must process multi-channel data.",
+        ko: "PAPAYA는 **실리콘 검증을 마친 비전 엔진**으로, **컴퓨터 비전** 작업을 위한 차세대 **아날로그 CIM** 칩입니다. 약 *50 mW*로 **클라우드 연결 없이 단말 기기에서 바로** 영상을 처리해 **AI 카메라**, 영상 모니터링 장비, 산업용 엣지 비전에 적합합니다. 제품화를 진행 중인 **PAPAYA FLEX**(*2027년 상반기* 목표)는 약 *200 mW*의 저전력 범위에서 *3,200만 시냅스*와 *2 TOPS*를 제공하며, 다채널 데이터를 처리해야 하는 **로봇**, 복합 물리 센서, **피지컬 AI**를 겨냥합니다.",
       },
       image: "/images/papaya-chrome-v4.png",
     },
@@ -242,9 +242,9 @@ export const SEED_CONTENT: SiteContent = {
         // Figures: 140 TOPS dense INT8 is `product.espresso.specs`; 90 TFLOPS (bf16) and
         // "MPW silicon validated" come from the owner's product brief (2026-09-28).
         // Roadmap part, so Q3/2026 sits in the copy (CLAUDE.md § 2).
-        vi: "ESPRESSO là bộ tăng tốc AI hiệu năng cao cho kỷ nguyên AI tạo sinh: chip Digital CIM (SRAM) đã được đo lường thực tế trên silicon MPW. Mỗi chip đạt 140 TOPS (dense INT8) và 90 TFLOPS (bf16), đủ sức chạy mô hình ngôn ngữ lớn (LLM) và Vision AI quy mô lớn ngay tại chỗ — AI cục bộ, riêng tư. ESPRESSO hướng tới Private AI Server, suy luận LLM cục bộ và trung tâm dữ liệu AI tại biên, dự kiến Q3/2026.",
-        en: "ESPRESSO is the local-LLM and high-performance AI accelerator for the generative-AI era: a Digital CIM (SRAM) chip whose performance has been measured on MPW silicon. Each chip delivers 140 TOPS (dense INT8) and 90 TFLOPS (bf16), enough to run large language models (LLMs) and large-scale vision AI right where the data lives — local, private AI. It targets private AI servers, local LLM inference and edge AI data centres, and is expected in Q3/2026.",
-        ko: "ESPRESSO는 생성형 AI 시대를 위한 로컬 LLM·고성능 AI 가속기로, MPW 실리콘에서 성능을 실측한 Digital CIM(SRAM) 칩입니다. 칩 하나당 140 TOPS(dense INT8)와 90 TFLOPS(bf16)를 내어 대규모 언어 모델(LLM)과 대규모 비전 AI를 현장에서 직접 구동하는 로컬·프라이빗 AI를 가능하게 합니다. 프라이빗 AI 서버, 로컬 LLM 추론, 엣지 AI 데이터센터를 목표로 하며 2026년 3분기 출시가 예정되어 있습니다.",
+        vi: "ESPRESSO là **bộ tăng tốc AI hiệu năng cao** cho kỷ nguyên AI tạo sinh: chip **Digital CIM (SRAM)** đã được đo lường thực tế trên **silicon MPW**. Mỗi chip đạt *140 TOPS* (dense INT8) và *90 TFLOPS* (bf16), đủ sức chạy **mô hình ngôn ngữ lớn (LLM)** và Vision AI quy mô lớn ngay tại chỗ — **AI cục bộ, riêng tư**. ESPRESSO hướng tới **Private AI Server**, suy luận LLM cục bộ và trung tâm dữ liệu AI tại biên, dự kiến *Q3/2026*.",
+        en: "ESPRESSO is the local-LLM and **high-performance AI accelerator** for the generative-AI era: a **Digital CIM (SRAM)** chip whose performance has been measured on **MPW silicon**. Each chip delivers *140 TOPS* (dense INT8) and *90 TFLOPS* (bf16), enough to run **large language models (LLMs)** and large-scale vision AI right where the data lives — **local, private AI**. It targets **private AI servers**, local LLM inference and edge AI data centres, and is expected in *Q3/2026*.",
+        ko: "ESPRESSO는 생성형 AI 시대를 위한 로컬 LLM·**고성능 AI 가속기**로, **MPW 실리콘**에서 성능을 실측한 **Digital CIM(SRAM)** 칩입니다. 칩 하나당 *140 TOPS*(dense INT8)와 *90 TFLOPS*(bf16)를 내어 **대규모 언어 모델(LLM)**과 대규모 비전 AI를 현장에서 직접 구동하는 **로컬·프라이빗 AI**를 가능하게 합니다. **프라이빗 AI 서버**, 로컬 LLM 추론, 엣지 AI 데이터센터를 목표로 하며 *2026년 3분기* 출시가 예정되어 있습니다.",
       },
       image: "/images/espresso-chrome-v4.png",
     },

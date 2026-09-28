@@ -83,7 +83,7 @@ export function NewsPage({ content, locale }: { content: HomeContent["news"]; lo
 
       {featured ? (
         <div className="relative z-10 mt-9 px-gutter">
-          <div className="mx-auto grid max-w-[1440px] gap-y-6 border border-ink/10 bg-ink/[0.035] p-6 lg:grid-cols-2 lg:gap-x-14 lg:p-11">
+          <div className="mx-auto grid max-w-[1440px] gap-y-6 rounded-card border border-ink/10 bg-ink/[0.035] p-6 lg:grid-cols-2 lg:gap-x-14 lg:p-11">
             <div className="relative aspect-[16/10] overflow-hidden">
               <Image
                 src={featured.image}
@@ -115,7 +115,7 @@ export function NewsPage({ content, locale }: { content: HomeContent["news"]; lo
 
       {rest.length > 0 ? (
         <div className="relative z-10 mt-5 px-gutter">
-          <div className="mx-auto flex max-w-[1440px] flex-col gap-7 border border-ink/10 bg-ink/[0.035] p-6 lg:p-11">
+          <div className="mx-auto flex max-w-[1440px] flex-col gap-7 rounded-card border border-ink/10 bg-ink/[0.035] p-6 lg:p-11">
             <span className="font-mono text-[12px] font-medium tracking-[0.14em] text-accent uppercase">
               {copy.previousLabel[locale]}
             </span>
@@ -172,7 +172,7 @@ function PreviousStoryCard({
   className?: string;
 }) {
   return (
-    <article className={`flex flex-col border border-ink/8 bg-ink/[0.04] ${className ?? ""}`}>
+    <article className={`flex flex-col overflow-hidden rounded-card border border-ink/8 bg-ink/[0.04] ${className ?? ""}`}>
       <div className="relative aspect-[4/3]">
         <Image
           src={story.image}

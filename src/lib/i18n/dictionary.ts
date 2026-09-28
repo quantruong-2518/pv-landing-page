@@ -204,7 +204,137 @@ export const dictionary = {
     },
 
     core: {
-      /** Card 02's value comes from the CMS (`core.stat`), the rest are fixed. */
+      /**
+       * The four core capabilities, from the owner's product brief (2026-09-28):
+       * CIM/IMC, dual architecture, full-stack integration, silicon validation.
+       * Every status line carries its own date or stage (CLAUDE.md § 2.2): MINT
+       * 05/2023, PAPAYA PoC 2024, ESPRESSO MPW-measured with the product still
+       * expected Q3/2026 — `seed.ts` product.espresso is the same source.
+       */
+      pillars: [
+        {
+          index: "01",
+          kind: "cim" as const,
+          tag: "CIM · IMC",
+          title: L("Tính toán trong bộ nhớ", "Computing inside memory", "메모리 안에서 연산"),
+          body: L(
+            "**CIM (Compute-in-Memory) / IMC (In-Memory Computing)** là nền tảng công nghệ then chốt: thay vì liên tục di chuyển dữ liệu giữa bộ nhớ và bộ xử lý, việc tính toán diễn ra *ngay tại nơi lưu trữ dữ liệu*.",
+            "**CIM (Compute-in-Memory) / IMC (In-Memory Computing)** is the key technology foundation: instead of constantly moving data between memory and processor, computation happens *right where the data is stored*.",
+            "**CIM(Compute-in-Memory) / IMC(In-Memory Computing)**는 핵심 기술 기반입니다. 데이터를 메모리와 프로세서 사이에서 계속 옮기는 대신 *데이터가 저장된 자리에서 바로* 연산합니다.",
+          ),
+          items: [
+            { tag: "LATENCY", text: L("Giảm độ trễ", "Lower latency", "지연 시간 감소") },
+            {
+              tag: "POWER",
+              text: L("Giảm điện năng tiêu thụ", "Lower power consumption", "전력 소비 감소"),
+            },
+          ],
+        },
+        {
+          index: "02",
+          kind: "dual" as const,
+          tag: "DUAL ARCHITECTURE",
+          title: L("Kiến trúc kép", "Dual architecture", "이중 아키텍처"),
+          body: L(
+            "Làm chủ **cả hai hướng CIM**: *Analog* dựa trên eFlash và *Digital* dựa trên SRAM, đáp ứng các nhu cầu tính toán AI khác nhau.",
+            "Mastery of **both CIM directions**: *Analog* on eFlash and *Digital* on SRAM, serving different AI computing needs.",
+            "**두 가지 CIM 방향**을 모두 갖춥니다. eFlash 기반 *아날로그*와 SRAM 기반 *디지털*로 서로 다른 AI 연산 수요에 대응합니다.",
+          ),
+          items: [
+            {
+              tag: "ANALOG · eFlash",
+              text: L(
+                "Edge AI, cảm biến, AI cực kỳ tiết kiệm điện",
+                "Edge AI, sensors and ultra-low-power AI",
+                "엣지 AI, 센서, 초저전력 AI",
+              ),
+            },
+            {
+              tag: "DIGITAL · SRAM",
+              text: L(
+                "Hiệu năng cao cho mô hình lớn và LLM",
+                "High performance for large models and LLMs",
+                "대형 모델과 LLM을 위한 고성능",
+              ),
+            },
+          ],
+        },
+        {
+          index: "03",
+          kind: "stack" as const,
+          tag: "FULL-STACK",
+          title: L("Tích hợp toàn diện", "Full-stack integration", "풀스택 통합"),
+          body: L(
+            "Không dừng ở thiết kế chip: năng lực trải từ **phần cứng, phần mềm đến hệ thống** và giải pháp hoàn chỉnh cho khách hàng.",
+            "Beyond chip design: capability spans **hardware, software and systems**, through to complete solutions for customers.",
+            "칩 설계에 그치지 않고 **하드웨어, 소프트웨어, 시스템**을 아우르며 고객을 위한 완결된 솔루션까지 제공합니다.",
+          ),
+          items: [
+            {
+              tag: "HARDWARE",
+              text: L(
+                "Thiết kế chip Analog & Digital CIM",
+                "Analog and Digital CIM chip design",
+                "아날로그·디지털 CIM 칩 설계",
+              ),
+            },
+            {
+              tag: "SOFTWARE",
+              text: L(
+                "Pebble AI Studio — bộ SDK tối ưu mô hình và triển khai lên phần cứng",
+                "Pebble AI Studio — an SDK to optimise models and deploy them on the hardware",
+                "Pebble AI Studio — 모델 최적화와 하드웨어 배포를 위한 SDK",
+              ),
+            },
+            {
+              tag: "SYSTEM",
+              text: L(
+                "Tích hợp chip vào module, card và giải pháp hoàn chỉnh",
+                "Chips integrated into modules, cards and complete solutions",
+                "칩을 모듈, 카드, 완결형 솔루션으로 통합",
+              ),
+            },
+          ],
+        },
+        {
+          index: "04",
+          kind: "silicon" as const,
+          tag: "SILICON VALIDATION",
+          title: L("Thực chứng silicon", "Silicon-proven", "실리콘 검증"),
+          body: L(
+            "Năng lực đi từ lý thuyết đến thực tế đã được **chứng minh bằng kết quả đo đạc thực** trên silicon.",
+            "The move from theory to reality is **proven by measured results** on real silicon.",
+            "이론에서 실제로 나아가는 역량을 실리콘에서 얻은 **실측 결과로 입증**했습니다.",
+          ),
+          items: [
+            {
+              tag: "MINT",
+              text: L(
+                "Sản xuất hàng loạt từ 05/2023",
+                "In mass production since 05/2023",
+                "2023년 5월부터 대량 생산",
+              ),
+            },
+            {
+              tag: "PAPAYA",
+              text: L(
+                "Đã kiểm chứng silicon (PoC 2024)",
+                "Silicon-verified (PoC 2024)",
+                "실리콘 검증 완료 (2024 PoC)",
+              ),
+            },
+            {
+              tag: "ESPRESSO",
+              text: L(
+                "Đã đo đạc trên silicon MPW; sản phẩm dự kiến Q3/2026",
+                "Measured on MPW silicon; product expected Q3/2026",
+                "MPW 실리콘에서 실측 완료, 제품은 2026년 3분기 예정",
+              ),
+            },
+          ],
+        },
+      ],
+      /** Card 02's value comes from the CMS (`core.stat`); only `/bio` still reads these. */
       cards: [
         {
           index: "01",

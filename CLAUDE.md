@@ -38,8 +38,9 @@ Ba file `.dc.html` là **mock tham khảo**, không import vào `src/`.
 - **Tiếng Việt là bản gốc, ba locale luôn đủ bộ.** Mỗi chuỗi là `{ vi, en, ko }`; viết tiếng Việt
   trước rồi dịch sang hai thứ tiếng kia bằng giọng marketing B2B, không thêm con số hay năng lực nào
   mà bản tiếng Việt chưa nói. Thêm khóa là thêm cả ba — `Localized` sẽ chặn nếu thiếu.
-- **Không bo góc, không đổ bóng.** Thiết kế vuông góc hoàn toàn; chiều sâu tạo bằng nền tối/sáng và
-  viền `border-ink/8…28`.
+- **Không đổ bóng; chỉ thẻ (card) được bo góc nhẹ.** Thẻ và ảnh trên thẻ dùng `rounded-card`
+  (`--radius-card`, 6px, chốt 2026-09-28); nút, pill, input, control giữ vuông. Chiều sâu tạo bằng
+  nền tối/sáng và viền `border-ink/8…28`.
 - **Khối `screen` chỉ cao trọn màn từ `md` trở lên**, và dùng `svh` chứ không `vh`. Thêm chữ vào một
   khối `screen` là làm nó tràn màn trên điện thoại.
 - Trước khi commit: `pnpm typecheck`, `pnpm lint`, `pnpm build` phải xanh.

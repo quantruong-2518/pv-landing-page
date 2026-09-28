@@ -19,7 +19,7 @@ export function ESeriesCards({ locale }: { locale: Locale }) {
 
       <div className="grid gap-2 sm:grid-cols-2">
         {copy.cards.map((card) => (
-          <article key={card.name} className="bg-ink/[0.035] p-3.5 sm:p-4">
+          <article key={card.name} className="rounded-card bg-ink/[0.035] p-3.5 sm:p-4">
             <div className="flex items-baseline justify-between gap-3">
               <h3 className="font-heading text-h3">{card.name}</h3>
               <span className="font-mono text-label text-accent">{card.index}</span>

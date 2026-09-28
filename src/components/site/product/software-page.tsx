@@ -87,7 +87,7 @@ export function SoftwarePage({
       {/* "BỘ SẢN PHẨM" — the CRM→ERP→HRM→DMS chain, then the operations
           centre that reads all four (N-Software-dark mocks). */}
       <div className="relative z-10 mt-10 px-gutter lg:mt-16">
-        <div className="mx-auto grid max-w-[1440px] gap-x-[44px] gap-y-6 border border-ink/10 bg-ink/[0.035] p-6 lg:grid-cols-[220px_1px_minmax(0,1fr)] lg:gap-y-0 lg:p-11">
+        <div className="mx-auto grid max-w-[1440px] gap-x-[44px] gap-y-6 rounded-card border border-ink/10 bg-ink/[0.035] p-6 lg:grid-cols-[220px_1px_minmax(0,1fr)] lg:gap-y-0 lg:p-11">
           <div className="flex flex-col gap-[18px]">
             <span className="font-mono text-[12px] font-medium tracking-[0.14em] text-accent uppercase">
               {copy.suiteLabel[locale]}
@@ -147,7 +147,7 @@ export function SoftwarePage({
             {/* "05" — the operations centre every module's data reaches.
                 Highlighted accent tint, same rule the DETAIL pages' status
                 pill uses for "this exists/is committed" vs. roadmap. */}
-            <div className="flex flex-col gap-3 border border-accent/45 bg-accent/10 p-5 sm:flex-row sm:items-center sm:gap-6">
+            <div className="flex flex-col gap-3 rounded-card border border-accent/45 bg-accent/10 p-5 sm:flex-row sm:items-center sm:gap-6">
               <span className="flex items-center gap-3">
                 <span className="font-mono text-[13px] font-medium tracking-[0.08em] text-accent">
                   {copy.modules[4].index}
@@ -171,7 +171,7 @@ export function SoftwarePage({
       {/* "TRUNG TÂM VẬN HÀNH AI" — the second panel: what the operations
           centre above actually does, as a 4-step row. */}
       <div className="relative z-10 mt-5 px-gutter">
-        <div className="mx-auto grid max-w-[1440px] gap-x-[44px] gap-y-6 border border-ink/10 bg-ink/[0.035] p-6 lg:grid-cols-[220px_1px_minmax(0,1fr)] lg:p-11">
+        <div className="mx-auto grid max-w-[1440px] gap-x-[44px] gap-y-6 rounded-card border border-ink/10 bg-ink/[0.035] p-6 lg:grid-cols-[220px_1px_minmax(0,1fr)] lg:p-11">
           <div className="flex flex-col items-start gap-[18px]">
             <span className="font-mono text-[12px] font-medium tracking-[0.14em] text-accent uppercase">
               {splitLines(copy.hubLabel[locale]).map((line, index) => (
@@ -255,7 +255,7 @@ function HubStepCard({
   icon: (props: SVGProps<SVGSVGElement>) => ReactNode;
 }) {
   return (
-    <div className="flex min-w-0 flex-1 flex-col gap-3 border border-ink/8 bg-ink/[0.04] p-[22px] pb-6">
+    <div className="flex min-w-0 flex-1 flex-col gap-3 rounded-card border border-ink/8 bg-ink/[0.04] p-[22px] pb-6">
       <span className="flex items-center justify-between">
         <span className="font-mono text-[13px] font-medium tracking-[0.08em] text-accent">{index}</span>
         <Icon className="size-[22px] text-accent" />

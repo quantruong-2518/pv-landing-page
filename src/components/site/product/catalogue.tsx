@@ -258,7 +258,7 @@ function HardwareCard({
     >
       <Link
         href={href}
-        className="group relative flex h-[400px] w-full flex-col justify-between overflow-hidden border border-ink/14 bg-marquee text-ink transition-colors hover:border-ink/30 lg:h-[490px]"
+        className="group relative flex h-[400px] w-full flex-col justify-between overflow-hidden rounded-card border border-ink/14 bg-marquee text-ink transition-colors hover:border-ink/30 lg:h-[490px]"
       >
         <div className="absolute inset-x-0 top-0 h-4/5">
           <Image
@@ -365,7 +365,7 @@ function SolutionCard({
     >
       <Link
         href={href}
-        className="group relative flex h-[300px] w-full flex-col justify-between overflow-hidden bg-marquee text-ink lg:h-[320px]"
+        className="group relative flex h-[300px] w-full flex-col justify-between overflow-hidden rounded-card bg-marquee text-ink lg:h-[320px]"
       >
         <Image
           src={image}

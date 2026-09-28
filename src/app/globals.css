@@ -92,6 +92,11 @@
   --spacing-header: 84px; /* public header height */
   --spacing-header-admin: 72px; /* admin header height */
 
+  /* The one corner radius on the site, for cards and the images that sit on
+   * them. Owner's call, 2026-09-28: square read as too hard, so cards get a
+   * light rounding; buttons, pills, inputs and controls stay square. */
+  --radius-card: 6px;
+
   /* Type scale. Every entry carries its own line-height, tracking and weight so
    * a component never re-states them. Sizes are the handoff's clamp() values. */
   /* `--font-korean` is only defined on /ko (see the [locale] layout). The
@@ -272,8 +277,9 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Square corners everywhere: the design has no border-radius and no shadow.
-   * Depth comes from darker/lighter surfaces and hairline borders only. */
+  /* Square by default, and no shadow anywhere: depth comes from darker/lighter
+   * surfaces and hairline borders. Cards opt in to `rounded-card` (see
+   * `--radius-card`); a utility outranks this base-layer reset. */
   *,
   *::before,
   *::after {
@@ -371,13 +377,6 @@
   }
   .glow-core {
     background-image: radial-gradient(90% 70% at 12% 92%, var(--glow-medium), transparent 60%);
-  }
-  .glow-core-figure {
-    background-image: radial-gradient(
-      50% 50% at 42% 50%,
-      color-mix(in srgb, var(--color-accent) 22%, transparent),
-      transparent 70%
-    );
   }
   .glow-news {
     background-image: radial-gradient(70% 60% at 50% 0%, var(--glow-faint), transparent 60%);

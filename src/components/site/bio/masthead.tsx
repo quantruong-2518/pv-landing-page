@@ -174,7 +174,7 @@ export function BioMasthead({ locale }: { locale: Locale }) {
                 edge-to-edge photograph, and a hairline frame is what makes this
                 one read as a plate in a document. `lg:absolute` lets it fill
                 the height of the type column beside it. */}
-            <div className="relative border border-ink/14 lg:self-stretch">
+            <div className="relative overflow-hidden rounded-card border border-ink/14 lg:self-stretch">
               <div className="relative aspect-[16/10] w-full lg:absolute lg:inset-0 lg:aspect-auto">
                 <Image
                   src={copy.cover.photo}

@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { ApplicationCarousel } from "@/components/site/product/application-carousel";
-import { localizeFigure } from "@/components/site/primitives";
+import { localizeFigure, MarkedText } from "@/components/site/primitives";
 import type { Locale } from "@/lib/i18n/config";
 import { dictionary, type Spec } from "@/lib/i18n/dictionary";
 import { homeAnchor, routes } from "@/lib/routes";
@@ -190,7 +190,7 @@ export function DetailScreen({
           />
           <DetailRule />
           <p className="max-w-[62ch] text-[15px] leading-[1.55] text-body lg:text-[14px] lg:leading-[1.45] xl:text-[16px] xl:leading-[1.55]">
-            {lead}
+            <MarkedText value={lead} />
           </p>
           <div className="flex flex-wrap items-center gap-2 lg:gap-2.5">
             {pills}
@@ -248,7 +248,7 @@ export function DetailSpecTile({
     .replace(/(^|\s)\S/g, (char) => char.toUpperCase());
   const toneText = tone === "teal" ? "text-info" : "text-accent";
   return (
-    <div className="flex min-w-0 flex-col justify-between gap-2 border border-ink/10 bg-ink/[0.04] px-3 py-2.5 lg:px-4 lg:py-3">
+    <div className="flex min-w-0 flex-col justify-between gap-2 rounded-card border border-ink/10 bg-ink/[0.04] px-3 py-2.5 lg:px-4 lg:py-3">
       {/* Index over label on a phone, where a 3-up tile is ~100px wide and
           "Performance" would otherwise be cut; one line from `lg`. */}
       <span className="flex flex-col gap-0.5 text-[11px] leading-tight font-medium text-body lg:flex-row lg:items-baseline lg:gap-2 lg:text-[13px]">
@@ -317,7 +317,7 @@ export function DetailBoard({
   apps: readonly DetailApp[];
 }) {
   return (
-    <div className="grid gap-4 border border-ink/10 bg-navy-lit p-4 xl:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] xl:gap-6">
+    <div className="grid gap-4 rounded-card border border-ink/10 bg-navy-lit p-4 xl:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] xl:gap-6">
       <div className="flex flex-col gap-3">
         <DetailGroupLabel>{specLabel}</DetailGroupLabel>
         {/* Rows grow to the application column's height, so a one-row chip
