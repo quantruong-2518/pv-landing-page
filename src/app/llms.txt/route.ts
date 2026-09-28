@@ -77,15 +77,11 @@ distinction is not decoration:
 
 | Product | Status | Headline figures |
 | --- | --- | --- |
-| MINT | In production since 05/2023 | 30 GOPS · 17.6 TOPS/W · 5 × 5 mm² die |
-| PAPAYA / PAPAYA FLEX | Proof of concept, 2024 | 0.5 TOPS · 30 TOPS/W · 5 × 5 mm² die |
-| ESPRESSO | Roadmap, expected Q3/2026 | 160 TOPS · 16 TOPS/W · 20 × 23 mm² die · 640 TOPS on a 4-chip card |
+| MINT | In production since 05/2023 | 30 GOPS · 17.6 TOPS/W |
+| PAPAYA / PAPAYA FLEX | Proof of concept, 2024 (PAPAYA silicon verified, 1 run; PAPAYA FLEX productization target 2027 H1) | PAPAYA 0.5 TOPS · ~50 mW; PAPAYA FLEX 2 TOPS · ~200 mW |
+| ESPRESSO | Roadmap, expected Q3/2026 | 140 TOPS (dense INT8) · efficiency varies by workload, about 15.5–28 TOPS/W on vision · 560 TOPS on a 4-chip card |
 | Enterprise software platform | Roadmap, expected 12/2026 | ${content.product.software.progress}% toward target completion |
 | Enterprise AI training | Needs survey, 2027 | Programme model not yet finalised |
-
-PAPAYA FLEX's "~50× / ~100× / ~25×" figures are comparisons against an NVIDIA
-Jetson Nano under published benchmark conditions, not absolute measurements:
-${copy.papaya.flexSpecs.map((spec) => `${spec.value} — ${spec.note?.[en] ?? ""}`).join("; ")}
 
 ## Products
 
@@ -124,8 +120,8 @@ ${dictionary.home.news.items
 
 ${plainText(content.home.why.lead[en])}
 
-Analog PIM: ${dictionary.home.pim.analog.body[en]}
-Digital PIM: ${dictionary.home.pim.digital.body[en]}
+Analog CIM: ${plainText(dictionary.home.pim.analog.body[en])}
+Digital CIM: ${plainText(dictionary.home.pim.digital.body[en])}
 ${qaSection}
 ## Contact
 

@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 import { routes } from "@/lib/routes";
 
 /**
- * 01 — Processing in Memory, as locked in the 2026-09 review (canvas artboards
- * "PIM — Desktop" / "PIM — Mobile").
+ * 01 — Compute in Memory, as locked in the 2026-09 review (canvas artboards
+ * "CIM — Desktop" / "CIM — Mobile").
  *
  * Two changes from what shipped before, both of them the reviewer's call:
  *

@@ -12,11 +12,11 @@
 @theme {
   /* Surfaces, darkest to lightest */
   --color-night-footer: #03050b; /* footer */
-  --color-night-deep: #04060e; /* PIM / core-capability sections */
+  --color-night-deep: #04060e; /* CIM / core-capability sections */
   --color-night: #05070f; /* body, default page background */
   --color-marquee: #070b18; /* scrolling strip */
   --color-panel: #080d1b; /* admin sidebar */
-  --color-navy: #0a1326; /* "Why PIM", MINT / ESPRESSO detail */
+  --color-navy: #0a1326; /* "Why CIM", MINT / ESPRESSO detail */
   --color-field: #0c1730; /* admin input / textarea */
   --color-navy-lit: #111e3a; /* solutions, software, contact */
 
@@ -379,9 +379,6 @@
       transparent 70%
     );
   }
-  .glow-solutions {
-    background-image: linear-gradient(180deg, var(--glow-faint), transparent 46%);
-  }
   .glow-news {
     background-image: radial-gradient(70% 60% at 50% 0%, var(--glow-faint), transparent 60%);
   }
@@ -518,7 +515,7 @@
     }
   }
 
-  /* A PIM direction card: a flat drafting surface (`bg-marquee`, the mock's
+  /* A CIM direction card: a flat drafting surface (`bg-marquee`, the mock's
    * #070b18) carrying its own grid, with the chip render lit on its own band.
    * `isolation` keeps the render's hover scale from lifting over the card's
    * border, and the layers stay independent, so hovering cannot move the grid or
@@ -592,7 +589,7 @@
     }
   }
 
-  /* "Tại sao PIM": the render holds the right half and the copy the left, so
+  /* "Tại sao CIM": the render holds the right half and the copy the left, so
    * the image has to be `navy` again before it reaches the column. Geometry is
    * the locked mock's. */
   .scrim-why {
@@ -626,7 +623,7 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* "Why PIM" and the training block: text sits left, image reads through right. */
+  /* "Why CIM" and the training block: text sits left, image reads through right. */
   .scrim-left-navy {
     background-image: linear-gradient(
       90deg,

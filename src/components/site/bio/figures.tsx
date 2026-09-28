@@ -21,11 +21,6 @@ import { routes } from "@/lib/routes";
  * line — "ANALOG · SẢN XUẤT 05/2023", "DIGITAL · ROADMAP Q3/2026" — in the same
  * card, not in a legend somewhere above. A number cannot be read off this page
  * without the date attached to it.
- *
- * PAPAYA FLEX's ~50× / ~100× / ~25× figures are deliberately absent: they are
- * comparisons against a named part under stated benchmark conditions, and a
- * grid cell has no room for the measurement that produced them. They stay on
- * the product page, where they are shown with it.
  */
 
 interface Figure {
@@ -62,10 +57,10 @@ export function BioFigures({ content, locale }: { content: HomeContent["core"]; 
       status: copy.figures.coreStatus[locale],
     },
     ...mint.specs.map((spec) => fromSpec(spec, "MINT", mint.meta[locale])),
-    // PAPAYA's first two specs only: the third is die area, already shown for
-    // MINT, and the fourth is a comparison that needs its footnote.
-    ...papaya.specs.slice(0, 2).map((spec) => fromSpec(spec, "PAPAYA", papaya.meta[locale])),
-    fromSpec(espresso.specs[0], "ESPRESSO", espresso.meta[locale]),
+    ...papaya.specs.map((spec) => fromSpec(spec, "PAPAYA", papaya.meta[locale])),
+    // Both ESPRESSO specs, so the wall stays eight cells now that chip size
+    // is no longer published.
+    ...espresso.specs.map((spec) => fromSpec(spec, "ESPRESSO", espresso.meta[locale])),
     {
       value: espresso.cardValue,
       label: espresso.cardLabel[locale],

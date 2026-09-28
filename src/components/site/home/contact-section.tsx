@@ -9,7 +9,7 @@ import { dictionary } from "@/lib/i18n/dictionary";
 import { routes } from "@/lib/routes";
 
 /**
- * 05 — Contact, as locked with the client on 2026-09-24 (canvas artboards
+ * 04 — Contact, as locked with the client on 2026-09-24 (canvas artboards
  * "Liên hệ — Desktop" / "— Mobile").
  *
  * The two arrangements are not two layouts. From `lg` the HQ photograph holds

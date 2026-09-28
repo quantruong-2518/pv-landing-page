@@ -7,7 +7,7 @@ import { dictionary } from "@/lib/i18n/dictionary";
 import { routes } from "@/lib/routes";
 
 /**
- * 04 — News & partnerships.
+ * 03 — News & partnerships.
  *
  * The section is the head plus `NewsBoard`, which holds the layout the client
  * locked on 2026-09-24: one featured story beside three compact rows from `md`,

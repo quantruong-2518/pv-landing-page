@@ -11,7 +11,7 @@ type ApplicationVisual = {
   title: Localized;
   alt: Localized;
   /**
-   * Two or three sentences: the problem, why PIM suits it, which part serves
+   * Two or three sentences: the problem, why CIM suits it, which part serves
    * it. Added to every `dictionary.product.*.visuals[]` entry alongside
    * `title`/`alt` — see `ApplicationDetails` below for where it renders.
    */
@@ -86,7 +86,7 @@ export function ApplicationBento({
  * it is still calibrated by `spend="between"` to end its surplus at the
  * bottom edge, and three more paragraphs stuffed into that budget would
  * either overflow the fixed 3:2 vignette cards or push the whole hero section
- * well past one viewport). The real prose — what problem, why PIM, which part
+ * well past one viewport). The real prose — what problem, why CIM, which part
  * — needs its own room to read, so it is a plain block below the hero
  * section instead of inside it. A plain `Section` has no height budget to
  * break: it has no `screen`/`min-h`, so it simply grows with its content on a

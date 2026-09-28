@@ -43,7 +43,7 @@ export function Section({
    * `"between"` is the default choice for a block shorter than the viewport,
    * and the difference is not cosmetic. Three home-page sections were taken
    * *off* `screen` altogether because `center` left a hole in the middle of
-   * each — ~220px either side of "Tại sao PIM" at 1360px wide, ~31% of "Tin
+   * each — ~220px either side of "Tại sao CIM" at 1360px wide, ~31% of "Tin
    * tức", both measured and both recorded in those files. The surplus is the
    * same either way; what changes is that the reader sees a header on one edge
    * and content on the other instead of a raft adrift between two voids.

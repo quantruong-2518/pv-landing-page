@@ -35,7 +35,7 @@ import { cn } from "@/lib/utils";
 const NAME_SEPARATOR = " — ";
 
 export function DetailTitle({ value: raw, id, className }: { value: string; id?: string; className?: string }) {
-  // Browsers may break after a hyphen, which split "DIGITAL-PIM" across two
+  // Browsers may break after a hyphen, which split "DIGITAL-CIM" across two
   // lines in the ESPRESSO heading. A non-breaking hyphen (U+2011) is swapped
   // in for display only — the CMS string, metadata and JSON-LD keep "-".
   const value = raw.replace(/(\p{L})-(\p{L})/gu, "$1\u2011$2");
@@ -51,21 +51,6 @@ export function DetailTitle({ value: raw, id, className }: { value: string; id?:
       {value.slice(cut)}
     </h1>
   );
-}
-
-/**
- * PAPAYA's lead runs three sentences in `seed.ts` (`content.papaya.lead`);
- * the DETAIL mocks (desktop and mobile alike) print only the first two —
- * see D-Papaya-desktop-render.png, which stops at "...theo thời gian thực."
- * and drops the sentence about PAPAYA's own 30 TOPS/W efficiency. Splitting
- * on sentence-ending punctuation instead of hand-copying a shorter string
- * keeps this in sync with the CMS text (brief: "unchanged text") rather than
- * forking a second, driftable copy of it.
- */
-export function firstSentences(value: string, count: number): string {
-  const sentences = value.match(/[^.!?]+[.!?]+(?=\s|$)/g);
-  if (!sentences) return value;
-  return sentences.slice(0, count).join(" ").trim();
 }
 
 /** The "01 • PHẦN CỨNG" kicker with only its leading index in accent blue —
@@ -256,7 +241,7 @@ export function DetailSpecTile({
 }) {
   const [index, ...rest] = spec.label.split(" ");
   // `Spec.label` is "NN UPPERCASE WORDS" (dictionary.ts) — set in title case
-  // here ("Performance", "Die / Chip Area") rather than a second label field.
+  // here ("Performance", "Efficiency") rather than a second label field.
   const title = rest
     .join(" ")
     .toLowerCase()
@@ -271,7 +256,7 @@ export function DetailSpecTile({
         <span>{title}</span>
       </span>
       <span className="flex flex-wrap items-baseline gap-x-1.5">
-        {/* Long ranges ("0,1–0,15", "20 × 23") step down so a 3-up row
+        {/* Long ranges ("0,1–0,15") step down so a 3-up row
             never overflows its tile. */}
         <span
           className={cn(
@@ -294,7 +279,7 @@ export function DetailSpecTile({
 export type DetailSpecRowData = {
   /** Only multi-chip boards need a row name; a single chip already has an H1. */
   name?: string;
-  /** PAPAYA's per-part subtitle ("PC-Vision & 5G", "Machine Vision Benchmark"). */
+  /** PAPAYA's per-part subtitle ("PC-Vision & 5G", "Productization target 2027 H1"). */
   tag?: string;
   tone?: "blue" | "teal";
   specs: readonly Spec[];
@@ -326,7 +311,7 @@ export function DetailBoard({
   locale: Locale;
   specLabel: string;
   rows: readonly DetailSpecRowData[];
-  /** ESPRESSO's "Card 4 chip: 640 TOPS" line under its spec row. */
+  /** ESPRESSO's "Card 4 chip: 560 TOPS" line under its spec row. */
   specNote?: ReactNode;
   appsLabel: string;
   apps: readonly DetailApp[];
@@ -354,7 +339,7 @@ export function DetailBoard({
                     {row.tag ? <span className="text-[11px] font-medium text-body">{row.tag}</span> : null}
                   </span>
                 ) : null}
-                <div className="grid grid-cols-3 gap-2">
+                <div className={cn("grid gap-2", row.specs.length === 2 ? "grid-cols-2" : "grid-cols-3")}>
                   {row.specs.map((spec) => (
                     <DetailSpecTile key={spec.label} spec={spec} locale={locale} tone={row.tone} />
                   ))}

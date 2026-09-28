@@ -53,7 +53,6 @@ export const routes = {
   anchors: {
     top: "top",
     pim: "cong-nghe-pim",
-    solutions: "giai-phap",
     news: "tin-tuc",
     contact: "lien-he",
     mint: "mint",

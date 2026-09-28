@@ -24,7 +24,7 @@ import { cn } from "@/lib/utils";
  *    divider anywhere below — a hairline here would read as a table.
  *  - **One loud mark per section.** `400K` is the largest thing on the screen
  *    and the only accent-coloured figure, with a soft radial glow behind it;
- *    `PIM` is a step down; the row-03 headline is smaller again *because it is a
+ *    `CIM` is a step down; the row-03 headline is smaller again *because it is a
  *    phrase, not a figure* (`small: true` in the dictionary).
  *
  * The `→ ENERGY EFFICIENCY` / `HIGH THROUGHPUT` / `STABLE & CONSISTENT
@@ -99,7 +99,7 @@ export function CoreStats({ content, locale }: { content: HomeContent["core"]; l
       {/* `grow` is how this block spends a full screen: the surplus goes to the
        * rows, which then split it three ways, instead of collecting as one band
        * of empty navy under the head — this section carries no photograph to
-       * fill that band, unlike "Tại sao PIM" next door.
+       * fill that band, unlike "Tại sao CIM" next door.
        *
        * The vertical gap is a phone/tablet device only. From `lg` the rows are
        * `flex-1` and centre their own content, so the air between them is the

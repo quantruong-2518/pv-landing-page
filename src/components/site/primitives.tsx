@@ -268,6 +268,7 @@ export function VignetteImage({
  * dimension ("5 × 5") — is left untouched, matching the source figure.
  */
 const VN_NUMBER = /^(~?)(\d{1,3}(?:\.\d{3})*)(,\d+)?(×?)$/;
+const RANGE_DASH = "–";
 
 /**
  * Exported so the DETAIL brief's light-theme spec tiles (`product/detail.tsx`)
@@ -277,6 +278,13 @@ const VN_NUMBER = /^(~?)(\d{1,3}(?:\.\d{3})*)(,\d+)?(×?)$/;
  */
 export function localizeFigure(value: string, locale: Locale): string {
   if (locale === "vi") return value;
+  // A range ("0,1–0,15", "15,5–28") is localized end by end.
+  if (value.includes(RANGE_DASH)) {
+    return value
+      .split(RANGE_DASH)
+      .map((part) => localizeFigure(part, locale))
+      .join(RANGE_DASH);
+  }
   const match = VN_NUMBER.exec(value);
   if (!match) return value;
   const [, prefix, integer, decimal, suffix] = match;
@@ -345,7 +353,7 @@ export function ProductKicker({ label, meta }: { label: string; meta: string }) 
   );
 }
 
-/** Numbered feature column — used by "Why PIM", the training steps and modules. */
+/** Numbered feature column — used by "Why CIM", the training steps and modules. */
 export function NumberedItem({
   index,
   title,

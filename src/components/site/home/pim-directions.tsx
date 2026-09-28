@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { MarkedText } from "@/components/site/primitives";
 import { cn } from "@/lib/utils";
 
 export type PimDirectionKind = "analog" | "digital";
@@ -69,13 +70,13 @@ function PimSignalDrawing({ kind }: { kind: PimDirectionKind }) {
 }
 
 /**
- * The two PIM direction cards.
+ * The two CIM direction cards.
  *
  * Desktop shows both side by side; below `md` they are a switcher, because the
  * 2026-09 review found the stacked pair on a phone to be two near-identical
  * cards read one after the other — 1.8 screens of scroll to compare four lines
  * of copy. One card at a time with the other a tap away is what the locked
- * mockup (canvas artboard "PIM — Mobile") asks for.
+ * mockup (canvas artboard "CIM — Mobile") asks for.
  *
  * The switcher is two `aria-pressed` buttons rather than an ARIA tablist. A
  * tablist would be the textbook control, but the buttons are `display:none`
@@ -179,7 +180,9 @@ function PimCard({ direction }: { direction: PimDirection }) {
          * token's 700 is meant for the heading face, and the design refs set
          * these sans sub-heads at 600. */}
         <div className="text-h3 font-semibold">{direction.heading}</div>
-        <p className="max-w-[54ch] text-card text-contact">{direction.body}</p>
+        <p className="max-w-[54ch] text-card text-contact">
+          <MarkedText value={direction.body} />
+        </p>
       </div>
 
       {/* The rail. Accent-on-accent-wash from md, a filled accent bar below it —

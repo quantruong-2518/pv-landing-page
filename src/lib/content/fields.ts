@@ -103,7 +103,7 @@ export const CONTENT_PAGES: PageDescriptor[] = [
       },
       {
         id: "pim",
-        label: "01 · Công nghệ PIM",
+        label: "01 · Công nghệ CIM",
         fields: [
           text("eyebrow", "EYEBROW"),
           area(
@@ -122,7 +122,7 @@ export const CONTENT_PAGES: PageDescriptor[] = [
       },
       {
         id: "why",
-        label: "02 · Tại sao PIM",
+        label: "02 · Tại sao CIM",
         fields: [
           area("title", "TIÊU ĐỀ"),
           area(
@@ -144,18 +144,8 @@ export const CONTENT_PAGES: PageDescriptor[] = [
         ],
       },
       {
-        id: "solutions",
-        label: "04 · Giải pháp",
-        fields: [
-          text("eyebrow", "EYEBROW"),
-          area("title", "TIÊU ĐỀ"),
-          area("lead", "MÔ TẢ"),
-          number("count", "SỐ HÀNG HIỂN THỊ", "Tối đa 4"),
-        ],
-      },
-      {
         id: "news",
-        label: "05 · Tin tức",
+        label: "04 · Tin tức",
         fields: [
           text("eyebrow", "EYEBROW"),
           area("title", "TIÊU ĐỀ"),
@@ -169,7 +159,7 @@ export const CONTENT_PAGES: PageDescriptor[] = [
       },
       {
         id: "contact",
-        label: "06 · Liên hệ",
+        label: "05 · Liên hệ",
         fields: [
           area("title", "TIÊU ĐỀ"),
           area("lead", "MÔ TẢ"),

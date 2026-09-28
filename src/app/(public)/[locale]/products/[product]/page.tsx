@@ -7,7 +7,6 @@ import {
   DetailCta,
   DetailPill,
   DetailScreen,
-  firstSentences,
 } from "@/components/site/product/detail";
 import { ESeriesCards } from "@/components/site/product/eseries-cards";
 import { ProductDetail } from "@/components/site/product/product-detail";
@@ -172,10 +171,7 @@ export default async function ProductPage({
               titleId="papaya-title"
               eyebrow={copy.shared.hardware[locale]}
               title={content.papaya.title[locale]}
-              // First two sentences only: the third repeats PAPAYA's 30 TOPS/W,
-              // which the board already prints. `firstSentences` reads the
-              // full CMS lead so the two never drift.
-              lead={firstSentences(content.papaya.lead[locale], 2)}
+              lead={content.papaya.lead[locale]}
               pills={
                 <>
                   <DetailPill>{copy.shared.pillPebbleSquare}</DetailPill>
@@ -191,12 +187,10 @@ export default async function ProductPage({
                 locale={locale}
                 specLabel={copy.shared.keySpecs[locale]}
                 rows={[
-                  // First 3 only — `specs[3]` (POWER, "~10.000") is a Jetson
-                  // Nano comparison figure with no unit; it is not shown bare.
-                  { name: "PAPAYA", tag: copy.papaya.nameTag, specs: copy.papaya.specs.slice(0, 3) },
+                  { name: "PAPAYA", tag: copy.papaya.nameTag, specs: copy.papaya.specs },
                   {
                     name: "PAPAYA FLEX",
-                    tag: copy.papaya.flexNameTag,
+                    tag: copy.papaya.flexNameTag[locale],
                     tone: "teal",
                     specs: copy.papaya.flexAbsoluteSpecs,
                   },
@@ -233,7 +227,7 @@ export default async function ProductPage({
               <DetailBoard
                 locale={locale}
                 specLabel={copy.shared.keySpecs[locale]}
-                // 160 TOPS, not the ~140 in some working comps —
+                // 140 TOPS dense INT8 (validated 2026-09-02, not the older 160) —
                 // `copy.espresso.specs[0]` is the one source (CLAUDE.md § 1/§ 2).
                 rows={[{ specs: copy.espresso.specs }]}
                 specNote={

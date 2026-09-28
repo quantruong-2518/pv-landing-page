@@ -13,7 +13,7 @@ import type { Localized } from "@/lib/i18n/config";
  * Nothing here is re-worded across languages and no claim is added in one that
  * is missing in another; a new claim belongs in a design revision, not here.
  *
- * Technical figures (30 GOPS, 17,6 TOPS/W, 640 TOPS, 400K …) are transcribed
+ * Technical figures (30 GOPS, 17,6 TOPS/W, 560 TOPS, 400K …) are transcribed
  * verbatim, including the Vietnamese decimal comma, which is why spec values
  * are not localized strings. Where a figure sits inside a translated sentence,
  * English and Korean use the decimal point their readers expect.
@@ -116,43 +116,46 @@ export const dictionary = {
       /** Two columns: Analog then Digital. */
       analog: {
         index: "01",
-        name: "ANALOG PIM",
-        /** Alt text for the layered Analog PIM technical illustration. */
+        name: "ANALOG CIM",
+        /** Alt text for the layered Analog CIM technical illustration. */
         imageAlt: L(
-          "Chip Analog PIM tùy biến với mảng tính toán lộ bên trong, đặt trên bản vẽ kỹ thuật có tín hiệu dạng sóng liên tục chạy xuyên qua chip.",
-          "A custom Analog PIM chip with an exposed compute array, set on a technical drawing with a continuous waveform passing through the chip.",
-          "내부 연산 배열이 드러난 맞춤형 아날로그 PIM 칩과 칩을 가로지르는 연속 파형의 기술 도면입니다.",
+          "Chip Analog CIM tùy biến với mảng tính toán lộ bên trong, đặt trên bản vẽ kỹ thuật có tín hiệu dạng sóng liên tục chạy xuyên qua chip.",
+          "A custom Analog CIM chip with an exposed compute array, set on a technical drawing with a continuous waveform passing through the chip.",
+          "내부 연산 배열이 드러난 맞춤형 아날로그 CIM 칩과 칩을 가로지르는 연속 파형의 기술 도면입니다.",
         ),
+        // Copy from the client's Analog CIM (eFlash) brief; its "featured products"
+        // line is left out on purpose — the card's CTA already leads to the chip page.
         heading: L(
-          "Tính toán tại nơi dữ liệu được lưu trữ",
-          "Computing where the data lives",
-          "데이터가 있는 자리에서 연산합니다",
+          "Tính toán ngay trong mảng bộ nhớ",
+          "Computing inside the memory array",
+          "메모리 어레이 안에서 바로 연산합니다",
         ),
         body: L(
-          "Công nghệ Analog tích hợp năng lực tính toán với bộ nhớ, hạn chế di chuyển dữ liệu giữa memory và processor, từ đó nâng cao hiệu quả tính toán cho các workload AI phù hợp.",
-          "Analog technology integrates compute capability into memory, limiting data movement between memory and processor and raising computational efficiency for suitable AI workloads.",
-          "아날로그 기술은 연산 능력을 메모리에 통합해 메모리와 프로세서 사이의 데이터 이동을 줄이고, 이에 적합한 AI 워크로드의 연산 효율을 높입니다.",
+          "Mạng synapse **eFlash** thực hiện tính toán ngay trong mảng bộ nhớ, cho *mức tiêu thụ điện cực thấp*, phù hợp với thiết bị có nguồn rất hạn chế. Ứng dụng cho **mô hình AI nhỏ, cảm biến, Edge AI, AI IoT** và các tác vụ cần hoạt động liên tục.",
+          "An **eFlash** synapse network computes right inside the memory array at *ultra-low power*, suited to devices with very limited energy. It serves **small AI models, sensors, Edge AI, AI IoT** and always-on applications.",
+          "**eFlash** 시냅스 네트워크가 메모리 어레이 안에서 직접 연산해 *전력 소모가 극히 낮아*, 전원이 매우 제한된 기기에 적합합니다. **소형 AI 모델, 센서, 엣지 AI, AI IoT**, 상시 구동이 필요한 애플리케이션에 활용됩니다.",
         ),
         cta: L("KHÁM PHÁ CHIP ANALOG →", "EXPLORE THE ANALOG CHIP →", "아날로그 칩 살펴보기 →"),
       },
       digital: {
         index: "02",
-        name: "DIGITAL PIM",
-        /** Alt text for the layered Digital PIM technical illustration. */
+        name: "DIGITAL CIM",
+        /** Alt text for the layered Digital CIM technical illustration. */
         imageAlt: L(
-          "Chip Digital PIM tùy biến với bốn cụm xử lý, đặt trên bản vẽ kỹ thuật có chuỗi xung vuông chạy xuyên qua chip.",
-          "A custom Digital PIM chip with four compute tiles, set on a technical drawing with a square-pulse signal passing through the chip.",
-          "네 개의 연산 타일로 구성된 맞춤형 디지털 PIM 칩과 칩을 가로지르는 사각 펄스 신호의 기술 도면입니다.",
+          "Chip Digital CIM tùy biến với bốn cụm xử lý, đặt trên bản vẽ kỹ thuật có chuỗi xung vuông chạy xuyên qua chip.",
+          "A custom Digital CIM chip with four compute tiles, set on a technical drawing with a square-pulse signal passing through the chip.",
+          "네 개의 연산 타일로 구성된 맞춤형 디지털 CIM 칩과 칩을 가로지르는 사각 펄스 신호의 기술 도면입니다.",
         ),
+        // Copy from the client's Digital CIM (SRAM) brief; no product line, as above.
         heading: L(
-          "Nền tảng tính toán số cho AI",
-          "A digital computing platform for AI",
-          "AI를 위한 디지털 연산 플랫폼",
+          "Hiệu suất cao, mở rộng linh hoạt",
+          "High performance that scales",
+          "높은 성능, 유연한 확장",
         ),
         body: L(
-          "Công nghệ Digital được phát triển nhằm đáp ứng các yêu cầu về khả năng tính toán và tích hợp linh hoạt, tạo nền tảng cho các sản phẩm và hệ thống AI đa dạng.",
-          "Digital technology is built to meet demands for computational capability and flexible integration, forming the foundation for a diverse range of AI products and systems.",
-          "디지털 기술은 높은 연산 성능과 유연한 통합 요구를 충족하도록 개발되어, 다양한 AI 제품과 시스템의 기반이 됩니다.",
+          "**SRAM** tốc độ cao kết hợp logic kỹ thuật số bên cạnh để tính toán, cho *hiệu suất cao, khả năng mở rộng lớn* và độ chính xác cho các mô hình phức tạp. Ứng dụng cho **mô hình ngôn ngữ lớn (LLM), AI tạo sinh**, xử lý hình ảnh nặng và các tác vụ cần băng thông bộ nhớ lớn.",
+          "High-speed **SRAM** paired with digital logic alongside it delivers *high compute performance and large scalability*, plus accuracy for complex models. It serves **large language models (LLMs), generative AI**, heavy image processing and tasks that need high memory bandwidth.",
+          "고속 **SRAM**과 바로 옆의 디지털 로직을 결합해 연산하므로 *높은 연산 성능과 확장성*, 복잡한 모델을 위한 정확도를 제공합니다. **대규모 언어 모델(LLM), 생성형 AI**, 고부하 이미지 처리, 큰 메모리 대역폭이 필요한 작업에 활용됩니다.",
         ),
         cta: L("KHÁM PHÁ CHIP DIGITAL →", "EXPLORE THE DIGITAL CHIP →", "디지털 칩 살펴보기 →"),
       },
@@ -174,27 +177,27 @@ export const dictionary = {
           index: "01",
           title: L("Tiết kiệm điện năng", "Lower power draw", "전력 소비 절감"),
           body: L(
-            "Giảm nhu cầu truyền dữ liệu qua lại giữa bộ nhớ và bộ xử lý đối với các workload AI phù hợp.",
-            "Reduces the need to shuttle data back and forth between memory and processor for suitable AI workloads.",
-            "적합한 AI 워크로드에서 메모리와 프로세서 사이를 오가는 데이터 전송 자체를 줄입니다.",
+            "Giảm *năng lượng tiêu hao* cho việc **truyền dữ liệu** qua lại giữa bộ nhớ và bộ xử lý — một trong những nguồn tiêu thụ điện đáng kể của hệ thống AI.",
+            "Cuts the *energy spent* on **moving data** back and forth between memory and processor — one of the significant sources of power draw in AI systems.",
+            "메모리와 프로세서 사이에서 **데이터를 옮기는 데** 쓰이는 *에너지*를 줄입니다. AI 시스템에서 전력 소모가 큰 요인 중 하나입니다.",
           ),
         },
         {
           index: "02",
-          title: L("Tối ưu tính toán AI", "Optimised AI computation", "AI 연산 최적화"),
+          title: L("Tối ưu hiệu suất tính toán", "Optimised compute performance", "연산 성능 최적화"),
           body: L(
-            "Thiết kế kiến trúc tính toán phù hợp với đặc thù của từng workload AI, hướng tới nâng cao hiệu quả xử lý cho các ứng dụng AI phù hợp.",
-            "Compute architectures designed around the characteristics of each AI workload, aimed at better processing efficiency.",
-            "AI 워크로드별 특성에 맞춰 연산 아키텍처를 설계해 처리 효율을 높이는 것을 목표로 합니다.",
+            "Giảm áp lực lên *băng thông bộ nhớ* nhờ **tính toán song song ngay tại chỗ**, giúp tăng tốc xử lý cho các mô hình AI có số lượng tham số lớn.",
+            "Eases the pressure on *memory bandwidth* through **parallel computation in place**, speeding up processing for AI models with very large parameter counts.",
+            "**제자리 병렬 연산**으로 *메모리 대역폭* 부담을 덜어, 매개변수가 방대한 AI 모델의 처리 속도를 높입니다.",
           ),
         },
         {
           index: "03",
-          title: L("Mở hướng ứng dụng mới", "New application directions", "새로운 응용 영역"),
+          title: L("Mở ra kỷ nguyên AI mới", "Opening a new era of AI", "새로운 AI 시대의 문을 엽니다"),
           body: L(
-            "Công nghệ PIM mở ra các hướng ứng dụng cho Edge AI, AI trên thiết bị (On-device AI) và suy luận AI (AI Inference).",
-            "PIM opens application paths for Edge AI, on-device AI and AI inference.",
-            "PIM 기술은 Edge AI, 온디바이스 AI, AI 추론으로 응용 범위를 넓힙니다.",
+            "Mở đường cho **Edge AI, On-device AI và AI Inference**, đưa các mô hình AI mạnh mẽ đến *thiết bị đầu cuối có nguồn lực hạn chế*.",
+            "Paves the way for **Edge AI, on-device AI and AI inference**, bringing capable AI models to *end devices with limited resources*.",
+            "**엣지 AI, 온디바이스 AI, AI 추론**의 길을 열어, 강력한 AI 모델을 *자원이 제한된 단말*까지 가져갑니다.",
           ),
         },
       ],
@@ -205,7 +208,7 @@ export const dictionary = {
       cards: [
         {
           index: "01",
-          value: "PIM",
+          value: "CIM",
           fromCms: false,
           headline: null as Localized | null,
           label: L(
@@ -313,9 +316,9 @@ export const dictionary = {
             "데이터 덮어쓰기를 통한 유연한 재사용",
           ),
           body: L(
-            "Cho phép doanh nghiệp dễ dàng xóa bỏ dữ liệu cũ sau mỗi chu kỳ huấn luyện để nạp và đào tạo các mô hình AI hoàn toàn mới trên cùng một phần cứng chip PIM — tối ưu hóa chi phí đầu tư dài hạn.",
-            "Enterprises can clear old data after each training cycle and train entirely new AI models on the same PIM hardware — optimising long-term investment.",
-            "학습 주기가 끝날 때마다 기존 데이터를 지우고 동일한 PIM 하드웨어에서 완전히 새로운 AI 모델을 학습시킬 수 있어, 장기 투자 비용을 최적화합니다.",
+            "Cho phép doanh nghiệp dễ dàng xóa bỏ dữ liệu cũ sau mỗi chu kỳ huấn luyện để nạp và đào tạo các mô hình AI hoàn toàn mới trên cùng một phần cứng chip CIM — tối ưu hóa chi phí đầu tư dài hạn.",
+            "Enterprises can clear old data after each training cycle and train entirely new AI models on the same CIM hardware — optimising long-term investment.",
+            "학습 주기가 끝날 때마다 기존 데이터를 지우고 동일한 CIM 하드웨어에서 완전히 새로운 AI 모델을 학습시킬 수 있어, 장기 투자 비용을 최적화합니다.",
           ),
         },
         {
@@ -360,9 +363,9 @@ export const dictionary = {
             "한국 유수의 기술 파트너와 MOU 체결",
           ),
           body: L(
-            "Hợp tác nghiên cứu và phát triển giải pháp **PIM AI** nhằm tối ưu hiệu năng và mở rộng ứng dụng.",
-            "Joint research and development of **PIM AI solutions**, targeting higher performance and broader applications.",
-            "성능 최적화와 응용 확대를 목표로 **PIM AI 솔루션**을 공동 연구·개발합니다.",
+            "Hợp tác nghiên cứu và phát triển giải pháp **CIM AI** nhằm tối ưu hiệu năng và mở rộng ứng dụng.",
+            "Joint research and development of **CIM AI solutions**, targeting higher performance and broader applications.",
+            "성능 최적화와 응용 확대를 목표로 **CIM AI 솔루션**을 공동 연구·개발합니다.",
           ),
         },
         {
@@ -408,7 +411,7 @@ export const dictionary = {
     },
 
     contact: {
-      eyebrow: L("05 — LIÊN HỆ", "05 — CONTACT", "05 — 문의"),
+      eyebrow: L("04 — LIÊN HỆ", "04 — CONTACT", "04 — 문의"),
       stats: [
         {
           title: L("Hợp tác tin cậy", "Trusted collaboration", "신뢰할 수 있는 협력"),
@@ -536,11 +539,11 @@ export const dictionary = {
       hardware: [
         {
           anchor: "mint" as const,
-          badge: "ANALOG PIM · 05/2023",
+          badge: "ANALOG CIM · 05/2023",
           // `family`: the P1 catalogue card's tag pill. A plain string, not
           // `Localized` — like `badge`, it is an English category name the
           // design keeps as-is in every locale (brief P1 § 2).
-          family: "ANALOG PIM",
+          family: "ANALOG CIM",
           name: "MINT",
           image: "/images/mint-chrome-v4.png",
           imageAlt: L(
@@ -549,9 +552,9 @@ export const dictionary = {
             "브러시드 메탈 사각형 패키지로 렌더링된 MINT 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
           ),
           body: L(
-            "Chip Analog sử dụng công nghệ Processing-in-Memory nhằm giảm sự di chuyển dữ liệu giữa bộ nhớ và bộ xử lý.",
-            "An Analog chip using Processing-in-Memory to cut data movement between memory and processor.",
-            "Processing-in-Memory 기술로 메모리와 프로세서 사이의 데이터 이동을 줄이는 아날로그 칩입니다.",
+            "Chip Analog CIM đã được chứng minh qua sản xuất hàng loạt, giám sát an toàn liên tục tại biên với mức tiêu thụ điện cực thấp.",
+            "An Analog CIM chip proven in mass production, monitoring safety continuously at the edge on ultra-low power.",
+            "대량 생산으로 검증된 아날로그 CIM 칩으로, 초저전력으로 엣지에서 안전을 상시 모니터링합니다.",
           ),
           // The card's four applications (brief P1 § 2) — icon ids resolve
           // through `AppIcon` (app-icons.tsx).
@@ -564,8 +567,8 @@ export const dictionary = {
         },
         {
           anchor: "papaya" as const,
-          badge: "ANALOG PIM · PoC 2024",
-          family: "ANALOG PIM",
+          badge: "ANALOG CIM · PoC 2024",
+          family: "ANALOG CIM",
           name: "PAPAYA / PAPAYA FLEX",
           image: "/images/papaya-chrome-v4.png",
           imageAlt: L(
@@ -574,24 +577,20 @@ export const dictionary = {
             "구릿빛 핀이 둘러진 브러시드 메탈 사각형 패키지로 렌더링된 PAPAYA 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
           ),
           body: L(
-            "Chip Analog PIM hướng đến các workload thị giác máy cần xử lý dữ liệu tại biên.",
-            "Analog PIM chips for machine-vision workloads that must process data at the edge.",
-            "엣지에서 데이터를 처리해야 하는 머신 비전 워크로드를 위한 아날로그 PIM 칩입니다.",
+            "Chip Analog CIM cho thị giác máy tính: PAPAYA đã kiểm chứng silicon, PAPAYA FLEX hướng tới Physical AI với mục tiêu sản phẩm hóa 2027 H1.",
+            "Analog CIM chips for computer vision: PAPAYA is silicon-verified, PAPAYA FLEX targets physical AI with a productization target of 2027 H1.",
+            "컴퓨터 비전을 위한 아날로그 CIM 칩으로, PAPAYA는 실리콘 검증을 마쳤고 PAPAYA FLEX는 2027년 상반기 제품화를 목표로 피지컬 AI를 겨냥합니다.",
           ),
-          // "AI Box" is kept literal across locales, same as the ESPRESSO
-          // apps below — it is a product-category term, not a sentence to
-          // translate, and the Vietnamese source already writes it in English.
           apps: [
             { icon: "eye", label: L("Thị giác máy", "Machine vision", "머신 비전") },
-            { icon: "cube", label: L("AI Box", "AI Box", "AI Box") },
             { icon: "arm", label: L("Cánh tay robot", "Robotic arm", "로봇 팔") },
             { icon: "scan", label: L("Nhận dạng ảnh", "Image recognition", "영상 인식") },
           ] satisfies HardwareApp[],
         },
         {
           anchor: "espresso" as const,
-          badge: "DIGITAL PIM · Q3/2026",
-          family: "DIGITAL PIM",
+          badge: "DIGITAL CIM · Q3/2026",
+          family: "DIGITAL CIM",
           name: "ESPRESSO",
           image: "/images/espresso-chrome-v4.png",
           imageAlt: L(
@@ -600,9 +599,9 @@ export const dictionary = {
             "광택 있는 거울 같은 상판을 가진 사각형 패키지로 렌더링된 ESPRESSO 칩 이미지로, 파란빛 회로 패턴 배경 위에 놓여 있습니다.",
           ),
           body: L(
-            "Thế hệ chip Digital-PIM tiếp theo được phát triển cho các workload AI có yêu cầu tính toán cao hơn Edge AI.",
-            "The next Digital-PIM generation, built for AI workloads with compute demands beyond Edge AI.",
-            "Edge AI를 넘어서는 연산 요구를 가진 AI 워크로드를 위해 개발 중인 차세대 Digital-PIM 칩입니다.",
+            "Chip Digital CIM (SRAM) hiệu năng cao cho LLM cục bộ và Vision AI quy mô lớn, dự kiến Q3/2026.",
+            "A high-performance Digital CIM (SRAM) chip for local LLMs and large-scale vision AI, expected Q3/2026.",
+            "로컬 LLM과 대규모 비전 AI를 위한 고성능 Digital CIM(SRAM) 칩으로, 2026년 3분기 출시 예정입니다.",
           ),
           // Kept in English in every locale (brief P1 § 2) — these are the
           // workload category names the industry already uses in VI/EN/KO copy.
@@ -611,14 +610,15 @@ export const dictionary = {
             { icon: "robot", label: L("Robotics", "Robotics", "Robotics") },
             { icon: "humanoid", label: L("Physical AI", "Physical AI", "Physical AI") },
             { icon: "server", label: L("AI Server", "AI Server", "AI Server") },
+            { icon: "cube", label: L("AI Box", "AI Box", "AI Box") },
           ] satisfies HardwareApp[],
         },
         {
           anchor: "e-series" as const,
           badge: "GP-GPU / GP-DSA",
-          // Not one of the two PIM families — kept as the card's own
-          // category string rather than forced into "ANALOG PIM" /
-          // "DIGITAL PIM" (brief P1 § 2). Moot on the public site today:
+          // Not one of the two CIM families — kept as the card's own
+          // category string rather than forced into "ANALOG CIM" /
+          // "DIGITAL CIM" (brief P1 § 2). Moot on the public site today:
           // E-Series is filtered out by `isPublicProduct` before render.
           family: "GP-GPU / GP-DSA",
           name: "E-SERIES · E10 / E20",
@@ -837,49 +837,9 @@ export const dictionary = {
           ),
         },
       ],
-      visuals: [
-        {
-          image: "/images/products/mint-smart-home.webp",
-          title: L("Trung tâm AI nhà thông minh", "Smart-home AI hub", "스마트홈 AI 허브"),
-          alt: L(
-            "Trung tâm AI nhà thông minh bằng kim loại graphite cùng hai cảm biến phòng, viền sáng xanh cyan.",
-            "Graphite metal smart-home AI hub with two room sensors and cyan edge lighting.",
-            "그래파이트 메탈 소재의 스마트홈 AI 허브와 두 개의 실내 센서, 시안 엣지 조명.",
-          ),
-          // Problem → why Analog PIM fits → part + status. Edge-processing need and
-          // "phản hồi tức thì" (instant response) come from `product.mint` (seed.ts)
-          // lead; the memory/processor integration claim is `home.pim.analog.body`;
-          // 30 GOPS / 17,6 TOPS/W and the 05/2023 date are `product.mint.specs` and
-          // `product.mint.meta`.
-          body: L(
-            "Trung tâm AI nhà thông minh cần xử lý dữ liệu cảm biến ngay tại thiết bị và phản hồi tức thì. Công nghệ Analog PIM tích hợp tính toán vào bộ nhớ, giảm di chuyển dữ liệu giữa bộ nhớ và bộ xử lý, nhờ đó phù hợp với các thiết bị nhỏ gọn cần tiêu thụ điện thấp. MINT — chip Analog PIM đã sản xuất từ 05/2023, đạt 30 GOPS ở hiệu suất 17,6 TOPS/W trên diện tích 5 × 5 mm² — phục vụ ứng dụng Smart Home này.",
-            "A smart-home AI hub must process sensor data right on the device and respond instantly. Analog PIM integrates compute into memory, cutting data movement between memory and processor, which suits compact devices that need low power draw. MINT — an Analog PIM chip in production since 05/2023, delivering 30 GOPS at 17.6 TOPS/W efficiency on a 5 × 5 mm² die — serves this Smart Home application.",
-            "스마트홈 AI 허브는 센서 데이터를 기기에서 바로 처리해 즉각적으로 응답해야 합니다. 아날로그 PIM은 연산을 메모리에 통합해 메모리와 프로세서 사이의 데이터 이동을 줄이므로, 저전력이 필요한 소형 기기에 적합합니다. 2023년 5월부터 양산 중인 아날로그 PIM 칩 MINT는 5×5 mm² 면적에서 17.6 TOPS/W 효율로 30 GOPS를 내며 이 스마트홈 응용을 지원합니다.",
-          ),
-        },
-        {
-          image: "/images/products/mint-predictive-maintenance.webp",
-          title: L("Giám sát rung & hỏng hóc", "Predictive maintenance", "진동·고장 예지 보전"),
-          alt: L(
-            "Cảm biến rung nhỏ gắn trên động cơ công nghiệp để theo dõi tình trạng và dự báo hỏng hóc.",
-            "A compact vibration sensor mounted on an industrial motor for condition monitoring and failure prediction.",
-            "산업용 모터에 장착되어 상태를 모니터링하고 고장을 예측하는 소형 진동 센서.",
-          ),
-          // Problem is this entry's own `alt` (condition monitoring / failure
-          // prediction on an industrial motor — the site's own words, not a new
-          // claim); PIM fit again from `home.pim.analog.body`; MINT's status and
-          // figures from `product.mint.meta` / `product.mint.specs`.
-          body: L(
-            "Động cơ công nghiệp cần được giám sát rung liên tục để theo dõi tình trạng và dự báo hỏng hóc. Xử lý tín hiệu ngay tại cảm biến giúp phân tích nhanh mà không phải truyền dữ liệu thô đi xa, và công nghệ Analog PIM giảm di chuyển dữ liệu giữa bộ nhớ và bộ xử lý nên phù hợp với cảm biến nhỏ gọn, tiêu thụ điện thấp. MINT — chip Analog PIM đã sản xuất từ 05/2023, đạt 30 GOPS ở hiệu suất 17,6 TOPS/W — phục vụ ứng dụng Failure Analysis này.",
-            "Industrial motors need continuous vibration monitoring for condition tracking and failure prediction. Processing the signal right at the sensor allows fast analysis without sending raw data far away, and Analog PIM cuts data movement between memory and processor, suiting compact, low-power sensors. MINT — an Analog PIM chip in production since 05/2023, delivering 30 GOPS at 17.6 TOPS/W efficiency — serves this Failure Analysis application.",
-            "산업용 모터는 상태를 추적하고 고장을 예측하기 위해 지속적인 진동 모니터링이 필요합니다. 센서에서 바로 신호를 처리하면 원시 데이터를 멀리 전송하지 않고도 빠르게 분석할 수 있으며, 아날로그 PIM은 메모리와 프로세서 사이의 데이터 이동을 줄여 소형·저전력 센서에 적합합니다. 2023년 5월부터 양산 중인 아날로그 PIM 칩 MINT는 17.6 TOPS/W 효율로 30 GOPS를 내며 이 고장 분석(Failure Analysis) 응용을 지원합니다.",
-          ),
-        },
-      ],
       specs: [
         { label: "01 PERFORMANCE", value: "30", unit: "GOPS" },
         { label: "02 EFFICIENCY", value: "17,6", unit: "TOPS/W" },
-        { label: "03 DIE / CHIP AREA", value: "5 × 5", unit: "MM²" },
       ] satisfies Spec[],
     },
 
@@ -955,147 +915,30 @@ export const dictionary = {
             "통합 카메라로 전자 부품을 집어 검사하는 산업용 로봇 팔.",
           ),
         },
-        {
-          image: "/images/products/papaya-ai-box.webp",
-          label: L("AI Box", "AI Box", "AI Box"),
-          alt: L(
-            "AI Box không quạt nhỏ gọn kết nối với hai camera thị giác công nghiệp.",
-            "A compact fanless AI Box connected to two industrial vision cameras.",
-            "두 대의 산업용 비전 카메라에 연결된 소형 팬리스 AI Box.",
-          ),
-        },
-      ],
-      visuals: [
-        {
-          image: "/images/products/papaya-machine-vision.webp",
-          title: L("Kiểm tra thị giác máy", "Machine-vision inspection", "머신 비전 검사"),
-          alt: L(
-            "Camera thị giác máy kiểm tra linh kiện điện tử trên băng chuyền chính xác.",
-            "A machine-vision camera inspecting electronic components on a precision conveyor.",
-            "정밀 컨베이어 위 전자 부품을 검사하는 머신 비전 카메라.",
-          ),
-          // Problem from this entry's own `alt`; accuracy/real-time claim from
-          // `product.papaya` (seed.ts) lead; the ~50× power figure is
-          // `product.papaya.flexSpecs[0]` — quoted with its own note (0,1–0,15 W vs
-          // 5–10 W) and the NVIDIA Jetson Nano name, per CLAUDE.md § 2 (no bare
-          // comparison); status from `product.papaya.meta` (PoC 2024).
-          body: L(
-            "Kiểm tra linh kiện điện tử trên băng chuyền đòi hỏi xử lý hình ảnh chính xác và theo thời gian thực ngay tại chỗ. Là chip Analog PIM cho thị giác máy, PAPAYA mang lại độ chính xác cao và khả năng dự báo theo thời gian thực, còn PAPAYA FLEX chỉ dùng 0,1–0,15 W so với 5–10 W của NVIDIA Jetson Nano trong benchmark thị giác máy đã công bố — tương đương mức tiết kiệm điện khoảng ~50×. PAPAYA / PAPAYA FLEX — chip Analog PIM đang ở giai đoạn PoC 2024 — phục vụ đúng ứng dụng Thị giác máy này.",
-            "Inspecting electronic components on a conveyor line calls for accurate, real-time image processing right at the point of inspection. As an Analog PIM chip for machine vision, PAPAYA delivers high accuracy and real-time predictive capability, while PAPAYA FLEX draws just 0.1–0.15 W against 5–10 W on the NVIDIA Jetson Nano in a published machine-vision benchmark — about a ~50× power saving. PAPAYA / PAPAYA FLEX — an Analog PIM chip at the 2024 PoC stage — serves this Machine Vision application.",
-            "정밀 컨베이어 위 전자 부품 검사는 그 자리에서 정확하고 실시간으로 이미지를 처리해야 합니다. 머신 비전용 아날로그 PIM 칩인 PAPAYA는 높은 정확도와 실시간 예측 성능을 제공하며, PAPAYA FLEX는 공개된 머신 비전 벤치마크에서 NVIDIA Jetson Nano의 5–10 W 대비 0.1–0.15 W만 사용해 약 50배의 전력 절감을 보입니다. PAPAYA / PAPAYA FLEX는 2024년 PoC 단계의 아날로그 PIM 칩으로 이 머신 비전 응용을 지원합니다.",
-          ),
-        },
-        {
-          image: "/images/products/papaya-uav-vision.webp",
-          title: L("Thị giác trên UAV", "Onboard UAV vision", "UAV 온보드 비전"),
-          alt: L(
-            "UAV công nghiệp nhỏ gọn với camera gimbal phục vụ xử lý hình ảnh ngay trên thiết bị.",
-            "A compact industrial UAV with a gimbal camera for onboard image processing.",
-            "기기 내 영상 처리를 위한 짐벌 카메라를 탑재한 소형 산업용 UAV.",
-          ),
-          // Problem from this entry's own `alt` (onboard processing, compact
-          // craft); the ~25× die-area figure is `product.papaya.flexSpecs[2]`,
-          // quoted with its own note (10×10 mm vs 70×45 mm) and the Jetson Nano
-          // name; status from `product.papaya.meta`.
-          body: L(
-            "UAV công nghiệp cần xử lý hình ảnh ngay trên thiết bị để không phụ thuộc vào kết nối truyền dữ liệu, trong khi không gian và trọng lượng mang theo rất hạn chế. PAPAYA FLEX là chip Analog PIM có diện tích chỉ 10 × 10 mm — khoảng ~25× nhỏ hơn so với 70 × 45 mm của NVIDIA Jetson Nano — nên phù hợp để tích hợp trực tiếp trên thiết bị bay nhỏ gọn. PAPAYA / PAPAYA FLEX — chip Analog PIM đang ở giai đoạn PoC 2024 — phục vụ ứng dụng thị giác trên UAV này.",
-            "An industrial UAV needs to process imagery directly onboard rather than depending on a data link, while the space and weight it can carry are tightly constrained. PAPAYA FLEX is an Analog PIM chip measuring just 10 × 10 mm — about ~25× smaller than the NVIDIA Jetson Nano's 70 × 45 mm — making it suited to direct integration on a compact aircraft. PAPAYA / PAPAYA FLEX — an Analog PIM chip at the 2024 PoC stage — serves this onboard UAV vision application.",
-            "산업용 UAV는 데이터 링크에 의존하지 않고 기기 위에서 바로 영상을 처리해야 하며, 탑재할 수 있는 공간과 무게도 매우 제한적입니다. PAPAYA FLEX는 10 × 10 mm 크기의 아날로그 PIM 칩으로, NVIDIA Jetson Nano의 70 × 45 mm 대비 약 25배 작아 소형 비행체에 직접 탑재하기에 적합합니다. PAPAYA / PAPAYA FLEX는 2024년 PoC 단계의 아날로그 PIM 칩으로 이 UAV 온보드 비전 응용을 지원합니다.",
-          ),
-        },
-        {
-          image: "/images/products/papaya-thermal-vision.webp",
-          title: L("Phát hiện ảnh nhiệt", "Thermal object detection", "열화상 객체 감지"),
-          alt: L(
-            "Camera AI hai phổ kết hợp ống kính quang học và cảm biến hồng ngoại nhiệt.",
-            "A dual-spectrum AI camera combining an optical lens and a thermal infrared sensor.",
-            "광학 렌즈와 열 적외선 센서를 결합한 듀얼 스펙트럼 AI 카메라.",
-          ),
-          // Problem grounded in `apps` ("Hệ thống an ninh" / Security systems)
-          // and this entry's own `alt`; efficiency figure is
-          // `product.papaya.specs[1]` (30 TOPS/W, an absolute spec, not one of
-          // the flexSpecs comparisons); status from `product.papaya.meta`.
-          body: L(
-            "Hệ thống an ninh cần phát hiện đối tượng cả trong điều kiện thiếu sáng, bằng cách kết hợp ảnh quang học với ảnh hồng ngoại nhiệt ngay trên camera. Chạy đồng thời hai luồng cảm biến như vậy đòi hỏi hiệu suất năng lượng cao để thiết bị hoạt động liên tục mà không tiêu tốn nhiều điện, và PAPAYA đạt hiệu suất 30 TOPS/W nhờ kiến trúc Analog PIM. PAPAYA / PAPAYA FLEX — chip Analog PIM đang ở giai đoạn PoC 2024 — phục vụ ứng dụng hệ thống an ninh này.",
-            "A security system needs to detect objects even in low light, by combining an optical image with thermal infrared imaging right on the camera. Running both sensor streams at once calls for high energy efficiency so the device can operate continuously without heavy power draw, and PAPAYA reaches 30 TOPS/W thanks to its Analog PIM architecture. PAPAYA / PAPAYA FLEX — an Analog PIM chip at the 2024 PoC stage — serves this security-system application.",
-            "보안 시스템은 저조도 환경에서도 대상을 감지해야 하므로, 카메라에서 바로 광학 영상과 열 적외선 영상을 결합합니다. 두 개의 센서 스트림을 동시에 처리하려면 높은 에너지 효율이 필요해 기기가 많은 전력 없이 계속 작동할 수 있어야 하는데, PAPAYA는 아날로그 PIM 구조 덕분에 30 TOPS/W의 효율을 냅니다. PAPAYA / PAPAYA FLEX는 2024년 PoC 단계의 아날로그 PIM 칩으로 이 보안 시스템 응용을 지원합니다.",
-          ),
-        },
       ],
       specs: [
         { label: "01 PERFORMANCE", value: "0,5", unit: "TOPS" },
-        { label: "02 EFFICIENCY", value: "30", unit: "TOPS/W" },
-        { label: "03 DIE / CHIP AREA", value: "5 × 5", unit: "MM²" },
-        {
-          label: "04 POWER",
-          value: "~10.000",
-          note: L(
-            "So với NVIDIA Jetson Nano trong điều kiện benchmark được công bố.",
-            "Versus NVIDIA Jetson Nano under published benchmark conditions.",
-            "공개된 벤치마크 조건에서 NVIDIA Jetson Nano와 비교한 수치입니다.",
-          ),
-        },
+        { label: "02 POWER", value: "~50", unit: "MW" },
       ] satisfies Spec[],
-      flexLabel: "MACHINE VISION BENCHMARK",
-      /** Mixed-case reading of `flexLabel` for the DETAIL panel's wordmark
-       *  subtitle (D-Papaya mocks show "Machine Vision Benchmark", not the
-       *  all-caps kicker treatment `flexLabel` was written for). Same plain,
-       *  untranslated string either way — see `nameTag` above. */
-      flexNameTag: "Machine Vision Benchmark",
+      /** PAPAYA FLEX's row subtitle on the DETAIL panel. FLEX is not shipping,
+       *  so its date sits in the row itself (CLAUDE.md § 2) — owner's validated
+       *  table of 2026-09-02: "Productization (2027 H1 target)". */
+      flexNameTag: L(
+        "Mục tiêu sản phẩm hóa 2027 H1",
+        "Productization target 2027 H1",
+        "제품화 목표 2027년 상반기",
+      ),
       /**
        * The DETAIL redesign's PAPAYA FLEX spec tiles (D-Papaya mocks) —
-       * absolute figures, not the `~50× / ~100× / ~25×` NVIDIA Jetson Nano
-       * comparisons below. CLAUDE.md § 2/§ 3 forbids inventing a number: 10 ×
-       * 10 MM² and 0,1–0,15 W already exist as this file's own
-       * `flexSpecs[1]`/`[0]` notes; 1,5 TOPS is new and was supplied by the
-       * user directly in the locked design comp (D-Papaya-desktop-render.png,
-       * 2026-09-24) rather than measured elsewhere in this codebase.
+       * absolute figures only. CLAUDE.md § 2 forbids inventing a number:
+       * 2 TOPS and ~200 mW are the owner's validated peak / typical-max figures
+       * of 2026-09-02 (they replace the 1,5 TOPS and 0,1–0,15 W of the
+       * 2026-09-24 comp); chip size is deliberately not shown (owner's call,
+       * 2026-09-28).
        */
       flexAbsoluteSpecs: [
-        { label: "01 PERFORMANCE", value: "1,5", unit: "TOPS" },
-        { label: "02 CHIP AREA", value: "10 × 10", unit: "MM²" },
-        { label: "03 POWER", value: "0,1–0,15", unit: "W" },
-      ] satisfies Spec[],
-      /**
-       * The `~50× / ~100× / ~25×` comparison figures below stay in the
-       * dictionary — `/llms.txt` (`src/app/llms.txt/route.ts`) still reads
-       * them verbatim, each with its own note — but are no longer rendered on
-       * `/products/papaya` itself. The DETAIL brief moves this page to
-       * PAPAYA FLEX's own absolute figures (`flexAbsoluteSpecs` above); the
-       * panel's tighter tile layout has no room for a multiple *and* the
-       * measurement-plus-named-part note CLAUDE.md § 2 requires beside it.
-       */
-      flexSpecs: [
-        {
-          label: "01 POWER",
-          value: "~50×",
-          accent: true,
-          note: L(
-            "0,1–0,15 W so với 5–10 W của NVIDIA Jetson Nano.",
-            "0.1–0.15 W against 5–10 W on the NVIDIA Jetson Nano.",
-            "NVIDIA Jetson Nano의 5–10 W 대비 0.1–0.15 W입니다.",
-          ),
-        },
-        {
-          label: "02 EFFICIENCY",
-          value: "~100×",
-          accent: true,
-          note: L(
-            "333–500 GOPS/W so với 3,6–7,2 FPS/W trên NVIDIA Nano.",
-            "333–500 GOPS/W against 3.6–7.2 FPS/W on the NVIDIA Nano.",
-            "NVIDIA Nano의 3.6–7.2 FPS/W 대비 333–500 GOPS/W입니다.",
-          ),
-        },
-        {
-          label: "03 DIE / CHIP AREA",
-          value: "~25×",
-          accent: true,
-          note: L(
-            "10 × 10 mm so với 70 × 45 mm của NVIDIA Nano.",
-            "10 × 10 mm against 70 × 45 mm on the NVIDIA Nano.",
-            "NVIDIA Nano의 70 × 45 mm 대비 10 × 10 mm입니다.",
-          ),
-        },
+        { label: "01 PERFORMANCE", value: "2", unit: "TOPS" },
+        { label: "02 POWER", value: "~200", unit: "MW" },
       ] satisfies Spec[],
     },
 
@@ -1166,58 +1009,29 @@ export const dictionary = {
             "여러 가속기 트레이와 정밀 냉각 구조를 갖춘 고밀도 랙 마운트 AI 서버.",
           ),
         },
-      ],
-      visuals: [
         {
-          image: "/images/products/espresso-ai-pc.webp",
-          title: L("AI PC đa phương thức", "Multimodal AI PC", "멀티모달 AI PC"),
+          image: "/images/products/espresso-ai-box.webp",
+          label: L("AI Box", "AI Box", "AI Box"),
           alt: L(
-            "Máy tính xách tay AI bằng nhôm graphite hiển thị trực quan sóng thần kinh màu cyan.",
-            "A graphite aluminum AI laptop displaying an abstract cyan neural-wave visualisation.",
-            "시안 신경망 파형을 표시하는 그래파이트 알루미늄 AI 노트북.",
-          ),
-          // Problem grounded in this visual's own title (multimodal AI PC) and
-          // `product.espresso` (seed.ts) lead ("cao hơn Edge AI"); why-Digital-PIM
-          // sentence is `home.pim.digital.body`; ESPRESSO's status/date from
-          // `product.espresso.meta`, specs from `product.espresso.specs`, and the
-          // AI PC date from `product.espresso.targets[0]` (Q3/2026) — CLAUDE.md § 2
-          // requires the date at the point of mention for a roadmap part.
-          body: L(
-            "AI PC đa phương thức cần năng lực tính toán vượt ngoài phạm vi Edge AI ngay trên máy. Công nghệ Digital PIM được phát triển để đáp ứng yêu cầu tính toán cao hơn và khả năng tích hợp linh hoạt, làm nền tảng cho các sản phẩm AI đa dạng như vậy. ESPRESSO — chip Digital-PIM trong lộ trình, dự kiến Q3/2026, đạt 160 TOPS ở hiệu suất 16 TOPS/W — nhắm tới ứng dụng AI PC này, cũng dự kiến Q3/2026.",
-            "A multimodal AI PC needs compute capability beyond the scope of Edge AI, right on the machine. Digital PIM is built to meet higher computational demands and flexible integration, forming the foundation for a diverse range of AI products like this. ESPRESSO — a Digital-PIM chip on the roadmap, expected Q3/2026, delivering 160 TOPS at 16 TOPS/W efficiency — targets this AI PC application, also expected Q3/2026.",
-            "멀티모달 AI PC는 Edge AI의 범위를 넘어서는 연산 능력을 기기 위에서 직접 필요로 합니다. 디지털 PIM은 더 높은 연산 요구와 유연한 통합을 충족하도록 개발되어, 이러한 다양한 AI 제품의 기반이 됩니다. 로드맵 단계의 Digital-PIM 칩 ESPRESSO는 16 TOPS/W 효율로 160 TOPS를 내며, 역시 2026년 3분기로 예정된 이 AI PC 응용을 목표로 합니다.",
-          ),
-        },
-        {
-          image: "/images/products/espresso-robotics.webp",
-          title: L("Robot tự hành", "Autonomous robotics", "자율 이동 로봇"),
-          alt: L(
-            "Robot tự hành nhỏ gọn có tay máy và cụm camera stereo để cảm nhận môi trường theo thời gian thực.",
-            "A compact autonomous mobile robot with an arm and stereo cameras for real-time perception.",
-            "실시간 환경 인식을 위한 로봇 팔과 스테레오 카메라를 갖춘 소형 자율 이동 로봇.",
-          ),
-          // Problem is this entry's own `alt`, quoted almost verbatim (real-time
-          // perception via stereo cameras and an arm); why-Digital-PIM sentence is
-          // `home.pim.digital.body`; status/specs from `product.espresso.meta` /
-          // `.specs`; Robotics date from `product.espresso.targets[1]` (Q3/2026).
-          body: L(
-            "Robot tự hành cần cảm nhận môi trường theo thời gian thực qua camera stereo và điều khiển tay máy, với khối lượng tính toán vượt ngoài phạm vi Edge AI. Công nghệ Digital PIM được phát triển để đáp ứng yêu cầu tính toán cao hơn và khả năng tích hợp linh hoạt, làm nền tảng cho các sản phẩm AI như vậy. ESPRESSO — chip Digital-PIM trong lộ trình, dự kiến Q3/2026, đạt 160 TOPS ở hiệu suất 16 TOPS/W — nhắm tới ứng dụng Robotics này, cũng dự kiến Q3/2026.",
-            "An autonomous robot needs to perceive its environment in real time through stereo cameras and arm control, with a compute load beyond the scope of Edge AI. Digital PIM is built to meet higher computational demands and flexible integration, forming the foundation for AI products like this. ESPRESSO — a Digital-PIM chip on the roadmap, expected Q3/2026, delivering 160 TOPS at 16 TOPS/W efficiency — targets this Robotics application, also expected Q3/2026.",
-            "자율 이동 로봇은 스테레오 카메라와 로봇 팔 제어를 통해 실시간으로 환경을 인식해야 하며, 그 연산량은 Edge AI의 범위를 넘어섭니다. 디지털 PIM은 더 높은 연산 요구와 유연한 통합을 충족하도록 개발되어, 이러한 AI 제품의 기반이 됩니다. 로드맵 단계의 Digital-PIM 칩 ESPRESSO는 16 TOPS/W 효율로 160 TOPS를 내며, 역시 2026년 3분기로 예정된 이 로보틱스 응용을 목표로 합니다.",
+            "AI Box không quạt nhỏ gọn kết nối với hai camera thị giác công nghiệp.",
+            "A compact fanless AI Box connected to two industrial vision cameras.",
+            "두 대의 산업용 비전 카메라에 연결된 소형 팬리스 AI Box.",
           ),
         },
       ],
       specs: [
-        { label: "01 PERFORMANCE", value: "160", unit: "TOPS" },
-        { label: "02 EFFICIENCY", value: "16", unit: "TOPS/W" },
-        { label: "03 DIE / CHIP AREA", value: "20 × 23", unit: "MM²" },
+        // 140 TOPS dense INT8 and the vision-workload efficiency range are the
+        // owner's validated figures of 2026-09-02 (measured on MPW silicon);
+        // efficiency has no single fixed value, hence the "(VISION)" qualifier.
+        { label: "01 PERFORMANCE", value: "140", unit: "TOPS · DENSE INT8" },
+        { label: "02 EFFICIENCY (VISION)", value: "15,5–28", unit: "TOPS/W" },
       ] satisfies Spec[],
       cardLabel: L("CARD 4 CHIP", "4-CHIP CARD", "4칩 카드"),
-      cardValue: "640 TOPS",
+      cardValue: "560 TOPS",
       /** Mixed-case, sentence-form reading of `cardLabel` for the DETAIL
-       *  panel's tile 01 footnote ("Card 4 chip: 640 TOPS", D-Espresso mocks)
+       *  panel's tile 01 footnote ("Card 4 chip: 560 TOPS", D-Espresso mocks)
        *  — `cardLabel` stays all-caps because `/bio` (`bio/figures.tsx`)
-       *  still reads it as a mono figure-card label. Same 640 TOPS value
+       *  still reads it as a mono figure-card label. Same 560 TOPS value
        *  either way. */
       cardNote: L("Card 4 chip:", "4-chip card:", "4칩 카드:"),
     },
@@ -1254,8 +1068,8 @@ export const dictionary = {
             "LLM 및 멀티모달 추론을 위한 가속기 트레이 네 개를 갖춘 AI 서버 랙.",
           ),
           // E-Series is GP-GPU / GP-DSA (`product.catalog.hardware[3].badge`), not
-          // a PIM part, so sentence two explains the card architecture rather than
-          // PIM. Problem from this entry's own `alt`; FP32/INT8/INT4 + "chọn cấu
+          // a CIM part, so sentence two explains the card architecture rather than
+          // CIM. Problem from this entry's own `alt`; FP32/INT8/INT4 + "chọn cấu
           // hình phù hợp" from `product.eseries` (seed.ts) lead; E10/E20 figures
           // from `product.eseries.cards[].specs`; apps from `product.eseries.apps`.
           // No date or lifecycle status is published for E-Series, so none is
@@ -1644,8 +1458,8 @@ export const dictionary = {
 
     directions: {
       /**
-       * The two PIM chip renders. Both sit in the CMS asset list and no page
-       * renders them any more — the home PIM block moved to the signal
+       * The two CIM chip renders. Both sit in the CMS asset list and no page
+       * renders them any more — the home CIM block moved to the signal
        * diagrams — which is why /bio can use them without arriving at a second
        * copy of that section's imagery.
        */
@@ -1659,21 +1473,21 @@ export const dictionary = {
     eyebrow: L("HỒ SƠ DOANH NGHIỆP", "COMPANY PROFILE", "회사 소개"),
     /** Sub-line of the H1 — the same descriptor the home page title carries. */
     title: L(
-      "Chip bán dẫn tích hợp AI ngoại biên và công nghệ Processing-in-Memory",
-      "Edge-AI semiconductors and processing-in-memory technology",
-      "엣지 AI 반도체와 Processing-in-Memory 기술",
+      "Chip bán dẫn tích hợp AI ngoại biên và công nghệ Compute-in-Memory",
+      "Edge-AI semiconductors and compute-in-memory technology",
+      "엣지 AI 반도체와 Compute-in-Memory 기술",
     ),
 
     /**
      * A single self-positioning sentence for search/answer engines — what kind
      * of company this is, in the words a person would type. Factual only:
      * "công ty" (not "hàng đầu" / first / only), Hà Nội from `footer.address`,
-     * Processing-in-Memory from `title` above and `meta.organisation`.
+     * Compute-in-Memory from `title` above and `meta.organisation`.
      */
     positioning: L(
-      "Pebble Vina là công ty thiết kế chip AI ngoại biên trên công nghệ Processing-in-Memory tại Hà Nội.",
-      "Pebble Vina is a Hanoi-based company designing edge-AI chips on Processing-in-Memory technology.",
-      "Pebble Vina는 하노이에 위치한, Processing-in-Memory 기술 기반 엣지 AI 칩을 설계하는 기업입니다.",
+      "Pebble Vina là công ty thiết kế chip AI ngoại biên trên công nghệ Compute-in-Memory tại Hà Nội.",
+      "Pebble Vina is a Hanoi-based company designing edge-AI chips on Compute-in-Memory technology.",
+      "Pebble Vina는 하노이에 위치한, Compute-in-Memory 기술 기반 엣지 AI 칩을 설계하는 기업입니다.",
     ),
 
     /** The four identity cells under the wordmark. `hqValue` is the city out of
@@ -1696,7 +1510,7 @@ export const dictionary = {
       },
       tech: {
         mark: "02",
-        title: L("Hai hướng công nghệ PIM", "Two PIM directions", "두 갈래의 PIM 기술"),
+        title: L("Hai hướng công nghệ CIM", "Two CIM directions", "두 갈래의 CIM 기술"),
       },
       figures: {
         mark: "03",
@@ -1726,7 +1540,7 @@ export const dictionary = {
       /** The 400K figure describes the chip technology rather than one dated
        *  part, so its status cell names the home section it is published in
        *  instead of a month. Every other cell carries a real date. */
-      coreSource: "PIM",
+      coreSource: "CIM",
       coreStatus: L("NĂNG LỰC CỐT LÕI", "CORE CAPABILITY", "핵심 역량"),
     },
 
@@ -1757,9 +1571,8 @@ export const dictionary = {
      *
      * Every answer below restates a fact already published elsewhere on the
      * site; nothing here is a new claim. Figures are quoted from
-     * `product.mint.specs` (30 GOPS, 17,6 TOPS/W, 5 × 5 mm),
-     * `product.papaya.flexSpecs[].note` (the PAPAYA FLEX ~50× / ~100× / ~25×
-     * multiples against NVIDIA Jetson Nano), `product.catalog.hardware[]`
+     * `product.mint.specs` (30 GOPS, 17,6 TOPS/W),
+     * `product.catalog.hardware[]`
      * badges and `product.catalog.timeline` (MINT 05/2023, PAPAYA PoC 2024,
      * ESPRESSO Q3/2026), `product.software.meta` / `product.training.meta`
      * (12/2026, needs survey 2027) plus `src/lib/content/seed.ts`
@@ -1770,9 +1583,9 @@ export const dictionary = {
     faq: {
       eyebrow: L("HỎI ĐÁP", "FAQ", "FAQ"),
       title: L(
-        "Câu hỏi thường gặp về PIM và sản phẩm Pebble Vina",
-        "Frequently asked questions about PIM and Pebble Vina's products",
-        "PIM과 Pebble Vina 제품에 대해 자주 묻는 질문",
+        "Câu hỏi thường gặp về CIM và sản phẩm Pebble Vina",
+        "Frequently asked questions about CIM and Pebble Vina's products",
+        "CIM과 Pebble Vina 제품에 대해 자주 묻는 질문",
       ),
       lead: L(
         "Đây là những câu hỏi khách hàng doanh nghiệp thường đặt ra trước khi liên hệ, được trả lời đúng theo những gì trang này đã công bố.",
@@ -1783,27 +1596,27 @@ export const dictionary = {
         {
           id: "pim-la-gi",
           question: L(
-            "PIM (Processing-in-Memory) là gì và vì sao quan trọng với AI?",
-            "What is PIM (Processing-in-Memory), and why does it matter for AI?",
-            "PIM(Processing-in-Memory)은 무엇이며 AI에 왜 중요한가요?",
+            "CIM (Compute-in-Memory) là gì và vì sao quan trọng với AI?",
+            "What is CIM (Compute-in-Memory), and why does it matter for AI?",
+            "CIM(Compute-in-Memory)은 무엇이며 AI에 왜 중요한가요?",
           ),
           answer: L(
-            "PIM (Processing-in-Memory) là công nghệ tính toán đưa hoạt động xử lý đến gần nơi dữ liệu được lưu trữ, giúp giảm lượng dữ liệu phải di chuyển giữa bộ nhớ và bộ xử lý. Khi mô hình AI ngày càng lớn, việc dữ liệu liên tục di chuyển giữa DRAM và NPU có thể ảnh hưởng đến hiệu quả tính toán — PIM giải quyết đúng điểm nghẽn này cho các workload AI phù hợp. Pebble Vina phát triển hai hướng PIM là Analog và Digital để đáp ứng các nhu cầu tính toán AI khác nhau.",
-            "PIM (Processing-in-Memory) is a computing approach that brings processing close to where data is stored, cutting the volume of data that has to move between memory and processor. As AI models grow, the constant shuttling of data between DRAM and the NPU can hold back computational efficiency — PIM addresses exactly that bottleneck for suitable AI workloads. Pebble Vina develops two PIM directions, Analog and Digital, to serve different AI computing needs.",
-            "PIM(Processing-in-Memory)은 연산을 데이터가 저장된 자리 가까이로 옮겨, 메모리와 프로세서 사이를 오가야 하는 데이터의 양을 줄이는 연산 방식입니다. AI 모델이 커질수록 DRAM과 NPU 사이의 끊임없는 데이터 이동이 연산 효율을 떨어뜨릴 수 있는데, PIM은 적합한 AI 워크로드에서 바로 이 문제를 해결합니다. Pebble Vina는 서로 다른 AI 연산 수요에 대응하기 위해 아날로그와 디지털, 두 갈래의 PIM 기술을 개발합니다.",
+            "CIM (Compute-in-Memory) là công nghệ tính toán đưa hoạt động xử lý đến gần nơi dữ liệu được lưu trữ, giúp giảm lượng dữ liệu phải di chuyển giữa bộ nhớ và bộ xử lý. Khi mô hình AI ngày càng lớn, việc dữ liệu liên tục di chuyển giữa DRAM và NPU có thể ảnh hưởng đến hiệu quả tính toán — CIM giải quyết đúng điểm nghẽn này cho các workload AI phù hợp. Pebble Vina phát triển hai hướng CIM là Analog và Digital để đáp ứng các nhu cầu tính toán AI khác nhau.",
+            "CIM (Compute-in-Memory) is a computing approach that brings processing close to where data is stored, cutting the volume of data that has to move between memory and processor. As AI models grow, the constant shuttling of data between DRAM and the NPU can hold back computational efficiency — CIM addresses exactly that bottleneck for suitable AI workloads. Pebble Vina develops two CIM directions, Analog and Digital, to serve different AI computing needs.",
+            "CIM(Compute-in-Memory)은 연산을 데이터가 저장된 자리 가까이로 옮겨, 메모리와 프로세서 사이를 오가야 하는 데이터의 양을 줄이는 연산 방식입니다. AI 모델이 커질수록 DRAM과 NPU 사이의 끊임없는 데이터 이동이 연산 효율을 떨어뜨릴 수 있는데, CIM은 적합한 AI 워크로드에서 바로 이 문제를 해결합니다. Pebble Vina는 서로 다른 AI 연산 수요에 대응하기 위해 아날로그와 디지털, 두 갈래의 CIM 기술을 개발합니다.",
           ),
         },
         {
           id: "phan-biet-pim-analog-digital",
           question: L(
-            "Analog PIM và Digital PIM khác nhau như thế nào?",
-            "What is the difference between Analog PIM and Digital PIM?",
-            "아날로그 PIM과 디지털 PIM은 어떻게 다른가요?",
+            "Analog CIM và Digital CIM khác nhau như thế nào?",
+            "What is the difference between Analog CIM and Digital CIM?",
+            "아날로그 CIM과 디지털 CIM은 어떻게 다른가요?",
           ),
           answer: L(
-            "Analog PIM tích hợp năng lực tính toán trực tiếp với bộ nhớ để hạn chế di chuyển dữ liệu giữa memory và processor, và hiện được triển khai trong MINT (sản xuất 05/2023) cùng PAPAYA / PAPAYA FLEX (PoC 2024). Digital PIM được phát triển để đáp ứng yêu cầu tính toán cao hơn và khả năng tích hợp linh hoạt, làm nền tảng cho ESPRESSO (lộ trình Q3/2026). Hai hướng phục vụ các nhu cầu tính toán AI khác nhau, từ thiết bị biên nhỏ gọn đến các workload đòi hỏi hiệu năng cao hơn Edge AI.",
-            "Analog PIM integrates compute capability directly into memory to limit data movement between memory and processor, and it is currently implemented in MINT (in production since 05/2023) and PAPAYA / PAPAYA FLEX (2024 PoC). Digital PIM is built to meet higher computational demands and flexible integration, forming the foundation for ESPRESSO (roadmap Q3/2026). The two directions serve different AI computing needs, from compact edge devices to workloads beyond Edge AI.",
-            "아날로그 PIM은 연산 능력을 메모리에 직접 통합해 메모리와 프로세서 사이의 데이터 이동을 줄이며, 현재 MINT(2023년 5월 양산)와 PAPAYA / PAPAYA FLEX(2024년 PoC)에 적용되어 있습니다. 디지털 PIM은 더 높은 연산 요구와 유연한 통합을 충족하도록 개발되어 ESPRESSO(2026년 3분기 로드맵)의 기반이 됩니다. 두 방향은 소형 엣지 기기부터 Edge AI를 넘어서는 워크로드까지, 서로 다른 AI 연산 수요를 위한 것입니다.",
+            "Analog CIM tích hợp năng lực tính toán trực tiếp với bộ nhớ để hạn chế di chuyển dữ liệu giữa memory và processor, và hiện được triển khai trong MINT (sản xuất 05/2023) cùng PAPAYA / PAPAYA FLEX (PoC 2024). Digital CIM được phát triển để đáp ứng yêu cầu tính toán cao hơn và khả năng tích hợp linh hoạt, làm nền tảng cho ESPRESSO (lộ trình Q3/2026). Hai hướng phục vụ các nhu cầu tính toán AI khác nhau, từ thiết bị biên nhỏ gọn đến các workload đòi hỏi hiệu năng cao hơn Edge AI.",
+            "Analog CIM integrates compute capability directly into memory to limit data movement between memory and processor, and it is currently implemented in MINT (in production since 05/2023) and PAPAYA / PAPAYA FLEX (2024 PoC). Digital CIM is built to meet higher computational demands and flexible integration, forming the foundation for ESPRESSO (roadmap Q3/2026). The two directions serve different AI computing needs, from compact edge devices to workloads beyond Edge AI.",
+            "아날로그 CIM은 연산 능력을 메모리에 직접 통합해 메모리와 프로세서 사이의 데이터 이동을 줄이며, 현재 MINT(2023년 5월 양산)와 PAPAYA / PAPAYA FLEX(2024년 PoC)에 적용되어 있습니다. 디지털 CIM은 더 높은 연산 요구와 유연한 통합을 충족하도록 개발되어 ESPRESSO(2026년 3분기 로드맵)의 기반이 됩니다. 두 방향은 소형 엣지 기기부터 Edge AI를 넘어서는 워크로드까지, 서로 다른 AI 연산 수요를 위한 것입니다.",
           ),
         },
         {
@@ -1814,22 +1627,9 @@ export const dictionary = {
             "Pebble Vina의 어떤 제품이 지금 도입 가능하고, 어떤 제품이 로드맵 단계인가요?",
           ),
           answer: L(
-            "MINT là chip Analog PIM đã sản xuất từ 05/2023, còn PAPAYA / PAPAYA FLEX là PoC năm 2024 cùng hướng Analog PIM cho thị giác máy. ESPRESSO là chip Digital-PIM đang trong lộ trình, dự kiến Q3/2026. Phần mềm doanh nghiệp (dự kiến 12/2026) và đào tạo AI doanh nghiệp (khảo sát nhu cầu 2027) vẫn đang ở giai đoạn lộ trình.",
-            "MINT is an Analog PIM chip in production since 05/2023, while PAPAYA / PAPAYA FLEX is a 2024 proof of concept in the same Analog PIM direction, built for machine vision. ESPRESSO is a Digital-PIM chip on the roadmap, expected Q3/2026. Enterprise software (expected 12/2026) and enterprise AI training (needs survey, 2027) remain on the roadmap.",
-            "MINT는 2023년 5월부터 양산 중인 아날로그 PIM 칩이며, PAPAYA / PAPAYA FLEX는 같은 아날로그 PIM 방향의 머신 비전용 2024년 PoC입니다. ESPRESSO는 로드맵 단계의 Digital-PIM 칩으로 2026년 3분기 출시가 예정되어 있습니다. 기업용 소프트웨어(2026년 12월 예정)와 기업 AI 교육(2027년 수요 조사)은 아직 로드맵 단계입니다.",
-          ),
-        },
-        {
-          id: "chi-so-papaya-flex",
-          question: L(
-            "Các con số ~50×, ~100×, ~25× của PAPAYA FLEX có nghĩa là gì?",
-            "What do PAPAYA FLEX's ~50×, ~100× and ~25× figures mean?",
-            "PAPAYA FLEX의 ~50×, ~100×, ~25× 수치는 무엇을 의미하나요?",
-          ),
-          answer: L(
-            "Ba con số này đến từ benchmark thị giác máy (Machine Vision Benchmark) so PAPAYA FLEX với NVIDIA Jetson Nano. Về điện năng, PAPAYA FLEX dùng 0,1–0,15 W so với 5–10 W của Jetson Nano (~50×); về hiệu suất, đạt 333–500 GOPS/W so với 3,6–7,2 FPS/W trên Jetson Nano (~100×); về diện tích chip, kích thước 10 × 10 mm so với 70 × 45 mm của Jetson Nano (~25×).",
-            "All three figures come from a machine-vision benchmark comparing PAPAYA FLEX against the NVIDIA Jetson Nano. On power, PAPAYA FLEX draws 0.1–0.15 W against 5–10 W on the Jetson Nano (~50×); on efficiency, it reaches 333–500 GOPS/W against 3.6–7.2 FPS/W on the Jetson Nano (~100×); on die area, it measures 10 × 10 mm against 70 × 45 mm on the Jetson Nano (~25×).",
-            "이 세 수치는 PAPAYA FLEX를 NVIDIA Jetson Nano와 비교한 머신 비전 벤치마크(Machine Vision Benchmark)에서 나온 것입니다. 전력에서는 Jetson Nano의 5–10 W 대비 0.1–0.15 W(~50배), 효율에서는 Jetson Nano의 3.6–7.2 FPS/W 대비 333–500 GOPS/W(~100배), 다이 면적에서는 Jetson Nano의 70 × 45 mm 대비 10 × 10 mm(~25배)입니다.",
+            "MINT là chip Analog CIM đã sản xuất hàng loạt từ 05/2023, còn PAPAYA / PAPAYA FLEX là chip Analog CIM cho thị giác máy tính: PAPAYA đã kiểm chứng silicon, PAPAYA FLEX đang hoàn thiện sản phẩm với mục tiêu 2027 H1. ESPRESSO là chip Digital CIM đang trong lộ trình, dự kiến Q3/2026. Phần mềm doanh nghiệp (dự kiến 12/2026) và đào tạo AI doanh nghiệp (khảo sát nhu cầu 2027) vẫn đang ở giai đoạn lộ trình.",
+            "MINT is an Analog CIM chip in mass production since 05/2023, while PAPAYA / PAPAYA FLEX are Analog CIM chips for computer vision: PAPAYA is silicon-verified and PAPAYA FLEX is being productized with a target of 2027 H1. ESPRESSO is a Digital CIM chip on the roadmap, expected Q3/2026. Enterprise software (expected 12/2026) and enterprise AI training (needs survey, 2027) remain on the roadmap.",
+            "MINT는 2023년 5월부터 대량 생산 중인 아날로그 CIM 칩이며, PAPAYA / PAPAYA FLEX는 컴퓨터 비전용 아날로그 CIM 칩으로 PAPAYA는 실리콘 검증을 마쳤고 PAPAYA FLEX는 2027년 상반기 제품화를 목표로 개발 중입니다. ESPRESSO는 로드맵 단계의 Digital CIM 칩으로 2026년 3분기 출시가 예정되어 있습니다. 기업용 소프트웨어(2026년 12월 예정)와 기업 AI 교육(2027년 수요 조사)은 아직 로드맵 단계입니다.",
           ),
         },
         {
@@ -1840,9 +1640,9 @@ export const dictionary = {
             "MINT는 어디에 사용되나요?",
           ),
           answer: L(
-            "MINT là chip Analog PIM đã sản xuất từ 05/2023, dùng cho các thiết bị cần xử lý dữ liệu trực tiếp tại biên như Smart Home, IoT và Failure Analysis. Nhờ loại bỏ độ trễ di chuyển dữ liệu giữa bộ nhớ và bộ xử lý, MINT phản hồi tức thì với mức tiêu thụ điện năng rất thấp — đạt 30 GOPS ở hiệu suất 17,6 TOPS/W trên diện tích chip 5 × 5 mm.",
-            "MINT is an Analog PIM chip in production since 05/2023, built for devices that need to process data directly at the edge — Smart Home, IoT and Failure Analysis. By removing the latency of moving data between memory and processor, MINT delivers instant response at very low power draw — 30 GOPS at 17.6 TOPS/W efficiency on a 5 × 5 mm chip area.",
-            "MINT는 2023년 5월부터 양산 중인 아날로그 PIM 칩으로, 스마트홈, IoT, 고장 분석(Failure Analysis)처럼 엣지에서 데이터를 직접 처리해야 하는 기기에 사용됩니다. 메모리와 프로세서 사이의 데이터 이동 지연을 없애 매우 낮은 소비 전력으로 즉각적인 응답을 제공하며, 5 × 5 mm 칩 면적에서 17.6 TOPS/W 효율로 30 GOPS를 냅니다.",
+            "MINT là chip Analog CIM đã được chứng minh qua sản xuất hàng loạt từ 05/2023, chuyên dụng cho các thiết bị cần giám sát liên tục với mức tiêu thụ điện cực thấp — đạt 30 GOPS ở hiệu suất 17,6 TOPS/W. Với hơn 600.000 chip đã sản xuất và tỷ lệ đạt chuẩn 92%, MINT được dùng cho các ứng dụng an toàn điện như AFCI, thiết bị giám sát an toàn và cảm biến cần AI chạy trực tiếp tại biên.",
+            "MINT is an Analog CIM chip proven in mass production since 05/2023, built for devices that need continuous monitoring at ultra-low power — 30 GOPS at 17.6 TOPS/W efficiency. With more than 600,000 chips produced at a 92% pass rate, MINT serves electrical-safety applications such as AFCI, safety-monitoring devices and sensors that need AI running right at the edge.",
+            "MINT는 2023년 5월부터 대량 생산으로 검증된 아날로그 CIM 칩으로, 초저전력으로 상시 모니터링이 필요한 기기를 위해 설계되어 17.6 TOPS/W 효율로 30 GOPS를 냅니다. 60만 개 이상을 92%의 합격률로 생산했으며, AFCI 같은 전기 안전 응용, 안전 모니터링 기기, 엣지에서 AI를 직접 구동해야 하는 센서에 사용됩니다.",
           ),
         },
         {
@@ -1978,14 +1778,14 @@ export const dictionary = {
   meta: {
     home: {
       title: L(
-        "Chip AI ngoại biên & công nghệ PIM — Pebble Vina",
-        "Edge-AI chips & PIM technology — Pebble Vina",
-        "엣지 AI 칩 & PIM 기술 — Pebble Vina",
+        "Chip AI ngoại biên & công nghệ CIM — Pebble Vina",
+        "Edge-AI chips & CIM technology — Pebble Vina",
+        "엣지 AI 칩 & CIM 기술 — Pebble Vina",
       ),
       description: L(
-        "Pebble Vina nghiên cứu, phát triển chip bán dẫn AI ngoại biên trên công nghệ PIM (Analog, Digital), cùng phần mềm và đào tạo AI cho doanh nghiệp Việt Nam.",
-        "Pebble Vina researches and develops edge-AI semiconductors on PIM (Analog, Digital) technology, plus AI software and enterprise training in Vietnam.",
-        "Pebble Vina는 PIM(아날로그·디지털) 기술 기반 엣지 AI 반도체를 연구·개발하며, 베트남에서 AI 소프트웨어와 기업 AI 교육을 제공합니다.",
+        "Pebble Vina nghiên cứu, phát triển chip bán dẫn AI ngoại biên trên công nghệ CIM (Analog, Digital), cùng phần mềm và đào tạo AI cho doanh nghiệp Việt Nam.",
+        "Pebble Vina researches and develops edge-AI semiconductors on CIM (Analog, Digital) technology, plus AI software and enterprise training in Vietnam.",
+        "Pebble Vina는 CIM(아날로그·디지털) 기술 기반 엣지 AI 반도체를 연구·개발하며, 베트남에서 AI 소프트웨어와 기업 AI 교육을 제공합니다.",
       ),
     },
     products: {
@@ -1995,9 +1795,9 @@ export const dictionary = {
         "MINT·PAPAYA·ESPRESSO 칩 | Pebble Vina",
       ),
       description: L(
-        "Danh mục chip AI Pebble Vina: MINT (30 GOPS, 17,6 TOPS/W), PAPAYA & PAPAYA FLEX cho thị giác máy, ESPRESSO Digital-PIM 160 TOPS.",
-        "Pebble Vina's AI chip catalogue: MINT (30 GOPS, 17.6 TOPS/W), PAPAYA & PAPAYA FLEX for machine vision, ESPRESSO Digital-PIM 160 TOPS.",
-        "Pebble Vina 칩: MINT(30 GOPS·17.6 TOPS/W), PAPAYA·FLEX, ESPRESSO 160 TOPS.",
+        "Danh mục chip AI Pebble Vina: MINT (30 GOPS, 17,6 TOPS/W), PAPAYA & PAPAYA FLEX cho thị giác máy tính, ESPRESSO Digital CIM 140 TOPS.",
+        "Pebble Vina's AI chip catalogue: MINT (30 GOPS, 17.6 TOPS/W), PAPAYA & PAPAYA FLEX for computer vision, ESPRESSO Digital CIM 140 TOPS.",
+        "Pebble Vina 칩: MINT(30 GOPS·17.6 TOPS/W), PAPAYA·FLEX, ESPRESSO 140 TOPS.",
       ),
     },
     bio: {
@@ -2007,9 +1807,9 @@ export const dictionary = {
         "회사 소개 — Pebble Vina Company Limited",
       ),
       description: L(
-        "Hồ sơ Pebble Vina: pháp nhân và trụ sở Hà Nội, công nghệ PIM Analog & Digital, lộ trình từ MINT (sản xuất 05/2023) đến ESPRESSO (lộ trình Q3/2026).",
-        "Pebble Vina profile: legal entity in Hanoi, Analog & Digital PIM technology, product timeline from MINT (production 05/2023) to ESPRESSO (roadmap Q3/2026).",
-        "Pebble Vina 소개: 하노이 법인, 아날로그·디지털 PIM 기술, MINT(2023년 5월 양산)~ESPRESSO(2026년 3분기 로드맵).",
+        "Hồ sơ Pebble Vina: pháp nhân và trụ sở Hà Nội, công nghệ CIM Analog & Digital, lộ trình từ MINT (sản xuất 05/2023) đến ESPRESSO (lộ trình Q3/2026).",
+        "Pebble Vina profile: legal entity in Hanoi, Analog & Digital CIM technology, product timeline from MINT (production 05/2023) to ESPRESSO (roadmap Q3/2026).",
+        "Pebble Vina 소개: 하노이 법인, 아날로그·디지털 CIM 기술, MINT(2023년 5월 양산)~ESPRESSO(2026년 3분기 로드맵).",
       ),
     },
     /**
@@ -2021,52 +1821,52 @@ export const dictionary = {
      * per-key comments below for the exact source of each figure and date.
      */
     productMint: {
-      // 30 GOPS / 17,6 TOPS/W / 5 × 5 mm² — `product.mint.specs`; 05/2023 —
+      // 30 GOPS / 17,6 TOPS/W — `product.mint.specs`; 05/2023 —
       // `product.mint.meta`; applications — `product.mint.apps`.
       title: L(
-        "MINT — Chip Analog PIM 30 GOPS, 17,6 TOPS/W | Pebble Vina",
-        "MINT — Analog PIM Chip, 30 GOPS, 17.6 TOPS/W | Pebble Vina",
-        "MINT — 아날로그 PIM 칩 30 GOPS | Pebble Vina",
+        "MINT — Chip Analog CIM an toàn tại biên | Pebble Vina",
+        "MINT — Analog CIM Edge Safety AI Chip | Pebble Vina",
+        "MINT — 엣지 안전 AI 아날로그 CIM 칩 | Pebble Vina",
       ),
       description: L(
-        "Chip Analog PIM của Pebble Vina, đạt 30 GOPS ở 17,6 TOPS/W trên 5 × 5 mm², sản xuất từ 05/2023 — dùng cho Smart Home, IoT, Failure Analysis.",
-        "Pebble Vina's Analog PIM chip: 30 GOPS at 17.6 TOPS/W on a 5 × 5 mm² die, in production since 05/2023 — for Smart Home, IoT and Failure Analysis.",
-        "MINT는 5×5 mm²에서 17.6 TOPS/W로 30 GOPS를 내는 아날로그 PIM 칩으로 2023년 5월 양산, 스마트홈·IoT·고장 분석용입니다.",
+        "MINT là chip Analog CIM đã sản xuất hàng loạt từ 05/2023: hơn 600.000 chip, tỷ lệ đạt chuẩn 92%, 30 GOPS ở 17,6 TOPS/W — cho AI an toàn điện AFCI và cảm biến tại biên.",
+        "MINT is an Analog CIM chip in mass production since 05/2023: 600,000+ chips, 92% pass rate, 30 GOPS at 17.6 TOPS/W — for AFCI electrical safety and edge sensors.",
+        "MINT는 2023년 5월부터 대량 생산 중인 아날로그 CIM 칩으로 60만 개 이상, 합격률 92%, 17.6 TOPS/W로 30 GOPS를 내며 AFCI 전기 안전과 엣지 센서에 쓰입니다.",
       ),
     },
     productPapaya: {
-      // Analog PIM, PoC 2024 — `product.papaya.meta`; ~50× power figure with its
-      // measurement and the NVIDIA Jetson Nano name — `product.papaya.flexSpecs[0]`
-      // (CLAUDE.md § 2: no bare comparison).
+      // Analog CIM, PoC 2024 — `product.papaya.meta`; ~50 mW / 2 TOPS / ~200 mW —
+      // `product.papaya.specs` / `flexAbsoluteSpecs`. No comparison with another
+      // vendor's part (CLAUDE.md § 2).
       title: L(
-        "PAPAYA — Analog PIM cho thị giác máy | Pebble Vina",
-        "PAPAYA — Analog PIM Vision Chip, 2024 PoC | Pebble Vina",
-        "PAPAYA — 아날로그 PIM 비전 칩 | Pebble Vina",
+        "PAPAYA — Chip Analog CIM cho thị giác máy tính | Pebble Vina",
+        "PAPAYA — Analog CIM Vision Chip | Pebble Vina",
+        "PAPAYA — 아날로그 CIM 비전 칩 | Pebble Vina",
       ),
       description: L(
-        "PAPAYA / PAPAYA FLEX là chip Analog PIM cho thị giác máy và an ninh, PoC 2024, tiết kiệm điện ~50× so với NVIDIA Jetson Nano trong benchmark đã công bố.",
-        "PAPAYA / PAPAYA FLEX is Pebble Vina's Analog PIM chip for machine vision, a 2024 PoC using ~50× less power than NVIDIA Jetson Nano in published testing.",
-        "PAPAYA/PAPAYA FLEX는 머신비전·보안용 아날로그 PIM 칩, 2024년 PoC — 공개 벤치마크에서 Jetson Nano 대비 전력 약 50배 절감.",
+        "PAPAYA là chip Analog CIM đã kiểm chứng silicon cho thị giác máy tính, chỉ ~50 mW; PAPAYA FLEX đạt 2 TOPS ở ~200 mW, mục tiêu sản phẩm hóa 2027 H1 — cho camera AI, robot, Physical AI.",
+        "PAPAYA is a silicon-verified Analog CIM chip for computer vision at ~50 mW; PAPAYA FLEX reaches 2 TOPS at ~200 mW, productization target 2027 H1 — for AI cameras, robots and physical AI.",
+        "PAPAYA는 실리콘 검증을 마친 컴퓨터 비전용 아날로그 CIM 칩(약 50 mW), PAPAYA FLEX는 약 200 mW에서 2 TOPS, 2027년 상반기 제품화 목표입니다.",
       ),
     },
     productEspresso: {
-      // Digital PIM, roadmap Q3/2026 — `product.espresso.meta`; 160 TOPS / 16
-      // TOPS/W — `product.espresso.specs`; 640 TOPS 4-chip card —
+      // Digital CIM, roadmap Q3/2026 — `product.espresso.meta`; 140 TOPS dense INT8 /
+      // 15,5–28 TOPS/W vision — `product.espresso.specs`; 560 TOPS 4-chip card —
       // `product.espresso.cardValue`; AI PC / Robotics / Data Center —
       // `product.espresso.targets`.
       title: L(
-        "ESPRESSO — Chip Digital PIM 160 TOPS, Q3/2026 | Pebble Vina",
-        "ESPRESSO — Digital PIM, 160 TOPS, Q3/2026 | Pebble Vina",
-        "ESPRESSO 디지털 PIM 160 TOPS | Pebble Vina",
+        "ESPRESSO — Chip Digital CIM 140 TOPS, Q3/2026 | Pebble Vina",
+        "ESPRESSO — Digital CIM, 140 TOPS, Q3/2026 | Pebble Vina",
+        "ESPRESSO 디지털 CIM 140 TOPS | Pebble Vina",
       ),
       description: L(
-        "ESPRESSO là chip Digital-PIM lộ trình Q3/2026 của Pebble Vina, 160 TOPS ở 16 TOPS/W, mở rộng 640 TOPS trên card 4 chip — cho AI PC, Robotics, Data Center.",
-        "ESPRESSO is Pebble Vina's Digital-PIM chip, roadmap Q3/2026: 160 TOPS at 16 TOPS/W, scaling to 640 TOPS on a 4-chip card — AI PC, Robotics, Data Center.",
-        "ESPRESSO는 2026년 3분기 로드맵 Digital-PIM 칩으로 16 TOPS/W에서 160 TOPS, 4칩 카드에서 640 TOPS까지 확장됩니다.",
+        "ESPRESSO là chip Digital CIM (SRAM) dự kiến Q3/2026: 140 TOPS (dense INT8) và 90 TFLOPS (bf16) mỗi chip, cho LLM cục bộ, Private AI Server và trung tâm dữ liệu AI tại biên.",
+        "ESPRESSO is a Digital CIM (SRAM) chip expected Q3/2026: 140 TOPS (dense INT8) and 90 TFLOPS (bf16) per chip, for local LLMs, private AI servers and edge AI data centres.",
+        "ESPRESSO는 2026년 3분기 출시 예정인 Digital CIM(SRAM) 칩으로, 칩당 140 TOPS(dense INT8)·90 TFLOPS(bf16)로 로컬 LLM과 프라이빗 AI 서버를 겨냥합니다.",
       ),
     },
     productESeries: {
-      // GP-GPU / GP-DSA, not PIM — `product.catalog.hardware[3].badge`; E10 /
+      // GP-GPU / GP-DSA, not CIM — `product.catalog.hardware[3].badge`; E10 /
       // E20 figures — `product.eseries.cards[].specs`. No date or lifecycle
       // status is published for E-Series anywhere on the site, so none is
       // claimed here (CLAUDE.md § 2).
@@ -2127,9 +1927,9 @@ export const dictionary = {
     },
     /** Short organisation blurb reused by JSON-LD and llms.txt. */
     organisation: L(
-      "Công ty TNHH Pebble Vina — doanh nghiệp công nghệ bán dẫn AI tại Hà Nội, phát triển chip AI ngoại biên trên nền công nghệ Processing-in-Memory cùng đối tác công nghệ Pebble Square Inc.",
-      "Pebble Vina Company Limited — an AI semiconductor company in Hanoi developing edge-AI chips on Processing-in-Memory technology with technology partner Pebble Square Inc.",
-      "Pebble Vina Company Limited — 하노이에 자리한 AI 반도체 기업으로, 기술 파트너 Pebble Square Inc.와 함께 Processing-in-Memory 기술 기반의 엣지 AI 칩을 개발합니다.",
+      "Công ty TNHH Pebble Vina — doanh nghiệp công nghệ bán dẫn AI tại Hà Nội, phát triển chip AI ngoại biên trên nền công nghệ Compute-in-Memory cùng đối tác công nghệ Pebble Square Inc.",
+      "Pebble Vina Company Limited — an AI semiconductor company in Hanoi developing edge-AI chips on Compute-in-Memory technology with technology partner Pebble Square Inc.",
+      "Pebble Vina Company Limited — 하노이에 자리한 AI 반도체 기업으로, 기술 파트너 Pebble Square Inc.와 함께 Compute-in-Memory 기술 기반의 엣지 AI 칩을 개발합니다.",
     ),
   },
 };

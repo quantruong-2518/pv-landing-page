@@ -30,22 +30,22 @@ const ANCHOR_TO_PRODUCT_SLUG = new Map<AnchorId, ProductSlug>(
 );
 
 /**
- * § 02 — the two PIM directions, on the sheet's one daylight band.
+ * § 02 — the two CIM directions, on the sheet's one daylight band.
  *
  * The inversion is the page's biggest visual move and it costs nothing in theme
  * terms: `.bio-day` swaps the text tokens for the day scale, so every shared
  * primitive inside it re-resolves on the light surface without a single
  * hard-coded colour (globals.css, "/bio — the company profile sheet").
  *
- * What this block does *not* do is repeat the home PIM section. That one now
+ * What this block does *not* do is repeat the home CIM section. That one now
  * renders the signal diagrams from `pim.imageA` / `imageB` under a heading and
  * a body; showing the same two pictures under the same two headings one click
  * later is the failure mode of a profile page. So the sheet takes the angle
  * only a profile can take: which parts actually implement each direction, and
  * where each of those parts stands today.
  *
- * That list is filtered out of the catalogue badges — "ANALOG PIM · 05/2023",
- * "DIGITAL PIM · Q3/2026" — rather than written out here. A part that changes
+ * That list is filtered out of the catalogue badges — "ANALOG CIM · 05/2023",
+ * "DIGITAL CIM · Q3/2026" — rather than written out here. A part that changes
  * families, or a date that moves, moves with it; and E-Series, whose badge
  * reads "GP-GPU / GP-DSA", correctly appears under neither.
  *
@@ -69,13 +69,13 @@ export function BioDirections({
       ...pim.analog,
       image: copy.directions.analogImage,
       href: routes.product(locale, "mint"),
-      parts: hardware.filter((card) => card.badge.startsWith("ANALOG PIM")),
+      parts: hardware.filter((card) => card.badge.startsWith("ANALOG CIM")),
     },
     {
       ...pim.digital,
       image: copy.directions.digitalImage,
       href: routes.product(locale, "espresso"),
-      parts: hardware.filter((card) => card.badge.startsWith("DIGITAL PIM")),
+      parts: hardware.filter((card) => card.badge.startsWith("DIGITAL CIM")),
     },
   ];
 
@@ -128,7 +128,7 @@ export function BioDirections({
               </div>
             </div>
 
-            <p className="max-w-[46ch] text-card text-body">{column.body[locale]}</p>
+            <p className="max-w-[46ch] text-card text-body">{plainText(column.body[locale])}</p>
 
             <div className="flex flex-col gap-1 pt-1">
               <span className="font-mono text-label text-faint">

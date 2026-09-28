@@ -142,7 +142,7 @@ export function ProductDetail({
  * commonest "second kind of content inside a section" on this page, so it opens
  * with the same hairline every other group does. The two slots swap by whether
  * there is a wordmark — with a `name` the label is the qualifier under it
- * ("PAPAYA FLEX" · MACHINE VISION BENCHMARK), without one the label *is* the
+ * ("PAPAYA FLEX" · a status line), without one the label *is* the
  * group's name and is set in accent like the catalogue's group heads.
  */
 export function SpecHeading({

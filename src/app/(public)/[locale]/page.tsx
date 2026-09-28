@@ -7,7 +7,6 @@ import { CoreStats } from "@/components/site/home/core-stats";
 import { Hero } from "@/components/site/home/hero";
 import { NewsGrid } from "@/components/site/home/news-grid";
 import { PimSection } from "@/components/site/home/pim-section";
-import { SolutionsList } from "@/components/site/home/solutions-list";
 import { WhySection } from "@/components/site/home/why-section";
 import { SiteHeader } from "@/components/site/site-header";
 import { getPageContent, getPublishedAt } from "@/lib/content/store";
@@ -67,9 +66,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         {content.pim.visible ? <PimSection content={content.pim} locale={locale} /> : null}
         {content.why.visible ? <WhySection content={content.why} locale={locale} /> : null}
         {content.core.visible ? <CoreStats content={content.core} locale={locale} /> : null}
-        {content.solutions.visible ? (
-          <SolutionsList content={content.solutions} locale={locale} />
-        ) : null}
         {content.news.visible ? <NewsGrid content={content.news} locale={locale} /> : null}
         {content.contact.visible ? (
           <ContactSection content={content.contact} locale={locale} />

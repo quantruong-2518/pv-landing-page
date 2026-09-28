@@ -11,8 +11,8 @@ import { dictionary } from "@/lib/i18n/dictionary";
 import { cn } from "@/lib/utils";
 
 /**
- * 02 — "Tại sao công nghệ PIM quan trọng đối với AI?", as locked in the 2026-09
- * review (canvas artboards "Tại sao PIM — Desktop" / "— Mobile").
+ * 02 — "Tại sao công nghệ CIM quan trọng đối với AI?", as locked in the 2026-09
+ * review (canvas artboards "Tại sao CIM — Desktop" / "— Mobile").
  *
  * The section reads as a 50/50 split from `lg`: copy left, the DRAM↔NPU render
  * holding the whole right half with a label on each of the two parts the lead
@@ -31,7 +31,7 @@ import { cn } from "@/lib/utils";
 export function WhySection({ content, locale }: { content: HomeContent["why"]; locale: Locale }) {
   const copy = dictionary.home.why;
   // The CMS lead is one field carrying two paragraphs: the problem, then what
-  // PIM does about it. An editor who removes the break gets one paragraph and
+  // CIM does about it. An editor who removes the break gets one paragraph and
   // no highlight box, which is a degraded layout rather than a broken one.
   const [problem, solution] = splitLines(content.lead[locale]);
 
@@ -100,7 +100,9 @@ export function WhySection({ content, locale }: { content: HomeContent["why"]; l
               {card.index}
             </span>
             <div className="text-h3 font-semibold">{card.title[locale]}</div>
-            <p className="mt-1.5 text-card text-body">{card.body[locale]}</p>
+            <p className="mt-1.5 text-card text-body">
+              <MarkedText value={card.body[locale]} />
+            </p>
           </Reveal>
         ))}
       </div>

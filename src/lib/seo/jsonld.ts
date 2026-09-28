@@ -82,7 +82,7 @@ export function organisationJsonLd(locale: Locale) {
       },
     ],
     // The parent/technology partner is a real, verifiable entity — naming it
-    // is how a reader checks the PIM claims.
+    // is how a reader checks the CIM claims.
     parentOrganization: {
       "@type": "Organization",
       name: "Pebble Square Inc.",
@@ -92,9 +92,9 @@ export function organisationJsonLd(locale: Locale) {
       sameAs: external.parent,
     },
     knowsAbout: [
-      "Processing-in-Memory",
-      "Analog PIM",
-      "Digital PIM",
+      "Compute-in-Memory",
+      "Analog CIM",
+      "Digital CIM",
       "Edge AI",
       "On-device AI",
       "AI inference",
@@ -358,7 +358,6 @@ const PRODUCT_FACTS: Record<ProductSlug, ProductFacts> = {
     properties: [
       { name: "Performance", value: "30 GOPS" },
       { name: "Efficiency", value: "17.6 TOPS/W" },
-      { name: "Die area", value: "5 × 5 mm²" },
     ],
   },
   papaya: {
@@ -366,18 +365,18 @@ const PRODUCT_FACTS: Record<ProductSlug, ProductFacts> = {
     status: "poc",
     properties: [
       { name: "Performance", value: "0.5 TOPS" },
-      { name: "Efficiency", value: "30 TOPS/W" },
-      { name: "Die area", value: "5 × 5 mm²" },
+      { name: "Power", value: "~50 mW" },
+      { name: "PAPAYA FLEX performance", value: "2 TOPS" },
+      { name: "PAPAYA FLEX power", value: "~200 mW (productization target 2027 H1)" },
     ],
   },
   espresso: {
     name: "ESPRESSO",
     status: "roadmap",
     properties: [
-      { name: "Performance", value: "160 TOPS" },
-      { name: "Efficiency", value: "16 TOPS/W" },
-      { name: "Die area", value: "20 × 23 mm²" },
-      { name: "4-chip card", value: "640 TOPS" },
+      { name: "Performance", value: "140 TOPS (dense INT8)" },
+      { name: "Efficiency", value: "15.5–28 TOPS/W (vision workloads; varies by workload)" },
+      { name: "4-chip card", value: "560 TOPS" },
     ],
   },
   "e-series": {

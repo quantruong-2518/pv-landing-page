@@ -33,9 +33,9 @@ export const SEED_CONTENT: SiteContent = {
         ko: "*AI 시대*를 여는\n반도체 기술",
       },
       lead: {
-        vi: "Pebble Vina tập trung nghiên cứu và phát triển các công nghệ bán dẫn AI, từ thiết kế kiến trúc chip, công nghệ xử lý trong bộ nhớ (PIM) đến phát triển phần mềm và các giải pháp AI ứng dụng.",
-        en: "Pebble Vina researches and develops AI semiconductor technologies — from chip architecture and processing-in-memory (PIM) to software and applied AI solutions.",
-        ko: "Pebble Vina는 칩 아키텍처 설계와 메모리 내 연산(PIM) 기술부터 소프트웨어 개발과 응용 AI 솔루션에 이르기까지, AI 반도체 기술을 연구하고 개발합니다.",
+        vi: "Pebble Vina tập trung nghiên cứu và phát triển các công nghệ bán dẫn AI, từ thiết kế kiến trúc chip, công nghệ tính toán trong bộ nhớ (CIM) đến phát triển phần mềm và các giải pháp AI ứng dụng.",
+        en: "Pebble Vina researches and develops AI semiconductor technologies — from chip architecture and compute-in-memory (CIM) to software and applied AI solutions.",
+        ko: "Pebble Vina는 칩 아키텍처 설계와 메모리 내 연산(CIM) 기술부터 소프트웨어 개발과 응용 AI 솔루션에 이르기까지, AI 반도체 기술을 연구하고 개발합니다.",
       },
       sub: {
         vi: "Với định hướng kết hợp giữa phần cứng và phần mềm, Pebble Vina phát triển các nền tảng tính toán phục vụ AI, Edge AI, On-device AI và các mô hình AI thế hệ mới.",
@@ -53,30 +53,30 @@ export const SEED_CONTENT: SiteContent = {
     marquee: {
       visible: true,
       items: {
-        vi: "NGHIÊN CỨU · THỰC NGHIỆM · PHÁT TRIỂN · ĐÀO TẠO · PROCESSING-IN-MEMORY · EDGE AI · ON-DEVICE AI · AI INFERENCE",
-        en: "RESEARCH · EXPERIMENTATION · DEVELOPMENT · TRAINING · PROCESSING-IN-MEMORY · EDGE AI · ON-DEVICE AI · AI INFERENCE",
-        ko: "연구 · 실증 · 개발 · 교육 · PROCESSING-IN-MEMORY · EDGE AI · ON-DEVICE AI · AI INFERENCE",
+        vi: "NGHIÊN CỨU · THỰC NGHIỆM · PHÁT TRIỂN · ĐÀO TẠO · COMPUTE-IN-MEMORY · EDGE AI · ON-DEVICE AI · AI INFERENCE",
+        en: "RESEARCH · EXPERIMENTATION · DEVELOPMENT · TRAINING · COMPUTE-IN-MEMORY · EDGE AI · ON-DEVICE AI · AI INFERENCE",
+        ko: "연구 · 실증 · 개발 · 교육 · COMPUTE-IN-MEMORY · EDGE AI · ON-DEVICE AI · AI INFERENCE",
       },
     },
 
     pim: {
       visible: true,
       eyebrow: {
-        vi: "01 — PROCESSING IN MEMORY",
-        en: "01 — PROCESSING IN MEMORY",
-        ko: "01 — PROCESSING IN MEMORY",
+        vi: "01 — COMPUTE IN MEMORY",
+        en: "01 — COMPUTE IN MEMORY",
+        ko: "01 — COMPUTE IN MEMORY",
       },
       title: {
-        vi: "CÔNG NGHỆ PIM\nNỀN TẢNG TÍNH TOÁN CHO AI",
+        vi: "CÔNG NGHỆ CIM\nNỀN TẢNG TÍNH TOÁN CHO AI",
         en: "THE COMPUTING FOUNDATION\nFOR AI",
         // One line: "AI 연산의 토대가 되는" is a modifier, and breaking it off
         // would leave the dimmer line carrying the subject of the headline.
-        ko: "AI 연산의 토대가 되는 PIM 기술",
+        ko: "AI 연산의 토대가 되는 CIM 기술",
       },
       lead: {
-        vi: "**PIM (Processing-in-Memory)** là công nghệ tính toán đưa hoạt động xử lý đến gần nơi dữ liệu được lưu trữ, qua đó giảm lượng dữ liệu phải di chuyển giữa bộ nhớ và bộ xử lý.\nPebble Vina phát triển hai hướng công nghệ PIM gồm *Analog* và *Digital* nhằm đáp ứng các nhu cầu tính toán AI khác nhau.",
-        en: "**PIM (Processing-in-Memory)** brings computation close to where data is stored, cutting the volume of data that has to move between memory and processor.\nPebble Vina develops two PIM directions — *Analog* and *Digital* — to serve different AI computing needs.",
-        ko: "**PIM(Processing-in-Memory)**은 연산을 데이터가 저장된 자리 가까이로 옮겨, 메모리와 프로세서 사이를 오가야 하는 데이터의 양을 줄이는 기술입니다.\nPebble Vina는 서로 다른 AI 연산 수요에 대응하기 위해 *아날로그*와 *디지털* 두 갈래의 PIM 기술을 개발하고 있습니다.",
+        vi: "**CIM (Compute-in-Memory)** là công nghệ tính toán đưa hoạt động xử lý đến gần nơi dữ liệu được lưu trữ, qua đó giảm lượng dữ liệu phải di chuyển giữa bộ nhớ và bộ xử lý.\nPebble Vina phát triển hai hướng công nghệ CIM gồm *Analog* và *Digital* nhằm đáp ứng các nhu cầu tính toán AI khác nhau.",
+        en: "**CIM (Compute-in-Memory)** brings computation close to where data is stored, cutting the volume of data that has to move between memory and processor.\nPebble Vina develops two CIM directions — *Analog* and *Digital* — to serve different AI computing needs.",
+        ko: "**CIM(Compute-in-Memory)**은 연산을 데이터가 저장된 자리 가까이로 옮겨, 메모리와 프로세서 사이를 오가야 하는 데이터의 양을 줄이는 기술입니다.\nPebble Vina는 서로 다른 AI 연산 수요에 대응하기 위해 *아날로그*와 *디지털* 두 갈래의 CIM 기술을 개발하고 있습니다.",
       },
       imageA: "/images/mint-analog-pim-v2.png",
       imageB: "/images/espresso-digital-pim-v2.png",
@@ -85,14 +85,14 @@ export const SEED_CONTENT: SiteContent = {
     why: {
       visible: true,
       title: {
-        vi: "Tại sao công nghệ PIM quan trọng đối với AI?",
-        en: "WHY DOES PIM MATTER FOR AI?",
-        ko: "PIM 기술이 AI에 중요한 이유",
+        vi: "Tại sao công nghệ CIM quan trọng đối với AI?",
+        en: "WHY DOES CIM MATTER FOR AI?",
+        ko: "CIM 기술이 AI에 중요한 이유",
       },
       lead: {
-        vi: "Khi các mô hình AI ngày càng lớn, nhu cầu xử lý và truyền dữ liệu cũng tăng theo. Việc liên tục di chuyển dữ liệu giữa bộ nhớ (DRAM) và bộ xử lý (NPU) có thể ảnh hưởng đến hiệu quả của quá trình tính toán.\n**Công nghệ PIM** tiếp cận bài toán này bằng cách đưa hoạt động tính toán đến gần nơi dữ liệu được lưu trữ, từ đó giảm nhu cầu di chuyển dữ liệu đối với các workload AI phù hợp.",
-        en: "As AI models grow, so does the demand for processing and moving data. Continuously shuttling data between memory (DRAM) and the processor (NPU) can hold back computational efficiency.\n**PIM** approaches this by bringing computation close to where data is stored, reducing data movement for suitable AI workloads.",
-        ko: "AI 모델이 커질수록 데이터를 처리하고 옮기는 부담도 함께 커집니다. 메모리(DRAM)와 프로세서(NPU) 사이에서 데이터가 끊임없이 오가면 연산 효율이 떨어질 수 있습니다.\n**PIM 기술**은 연산을 데이터가 저장된 자리 가까이로 옮기는 방식으로 이 문제에 접근해, 적합한 AI 워크로드에서 데이터 이동 자체를 줄입니다.",
+        vi: "Khi các mô hình AI ngày càng lớn, thách thức không chỉ nằm ở sức mạnh tính toán mà còn ở **việc di chuyển dữ liệu**. Trong kiến trúc truyền thống, dữ liệu liên tục luân chuyển giữa bộ nhớ (DRAM) và bộ xử lý (NPU), tạo ra *nút thắt cổ chai* về cả tốc độ lẫn năng lượng.\n**Công nghệ CIM (Compute-in-Memory)** giải quyết bài toán này bằng cách tích hợp khả năng tính toán *trực tiếp vào cấu trúc bộ nhớ*, rút ngắn quãng đường dữ liệu phải di chuyển đối với các workload AI phù hợp.",
+        en: "As AI models grow, the challenge is not only raw compute but **moving data**. In a traditional architecture, data constantly shuttles between memory (DRAM) and the processor (NPU), creating a *bottleneck* in both speed and energy.\n**CIM (Compute-in-Memory)** solves this by building compute *directly into the memory structure*, shortening the distance data has to travel for suitable AI workloads.",
+        ko: "AI 모델이 커질수록 과제는 연산 성능 자체보다 **데이터 이동**에 있습니다. 기존 아키텍처에서는 메모리(DRAM)와 프로세서(NPU) 사이에서 데이터가 끊임없이 오가며 속도와 에너지 양쪽에서 *병목*이 생깁니다.\n**CIM(Compute-in-Memory) 기술**은 연산 기능을 *메모리 구조 안에 직접* 통합해, 적합한 AI 워크로드에서 데이터가 이동하는 거리를 줄입니다.",
       },
       image: "/images/pim-ai-data-movement-v2.png",
     },
@@ -117,32 +117,12 @@ export const SEED_CONTENT: SiteContent = {
       stat: "400K",
     },
 
-    solutions: {
-      visible: true,
-      eyebrow: {
-        vi: "03 — PRODUCTS & SOLUTIONS",
-        en: "03 — PRODUCTS & SOLUTIONS",
-        ko: "03 — PRODUCTS & SOLUTIONS",
-      },
-      title: {
-        vi: "GIẢI PHÁP CHIP BÁN DẪN & PHẦN MỀM AI NGOẠI BIÊN",
-        en: "EDGE-AI SEMICONDUCTORS & AI SOFTWARE",
-        ko: "엣지 AI 반도체와 AI 소프트웨어 솔루션",
-      },
-      lead: {
-        vi: "Pebble Vina kết hợp công nghệ phần cứng bán dẫn với phần mềm AI để phát triển các giải pháp tính toán phù hợp với nhu cầu doanh nghiệp, từ chip bán dẫn tích hợp AI ngoại biên, nền tảng PIM đến huấn luyện mô hình ngôn ngữ lớn và phần mềm AI tùy chỉnh.",
-        en: "Pebble Vina pairs semiconductor hardware with AI software to build computing solutions that fit enterprise needs — from edge-AI chips and the PIM platform to large language model training and custom AI software.",
-        ko: "Pebble Vina는 반도체 하드웨어와 AI 소프트웨어를 결합해 기업의 요구에 맞는 연산 솔루션을 만듭니다. 엣지 AI 칩과 PIM 플랫폼에서 대규모 언어 모델 학습과 맞춤형 AI 소프트웨어까지 아우릅니다.",
-      },
-      count: 4,
-    },
-
     news: {
       visible: true,
       eyebrow: {
-        vi: "04 — COLLABORATION FOR THE FUTURE",
-        en: "04 — COLLABORATION FOR THE FUTURE",
-        ko: "04 — COLLABORATION FOR THE FUTURE",
+        vi: "03 — COLLABORATION FOR THE FUTURE",
+        en: "03 — COLLABORATION FOR THE FUTURE",
+        ko: "03 — COLLABORATION FOR THE FUTURE",
       },
       title: { vi: "TIN TỨC & HỢP TÁC", en: "NEWS & PARTNERSHIPS", ko: "뉴스 & 협력" },
       lead: {
@@ -216,19 +196,18 @@ export const SEED_CONTENT: SiteContent = {
     mint: {
       visible: true,
       title: {
-        vi: "MINT — CHIP ANALOG PIM CHO EDGE AI TẠI THIẾT BỊ",
-        en: "MINT — ANALOG PIM CHIP FOR ON-DEVICE EDGE AI",
-        ko: "MINT — 온디바이스 엣지 AI를 위한 아날로그 PIM 칩",
+        vi: "MINT — AI AN TOÀN TẠI BIÊN ĐÃ ĐƯỢC CHỨNG MINH",
+        en: "MINT — THE PROVEN EDGE SAFETY AI",
+        ko: "MINT — 검증된 엣지 안전 AI",
       },
       lead: {
-        // Third sentence works "tiết kiệm điện" / "hiệu suất năng lượng" / "công
-        // suất thấp" into the copy, anchored to the 17,6 TOPS/W figure the site
-        // already publishes at `product.mint.specs` (dictionary.ts) — not the
-        // bare "chip tiết kiệm điện" claim, which in Vietnamese search reads as
-        // a household gadget rather than a semiconductor part.
-        vi: "MINT là chip AI do Pebble Vina phát triển cho các thiết bị cần xử lý dữ liệu trực tiếp tại biên. Sử dụng công nghệ Analog PIM, MINT triệt tiêu độ trễ di chuyển dữ liệu giữa bộ nhớ và bộ xử lý, giúp gia tăng độ chính xác của dữ liệu phân tích và tối ưu khả năng dự báo cho các mô hình AI. Nhờ vậy, đây là chip AI tiết kiệm điện với hiệu suất năng lượng 17,6 TOPS/W, phản hồi tức thì ở mức công suất thấp.",
-        en: "MINT is an AI chip developed by Pebble Vina for devices that must process data directly at the edge. Using Analog PIM, MINT removes the latency of moving data between memory and processor, improving the accuracy of analysed data and the predictive capability of AI models. As a result, it is a power-efficient AI chip reaching 17.6 TOPS/W in energy efficiency, responding instantly at low power draw.",
-        ko: "MINT는 엣지에서 데이터를 직접 처리해야 하는 기기를 위해 Pebble Vina가 개발한 AI 칩입니다. 아날로그 PIM 기술로 메모리와 프로세서 사이의 데이터 이동 지연을 없애 분석 데이터의 정확도를 높이고 AI 모델의 예측 성능을 최적화합니다. 이 덕분에 MINT는 17.6 TOPS/W의 에너지 효율을 내는 저전력 AI 칩으로, 낮은 소비 전력에서도 즉각적으로 응답합니다.",
+        // Figures: 30 GOPS / 17,6 TOPS/W are `product.mint.specs` (dictionary.ts); 05/2023
+        // is `product.mint.meta`; 600.000 chips and the 92% pass rate come from the
+        // owner's product brief (2026-09-28). Best-for line: safety monitoring, electrical
+        // equipment, sensors.
+        vi: "MINT là giải pháp AI tiên phong đã được chứng minh qua sản xuất hàng loạt từ 05/2023. Là chip Analog CIM chuyên dụng cho các thiết bị cần giám sát liên tục với mức tiêu thụ điện cực thấp, MINT đạt 30 GOPS ở hiệu suất 17,6 TOPS/W. Hơn 600.000 chip đã được sản xuất với tỷ lệ đạt chuẩn 92%, mang lại độ tin cậy cao cho các ứng dụng an toàn điện như AFCI. MINT dành cho thiết bị giám sát an toàn, thiết bị điện và cảm biến cần AI chạy trực tiếp tại biên với độ ổn định cao.",
+        en: "MINT is the proven edge safety AI — an Analog CIM chip in mass production since 05/2023. Built for devices that need continuous monitoring at ultra-low power, it delivers 30 GOPS at 17.6 TOPS/W. With more than 600,000 chips produced at a 92% pass rate, MINT brings dependable reliability to electrical-safety applications such as AFCI. It is made for safety-monitoring devices, electrical equipment and sensors that need AI running right at the edge with high stability.",
+        ko: "MINT는 2023년 5월부터 대량 생산으로 검증된 엣지 안전 AI입니다. 초저전력으로 상시 모니터링이 필요한 기기를 위한 전용 아날로그 CIM 칩으로, 17.6 TOPS/W 효율로 30 GOPS를 냅니다. 60만 개 이상을 92%의 합격률로 생산해 AFCI 같은 전기 안전 응용에 높은 신뢰성을 제공합니다. 안전 모니터링 기기, 전기 설비, 그리고 엣지에서 AI를 안정적으로 구동해야 하는 센서에 적합합니다.",
       },
       image: "/images/mint-chrome-v4.png",
     },
@@ -236,18 +215,18 @@ export const SEED_CONTENT: SiteContent = {
     papaya: {
       visible: true,
       title: {
-        vi: "PAPAYA & PAPAYA FLEX — NỀN TẢNG CHIP ANALOG CHO THỊ GIÁC TẠI THIẾT BỊ",
-        en: "PAPAYA & PAPAYA FLEX — THE ANALOG VISION CHIP PLATFORM FOR DEVICES",
-        ko: "PAPAYA & PAPAYA FLEX — 온디바이스 비전을 위한 아날로그 칩 플랫폼",
+        vi: "PAPAYA & PAPAYA FLEX — ANALOG CIM CHO THỊ GIÁC VÀ PHYSICAL AI TẠI BIÊN",
+        en: "PAPAYA & PAPAYA FLEX — ANALOG CIM FOR EDGE VISION AND PHYSICAL AI",
+        ko: "PAPAYA & PAPAYA FLEX — 엣지 비전과 피지컬 AI를 위한 아날로그 CIM",
       },
       lead: {
-        // Third sentence adds the same qualified energy-efficiency vocabulary as
-        // MINT's lead, anchored to PAPAYA's own 30 TOPS/W figure
-        // (`product.papaya.specs`, dictionary.ts) — an absolute spec, not one of
-        // the flexSpecs comparisons, so it carries no NVIDIA Jetson Nano note.
-        vi: "PAPAYA và PAPAYA FLEX là các dòng chip chuyên biệt cho xử lý hình ảnh và thị giác máy trực tiếp tại thiết bị. Nhờ lợi thế của công nghệ Analog, nền tảng này mang lại kết quả xử lý dữ liệu với độ chính xác cao, nâng cao đáng kể khả năng dự báo của các mô hình AI theo thời gian thực. Kiến trúc Analog PIM cũng giúp PAPAYA tiết kiệm điện ở hiệu suất năng lượng 30 TOPS/W, giữ công suất thấp cho các ứng dụng thị giác máy tại thiết bị.",
-        en: "PAPAYA and PAPAYA FLEX are chip lines dedicated to image processing and machine vision directly on the device. Thanks to the advantages of Analog technology, the platform delivers high-accuracy data processing and markedly improves the real-time predictive capability of AI models. The Analog PIM architecture also makes PAPAYA power-efficient, reaching 30 TOPS/W in energy efficiency and keeping power draw low for on-device machine-vision applications.",
-        ko: "PAPAYA와 PAPAYA FLEX는 기기에서 곧바로 영상 처리와 머신 비전을 수행하도록 만든 전용 칩 라인입니다. 아날로그 기술의 강점을 살려 높은 정확도의 데이터 처리 결과를 제공하며, AI 모델의 실시간 예측 성능을 크게 끌어올립니다. 아날로그 PIM 구조 덕분에 PAPAYA는 30 TOPS/W의 에너지 효율로 전력을 절감하며, 온디바이스 머신 비전 응용에서도 낮은 소비 전력을 유지합니다.",
+        // Figures: ~50 mW, 2 TOPS, ~200 mW are `product.papaya.specs` /
+        // `flexAbsoluteSpecs` (dictionary.ts); 32M synapses and the 2027 H1 target come
+        // from the owner's product brief (2026-09-28). FLEX is not shipping, so its date
+        // sits in the sentence (CLAUDE.md § 2).
+        vi: "PAPAYA là động cơ thị giác đã được kiểm chứng silicon: chip Analog CIM thế hệ mới cho các tác vụ thị giác máy tính. Chỉ khoảng 50 mW, PAPAYA đưa AI xử lý hình ảnh ngay tại thiết bị đầu cuối mà không cần kết nối cloud — lý tưởng cho camera AI, thiết bị giám sát hình ảnh và Edge Vision công nghiệp. PAPAYA FLEX, đang hoàn thiện sản phẩm với mục tiêu 2027 H1, nâng lên 32M synapse và 2 TOPS trong khung điện năng thấp ~200 mW, dành cho robot, cảm biến vật lý phức tạp và Physical AI cần xử lý dữ liệu đa kênh.",
+        en: "PAPAYA is the verified vision engine: a next-generation Analog CIM chip, silicon-verified for computer-vision workloads. At around 50 mW, it runs image processing right on the end device with no cloud connection — ideal for AI cameras, video-monitoring equipment and industrial edge vision. PAPAYA FLEX, now being productized with a target of 2027 H1, steps up to 32M synapses and 2 TOPS within a low ~200 mW envelope, for robots, complex physical sensors and physical AI that must process multi-channel data.",
+        ko: "PAPAYA는 실리콘 검증을 마친 비전 엔진으로, 컴퓨터 비전 작업을 위한 차세대 아날로그 CIM 칩입니다. 약 50 mW로 클라우드 연결 없이 단말 기기에서 바로 영상을 처리해 AI 카메라, 영상 모니터링 장비, 산업용 엣지 비전에 적합합니다. 제품화를 진행 중인 PAPAYA FLEX(2027년 상반기 목표)는 약 200 mW의 저전력 범위에서 3,200만 시냅스와 2 TOPS를 제공하며, 다채널 데이터를 처리해야 하는 로봇, 복합 물리 센서, 피지컬 AI를 겨냥합니다.",
       },
       image: "/images/papaya-chrome-v4.png",
     },
@@ -255,14 +234,17 @@ export const SEED_CONTENT: SiteContent = {
     espresso: {
       visible: true,
       title: {
-        vi: "ESPRESSO — CHIP DIGITAL-PIM CHO AI COMPUTER",
-        en: "ESPRESSO — DIGITAL-PIM CHIP FOR THE AI COMPUTER",
-        ko: "ESPRESSO — AI 컴퓨터를 위한 Digital-PIM 칩",
+        vi: "ESPRESSO — BỘ TĂNG TỐC AI HIỆU NĂNG CAO CHO LLM CỤC BỘ",
+        en: "ESPRESSO — THE LOCAL LLM & HIGH-PERFORMANCE AI ACCELERATOR",
+        ko: "ESPRESSO — 로컬 LLM을 위한 고성능 AI 가속기",
       },
       lead: {
-        vi: "ESPRESSO là thế hệ chip Digital-PIM tiếp theo của Pebble Vina, được phát triển cho các workload AI có yêu cầu tính toán cao hơn Edge AI, bao gồm AI PC, Robotics và hệ thống Data Center.",
-        en: "ESPRESSO is Pebble Vina's next Digital-PIM generation, developed for AI workloads whose compute demands exceed Edge AI — including AI PC, Robotics and Data Center systems.",
-        ko: "ESPRESSO는 Pebble Vina의 차세대 Digital-PIM 칩으로, Edge AI를 넘어서는 연산이 필요한 AI 워크로드를 위해 개발하고 있습니다. AI PC와 로보틱스, 데이터센터 시스템이 그 대상입니다.",
+        // Figures: 140 TOPS dense INT8 is `product.espresso.specs`; 90 TFLOPS (bf16) and
+        // "MPW silicon validated" come from the owner's product brief (2026-09-28).
+        // Roadmap part, so Q3/2026 sits in the copy (CLAUDE.md § 2).
+        vi: "ESPRESSO là bộ tăng tốc AI hiệu năng cao cho kỷ nguyên AI tạo sinh: chip Digital CIM (SRAM) đã được đo lường thực tế trên silicon MPW. Mỗi chip đạt 140 TOPS (dense INT8) và 90 TFLOPS (bf16), đủ sức chạy mô hình ngôn ngữ lớn (LLM) và Vision AI quy mô lớn ngay tại chỗ — AI cục bộ, riêng tư. ESPRESSO hướng tới Private AI Server, suy luận LLM cục bộ và trung tâm dữ liệu AI tại biên, dự kiến Q3/2026.",
+        en: "ESPRESSO is the local-LLM and high-performance AI accelerator for the generative-AI era: a Digital CIM (SRAM) chip whose performance has been measured on MPW silicon. Each chip delivers 140 TOPS (dense INT8) and 90 TFLOPS (bf16), enough to run large language models (LLMs) and large-scale vision AI right where the data lives — local, private AI. It targets private AI servers, local LLM inference and edge AI data centres, and is expected in Q3/2026.",
+        ko: "ESPRESSO는 생성형 AI 시대를 위한 로컬 LLM·고성능 AI 가속기로, MPW 실리콘에서 성능을 실측한 Digital CIM(SRAM) 칩입니다. 칩 하나당 140 TOPS(dense INT8)와 90 TFLOPS(bf16)를 내어 대규모 언어 모델(LLM)과 대규모 비전 AI를 현장에서 직접 구동하는 로컬·프라이빗 AI를 가능하게 합니다. 프라이빗 AI 서버, 로컬 LLM 추론, 엣지 AI 데이터센터를 목표로 하며 2026년 3분기 출시가 예정되어 있습니다.",
       },
       image: "/images/espresso-chrome-v4.png",
     },

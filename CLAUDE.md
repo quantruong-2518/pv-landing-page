@@ -20,12 +20,12 @@ Ba file `.dc.html` là **mock tham khảo**, không import vào `src/`.
 ## 2. Bốn điều cấm
 
 1. **Không bịa con số, năng lực, khách hàng, logo đối tác.** Mọi thông số (30 GOPS · 17,6 TOPS/W ·
-   160 TOPS · 640 TOPS · 400K · 82%) chép nguyên từ thiết kế. Cần số mới thì hỏi người, không đoán.
+   140 TOPS · 560 TOPS · 400K · 82%) chép nguyên từ thiết kế. Cần số mới thì hỏi người, không đoán.
 2. **Không trộn "đã có" với "lộ trình".** MINT đang sản xuất (05/2023); PAPAYA là PoC 2024;
    ESPRESSO, E-Series, phần mềm doanh nghiệp, đào tạo AI đều là lộ trình. Mọi lần nhắc phải kèm mốc
    thời gian tại chỗ. JSON-LD của phần lộ trình **không** được có `offers`.
-3. **Không so sánh trần trụi.** `~50× / ~100× / ~25×` của PAPAYA FLEX luôn đi kèm phép đo sinh ra nó
-   và tên linh kiện đối chứng (NVIDIA Jetson Nano).
+3. **Không so sánh, không nêu tên hãng hay linh kiện khác.** Sản phẩm Pebble Vina chỉ được mô tả
+   bằng thông số của chính nó (đã bỏ các phép so sánh `~50× / ~100×`, 2026-09-28).
 4. **Không hardcode màu, chữ, hay URL trong component.** Màu → token `@theme`. Chữ → `dictionary.ts`
    hoặc CMS. URL → `routes.ts`.
 

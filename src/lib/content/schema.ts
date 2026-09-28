@@ -62,13 +62,6 @@ export const homeContentSchema = z.object({
     /** The highlighted figure in card 02. */
     stat: z.string(),
   }),
-  solutions: section({
-    eyebrow: localized,
-    title: localized,
-    lead: localized,
-    /** How many of the four solution rows to render. */
-    count: z.number().int().min(1).max(4),
-  }),
   news: section({
     eyebrow: localized,
     title: localized,

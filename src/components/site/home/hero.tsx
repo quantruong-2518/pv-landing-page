@@ -80,7 +80,7 @@ export function Hero({ content, locale }: { content: HomeContent["hero"]; locale
  * accent where its own grammar puts the stress: a newline is a line break from
  * `md` (below it the lines run on and wrap naturally), and `*…*` is the phrase
  * set in the accent colour — the grammar in `lib/content/markup.ts`, which the
- * PIM block's head reads too. A title without either renders exactly as before.
+ * CIM block's head reads too. A title without either renders exactly as before.
  */
 function HeroTitle({ title }: { title: string }) {
   return splitLines(title).map((line, index) => (
