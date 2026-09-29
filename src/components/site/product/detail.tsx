@@ -126,9 +126,10 @@ export function DetailPill({
  * so the same facts sat in different places from chip to chip and PAPAYA ran
  * well past the fold.
  *
- * From `lg` the block is exactly one screen tall (`100svh` minus the header):
- * the hero takes the free height, while the board and CTA stay inside the
- * bottom edge. Smaller screens use plain flow so content is never clipped.
+ * From `lg` the block fills at least one screen (`100svh` minus the header):
+ * the hero takes the free height when it is available. A short desktop
+ * viewport (notably a 13-inch laptop) can instead grow past that minimum, so
+ * the hero's pills/CTA stay in flow above PAPAYA's taller two-row board.
  */
 export function DetailScreen({
   titleId,
@@ -155,7 +156,7 @@ export function DetailScreen({
   children: ReactNode;
 }) {
   return (
-    <div className="relative flex flex-col bg-marquee md:min-h-[calc(100svh-var(--spacing-header))] lg:h-[calc(100svh-var(--spacing-header))] lg:min-h-0 lg:overflow-hidden">
+    <div className="relative flex min-h-[calc(100svh-var(--spacing-header))] flex-col bg-marquee">
       {/* `.glow-detail-hero` (globals.css) — the highlight behind the render. */}
       <div aria-hidden className="glow-detail-hero pointer-events-none absolute inset-0 hidden lg:block" />
       {/* Decorative circuit trace, left edge — path data from the
@@ -180,7 +181,7 @@ export function DetailScreen({
         <circle cx="95" cy="320" r="3" />
       </svg>
 
-      <div className="relative mx-auto grid w-full max-w-[1440px] flex-1 items-center gap-5 px-gutter py-5 lg:min-h-0 lg:py-4">
+      <div className="relative mx-auto grid w-full max-w-[1440px] flex-1 items-center gap-5 px-gutter py-5 lg:py-4">
         <div className="relative z-10 flex flex-col gap-3.5 lg:max-w-[56%] lg:gap-4">
           <DetailKicker label={eyebrow} className="text-[13px] lg:text-[14px] xl:text-[16px]" />
           <DetailTitle
